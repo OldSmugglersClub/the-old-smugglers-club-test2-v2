@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "modus": "test1",
+  "hinweis": "Originalwappen werden nur innerhalb bestehender Wappencontainer verwendet. Fehlt ein lokales Original, bleibt das bestehende Schmugglersiegel Fallback.",
+  "teams": {
+    "dynamo-dresden": {
+      "path": "./assets/team-logos/original/dynamo-dresden.svg",
+      "status": "local-original",
+      "quelle": "bereits im Projekt vorhandenes Originalwappen"
+    },
+    "nuernberg": {
+      "path": "./assets/team-logos/original/nuernberg.svg",
+      "status": "local-original",
+      "quelle": "bereits im Projekt vorhandenes Originalwappen"
+    },
+    "bayern-muenchen": {
+      "status": "source-confirmed-pending-local",
+      "quelle": "Wikimedia Commons – FC Bayern München logo (2024)"
+    },
+    "darmstadt-98": {
+      "status": "source-confirmed-pending-local",
+      "quelle": "Wikimedia Commons – SV Darmstadt 98 Logo"
+    },
+    "dortmund": {
+      "status": "source-confirmed-pending-local",
+      "quelle": "Wikimedia Commons – Borussia Dortmund logo"
+    },
+    "real-madrid": {
+      "status": "source-confirmed-pending-local",
+      "quelle": "current crest source identified; local asset pending"
+    }
+  }
+}
