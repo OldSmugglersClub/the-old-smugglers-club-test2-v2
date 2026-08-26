@@ -1,0 +1,13 @@
+ERSETZEN
+- index.html
+- VERSION.txt
+
+NEU
+- README_4.9.2-HF8-TEST4.md
+- CHANGELOG_4.9.2-HF8-TEST4.md
+- ERSETZEN_NEU_LOESCHEN_4.9.2-HF8-TEST4.txt
+
+LÖSCHEN
+- README_4.9.2-HF8-TEST3.md (falls vorhanden)
+- CHANGELOG_4.9.2-HF8-TEST3.md (falls vorhanden)
+- ERSETZEN_NEU_LOESCHEN_4.9.2-HF8-TEST3.txt (falls vorhanden)

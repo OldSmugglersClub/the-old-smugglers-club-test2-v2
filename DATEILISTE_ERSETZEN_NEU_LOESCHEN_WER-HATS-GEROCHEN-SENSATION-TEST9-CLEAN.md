@@ -1,0 +1,14 @@
+# DATEILISTE
+
+## Ersetzen
+- `logbuch.js`
+- `logbuch.css`
+- `spieltag-logbuch.json`
+
+## Neu
+- `CHANGELOG_WER-HATS-GEROCHEN-SENSATION-TEST9-CLEAN.md`
+- `README_WER-HATS-GEROCHEN-SENSATION-TEST9-CLEAN.md`
+- `DATEILISTE_ERSETZEN_NEU_LOESCHEN_WER-HATS-GEROCHEN-SENSATION-TEST9-CLEAN.md`
+
+## Löschen
+- keine Produktivdateien

@@ -1,0 +1,13 @@
+# DATEILISTE
+
+## Ersetzen
+- `logbuch.js`
+- `logbuch.css`
+
+## Neu
+- `CHANGELOG_WER-HATS-GEROCHEN-TABLE-TEST2.md`
+- `README_WER-HATS-GEROCHEN-TABLE-TEST2.md`
+- `DATEILISTE_ERSETZEN_NEU_LOESCHEN_WER-HATS-GEROCHEN-TABLE-TEST2.md`
+
+## Löschen
+- nichts

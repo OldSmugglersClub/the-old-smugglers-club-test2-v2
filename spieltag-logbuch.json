@@ -1,0 +1,2698 @@
+{
+  "schemaVersion": 1,
+  "datenVersion": 2,
+  "aktualisiert": "2026-08-23T13:17:06.354Z",
+  "saison": "2026-27",
+  "regelwerk": {
+    "kapitaene": "Alle Tipper mit der höchsten tatsächlichen Spieltagspunktzahl; kein künstlicher Tie-Break.",
+    "werHatsGerochen": "Produktionsregel: richtige Tendenz von höchstens 25 % der gültigen Abgaben. TESTADMIN: Die 25-%-Sichtbarkeitsgrenze ist für die visuelle Abnahme vorübergehend deaktiviert; Auswahl/Tie-Break bleiben identisch.",
+    "crewduell": "Vergleich über Punkte pro Teammitglied (Durchschnitt), nicht über absolute Punktsumme.",
+    "kursbewegung": "Wird am Saisonanfang bei verzerrenden Gleichstandsblöcken redaktionell unterdrückt.",
+    "redaktion": "Nur Highlights mit anzeigen=true werden auf der Website ausgegeben."
+  },
+  "logbuecher": [
+    {
+      "id": "2026-27__smugglerauftrag__1-spieltag__sma-2026-27-auftakt-001",
+      "bezeichnung": "Smuggleraufträge 1. Spieltag",
+      "wettbewerb": "smugglerauftrag",
+      "runde": "1. Spieltag",
+      "abgeschlossen": true,
+      "spielIds": [
+        "sma-2026-27-auftakt-001"
+      ],
+      "kapitaene": [
+        {
+          "teilnehmerId": "manuel",
+          "teilnehmer": "Manuel",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "kleinersachse",
+          "teilnehmer": "kleinersachse",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "ximmox",
+          "teilnehmer": "xIMMOx",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "handgottes",
+          "teilnehmer": "HandGottes",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "normiks",
+          "teilnehmer": "Normiks",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "kevin",
+          "teilnehmer": "Kevin",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "marius",
+          "teilnehmer": "Marius",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "mary-grace",
+          "teilnehmer": "Mary-Grace",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "quick",
+          "teilnehmer": "Quick",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "nick-zg-1501",
+          "teilnehmer": "Nick_ZG_1501",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "flying-dutchman",
+          "teilnehmer": "Flying-Dutchman",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "salas1904",
+          "teilnehmer": "Salas1904",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "sven-huhn",
+          "teilnehmer": "Sven_Huhn",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "luca",
+          "teilnehmer": "Luca",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "hardy17",
+          "teilnehmer": "Hardy17",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "wildemoni",
+          "teilnehmer": "WildeMoni",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "baslermario",
+          "teilnehmer": "baslermario",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "maikiliii",
+          "teilnehmer": "Maikiliii",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "bigdog",
+          "teilnehmer": "Bigdog",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "rk69",
+          "teilnehmer": "RK69",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "adamj",
+          "teilnehmer": "AdamJ",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "mariusv",
+          "teilnehmer": "mariusv",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "souvard",
+          "teilnehmer": "Souvard",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "jakob",
+          "teilnehmer": "Jakob",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "oifinger",
+          "teilnehmer": "Oifinger",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "medic",
+          "teilnehmer": "Medic",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "yauguru",
+          "teilnehmer": "Yauguru",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "berndibroti",
+          "teilnehmer": "Berndibroti",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "cobra",
+          "teilnehmer": "cobra",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "best10",
+          "teilnehmer": "Best10",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "co",
+          "teilnehmer": "Co",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "realzaragoza",
+          "teilnehmer": "Realzaragoza",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "cobra75",
+          "teilnehmer": "Cobra75",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "juri",
+          "teilnehmer": "JuRi",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "lucas",
+          "teilnehmer": "Lucas",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "luki1887",
+          "teilnehmer": "Luki1887",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "dani1893",
+          "teilnehmer": "Dani1893",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "yorik",
+          "teilnehmer": "Yorik",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "dominik1966",
+          "teilnehmer": "dominik1966",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "g-1000",
+          "teilnehmer": "G.1000",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "potterhead",
+          "teilnehmer": "Potterhead",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "flokicker94",
+          "teilnehmer": "FloKicker94",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "tribuna33",
+          "teilnehmer": "TRIBUNA33",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "bvb09-opam",
+          "teilnehmer": "BvB09-OpaM",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "nurderscf",
+          "teilnehmer": "NurDerSCF",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "audauzvares",
+          "teilnehmer": "Audauzvares",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "playboymarc88",
+          "teilnehmer": "PlayBoyMarc88",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "erik",
+          "teilnehmer": "Erik",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "marcor",
+          "teilnehmer": "MarcoR",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "pochzerjung",
+          "teilnehmer": "PochzerJung",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "sam2004",
+          "teilnehmer": "Sam2004",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "maxpam",
+          "teilnehmer": "MaxPam",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "ben1909",
+          "teilnehmer": "Ben1909",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "bene",
+          "teilnehmer": "Bene",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "cali79",
+          "teilnehmer": "Cali79",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "waltersen",
+          "teilnehmer": "Waltersen",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "steff77",
+          "teilnehmer": "Steff77",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "sam-entspender",
+          "teilnehmer": "SAM_ENTSPENDER",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "jwfussball",
+          "teilnehmer": "JWFUSSBALL",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "gerrit1887",
+          "teilnehmer": "Gerrit1887",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "finch",
+          "teilnehmer": "Finch",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "marc86",
+          "teilnehmer": "Marc86",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "frankfurterjung",
+          "teilnehmer": "FrankfurterJung",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "juergen70",
+          "teilnehmer": "Juergen70",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "eckes2359",
+          "teilnehmer": "Eckes2359",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "stevie26",
+          "teilnehmer": "Stevie26",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "sgbw",
+          "teilnehmer": "sgbw",
+          "punkte": 2,
+          "exakt": 0,
+          "differenz": 0,
+          "tendenz": 1
+        }
+      ],
+      "highlights": [
+        {
+          "typ": "kapitaene",
+          "prioritaet": 100,
+          "anzeigen": true,
+          "daten": {
+            "punkte": 2,
+            "anzahl": 67,
+            "tipper": [
+              {
+                "teilnehmerId": "manuel",
+                "teilnehmer": "Manuel",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "kleinersachse",
+                "teilnehmer": "kleinersachse",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "ximmox",
+                "teilnehmer": "xIMMOx",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "handgottes",
+                "teilnehmer": "HandGottes",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "normiks",
+                "teilnehmer": "Normiks",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "kevin",
+                "teilnehmer": "Kevin",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "marius",
+                "teilnehmer": "Marius",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "mary-grace",
+                "teilnehmer": "Mary-Grace",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "quick",
+                "teilnehmer": "Quick",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "nick-zg-1501",
+                "teilnehmer": "Nick_ZG_1501",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "flying-dutchman",
+                "teilnehmer": "Flying-Dutchman",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "salas1904",
+                "teilnehmer": "Salas1904",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "sven-huhn",
+                "teilnehmer": "Sven_Huhn",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "luca",
+                "teilnehmer": "Luca",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "hardy17",
+                "teilnehmer": "Hardy17",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "wildemoni",
+                "teilnehmer": "WildeMoni",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "baslermario",
+                "teilnehmer": "baslermario",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "maikiliii",
+                "teilnehmer": "Maikiliii",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "bigdog",
+                "teilnehmer": "Bigdog",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "rk69",
+                "teilnehmer": "RK69",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "adamj",
+                "teilnehmer": "AdamJ",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "mariusv",
+                "teilnehmer": "mariusv",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "souvard",
+                "teilnehmer": "Souvard",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "jakob",
+                "teilnehmer": "Jakob",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "oifinger",
+                "teilnehmer": "Oifinger",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "medic",
+                "teilnehmer": "Medic",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "yauguru",
+                "teilnehmer": "Yauguru",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "berndibroti",
+                "teilnehmer": "Berndibroti",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "cobra",
+                "teilnehmer": "cobra",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "best10",
+                "teilnehmer": "Best10",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "co",
+                "teilnehmer": "Co",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "realzaragoza",
+                "teilnehmer": "Realzaragoza",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "cobra75",
+                "teilnehmer": "Cobra75",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "juri",
+                "teilnehmer": "JuRi",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "lucas",
+                "teilnehmer": "Lucas",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "luki1887",
+                "teilnehmer": "Luki1887",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "dani1893",
+                "teilnehmer": "Dani1893",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "yorik",
+                "teilnehmer": "Yorik",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "dominik1966",
+                "teilnehmer": "dominik1966",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "g-1000",
+                "teilnehmer": "G.1000",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "potterhead",
+                "teilnehmer": "Potterhead",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "flokicker94",
+                "teilnehmer": "FloKicker94",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "tribuna33",
+                "teilnehmer": "TRIBUNA33",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "bvb09-opam",
+                "teilnehmer": "BvB09-OpaM",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "nurderscf",
+                "teilnehmer": "NurDerSCF",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "audauzvares",
+                "teilnehmer": "Audauzvares",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "playboymarc88",
+                "teilnehmer": "PlayBoyMarc88",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "erik",
+                "teilnehmer": "Erik",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "marcor",
+                "teilnehmer": "MarcoR",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "pochzerjung",
+                "teilnehmer": "PochzerJung",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "sam2004",
+                "teilnehmer": "Sam2004",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "maxpam",
+                "teilnehmer": "MaxPam",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "ben1909",
+                "teilnehmer": "Ben1909",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "bene",
+                "teilnehmer": "Bene",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "cali79",
+                "teilnehmer": "Cali79",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "waltersen",
+                "teilnehmer": "Waltersen",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "steff77",
+                "teilnehmer": "Steff77",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "sam-entspender",
+                "teilnehmer": "SAM_ENTSPENDER",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "jwfussball",
+                "teilnehmer": "JWFUSSBALL",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "gerrit1887",
+                "teilnehmer": "Gerrit1887",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "finch",
+                "teilnehmer": "Finch",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "marc86",
+                "teilnehmer": "Marc86",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "frankfurterjung",
+                "teilnehmer": "FrankfurterJung",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "juergen70",
+                "teilnehmer": "Juergen70",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "eckes2359",
+                "teilnehmer": "Eckes2359",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "stevie26",
+                "teilnehmer": "Stevie26",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "sgbw",
+                "teilnehmer": "sgbw",
+                "punkte": 2,
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 1
+              }
+            ]
+          }
+        },
+        {
+          "typ": "wer-hats-gerochen",
+          "prioritaet": 85,
+          "anzeigen": true,
+          "daten": {
+            "grenzeProzent": 25,
+            "testOverride": true,
+            "faelle": [
+              {
+                "spielId": "sma-2026-27-auftakt-001",
+                "heimTeam": "nuernberg",
+                "auswaertsTeam": "dynamo-dresden",
+                "ergebnis": "3:0",
+                "abgegeben": 95,
+                "nichtAbgegeben": 2,
+                "tippverteilung": {
+                  "1": 67,
+                  "2": 14,
+                  "X": 14
+                },
+                "exakt": 0,
+                "differenz": 0,
+                "tendenz": 67,
+                "richtigerAusgang": "1",
+                "meistGetippt": {
+                  "ausgang": "1",
+                  "anzahl": 67
+                },
+                "gegenDenStrom": false,
+                "richtigeTendenz": {
+                  "anzahl": 67,
+                  "anteil": 70.5,
+                  "tipper": [
+                    {
+                      "teilnehmerId": "manuel",
+                      "teilnehmer": "Manuel",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "kleinersachse",
+                      "teilnehmer": "kleinersachse",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "ximmox",
+                      "teilnehmer": "xIMMOx",
+                      "tipp": "3:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "handgottes",
+                      "teilnehmer": "HandGottes",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "normiks",
+                      "teilnehmer": "Normiks",
+                      "tipp": "1:0",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "kevin",
+                      "teilnehmer": "Kevin",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "marius",
+                      "teilnehmer": "Marius",
+                      "tipp": "3:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "mary-grace",
+                      "teilnehmer": "Mary-Grace",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "quick",
+                      "teilnehmer": "Quick",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "nick-zg-1501",
+                      "teilnehmer": "Nick_ZG_1501",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "flying-dutchman",
+                      "teilnehmer": "Flying-Dutchman",
+                      "tipp": "3:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "salas1904",
+                      "teilnehmer": "Salas1904",
+                      "tipp": "2:0",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "sven-huhn",
+                      "teilnehmer": "Sven_Huhn",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "luca",
+                      "teilnehmer": "Luca",
+                      "tipp": "3:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "hardy17",
+                      "teilnehmer": "Hardy17",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "wildemoni",
+                      "teilnehmer": "WildeMoni",
+                      "tipp": "3:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "baslermario",
+                      "teilnehmer": "baslermario",
+                      "tipp": "1:0",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "maikiliii",
+                      "teilnehmer": "Maikiliii",
+                      "tipp": "3:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "bigdog",
+                      "teilnehmer": "Bigdog",
+                      "tipp": "2:0",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "rk69",
+                      "teilnehmer": "RK69",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "adamj",
+                      "teilnehmer": "AdamJ",
+                      "tipp": "3:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "mariusv",
+                      "teilnehmer": "mariusv",
+                      "tipp": "2:0",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "souvard",
+                      "teilnehmer": "Souvard",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "jakob",
+                      "teilnehmer": "Jakob",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "oifinger",
+                      "teilnehmer": "Oifinger",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "medic",
+                      "teilnehmer": "Medic",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "yauguru",
+                      "teilnehmer": "Yauguru",
+                      "tipp": "1:0",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "berndibroti",
+                      "teilnehmer": "Berndibroti",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "cobra",
+                      "teilnehmer": "cobra",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "best10",
+                      "teilnehmer": "Best10",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "co",
+                      "teilnehmer": "Co",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "realzaragoza",
+                      "teilnehmer": "Realzaragoza",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "cobra75",
+                      "teilnehmer": "Cobra75",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "juri",
+                      "teilnehmer": "JuRi",
+                      "tipp": "3:2",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "lucas",
+                      "teilnehmer": "Lucas",
+                      "tipp": "2:0",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "luki1887",
+                      "teilnehmer": "Luki1887",
+                      "tipp": "2:0",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "dani1893",
+                      "teilnehmer": "Dani1893",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "yorik",
+                      "teilnehmer": "Yorik",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "dominik1966",
+                      "teilnehmer": "dominik1966",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "g-1000",
+                      "teilnehmer": "G.1000",
+                      "tipp": "2:0",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "potterhead",
+                      "teilnehmer": "Potterhead",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "flokicker94",
+                      "teilnehmer": "FloKicker94",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "tribuna33",
+                      "teilnehmer": "TRIBUNA33",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "bvb09-opam",
+                      "teilnehmer": "BvB09-OpaM",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "nurderscf",
+                      "teilnehmer": "NurDerSCF",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "audauzvares",
+                      "teilnehmer": "Audauzvares",
+                      "tipp": "3:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "playboymarc88",
+                      "teilnehmer": "PlayBoyMarc88",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "erik",
+                      "teilnehmer": "Erik",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "marcor",
+                      "teilnehmer": "MarcoR",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "pochzerjung",
+                      "teilnehmer": "PochzerJung",
+                      "tipp": "1:0",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "sam2004",
+                      "teilnehmer": "Sam2004",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "maxpam",
+                      "teilnehmer": "MaxPam",
+                      "tipp": "3:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "ben1909",
+                      "teilnehmer": "Ben1909",
+                      "tipp": "2:0",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "bene",
+                      "teilnehmer": "Bene",
+                      "tipp": "2:0",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "cali79",
+                      "teilnehmer": "Cali79",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "waltersen",
+                      "teilnehmer": "Waltersen",
+                      "tipp": "3:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "steff77",
+                      "teilnehmer": "Steff77",
+                      "tipp": "2:0",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "sam-entspender",
+                      "teilnehmer": "SAM_ENTSPENDER",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "jwfussball",
+                      "teilnehmer": "JWFUSSBALL",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "gerrit1887",
+                      "teilnehmer": "Gerrit1887",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "finch",
+                      "teilnehmer": "Finch",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "marc86",
+                      "teilnehmer": "Marc86",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "frankfurterjung",
+                      "teilnehmer": "FrankfurterJung",
+                      "tipp": "1:0",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "juergen70",
+                      "teilnehmer": "Juergen70",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "eckes2359",
+                      "teilnehmer": "Eckes2359",
+                      "tipp": "3:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "stevie26",
+                      "teilnehmer": "Stevie26",
+                      "tipp": "1:0",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "sgbw",
+                      "teilnehmer": "sgbw",
+                      "tipp": "1:0",
+                      "exakt": false
+                    }
+                  ],
+                  "exakteTipps": 0
+                }
+              }
+            ]
+          }
+        },
+        {
+          "typ": "crewduell",
+          "prioritaet": 70,
+          "anzeigen": true,
+          "daten": {
+            "teams": [
+              {
+                "team": "New Smugglers Team",
+                "durchschnitt": 1.46,
+                "punktesumme": 104,
+                "mitglieder": 71
+              },
+              {
+                "team": "Old Smugglers Team",
+                "durchschnitt": 1.25,
+                "punktesumme": 30,
+                "mitglieder": 24
+              }
+            ],
+            "sieger": "New Smugglers Team",
+            "differenz": 0.21
+          }
+        },
+        {
+          "typ": "zahlen-aus-der-kombuese",
+          "prioritaet": 30,
+          "anzeigen": true,
+          "daten": {
+            "abgegeben": 95,
+            "nichtAbgegeben": 2,
+            "exakt": 0,
+            "differenz": 0,
+            "tendenz": 67
+          }
+        }
+      ]
+    },
+    {
+      "id": "2026-27__smugglerauftrag__2-spieltag__sma-2026-27-02-013",
+      "bezeichnung": "Smuggleraufträge 2. Spieltag",
+      "wettbewerb": "smugglerauftrag",
+      "runde": "2. Spieltag",
+      "abgeschlossen": true,
+      "spielIds": [
+        "sma-2026-27-02-013"
+      ],
+      "kapitaene": [
+        {
+          "teilnehmerId": "nick-zg-1501",
+          "teilnehmer": "Nick_ZG_1501",
+          "punkte": 5,
+          "exakt": 1,
+          "differenz": 0,
+          "tendenz": 0
+        },
+        {
+          "teilnehmerId": "wildemoni",
+          "teilnehmer": "WildeMoni",
+          "punkte": 5,
+          "exakt": 1,
+          "differenz": 0,
+          "tendenz": 0
+        },
+        {
+          "teilnehmerId": "baslermario",
+          "teilnehmer": "baslermario",
+          "punkte": 5,
+          "exakt": 1,
+          "differenz": 0,
+          "tendenz": 0
+        },
+        {
+          "teilnehmerId": "rk69",
+          "teilnehmer": "RK69",
+          "punkte": 5,
+          "exakt": 1,
+          "differenz": 0,
+          "tendenz": 0
+        },
+        {
+          "teilnehmerId": "yauguru",
+          "teilnehmer": "Yauguru",
+          "punkte": 5,
+          "exakt": 1,
+          "differenz": 0,
+          "tendenz": 0
+        },
+        {
+          "teilnehmerId": "frankfurterjung",
+          "teilnehmer": "FrankfurterJung",
+          "punkte": 5,
+          "exakt": 1,
+          "differenz": 0,
+          "tendenz": 0
+        },
+        {
+          "teilnehmerId": "andy1304",
+          "teilnehmer": "Andy1304",
+          "punkte": 5,
+          "exakt": 1,
+          "differenz": 0,
+          "tendenz": 0
+        },
+        {
+          "teilnehmerId": "mikoog",
+          "teilnehmer": "MiKoog",
+          "punkte": 5,
+          "exakt": 1,
+          "differenz": 0,
+          "tendenz": 0
+        }
+      ],
+      "highlights": [
+        {
+          "typ": "kapitaene",
+          "prioritaet": 100,
+          "anzeigen": true,
+          "daten": {
+            "punkte": 5,
+            "anzahl": 8,
+            "tipper": [
+              {
+                "teilnehmerId": "nick-zg-1501",
+                "teilnehmer": "Nick_ZG_1501",
+                "punkte": 5,
+                "exakt": 1,
+                "differenz": 0,
+                "tendenz": 0
+              },
+              {
+                "teilnehmerId": "wildemoni",
+                "teilnehmer": "WildeMoni",
+                "punkte": 5,
+                "exakt": 1,
+                "differenz": 0,
+                "tendenz": 0
+              },
+              {
+                "teilnehmerId": "baslermario",
+                "teilnehmer": "baslermario",
+                "punkte": 5,
+                "exakt": 1,
+                "differenz": 0,
+                "tendenz": 0
+              },
+              {
+                "teilnehmerId": "rk69",
+                "teilnehmer": "RK69",
+                "punkte": 5,
+                "exakt": 1,
+                "differenz": 0,
+                "tendenz": 0
+              },
+              {
+                "teilnehmerId": "yauguru",
+                "teilnehmer": "Yauguru",
+                "punkte": 5,
+                "exakt": 1,
+                "differenz": 0,
+                "tendenz": 0
+              },
+              {
+                "teilnehmerId": "frankfurterjung",
+                "teilnehmer": "FrankfurterJung",
+                "punkte": 5,
+                "exakt": 1,
+                "differenz": 0,
+                "tendenz": 0
+              },
+              {
+                "teilnehmerId": "andy1304",
+                "teilnehmer": "Andy1304",
+                "punkte": 5,
+                "exakt": 1,
+                "differenz": 0,
+                "tendenz": 0
+              },
+              {
+                "teilnehmerId": "mikoog",
+                "teilnehmer": "MiKoog",
+                "punkte": 5,
+                "exakt": 1,
+                "differenz": 0,
+                "tendenz": 0
+              }
+            ]
+          }
+        },
+        {
+          "typ": "gegen-den-strom",
+          "prioritaet": 90,
+          "anzeigen": true,
+          "daten": {
+            "spielId": "sma-2026-27-02-013",
+            "heimTeam": "dynamo-dresden",
+            "auswaertsTeam": "darmstadt-98",
+            "ergebnis": "1:0",
+            "abgegeben": 93,
+            "nichtAbgegeben": 4,
+            "tippverteilung": {
+              "1": 36,
+              "2": 39,
+              "X": 18
+            },
+            "exakt": 8,
+            "differenz": 18,
+            "tendenz": 10,
+            "richtigerAusgang": "1",
+            "meistGetippt": {
+              "ausgang": "2",
+              "anzahl": 39
+            },
+            "gegenDenStrom": true,
+            "richtigeTendenz": {
+              "anzahl": 36,
+              "anteil": 38.7,
+              "tipper": [
+                {
+                  "teilnehmerId": "nick-zg-1501",
+                  "teilnehmer": "Nick_ZG_1501",
+                  "tipp": "1:0",
+                  "exakt": true
+                },
+                {
+                  "teilnehmerId": "wildemoni",
+                  "teilnehmer": "WildeMoni",
+                  "tipp": "1:0",
+                  "exakt": true
+                },
+                {
+                  "teilnehmerId": "baslermario",
+                  "teilnehmer": "baslermario",
+                  "tipp": "1:0",
+                  "exakt": true
+                },
+                {
+                  "teilnehmerId": "rk69",
+                  "teilnehmer": "RK69",
+                  "tipp": "1:0",
+                  "exakt": true
+                },
+                {
+                  "teilnehmerId": "yauguru",
+                  "teilnehmer": "Yauguru",
+                  "tipp": "1:0",
+                  "exakt": true
+                },
+                {
+                  "teilnehmerId": "frankfurterjung",
+                  "teilnehmer": "FrankfurterJung",
+                  "tipp": "1:0",
+                  "exakt": true
+                },
+                {
+                  "teilnehmerId": "andy1304",
+                  "teilnehmer": "Andy1304",
+                  "tipp": "1:0",
+                  "exakt": true
+                },
+                {
+                  "teilnehmerId": "mikoog",
+                  "teilnehmer": "MiKoog",
+                  "tipp": "1:0",
+                  "exakt": true
+                },
+                {
+                  "teilnehmerId": "oifinger",
+                  "teilnehmer": "Oifinger",
+                  "tipp": "2:1",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "cobra",
+                  "teilnehmer": "cobra",
+                  "tipp": "2:1",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "flokicker94",
+                  "teilnehmer": "FloKicker94",
+                  "tipp": "2:1",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "tribuna33",
+                  "teilnehmer": "TRIBUNA33",
+                  "tipp": "2:1",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "waltersen",
+                  "teilnehmer": "Waltersen",
+                  "tipp": "3:2",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "steff77",
+                  "teilnehmer": "Steff77",
+                  "tipp": "2:1",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "eckes2359",
+                  "teilnehmer": "Eckes2359",
+                  "tipp": "2:1",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "marius",
+                  "teilnehmer": "Marius",
+                  "tipp": "2:0",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "adamj",
+                  "teilnehmer": "AdamJ",
+                  "tipp": "2:0",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "souvard",
+                  "teilnehmer": "Souvard",
+                  "tipp": "3:1",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "best10",
+                  "teilnehmer": "Best10",
+                  "tipp": "3:1",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "dominik1966",
+                  "teilnehmer": "dominik1966",
+                  "tipp": "2:0",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "erik",
+                  "teilnehmer": "Erik",
+                  "tipp": "2:0",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "vebfriwiwerk",
+                  "teilnehmer": "VebFriwiwerk",
+                  "tipp": "2:1",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "11le",
+                  "teilnehmer": "11LE",
+                  "tipp": "2:1",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "gruber",
+                  "teilnehmer": "gRuBer",
+                  "tipp": "2:1",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "glatze583",
+                  "teilnehmer": "Glatze583",
+                  "tipp": "3:2",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "lattenkracher",
+                  "teilnehmer": "Lattenkracher",
+                  "tipp": "2:1",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "opipeter",
+                  "teilnehmer": "Opipeter",
+                  "tipp": "2:1",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "tortugasge",
+                  "teilnehmer": "TortugaSGE",
+                  "tipp": "2:1",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "18amfg99",
+                  "teilnehmer": "18AMFG99",
+                  "tipp": "2:1",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "redwing",
+                  "teilnehmer": "Redwing",
+                  "tipp": "3:2",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "seboso",
+                  "teilnehmer": "Seboso",
+                  "tipp": "2:1",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "olympiakos",
+                  "teilnehmer": "Olympiakos",
+                  "tipp": "2:1",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "glueckspfennig",
+                  "teilnehmer": "Glückspfennig",
+                  "tipp": "3:0",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "kev1999",
+                  "teilnehmer": "Kev1999",
+                  "tipp": "3:1",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "munmarkus",
+                  "teilnehmer": "Munmarkus",
+                  "tipp": "4:2",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "urkel",
+                  "teilnehmer": "Urkel",
+                  "tipp": "3:1",
+                  "exakt": false
+                }
+              ],
+              "exakteTipps": 8
+            }
+          }
+        },
+        {
+          "typ": "wer-hats-gerochen",
+          "prioritaet": 85,
+          "anzeigen": true,
+          "daten": {
+            "grenzeProzent": 25,
+            "testOverride": true,
+            "faelle": [
+              {
+                "spielId": "sma-2026-27-02-013",
+                "heimTeam": "dynamo-dresden",
+                "auswaertsTeam": "darmstadt-98",
+                "ergebnis": "1:0",
+                "abgegeben": 93,
+                "nichtAbgegeben": 4,
+                "tippverteilung": {
+                  "1": 36,
+                  "2": 39,
+                  "X": 18
+                },
+                "exakt": 8,
+                "differenz": 18,
+                "tendenz": 10,
+                "richtigerAusgang": "1",
+                "meistGetippt": {
+                  "ausgang": "2",
+                  "anzahl": 39
+                },
+                "gegenDenStrom": true,
+                "richtigeTendenz": {
+                  "anzahl": 36,
+                  "anteil": 38.7,
+                  "tipper": [
+                    {
+                      "teilnehmerId": "nick-zg-1501",
+                      "teilnehmer": "Nick_ZG_1501",
+                      "tipp": "1:0",
+                      "exakt": true
+                    },
+                    {
+                      "teilnehmerId": "wildemoni",
+                      "teilnehmer": "WildeMoni",
+                      "tipp": "1:0",
+                      "exakt": true
+                    },
+                    {
+                      "teilnehmerId": "baslermario",
+                      "teilnehmer": "baslermario",
+                      "tipp": "1:0",
+                      "exakt": true
+                    },
+                    {
+                      "teilnehmerId": "rk69",
+                      "teilnehmer": "RK69",
+                      "tipp": "1:0",
+                      "exakt": true
+                    },
+                    {
+                      "teilnehmerId": "yauguru",
+                      "teilnehmer": "Yauguru",
+                      "tipp": "1:0",
+                      "exakt": true
+                    },
+                    {
+                      "teilnehmerId": "frankfurterjung",
+                      "teilnehmer": "FrankfurterJung",
+                      "tipp": "1:0",
+                      "exakt": true
+                    },
+                    {
+                      "teilnehmerId": "andy1304",
+                      "teilnehmer": "Andy1304",
+                      "tipp": "1:0",
+                      "exakt": true
+                    },
+                    {
+                      "teilnehmerId": "mikoog",
+                      "teilnehmer": "MiKoog",
+                      "tipp": "1:0",
+                      "exakt": true
+                    },
+                    {
+                      "teilnehmerId": "oifinger",
+                      "teilnehmer": "Oifinger",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "cobra",
+                      "teilnehmer": "cobra",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "flokicker94",
+                      "teilnehmer": "FloKicker94",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "tribuna33",
+                      "teilnehmer": "TRIBUNA33",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "waltersen",
+                      "teilnehmer": "Waltersen",
+                      "tipp": "3:2",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "steff77",
+                      "teilnehmer": "Steff77",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "eckes2359",
+                      "teilnehmer": "Eckes2359",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "marius",
+                      "teilnehmer": "Marius",
+                      "tipp": "2:0",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "adamj",
+                      "teilnehmer": "AdamJ",
+                      "tipp": "2:0",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "souvard",
+                      "teilnehmer": "Souvard",
+                      "tipp": "3:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "best10",
+                      "teilnehmer": "Best10",
+                      "tipp": "3:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "dominik1966",
+                      "teilnehmer": "dominik1966",
+                      "tipp": "2:0",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "erik",
+                      "teilnehmer": "Erik",
+                      "tipp": "2:0",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "vebfriwiwerk",
+                      "teilnehmer": "VebFriwiwerk",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "11le",
+                      "teilnehmer": "11LE",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "gruber",
+                      "teilnehmer": "gRuBer",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "glatze583",
+                      "teilnehmer": "Glatze583",
+                      "tipp": "3:2",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "lattenkracher",
+                      "teilnehmer": "Lattenkracher",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "opipeter",
+                      "teilnehmer": "Opipeter",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "tortugasge",
+                      "teilnehmer": "TortugaSGE",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "18amfg99",
+                      "teilnehmer": "18AMFG99",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "redwing",
+                      "teilnehmer": "Redwing",
+                      "tipp": "3:2",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "seboso",
+                      "teilnehmer": "Seboso",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "olympiakos",
+                      "teilnehmer": "Olympiakos",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "glueckspfennig",
+                      "teilnehmer": "Glückspfennig",
+                      "tipp": "3:0",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "kev1999",
+                      "teilnehmer": "Kev1999",
+                      "tipp": "3:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "munmarkus",
+                      "teilnehmer": "Munmarkus",
+                      "tipp": "4:2",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "urkel",
+                      "teilnehmer": "Urkel",
+                      "tipp": "3:1",
+                      "exakt": false
+                    }
+                  ],
+                  "exakteTipps": 8
+                }
+              }
+            ]
+          }
+        },
+        {
+          "typ": "volltreffer",
+          "prioritaet": 80,
+          "anzeigen": true,
+          "daten": {
+            "maxExakt": 1,
+            "anzahl": 8,
+            "tipper": [
+              {
+                "teilnehmerId": "nick-zg-1501",
+                "teilnehmer": "Nick_ZG_1501",
+                "exakt": 1
+              },
+              {
+                "teilnehmerId": "wildemoni",
+                "teilnehmer": "WildeMoni",
+                "exakt": 1
+              },
+              {
+                "teilnehmerId": "baslermario",
+                "teilnehmer": "baslermario",
+                "exakt": 1
+              },
+              {
+                "teilnehmerId": "rk69",
+                "teilnehmer": "RK69",
+                "exakt": 1
+              },
+              {
+                "teilnehmerId": "yauguru",
+                "teilnehmer": "Yauguru",
+                "exakt": 1
+              },
+              {
+                "teilnehmerId": "frankfurterjung",
+                "teilnehmer": "FrankfurterJung",
+                "exakt": 1
+              },
+              {
+                "teilnehmerId": "andy1304",
+                "teilnehmer": "Andy1304",
+                "exakt": 1
+              },
+              {
+                "teilnehmerId": "mikoog",
+                "teilnehmer": "MiKoog",
+                "exakt": 1
+              }
+            ]
+          }
+        },
+        {
+          "typ": "crewduell",
+          "prioritaet": 70,
+          "anzeigen": true,
+          "daten": {
+            "teams": [
+              {
+                "team": "New Smugglers Team",
+                "durchschnitt": 1.22,
+                "punktesumme": 88,
+                "mitglieder": 72
+              },
+              {
+                "team": "Old Smugglers Team",
+                "durchschnitt": 1.04,
+                "punktesumme": 26,
+                "mitglieder": 25
+              }
+            ],
+            "sieger": "New Smugglers Team",
+            "differenz": 0.18
+          }
+        },
+        {
+          "typ": "kursbewegung",
+          "prioritaet": 40,
+          "anzeigen": false,
+          "grund": "Frühe Gleichstandsblöcke machen Rangbewegungen noch nicht aussagekräftig.",
+          "daten": {
+            "gewinner": [
+              {
+                "teilnehmerId": "andy1304",
+                "teilnehmer": "Andy1304",
+                "vorher": 68,
+                "jetzt": 7,
+                "veraenderung": 61
+              },
+              {
+                "teilnehmerId": "mikoog",
+                "teilnehmer": "MiKoog",
+                "vorher": 68,
+                "jetzt": 7,
+                "veraenderung": 61
+              }
+            ],
+            "verlierer": [
+              {
+                "teilnehmerId": "audauzvares",
+                "teilnehmer": "Audauzvares",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "ben1909",
+                "teilnehmer": "Ben1909",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "bene",
+                "teilnehmer": "Bene",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "berndibroti",
+                "teilnehmer": "Berndibroti",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "bigdog",
+                "teilnehmer": "Bigdog",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "bvb09-opam",
+                "teilnehmer": "BvB09-OpaM",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "cali79",
+                "teilnehmer": "Cali79",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "co",
+                "teilnehmer": "Co",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "cobra75",
+                "teilnehmer": "Cobra75",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "dani1893",
+                "teilnehmer": "Dani1893",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "finch",
+                "teilnehmer": "Finch",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "flying-dutchman",
+                "teilnehmer": "Flying-Dutchman",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "g-1000",
+                "teilnehmer": "G.1000",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "gerrit1887",
+                "teilnehmer": "Gerrit1887",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "handgottes",
+                "teilnehmer": "HandGottes",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "hardy17",
+                "teilnehmer": "Hardy17",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "jakob",
+                "teilnehmer": "Jakob",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "juergen70",
+                "teilnehmer": "Juergen70",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "juri",
+                "teilnehmer": "JuRi",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "jwfussball",
+                "teilnehmer": "JWFUSSBALL",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "kevin",
+                "teilnehmer": "Kevin",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "kleinersachse",
+                "teilnehmer": "kleinersachse",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "luca",
+                "teilnehmer": "Luca",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "lucas",
+                "teilnehmer": "Lucas",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "luki1887",
+                "teilnehmer": "Luki1887",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "maikiliii",
+                "teilnehmer": "Maikiliii",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "manuel",
+                "teilnehmer": "Manuel",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "marc86",
+                "teilnehmer": "Marc86",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "marcor",
+                "teilnehmer": "MarcoR",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "mariusv",
+                "teilnehmer": "mariusv",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "mary-grace",
+                "teilnehmer": "Mary-Grace",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "maxpam",
+                "teilnehmer": "MaxPam",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "medic",
+                "teilnehmer": "Medic",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "normiks",
+                "teilnehmer": "Normiks",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "nurderscf",
+                "teilnehmer": "NurDerSCF",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "playboymarc88",
+                "teilnehmer": "PlayBoyMarc88",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "pochzerjung",
+                "teilnehmer": "PochzerJung",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "potterhead",
+                "teilnehmer": "Potterhead",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "quick",
+                "teilnehmer": "Quick",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "realzaragoza",
+                "teilnehmer": "Realzaragoza",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "salas1904",
+                "teilnehmer": "Salas1904",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "sam-entspender",
+                "teilnehmer": "SAM_ENTSPENDER",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "sam2004",
+                "teilnehmer": "Sam2004",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "sgbw",
+                "teilnehmer": "sgbw",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "stevie26",
+                "teilnehmer": "Stevie26",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "sven-huhn",
+                "teilnehmer": "Sven_Huhn",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "ximmox",
+                "teilnehmer": "xIMMOx",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              },
+              {
+                "teilnehmerId": "yorik",
+                "teilnehmer": "Yorik",
+                "vorher": 1,
+                "jetzt": 33,
+                "veraenderung": -32
+              }
+            ],
+            "maxGewinn": 61,
+            "maxVerlust": -32
+          }
+        },
+        {
+          "typ": "zahlen-aus-der-kombuese",
+          "prioritaet": 30,
+          "anzeigen": true,
+          "daten": {
+            "abgegeben": 93,
+            "nichtAbgegeben": 4,
+            "exakt": 8,
+            "differenz": 18,
+            "tendenz": 10
+          }
+        }
+      ]
+    }
+  ]
+}

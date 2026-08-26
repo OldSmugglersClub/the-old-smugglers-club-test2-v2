@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "generator": "Admin 6.5.0-WB3-HF1-HF1-LF4-HF4-HF6",
+  "erstelltAm": "2026-08-23T13:17:06.354Z",
+  "modus": "test",
+  "fachlicheAuftragsId": "2026-27__smugglerauftrag__2-spieltag__sma-2026-27-02-013",
+  "uploadDateien": [
+    "spielbetrieb.json",
+    "teilnehmer.json",
+    "import-history.json",
+    "spieldaten.json",
+    "tipps.json",
+    "punkte.json",
+    "spieltagpunkte.json",
+    "wettbewerbspunkte.json",
+    "smugglerpunkte.json",
+    "teampunkte.json",
+    "ranglistenverlauf.json",
+    "highscore.json",
+    "hall-of-fame.json",
+    "website-view.json",
+    "spieltag-logbuch.json",
+    "topspieler.json",
+    "teams.json"
+  ],
+  "dokumentationsDateien": [
+    "UPLOADLISTE.txt",
+    "SHA256-WEBSITE-DATEN.txt",
+    "PRUEFPROTOKOLL.json",
+    "MANIFEST.json"
+  ],
+  "backupPfad": null,
+  "sha256": {
+    "spielbetrieb.json": "c740486c8555a3ce41e22379468fa964794477a4967ea87ab2abafe7cace6ac5",
+    "teilnehmer.json": "db2227b39c7f78b171ea49e59b20b8ceed94ae86c0696a43c59795098e268e3d",
+    "import-history.json": "7638655d2866b36eae9db0a09f8fd46f3b586745ce8eaac0133f3c892a2d1d8c",
+    "spieldaten.json": "8b86733a826c009c1a023ebfd1fa9e07e5169e169249707861e3bbc4eaf3160f",
+    "tipps.json": "a7dfbbd1fc0ad6e6d94b120a1a8be362c311fbb791362d86652b609f7c82e3d3",
+    "punkte.json": "a21de114a6356ab6c8566b13cf1302e4931435248313cb63ec345ab893b24b65",
+    "spieltagpunkte.json": "41c2f863041571342ea77366e07d8165db4dc353c09da9e2d4f06857b4c8fbee",
+    "wettbewerbspunkte.json": "0786bdeaebf30fc191d9d61c11b503e0992ab732b4bd5dc30df69b3dd8552fff",
+    "smugglerpunkte.json": "744ffe4587548477b82e63dd1541d1c4cc2b7d83716e6f78ac9c2a7ebacb061d",
+    "teampunkte.json": "34590a9328e2050ccc84229312a28332e7fa3194f65fa2f821f2f2d7c7ff10a1",
+    "ranglistenverlauf.json": "b5af71c5b8adb3b8ae1c065ad2284fa7e726607ad849f701d9702008e21fe582",
+    "highscore.json": "5e5514f6a707087da5bbab8a03ea2ad29726134b477a937785b2089bdd97ffb2",
+    "hall-of-fame.json": "5b60616e9ed5912e59a449bbc1fef80c4282baffe2fc096686dc753f0cbd4ba2",
+    "website-view.json": "ad1dbd45e00af00a1c57a5c1b982ca672013dab9ddaf4a70d9488700d36b2232",
+    "spieltag-logbuch.json": "9dbf0eefe4bd94de0dd8f28bbfb09dac11d2104c01f89c34b43580a21588f5af",
+    "topspieler.json": "9e1ee649856f59263b6c542f57b4b16b561bf17f538774926070379651081ebf",
+    "teams.json": "a5e117680dc68787082595fe5da870015c7f1b7f093186c350101be216fe14c9"
+  }
+}

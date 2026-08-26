@@ -1,0 +1,13 @@
+ERSETZEN:
+index.html
+highscore-teaser.js
+highscore.json
+VERSION.txt
+
+NEU:
+README_4.9.2-HF8-TEST1.md
+CHANGELOG_4.9.2-HF8-TEST1.md
+ERSETZEN_NEU_LOESCHEN_4.9.2-HF8-TEST1.txt
+
+LOESCHEN:
+keine
