@@ -701,85 +701,138 @@ body{overflow-x:hidden}
 }
 
 
-/* CREWDUELL-VISUAL-TEST1 – vorhandene Crewduell-Kachel, dynamische Werte */
+
+
+/* CREWDUELL-FULLCOMPOSITION-TEST2
+   Ein zusammenhängender Aufbau wie im freigegebenen Entwurf.
+   Bild bleibt Motiv; alle wechselnden Texte/Werte bleiben dynamisch. */
 .lb-highlight--crew{
   display:flex;
   flex-direction:column;
-  background:linear-gradient(145deg,rgba(42,24,10,.92),rgba(16,9,5,.96));
-}
-.lb-crew-visual{
-  position:relative;
-  min-height:180px;
-  margin:10px 0 12px;
-  border:1px solid rgba(190,137,48,.34);
-  border-radius:10px;
   overflow:hidden;
   background:
-    linear-gradient(180deg,rgba(10,6,3,.08),rgba(10,6,3,.22)),
-    url("./assets/logbuch/crewduell-motiv.jpg") center 48% / cover no-repeat;
-  box-shadow:inset 0 0 28px rgba(0,0,0,.34);
+    radial-gradient(circle at 50% 35%,rgba(107,68,27,.16),transparent 48%),
+    linear-gradient(145deg,rgba(42,24,10,.94),rgba(15,9,5,.98));
 }
-.lb-crew-visual span{
-  position:absolute;
-  left:50%;
-  bottom:8px;
-  transform:translateX(-50%);
-  padding:4px 10px;
-  border:1px solid rgba(190,137,48,.40);
-  border-radius:999px;
-  background:rgba(17,10,5,.78);
-  color:#d9b661;
-  font-size:.68rem;
-  font-weight:900;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  white-space:nowrap;
+.lb-crew-head h3{margin-bottom:10px}
+.lb-crew-head p{margin-bottom:0}
+
+.lb-crew-visual{
+  min-height:185px;
+  margin:14px 0 0;
+  border:1px solid rgba(190,137,48,.38);
+  border-radius:10px 10px 0 0;
+  border-bottom:0;
+  background:
+    linear-gradient(180deg,rgba(8,5,3,.02),rgba(8,5,3,.12)),
+    url("./assets/logbuch/crewduell-motiv.jpg") center center / cover no-repeat;
+  box-shadow:inset 0 0 30px rgba(0,0,0,.28);
 }
+
 .lb-highlight--crew .lb-crewline{
-  margin-top:0;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 58px minmax(0,1fr);
+  gap:0;
+  align-items:stretch;
+  margin:0;
+  border:1px solid rgba(190,137,48,.38);
+  border-top:0;
+  border-radius:0 0 10px 10px;
+  overflow:hidden;
+  background:rgba(12,7,4,.55);
 }
-.lb-highlight--crew .lb-crewline > div:not(.lb-crew-vs){
-  min-height:82px;
+.lb-highlight--crew .lb-crew-team{
+  position:relative;
+  min-width:0;
+  min-height:94px;
   display:grid;
   grid-template-columns:minmax(0,1fr) auto;
   grid-template-rows:auto auto;
-  gap:3px 10px;
+  gap:4px 10px;
   align-items:center;
+  padding:13px 14px;
 }
-.lb-highlight--crew .lb-crewline > div:not(.lb-crew-vs) span{
+.lb-highlight--crew .lb-crew-team:first-child{
+  border-right:1px solid rgba(190,137,48,.18);
+}
+.lb-highlight--crew .lb-crew-team:last-child{
+  border-left:1px solid rgba(190,137,48,.18);
+}
+.lb-highlight--crew .lb-crew-team span{
   grid-column:1;
   grid-row:1;
+  color:#edcf91;
+  font-weight:900;
+  line-height:1.15;
 }
-.lb-highlight--crew .lb-crewline > div:not(.lb-crew-vs) strong{
-  grid-column:2;
-  grid-row:1 / span 2;
-  font-size:1.38rem;
-}
-.lb-highlight--crew .lb-crewline small{
+.lb-highlight--crew .lb-crew-team small{
   grid-column:1;
   grid-row:2;
-  color:#907f67;
-  font-size:.64rem;
+  color:#927f64;
+  font-size:.62rem;
   text-transform:uppercase;
   letter-spacing:.05em;
+}
+.lb-highlight--crew .lb-crew-team strong{
+  grid-column:2;
+  grid-row:1 / span 2;
+  color:#f2c65f;
+  font-size:1.42rem;
+  white-space:nowrap;
+}
+.lb-highlight--crew .lb-crew-vs{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 5px;
+  color:#b89a5a;
+  text-transform:uppercase;
+  font-size:.64rem;
+  letter-spacing:.04em;
+}
+.lb-highlight--crew .lb-crew-vs span{
+  padding:5px 0;
+  border-top:1px solid rgba(190,137,48,.42);
+  border-bottom:1px solid rgba(190,137,48,.42);
 }
 .lb-crew-note{
   display:block;
   margin-top:9px;
   color:#8e7f69;
-  font-size:.68rem;
+  font-size:.67rem;
   line-height:1.35;
 }
 
 @media(max-width:760px){
   .lb-crew-visual{
-    min-height:145px;
-    background-position:center 50%;
+    min-height:150px;
+    margin-top:12px;
+    border-radius:9px 9px 0 0;
+    background-size:cover;
+    background-position:center;
   }
-  .lb-highlight--crew .lb-crewline > div:not(.lb-crew-vs){
-    min-height:72px;
+  .lb-highlight--crew .lb-crewline{
+    grid-template-columns:1fr;
+    border-radius:0 0 9px 9px;
   }
-  .lb-highlight--crew .lb-crewline > div:not(.lb-crew-vs) strong{
-    font-size:1.15rem;
+  .lb-highlight--crew .lb-crew-team{
+    min-height:76px;
+    padding:11px 12px;
   }
+  .lb-highlight--crew .lb-crew-team:first-child,
+  .lb-highlight--crew .lb-crew-team:last-child{
+    border-left:0;
+    border-right:0;
+  }
+  .lb-highlight--crew .lb-crew-vs{
+    min-height:28px;
+    border-top:1px solid rgba(190,137,48,.16);
+    border-bottom:1px solid rgba(190,137,48,.16);
+  }
+  .lb-highlight--crew .lb-crew-vs span{
+    border:0;
+    padding:0;
+  }
+  .lb-highlight--crew .lb-crew-team strong{font-size:1.2rem}
+  .lb-crew-note{font-size:.64rem}
 }

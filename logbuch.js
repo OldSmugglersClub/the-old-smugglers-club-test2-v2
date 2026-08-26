@@ -146,13 +146,23 @@ function renderHighlight(h){
  if(h.typ==="crewduell"){
    const teams=d.teams||[]; const a=teams[0],b=teams[1];
    return `<article class="lb-highlight lb-highlight--crew">
-     <h3>Crewduell</h3>
-     <p><strong>${esc(d.sieger||"Gleichstand")}</strong> führt nach Durchschnittspunkten.</p>
-     <div class="lb-crew-visual" aria-hidden="true"><span>Crew gegen Crew</span></div>
+     <div class="lb-crew-head">
+       <h3>Crewduell</h3>
+       <p><strong>${esc(d.sieger||"Gleichstand")}</strong> führt nach Durchschnittspunkten.</p>
+     </div>
+     <div class="lb-crew-visual" aria-hidden="true"></div>
      ${a&&b?`<div class="lb-crewline">
-       <div><span>${esc(a.team)}</span><strong>${Number(a.durchschnitt||0).toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2})}</strong><small>Durchschnittspunkte</small></div>
-       <div class="lb-crew-vs">gegen</div>
-       <div><span>${esc(b.team)}</span><strong>${Number(b.durchschnitt||0).toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2})}</strong><small>Durchschnittspunkte</small></div>
+       <div class="lb-crew-team">
+         <span>${esc(a.team)}</span>
+         <small>Durchschnittspunkte</small>
+         <strong>${Number(a.durchschnitt||0).toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2})}</strong>
+       </div>
+       <div class="lb-crew-vs"><span>gegen</span></div>
+       <div class="lb-crew-team">
+         <span>${esc(b.team)}</span>
+         <small>Durchschnittspunkte</small>
+         <strong>${Number(b.durchschnitt||0).toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2})}</strong>
+       </div>
      </div>`:""}
      <small class="lb-crew-note">Crewduell = Vergleich der Durchschnittspunkte aller aktiven Teammitglieder.</small>
    </article>`;
