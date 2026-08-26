@@ -699,3 +699,87 @@ body{overflow-x:hidden}
   .lb-form-course{min-width:70px;font-size:.76rem}
   .lb-form-note{font-size:.65rem}
 }
+
+
+/* CREWDUELL-VISUAL-TEST1 – vorhandene Crewduell-Kachel, dynamische Werte */
+.lb-highlight--crew{
+  display:flex;
+  flex-direction:column;
+  background:linear-gradient(145deg,rgba(42,24,10,.92),rgba(16,9,5,.96));
+}
+.lb-crew-visual{
+  position:relative;
+  min-height:180px;
+  margin:10px 0 12px;
+  border:1px solid rgba(190,137,48,.34);
+  border-radius:10px;
+  overflow:hidden;
+  background:
+    linear-gradient(180deg,rgba(10,6,3,.08),rgba(10,6,3,.22)),
+    url("./assets/logbuch/crewduell-motiv.jpg") center 48% / cover no-repeat;
+  box-shadow:inset 0 0 28px rgba(0,0,0,.34);
+}
+.lb-crew-visual span{
+  position:absolute;
+  left:50%;
+  bottom:8px;
+  transform:translateX(-50%);
+  padding:4px 10px;
+  border:1px solid rgba(190,137,48,.40);
+  border-radius:999px;
+  background:rgba(17,10,5,.78);
+  color:#d9b661;
+  font-size:.68rem;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.lb-highlight--crew .lb-crewline{
+  margin-top:0;
+}
+.lb-highlight--crew .lb-crewline > div:not(.lb-crew-vs){
+  min-height:82px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  grid-template-rows:auto auto;
+  gap:3px 10px;
+  align-items:center;
+}
+.lb-highlight--crew .lb-crewline > div:not(.lb-crew-vs) span{
+  grid-column:1;
+  grid-row:1;
+}
+.lb-highlight--crew .lb-crewline > div:not(.lb-crew-vs) strong{
+  grid-column:2;
+  grid-row:1 / span 2;
+  font-size:1.38rem;
+}
+.lb-highlight--crew .lb-crewline small{
+  grid-column:1;
+  grid-row:2;
+  color:#907f67;
+  font-size:.64rem;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+.lb-crew-note{
+  display:block;
+  margin-top:9px;
+  color:#8e7f69;
+  font-size:.68rem;
+  line-height:1.35;
+}
+
+@media(max-width:760px){
+  .lb-crew-visual{
+    min-height:145px;
+    background-position:center 50%;
+  }
+  .lb-highlight--crew .lb-crewline > div:not(.lb-crew-vs){
+    min-height:72px;
+  }
+  .lb-highlight--crew .lb-crewline > div:not(.lb-crew-vs) strong{
+    font-size:1.15rem;
+  }
+}
