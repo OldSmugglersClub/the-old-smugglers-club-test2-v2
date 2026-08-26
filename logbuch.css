@@ -705,7 +705,10 @@ body{overflow-x:hidden}
 
 
 
-/* CREWDUELL-COMPACT-TEST3 */
+
+
+/* CREWDUELL-COMPACT-TEST4
+   Bestehendes Motiv bereinigt; keine Bildgenerierung. */
 .lb-highlight--crew{
   display:flex;
   flex-direction:column;
@@ -718,11 +721,10 @@ body{overflow-x:hidden}
 .lb-crew-head p{margin-bottom:0}
 
 .lb-crew-visual{
-  min-height:185px;
-  margin:14px 0 0;
+  min-height:160px;
+  margin:14px 0 7px;
   border:1px solid rgba(190,137,48,.38);
-  border-radius:10px 10px 0 0;
-  border-bottom:0;
+  border-radius:10px;
   background:
     linear-gradient(180deg,rgba(8,5,3,.02),rgba(8,5,3,.12)),
     url("./assets/logbuch/crewduell-motiv.jpg") center center / cover no-repeat;
@@ -733,17 +735,18 @@ body{overflow-x:hidden}
   display:grid;
   grid-template-columns:minmax(0,1fr) 48px minmax(0,1fr);
   align-items:center;
-  min-height:70px;
+  min-height:64px;
   border:1px solid rgba(190,137,48,.38);
-  border-top:0;
+  border-radius:9px 9px 0 0;
   background:rgba(12,7,4,.62);
+  overflow:hidden;
 }
 .lb-crew-side{
   min-width:0;
   display:flex;
   align-items:center;
   gap:10px;
-  padding:10px 13px;
+  padding:9px 13px;
 }
 .lb-crew-side--left{justify-content:flex-end}
 .lb-crew-side--right{justify-content:flex-start}
@@ -759,14 +762,14 @@ body{overflow-x:hidden}
 .lb-crew-side strong{
   flex:0 0 auto;
   color:#f2c65f;
-  font-size:1.34rem;
+  font-size:1.30rem;
   white-space:nowrap;
 }
 .lb-crew-vs{
   display:flex;
   align-items:center;
   justify-content:center;
-  height:100%;
+  align-self:stretch;
   border-left:1px solid rgba(190,137,48,.18);
   border-right:1px solid rgba(190,137,48,.18);
   color:#c8a75d;
@@ -778,7 +781,7 @@ body{overflow-x:hidden}
   padding:5px 10px 7px;
   border:1px solid rgba(190,137,48,.38);
   border-top:0;
-  border-radius:0 0 10px 10px;
+  border-radius:0 0 9px 9px;
   color:#8f7d63;
   font-size:.62rem;
   text-align:center;
@@ -796,9 +799,12 @@ body{overflow-x:hidden}
 
 @media(max-width:760px){
   .lb-crew-visual{
-    min-height:150px;
-    margin-top:12px;
-    background-position:center;
+    min-height:0;
+    height:112px;
+    margin-top:10px;
+    margin-bottom:7px;
+    background-size:cover;
+    background-position:center center;
   }
   .lb-crew-scorebar{
     grid-template-columns:1fr;
@@ -806,26 +812,22 @@ body{overflow-x:hidden}
   }
   .lb-crew-side{
     justify-content:space-between;
-    min-height:50px;
-    padding:9px 12px;
+    min-height:46px;
+    padding:8px 12px;
   }
-  .lb-crew-side--right{
-    flex-direction:row-reverse;
-  }
+  .lb-crew-side--right{flex-direction:row-reverse}
   .lb-crew-side span{
     font-size:.82rem;
     max-width:72%;
   }
-  .lb-crew-side strong{
-    font-size:1.14rem;
-  }
+  .lb-crew-side strong{font-size:1.12rem}
   .lb-crew-vs{
-    min-height:27px;
+    min-height:25px;
     border-left:0;
     border-right:0;
     border-top:1px solid rgba(190,137,48,.18);
     border-bottom:1px solid rgba(190,137,48,.18);
   }
-  .lb-crew-scorelabel{font-size:.58rem}
-  .lb-crew-note{font-size:.64rem}
+  .lb-crew-scorelabel{font-size:.57rem}
+  .lb-crew-note{font-size:.63rem}
 }
