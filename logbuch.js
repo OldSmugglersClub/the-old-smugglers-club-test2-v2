@@ -151,19 +151,18 @@ function renderHighlight(h){
        <p><strong>${esc(d.sieger||"Gleichstand")}</strong> führt nach Durchschnittspunkten.</p>
      </div>
      <div class="lb-crew-visual" aria-hidden="true"></div>
-     ${a&&b?`<div class="lb-crewline">
-       <div class="lb-crew-team">
+     ${a&&b?`<div class="lb-crew-scorebar">
+       <div class="lb-crew-side lb-crew-side--left">
          <span>${esc(a.team)}</span>
-         <small>Durchschnittspunkte</small>
          <strong>${Number(a.durchschnitt||0).toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2})}</strong>
        </div>
-       <div class="lb-crew-vs"><span>gegen</span></div>
-       <div class="lb-crew-team">
-         <span>${esc(b.team)}</span>
-         <small>Durchschnittspunkte</small>
+       <div class="lb-crew-vs">vs.</div>
+       <div class="lb-crew-side lb-crew-side--right">
          <strong>${Number(b.durchschnitt||0).toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2})}</strong>
+         <span>${esc(b.team)}</span>
        </div>
-     </div>`:""}
+     </div>
+     <div class="lb-crew-scorelabel">Durchschnittspunkte</div>`:""}
      <small class="lb-crew-note">Crewduell = Vergleich der Durchschnittspunkte aller aktiven Teammitglieder.</small>
    </article>`;
  }

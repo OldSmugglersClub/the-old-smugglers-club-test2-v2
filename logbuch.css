@@ -703,15 +703,15 @@ body{overflow-x:hidden}
 
 
 
-/* CREWDUELL-FULLCOMPOSITION-TEST2
-   Ein zusammenhängender Aufbau wie im freigegebenen Entwurf.
-   Bild bleibt Motiv; alle wechselnden Texte/Werte bleiben dynamisch. */
+
+
+/* CREWDUELL-COMPACT-TEST3 */
 .lb-highlight--crew{
   display:flex;
   flex-direction:column;
   overflow:hidden;
   background:
-    radial-gradient(circle at 50% 35%,rgba(107,68,27,.16),transparent 48%),
+    radial-gradient(circle at 50% 34%,rgba(107,68,27,.15),transparent 48%),
     linear-gradient(145deg,rgba(42,24,10,.94),rgba(15,9,5,.98));
 }
 .lb-crew-head h3{margin-bottom:10px}
@@ -729,71 +729,62 @@ body{overflow-x:hidden}
   box-shadow:inset 0 0 30px rgba(0,0,0,.28);
 }
 
-.lb-highlight--crew .lb-crewline{
+.lb-crew-scorebar{
   display:grid;
-  grid-template-columns:minmax(0,1fr) 58px minmax(0,1fr);
-  gap:0;
-  align-items:stretch;
-  margin:0;
+  grid-template-columns:minmax(0,1fr) 48px minmax(0,1fr);
+  align-items:center;
+  min-height:70px;
   border:1px solid rgba(190,137,48,.38);
   border-top:0;
-  border-radius:0 0 10px 10px;
-  overflow:hidden;
-  background:rgba(12,7,4,.55);
+  background:rgba(12,7,4,.62);
 }
-.lb-highlight--crew .lb-crew-team{
-  position:relative;
+.lb-crew-side{
   min-width:0;
-  min-height:94px;
-  display:grid;
-  grid-template-columns:minmax(0,1fr) auto;
-  grid-template-rows:auto auto;
-  gap:4px 10px;
+  display:flex;
   align-items:center;
-  padding:13px 14px;
+  gap:10px;
+  padding:10px 13px;
 }
-.lb-highlight--crew .lb-crew-team:first-child{
-  border-right:1px solid rgba(190,137,48,.18);
-}
-.lb-highlight--crew .lb-crew-team:last-child{
-  border-left:1px solid rgba(190,137,48,.18);
-}
-.lb-highlight--crew .lb-crew-team span{
-  grid-column:1;
-  grid-row:1;
+.lb-crew-side--left{justify-content:flex-end}
+.lb-crew-side--right{justify-content:flex-start}
+.lb-crew-side span{
+  min-width:0;
   color:#edcf91;
   font-weight:900;
-  line-height:1.15;
+  line-height:1.12;
+  overflow-wrap:normal;
+  word-break:normal;
+  hyphens:none;
 }
-.lb-highlight--crew .lb-crew-team small{
-  grid-column:1;
-  grid-row:2;
-  color:#927f64;
-  font-size:.62rem;
-  text-transform:uppercase;
-  letter-spacing:.05em;
-}
-.lb-highlight--crew .lb-crew-team strong{
-  grid-column:2;
-  grid-row:1 / span 2;
+.lb-crew-side strong{
+  flex:0 0 auto;
   color:#f2c65f;
-  font-size:1.42rem;
+  font-size:1.34rem;
   white-space:nowrap;
 }
-.lb-highlight--crew .lb-crew-vs{
+.lb-crew-vs{
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:0 5px;
-  color:#b89a5a;
-  text-transform:uppercase;
-  font-size:.64rem;
-  letter-spacing:.04em;
+  height:100%;
+  border-left:1px solid rgba(190,137,48,.18);
+  border-right:1px solid rgba(190,137,48,.18);
+  color:#c8a75d;
+  font-weight:900;
+  font-size:.82rem;
+  white-space:nowrap;
 }
-.lb-highlight--crew .lb-crew-vs span{
-  padding:5px 0;
-  border-top:1px solid rgba(190,137,48,.42);
-  border-bottom:1px solid rgba(190,137,48,.42);
+.lb-crew-scorelabel{
+  padding:5px 10px 7px;
+  border:1px solid rgba(190,137,48,.38);
+  border-top:0;
+  border-radius:0 0 10px 10px;
+  color:#8f7d63;
+  font-size:.62rem;
+  text-align:center;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  background:rgba(12,7,4,.62);
 }
 .lb-crew-note{
   display:block;
@@ -807,32 +798,34 @@ body{overflow-x:hidden}
   .lb-crew-visual{
     min-height:150px;
     margin-top:12px;
-    border-radius:9px 9px 0 0;
-    background-size:cover;
     background-position:center;
   }
-  .lb-highlight--crew .lb-crewline{
+  .lb-crew-scorebar{
     grid-template-columns:1fr;
-    border-radius:0 0 9px 9px;
+    min-height:0;
   }
-  .lb-highlight--crew .lb-crew-team{
-    min-height:76px;
-    padding:11px 12px;
+  .lb-crew-side{
+    justify-content:space-between;
+    min-height:50px;
+    padding:9px 12px;
   }
-  .lb-highlight--crew .lb-crew-team:first-child,
-  .lb-highlight--crew .lb-crew-team:last-child{
+  .lb-crew-side--right{
+    flex-direction:row-reverse;
+  }
+  .lb-crew-side span{
+    font-size:.82rem;
+    max-width:72%;
+  }
+  .lb-crew-side strong{
+    font-size:1.14rem;
+  }
+  .lb-crew-vs{
+    min-height:27px;
     border-left:0;
     border-right:0;
+    border-top:1px solid rgba(190,137,48,.18);
+    border-bottom:1px solid rgba(190,137,48,.18);
   }
-  .lb-highlight--crew .lb-crew-vs{
-    min-height:28px;
-    border-top:1px solid rgba(190,137,48,.16);
-    border-bottom:1px solid rgba(190,137,48,.16);
-  }
-  .lb-highlight--crew .lb-crew-vs span{
-    border:0;
-    padding:0;
-  }
-  .lb-highlight--crew .lb-crew-team strong{font-size:1.2rem}
+  .lb-crew-scorelabel{font-size:.58rem}
   .lb-crew-note{font-size:.64rem}
 }
