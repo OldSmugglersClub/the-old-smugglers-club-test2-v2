@@ -154,6 +154,7 @@
     image.style.display = "block";
     image.style.objectFit = "contain";
     image.style.objectPosition = "center";
+    if (teamId === "juventus-turin") image.style.filter = "invert(1)";
     image.addEventListener("error", () => renderSealFallback(element, badge, options), { once: true });
 
     element.replaceChildren(image);
