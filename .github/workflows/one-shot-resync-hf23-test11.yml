@@ -31,7 +31,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          rsync -a --exclude='.git/' live/ work/
+          rsync -a --exclude='.git/' --exclude='.github/workflows/' live/ work/
           cd work
 
           python3 - <<'PY'
@@ -76,16 +76,19 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          cd work
           VERSION='4.9.2-HF12-HF23-TEST11'
           rm -rf /tmp/tosmc-packages /tmp/tosmc-full
-          mkdir -p /tmp/tosmc-packages/update
+          mkdir -p /tmp/tosmc-packages/update /tmp/tosmc-full
+
+          cd work
           cp wettbewerb.js champions-league.html VERSION.txt /tmp/tosmc-packages/update/
           cp "CHANGELOG_$VERSION.md" "README_$VERSION.md" "DATEILISTE_ERSETZEN_NEU_LOESCHEN_$VERSION.md" /tmp/tosmc-packages/update/
           (cd /tmp/tosmc-packages/update && zip -qr ../update.zip .)
 
-          mkdir -p /tmp/tosmc-full
-          rsync -a --exclude='.git/' --exclude='.github/workflows/one-shot-resync-hf23-test11.yml' ./ /tmp/tosmc-full/
+          cd "$GITHUB_WORKSPACE"
+          rsync -a --exclude='.git/' live/ /tmp/tosmc-full/
+          cp work/wettbewerb.js work/champions-league.html work/VERSION.txt /tmp/tosmc-full/
+          cp work/"CHANGELOG_$VERSION.md" work/"README_$VERSION.md" work/"DATEILISTE_ERSETZEN_NEU_LOESCHEN_$VERSION.md" /tmp/tosmc-full/
           (cd /tmp/tosmc-full && zip -qr /tmp/tosmc-packages/full.zip .)
 
       - name: Commit synchronized Test2-v2 branch
