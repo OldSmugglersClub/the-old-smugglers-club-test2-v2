@@ -23,6 +23,7 @@
   let centralValidation = null;
   let centralModel = null;
   let currentTeamData = { teams: [] };
+  let teamResolutionIndex = null;
 
   function competitionDefinition(id) {
     return competitionDefinitions.find(item => item && item.id === id) || DEFAULT_COMPETITIONS.find(item => item.id === id) || null;
@@ -503,18 +504,34 @@
       .trim();
   }
 
+  function buildTeamResolutionIndex() {
+    const exact = new Map();
+    const entries = [];
+    safeArray(currentTeamData && currentTeamData.teams).forEach(team => {
+      if (!team || !team.id) return;
+      const labels = [team.name, team.kurzname, team.id, ...safeArray(team.apiAliase)];
+      labels.forEach(label => {
+        const normalized = normalizeTeamLabel(label);
+        if (!normalized) return;
+        if (!exact.has(normalized)) exact.set(normalized, team.id);
+        entries.push([normalized, team.id]);
+      });
+    });
+    return { exact, entries };
+  }
+
   function resolveTeamId(teamId, teamNameValue) {
     if (teamId) return teamId;
     const wanted = normalizeTeamLabel(teamNameValue);
     if (!wanted) return "";
-    const match = safeArray(currentTeamData && currentTeamData.teams).find(team => {
-      const labels = [team && team.name, team && team.kurzname, team && team.id];
-      return labels.some(label => {
-        const normalized = normalizeTeamLabel(label);
-        return normalized && (normalized === wanted || normalized.includes(wanted) || wanted.includes(normalized));
-      });
-    });
-    return match && match.id ? match.id : "";
+    if (!teamResolutionIndex) teamResolutionIndex = buildTeamResolutionIndex();
+    const exact = teamResolutionIndex.exact.get(wanted);
+    if (exact) return exact;
+    const partial = teamResolutionIndex.entries.find(([normalized]) =>
+      normalized.length >= 4 && wanted.length >= 4 &&
+      (normalized.includes(wanted) || wanted.includes(normalized))
+    );
+    return partial ? partial[1] : "";
   }
 
   function createTeamIdentity(teamId, teamNameValue, modifier = "") {
@@ -817,7 +834,7 @@
       ["Datenquelle", matches.length ? "OpenLigaDB verbunden" : "Noch keine Ligaphasen-Daten", matches.length ? "Die Community-Daten werden bei jedem Laden neu abgefragt." : "Die Seite wartet auf verwertbare OpenLigaDB-Daten."],
       ["Spieltagszuordnung", scheduleConfirmed ? "8 Spieltage erkannt" : "Noch nicht belastbar", scheduleConfirmed ? "Alle acht Spieltage erfüllen die Plausibilitätsprüfung mit je 18 Spielen und 36 Teams." : "OpenLigaDB führt die Partien derzeit gemeinsam unter „Ligaphase“. Keine künstliche Zuordnung wird erzeugt."],
       ["Terminierung", scheduleConfirmed ? "Plausibel strukturiert" : "Noch in Bearbeitung", scheduleConfirmed ? "Die Ligaphase ist anhand der offiziellen Termincluster strukturiert." : "Platzhalter- oder unvollständige Termine werden nicht als echte Spieltage behandelt."],
-      ["Wappen", "Lokale Vereinsstammdaten", "OpenLigaDB-Bilddaten und Base64-Wappen werden nicht ungefiltert übernommen."]
+      ["Wappen", "Lokale Stammdaten + geprüfter Fallback", "Lokale Originalwappen haben Vorrang. Nur sichere HTTP(S)-Wappen von OpenLigaDB werden ersatzweise geladen; Base64-Daten bleiben ausgeschlossen."]
     ];
     cards.forEach(([label, value, detail]) => {
       const card = document.createElement("article");
@@ -864,16 +881,53 @@
       });
       schedule.appendChild(accordion);
     } else {
-      const rows = matches
-        .slice()
-        .sort((a, b) => {
-          const homeA = openLigaDbTeamName(a?.team1); const homeB = openLigaDbTeamName(b?.team1);
-          return homeA.localeCompare(homeB, "de") || openLigaDbTeamName(a?.team2).localeCompare(openLigaDbTeamName(b?.team2), "de");
-        })
-        .map(match => championsLeagueDisplayMatch(match, null, true));
-      schedule.appendChild(createMatchList(rows, { className: "central-match-list" }));
+      const waiting = document.createElement("p");
+      waiting.className = "data-note";
+      waiting.textContent = `${matches.length} Paarungen sind bei OpenLigaDB bereits erfasst. Die Besucheransicht zeigt sie erst dann als regulären Spielplan, wenn alle acht Spieltage eindeutig und plausibel zugeordnet werden können.`;
+      schedule.appendChild(waiting);
     }
     root.appendChild(schedule);
+  }
+
+  function openLigaDbSafeIconUrl(team) {
+    const raw = String(team?.teamIconUrl ?? team?.TeamIconUrl ?? "").trim();
+    if (!raw || raw.startsWith("data:")) return "";
+    try {
+      const url = new URL(raw, window.location.href);
+      if (url.protocol !== "http:" && url.protocol !== "https:") return "";
+      if (url.protocol === "http:") url.protocol = "https:";
+      return url.href;
+    } catch {
+      return "";
+    }
+  }
+
+  function createChampionsLeagueTeamIdentity(team, modifier = "") {
+    const name = openLigaDbTeamName(team);
+    const localId = resolveTeamId("", name);
+    if (localId) return createTeamIdentity(localId, name, modifier);
+
+    const wrap = document.createElement("span");
+    wrap.className = `team-identity${modifier ? ` ${modifier}` : ""}`;
+    const iconUrl = openLigaDbSafeIconUrl(team);
+    if (iconUrl) {
+      const badge = document.createElement("span");
+      badge.className = "team-identity__badge";
+      const image = document.createElement("img");
+      image.src = iconUrl;
+      image.alt = "";
+      image.loading = "lazy";
+      image.decoding = "async";
+      image.referrerPolicy = "no-referrer";
+      image.addEventListener("error", () => badge.remove(), { once: true });
+      badge.appendChild(image);
+      wrap.appendChild(badge);
+    }
+    const label = document.createElement("span");
+    label.className = "team-identity__name";
+    label.textContent = name;
+    wrap.appendChild(label);
+    return wrap;
   }
 
   function renderChampionsLeagueTable(openLigaDbMatches, root) {
@@ -888,7 +942,7 @@
       const name = openLigaDbTeamName(team);
       const key = id || bracketTeamKey(name);
       if (!teams.has(key)) {
-        teams.set(key, { id, name, played: 0, wins: 0, draws: 0, losses: 0, goalsFor: 0, goalsAgainst: 0, points: 0 });
+        teams.set(key, { id, name, sourceTeam: team, played: 0, wins: 0, draws: 0, losses: 0, goalsFor: 0, goalsAgainst: 0, points: 0 });
       }
       return teams.get(key);
     }
@@ -955,7 +1009,7 @@
       values.forEach((value, columnIndex) => {
         const cell = document.createElement(columnIndex === 0 ? "th" : "td");
         if (columnIndex === 0) cell.scope = "row";
-        if (columnIndex === 1) cell.appendChild(createTeamIdentity(team.id, team.name, "team-identity--table"));
+        if (columnIndex === 1) cell.appendChild(createChampionsLeagueTeamIdentity(team.sourceTeam || { teamId: team.id, teamName: team.name }, "team-identity--table"));
         else cell.textContent = value;
         tr.appendChild(cell);
       });
@@ -2154,6 +2208,7 @@ function renderCards(cards) {
       ]);
 
       currentTeamData = teamData && typeof teamData === "object" ? teamData : { teams: [] };
+      teamResolutionIndex = null;
       if (window.OSCTeamBadge) await window.OSCTeamBadge.load();
 
       const sharedModel = window.OSCDataModel ? await window.OSCDataModel.load() : null;
