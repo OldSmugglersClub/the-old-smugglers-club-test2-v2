@@ -1,16 +1,14 @@
-# Dateiliste – Test2 Stalk-O-Meter Logbuch
+# Ersetzen / Neu / Löschen
 
-## ERSETZEN
-- `stalk-o-meter.js`
-- `STALK-O-METER-HANDBUCH.md`
+## Ersetzen
+- .github/workflows/bundesliga-ergebnisimport-auto.yml
+- .github/workflows/bundesliga-terminimport-auto.yml
+- .github/workflows/dynamo-terminimport-auto.yml
 
-## NEU im Repository
-- keine
+## Neu
+- CHANGELOG.md
+- README.md
+- DATEILISTE_ERSETZEN_NEU_LOESCHEN.md
 
-## LÖSCHEN
-- keine
-
-## Nur Paketdokumentation
-- `README.md`
-- `CHANGELOG.md`
-- `DATEILISTE_ERSETZEN_NEU_LOESCHEN.md`
+## Löschen
+- Keine Dateien.

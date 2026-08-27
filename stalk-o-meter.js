@@ -11,7 +11,7 @@
     { label: 'Startseite', path: '/index.html' },
     { label: 'Saisonübersicht', path: '/saison-2026-2027.html' },
     { label: 'Ranglistenlogbuch', path: '/highscore.html' },
-    { label: 'Logbuch', path: '/logbuch.html' },
+    { label: 'Spieltags-Logbuch', path: '/logbuch.html' },
     { label: 'Ehrenlogbuch', path: '/hall-of-fame.html' },
     { label: 'Bundesliga', path: '/bundesliga.html' },
     { label: 'DFB-Pokal', path: '/dfb-pokal.html' },
@@ -20,7 +20,8 @@
     { label: 'Relegation', path: '/relegation.html' },
     { label: 'Smuggleraufträge', path: '/dynamo-dresden.html' },
     { label: 'Piratenkodex', path: '/piratenkodex.html' },
-    { label: 'Weihnachtsregatta', path: '/weihnachtsregatta.html' }
+    { label: 'Weihnachtsregatta', path: '/weihnachtsregatta.html' },
+    { label: 'Coco – Das Orakel', path: '/coco' }
   ];
 
   const list = document.getElementById('stalk-list');

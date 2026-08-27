@@ -1607,7 +1607,7 @@ function renderCards(cards) {
     const anchor = cocoMatchAnchor(match);
     const returnTarget = `${window.location.pathname}${window.location.search}#${anchor}`;
     link.className = "coco-match-link";
-    link.href = `./coco-test7/?game=${encodeURIComponent(match.id)}&return=${encodeURIComponent(returnTarget)}`;
+    link.href = `./coco/?game=${encodeURIComponent(match.id)}&return=${encodeURIComponent(returnTarget)}`;
     link.textContent = "Coco fragen";
     link.setAttribute("aria-label", `Coco zu ${match.heim} gegen ${match.auswaerts} fragen`);
     return link;
