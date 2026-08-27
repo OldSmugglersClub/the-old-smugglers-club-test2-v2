@@ -998,6 +998,18 @@
       section.appendChild(note); root.appendChild(section); return;
     }
 
+    // Keine scheinbar vollständige CL-Tabelle anzeigen, solange OpenLigaDB
+    // noch nicht alle 36 Teilnehmer über die Ligaphasen-Paarungen geliefert hat.
+    // Die Prüfung läuft bei jedem Laden erneut; ab 36 Teams erscheint die Tabelle automatisch.
+    if (rows.length < 36) {
+      const note = document.createElement("p");
+      note.className = "data-note";
+      note.textContent = `OpenLigaDB hat derzeit ${rows.length} von 36 Teilnehmern in den erfassten Ligaphasen-Paarungen geliefert. Die vollständige Tabelle wird automatisch eingeblendet, sobald alle 36 Vereine vorhanden sind.`;
+      section.appendChild(note);
+      root.appendChild(section);
+      return;
+    }
+
     const wrapper = document.createElement("div"); wrapper.className = "table-scroll";
     const table = document.createElement("table"); table.className = "data-table standings-table";
     table.innerHTML = "<thead><tr><th>Pl.</th><th>Verein</th><th>Sp.</th><th>S</th><th>U</th><th>N</th><th>Tore</th><th>Diff.</th><th>Pkt.</th></tr></thead>";
