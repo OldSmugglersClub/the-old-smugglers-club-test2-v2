@@ -765,6 +765,9 @@
       return a.name.localeCompare(b.name, "de");
     });
 
+    // Ligaphase ist erst vollständig, wenn alle 36 Teams ihre acht Spiele absolviert haben.
+    const complete = rows.length >= 36 && rows.every(team => team.played >= 8);
+
     const section = document.createElement("section");
     section.className = "dynamic-section standings-section";
     const headingRow = document.createElement("div");
