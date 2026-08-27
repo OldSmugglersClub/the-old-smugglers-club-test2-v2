@@ -1568,6 +1568,32 @@
       }
     }
 
+    /* Highscore-Aktionszeile: sauberer Abschluss ohne optische Verlängerung */
+    #highscore .highscore-teaser-action {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: .75rem;
+      width: fit-content;
+      max-width: 100%;
+      margin: 1.35rem 0 0;
+      padding: 0;
+      border: 0;
+    }
+
+    @media (max-width: 700px) {
+      #highscore .highscore-teaser-action {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: .55rem;
+        width: 100%;
+      }
+
+      #highscore .highscore-teaser-action .button {
+        width: 100%;
+      }
+    }
+
     footer {
       border-top: 1px solid var(--line);
       background: rgba(8,5,3,.97);
@@ -2408,7 +2434,7 @@
         font-size: .62rem;
       }
 
-      /* TEST9: Mobile – Ereignisfenster zwischen Chronometer-Stern und unterem Innenrand ausbalancieren. */
+      /* HF23: Mobile – Ereignisfenster zwischen Chronometer-Stern und unterem Innenrand ausbalancieren. */
       .countdown-panel .countdown-message {
         margin-top: .35rem;
       }
@@ -3134,7 +3160,7 @@
     }
 
     .matchday-actions {
-      margin-top: .8rem;
+      margin-top: 1.15rem;
       padding-top: .15rem;
     }
 
@@ -3459,6 +3485,12 @@
       flex: 0 0 auto;
       margin-top: .75rem;
       padding-top: .1rem;
+      border-top: 0;
+    }
+
+    #sm-kicktipp-link {
+      position: relative;
+      top: 3px;
     }
 
     @media (max-width: 820px) {
@@ -5700,7 +5732,7 @@
           <li><a href="#piratenkodex">Gesetz der Freibeuter</a></li>
           <li><a href="#kummerkasten">Kummerkasten</a></li>
           <li><a href="./stalk-o-meter.html">Stalk-O-Meter</a></li>
-          <li><a href="./coco-test7/">Coco</a></li>
+          <li><a href="./coco/">Coco</a></li>
         </ul>
       </nav>
     </div>
@@ -5851,14 +5883,14 @@
 
 <section class="section coco-entry" id="coco-orakel-entry" aria-labelledby="coco-entry-title">
   <div class="coco-entry__portrait" aria-hidden="true">
-    <img src="./coco-test7/coco-reference.png" alt="">
+    <img src="./coco/coco-reference.png" alt="">
   </div>
   <div class="coco-entry__copy">
     <span class="coco-entry__kicker">Coco · Das Orakel</span>
     <h2 id="coco-entry-title">Was sagt der alte Vogel?</h2>
     <p>Wähle eine anstehende Partie und lass Coco seinen Tipp abgeben.</p>
   </div>
-  <a class="button button-primary coco-entry__action" href="./coco-test7/">Coco befragen</a>
+  <a class="button button-primary coco-entry__action" href="./coco/">Coco befragen</a>
 </section>
 
 <section class="section panel highscore-teaser" id="highscore">
@@ -6257,6 +6289,18 @@
       return new Date(countdownRuntime.baseNow + (Date.now() - countdownRuntime.startedAt));
     }
 
+    function formatEventMatchdayLabel(event, fallback = "Nächstes Event") {
+      const name = String(event?.matchdayName || "").trim().replace(/(\d+\.)\s+(Spieltag)/gi, "$1\u00a0$2");
+      const type = String(event?.matchdayType || "").trim().toLowerCase();
+
+      if (type === "bundesliga") {
+        const matchday = name.replace(/^Bundesliga\s*(?:[·\-–—:]\s*)?/i, "").trim();
+        return matchday ? `Bundesliga ${matchday}` : "Bundesliga";
+      }
+
+      return name || event?.wettbewerbAnzeige || event?.wettbewerb || fallback;
+    }
+
     function configureEventCountdown(events, now, locale = "de-DE") {
       countdownRuntime = {
         events: [...events].sort((a, b) => a._start - b._start),
@@ -6310,7 +6354,7 @@
         weekday: "short", day: "2-digit", month: "2-digit", year: "numeric",
         hour: "2-digit", minute: "2-digit"
       }).format(next._start);
-      setCountdownInfo("NÄCHSTES EVENT", next.matchdayName || next.wettbewerbAnzeige || "Nächstes Tippspiel", [
+      setCountdownInfo("NÄCHSTES EVENT", formatEventMatchdayLabel(next, "Nächstes Tippspiel"), [
         dateLabel,
         `${next.heim} ${next.trenner || "–"} ${next.auswaerts}`
       ]);
@@ -6629,7 +6673,7 @@
         const welcomeEvent = state.focus;
         if (welcomeEvent) {
           const missionDate = new Intl.DateTimeFormat(locale, { day: "2-digit", month: "2-digit", year: "numeric" }).format(welcomeEvent._start);
-          setWelcomeMission(welcomeEvent.matchdayName || welcomeEvent.wettbewerbAnzeige || "Nächstes Event", missionDate);
+          setWelcomeMission(formatEventMatchdayLabel(welcomeEvent), missionDate);
         } else {
           setWelcomeMission("Noch kein bestätigter Termin");
         }
@@ -6641,11 +6685,9 @@
         }
 
         const formatMatchdayTitle = event => {
-          const name = String(event?.matchdayName || "").trim().replace(/(\d+\.)\s+(Spieltag)/gi, "$1\u00a0$2");
           const type = String(event?.matchdayType || "").trim().toLowerCase();
-          if (type === "smugglerauftrag") return name || "Smugglerauftrag";
-          if (type === "bundesliga") return name ? `Bundesliga · ${name}` : "Bundesliga";
-          return name || event?.wettbewerbAnzeige || "Nächstes Event";
+          if (type === "smugglerauftrag") return event?.matchdayName || "Smugglerauftrag";
+          return formatEventMatchdayLabel(event);
         };
 
         const focus = state.focus;
@@ -6731,7 +6773,7 @@
             announced.forEach(game=>{
               const row=document.createElement("div"); row.className="sm-event-row"; row.dataset.competition=game.matchdayType||game.wettbewerb||"";
               const time=document.createElement("span"); time.className="sm-event-row__time"; time.textContent="--:--";
-              const competition=document.createElement("span"); competition.className="sm-event-row__competition"; competition.textContent=game.matchdayName||game.wettbewerbAnzeige||game.wettbewerb||"Ereignis";
+              const competition=document.createElement("span"); competition.className="sm-event-row__competition"; competition.textContent=formatEventMatchdayLabel(game, "Ereignis");
               const match=document.createElement("span"); match.className="sm-event-row__match";
 
               const homeWrap=document.createElement("span"); homeWrap.className="sm-event-row__team sm-event-row__team--home";

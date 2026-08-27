@@ -1,9 +1,0 @@
-# DATEILISTE
-## Ersetzen
-- `coco-test7/coco.js`
-## Neu
-- `CHANGELOG_COCO-PHASE3-TEST2.md`
-- `README_COCO-PHASE3-TEST2.md`
-- `DATEILISTE_ERSETZEN_NEU_LOESCHEN_COCO-PHASE3-TEST2.md`
-## Löschen
-- nichts

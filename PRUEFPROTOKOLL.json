@@ -1,6 +1,6 @@
 {
-  "erstelltAm": "2026-08-23T13:17:06.354Z",
-  "generatorVersion": "6.5.0-WB3-HF1-HF1-LF4-HF4-HF6",
+  "erstelltAm": "2026-08-23T14:17:41.394Z",
+  "generatorVersion": "6.5.0-HF2",
   "auftrag": {
     "fachlicheId": "2026-27__smugglerauftrag__2-spieltag__sma-2026-27-02-013",
     "wertung": "smugglerauftrag",
@@ -18,7 +18,7 @@
   "verborgeneTipps": 0,
   "unbekannteTeilnehmer": 0,
   "doppelteTeilnehmer": 0,
-  "modus": "test",
+  "modus": "produktiv",
   "vergebenePunkte": 248,
   "produktiveAuftraege": 2,
   "uploadDateien": [
@@ -54,7 +54,7 @@
   "importmodell": {
     "schemaVersion": 1,
     "source": "Kicktipp",
-    "createdAt": "2026-08-23T13:17:06.360Z",
+    "createdAt": "2026-08-23T14:17:41.400Z",
     "assignment": {
       "competitionId": "dynamo-dresden",
       "valuationId": "smugglerauftrag",
@@ -65,10 +65,10 @@
     },
     "files": {
       "history": {
-        "name": "the-old-smugglers-club-main.zip",
-        "parsedName": "the-old-smugglers-club-main.zip",
+        "name": "the-old-smugglers-club-main (1).zip",
+        "parsedName": "the-old-smugglers-club-main (1).zip",
         "complete": true,
-        "participants": 1
+        "participants": 2
       },
       "tips": {
         "name": "kicktipp-the-old-smugglers-club-Tipps-Smugglerauftrag Goldrausch-2026-08-16-14-45-12-+0000-7731815667722554568.csv.zip",
@@ -3976,8 +3976,11 @@
   },
   "hallOfFame": {
     "status": "laufend",
-    "gueltig": true,
-    "hinweise": [],
+    "gueltig": false,
+    "hinweise": [
+      "Rekord Gesamtpunkte: 6 gleichrangige Bestwerte (7); keine automatische Ersetzung.",
+      "Rekord Exakte Tipps: 8 gleichrangige Bestwerte (1); keine automatische Ersetzung."
+    ],
     "entscheidungen": [],
     "bestandsschutz": true,
     "websiteFeldzuordnung": true,
