@@ -5289,6 +5289,16 @@
       font-weight: 900;
     }
 
+    /* TEST2-v3: Originalwappen ohne Schmugglersiegel-Dekoration in der Spieltags-Kachel */
+    .sm-team__seal[data-badge-source="original"],
+    .sm-event-row__seal[data-badge-source="original"] {
+      overflow: visible;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
     .sm-event-row__seal img,
     .sm-event-row__seal svg {
       display: block;
@@ -5408,7 +5418,7 @@
 
   </style>
   <link rel="stylesheet" href="./highscore.css?v=4.0.1">
-  <link rel="stylesheet" href="./logbuch.css?v=4.9.2-HF10-TEST5">
+  <link rel="stylesheet" href="./logbuch.css?v=4.9.2-HF10">
   <link rel="stylesheet" href="./accessibility-v33.css">
   <style id="welcome-cleanup-v434">
     /* Version 4.4.14: Startzentrale vollständig deckend halten und alle alten Dekore abschalten.
@@ -5494,7 +5504,7 @@
     }
 
 
-    /* COCO-INTEGRATION-TEST1 – schmaler Einstieg, bestehendes Grid unverändert */
+    /* 4.9.2-HF11 – Coco-Orakel: schmaler Einstieg, bestehendes Grid unverändert */
     .coco-entry {
       position: relative;
       overflow: hidden;
@@ -5528,7 +5538,7 @@
     }
 
 
-    /* COCO-MENU-TEST1 – zusätzlicher letzter Menüpunkt; bestehende Reihenfolge unverändert */
+    /* 4.9.2-HF11-HF2 – abgenommener Coco-Menüpunkt */
     @media (min-width: 721px) {
       #navigation > ul > li > a {
         font-size: .88rem;
@@ -5684,7 +5694,7 @@
           <li><a href="#piratenkodex">Gesetz der Freibeuter</a></li>
           <li><a href="#kummerkasten">Kummerkasten</a></li>
           <li><a href="./stalk-o-meter.html">Stalk-O-Meter</a></li>
-          <li><a href="./coco-test7/">Coco</a></li>
+          <li><a href="./coco/">Coco</a></li>
         </ul>
       </nav>
     </div>
@@ -5835,14 +5845,14 @@
 
 <section class="section coco-entry" id="coco-orakel-entry" aria-labelledby="coco-entry-title">
   <div class="coco-entry__portrait" aria-hidden="true">
-    <img src="./coco-test7/coco-reference.png" alt="">
+    <img src="./coco/coco-reference.png" alt="">
   </div>
   <div class="coco-entry__copy">
     <span class="coco-entry__kicker">Coco · Das Orakel</span>
     <h2 id="coco-entry-title">Was sagt der alte Vogel?</h2>
     <p>Wähle eine anstehende Partie und lass Coco seinen Tipp abgeben.</p>
   </div>
-  <a class="button button-primary coco-entry__action" href="./coco-test7/">Coco befragen</a>
+  <a class="button button-primary coco-entry__action" href="./coco/">Coco befragen</a>
 </section>
 
 <section class="section panel highscore-teaser" id="highscore">
@@ -6945,7 +6955,7 @@
   </script>
 
   <script src="./highscore-teaser.js?v=4.9.2-HF9" defer></script>
-  <script src="./logbuch.js?v=4.9.2-HF10-TEST5" defer></script>
+  <script src="./logbuch.js?v=4.9.2-HF10" defer></script>
   <script src="performance-v247.js" defer></script>
   <script src="./accessibility-v33.js" defer></script>
   <script>
