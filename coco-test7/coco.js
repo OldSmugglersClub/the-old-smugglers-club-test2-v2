@@ -17,7 +17,7 @@
     bindEls();
     bindEvents();
     try {
-      const [schedule, teamData] = await Promise.all([fetchJson(DATA_PATH), fetchJson(TEAMS_PATH)]);
+      const [schedule, teamData] = await Promise.all([fetchJson(DATA_PATH), fetchJson(TEAMS_PATH), window.OSCTeamBadge?.load?.()]);
       const season = (schedule.saisons || []).find(s => s.id === schedule.aktiveSaison) || (schedule.saisons || [])[0];
       games = (season?.spiele || []).filter(hasRealTeams);
       teams = new Map((teamData.teams || []).map(team => [team.id, team]));
@@ -210,6 +210,17 @@
   }
 
   function setLogo(img, id) {
+    if (window.OSCTeamBadge) {
+      img.hidden = false;
+      const holder = document.createElement('span');
+      holder.className = 'coco-team-badge';
+      holder.setAttribute('role', 'img');
+      img.replaceWith(holder);
+      if (img === els.homeLogo) els.homeLogo = holder;
+      if (img === els.awayLogo) els.awayLogo = holder;
+      window.OSCTeamBadge.render(holder, id, teamName(id), { ariaLabel: `Vereinswappen ${teamName(id)}` });
+      return;
+    }
     const src = teamLogo(id);
     img.src = src;
     img.alt = teamName(id);
