@@ -536,7 +536,7 @@
     return wrap;
   }
 
-  const OPENLIGADB_CL_MATCHES_PROTOTYPE_URL = "https://api.openligadb.de/getmatchdata/ucl/2026";
+  const OPENLIGADB_CL_MATCHES_PROTOTYPE_URL = "https://api.openligadb.de/getmatchdata/ucl2026/2026";
   const OPENLIGADB_EL_MATCHES_PROTOTYPE_URL = "https://api.openligadb.de/getmatchdata/uel/2026";
   const EUROPA_LEAGUE_FALLBACK_PROTOTYPE_URL = "./europa-league-ko-2026.json";
   const OPENLIGADB_DFB_PROTOTYPE_URL = "https://api.openligadb.de/getmatchdata/dfb/2026";
