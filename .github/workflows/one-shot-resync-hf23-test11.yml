@@ -36,6 +36,7 @@ jobs:
 
           python3 - <<'PY'
           from pathlib import Path
+          import re
 
           version = '4.9.2-HF12-HF23-TEST11'
 
@@ -57,7 +58,6 @@ jobs:
 
           page = Path('champions-league.html')
           html = page.read_text(encoding='utf-8')
-          import re
           html, count = re.subn(r'(<script src="\./wettbewerb\.js\?v=)[^"]+(" defer></script>)', rf'\g<1>{version}\2', html, count=1)
           if count != 1:
               raise SystemExit('Champions League cache-buster anchor not found')
@@ -65,11 +65,11 @@ jobs:
 
           Path('VERSION.txt').write_text(f'Website {version}\n', encoding='utf-8')
 
-          Path(f'CHANGELOG_{version}.md').write_text(f'''# CHANGELOG – Website {version}\n\n## Basis\n- Vollständiger Projektstand der freigegebenen Live-Version `4.9.2-HF12-HF23`.\n- Test2-v2-Saison- und Wertungsdaten wurden durch den Live-Stand ersetzt.\n\n## Champions League – TEST11\n- TEST10 bleibt erhalten: Ligaphase gilt erst als vollständig, wenn mindestens 36 Teams vorhanden sind und jedes Team acht Spiele absolviert hat.\n- TEST11 bleibt erhalten: OpenLigaDB-Quelle `ucl2026/2026`.\n- Cache-Buster der Champions-League-Seite auf `{version}` gesetzt.\n\n## Unverändert\n- Keine Änderung an Grid, Kachelgrößen, Navigation oder Grundlayout.\n- Keine Änderung am Admin oder an der Kicktipp-Auswertung gegenüber Live HF23.\n- Kein automatischer CL-Import in `spieldaten.json`.\n''', encoding='utf-8')
+          Path(f'CHANGELOG_{version}.md').write_text(f'''# CHANGELOG – Website {version}\n\n## Basis\n- Vollständiger Projektstand der freigegebenen Live-Version `4.9.2-HF12-HF23`.\n- Gemeinsame Test2-v2-Projektdateien einschließlich Saison- und Wertungsdaten wurden auf den Live-HF23-Stand zurückgeführt.\n\n## Champions League – TEST11\n- TEST10 bleibt erhalten: Die Ligaphase gilt erst als vollständig, wenn mindestens 36 Teams vorhanden sind und jedes Team acht Spiele absolviert hat.\n- TEST11 bleibt erhalten: OpenLigaDB-Quelle `ucl2026/2026`.\n- Cache-Buster der Champions-League-Seite auf `{version}` gesetzt.\n\n## Unverändert\n- Keine Änderung an Grid, Kachelgrößen, Navigation oder Grundlayout.\n- Keine Änderung am Admin oder an der Kicktipp-Auswertung gegenüber Live HF23.\n- Kein automatischer CL-Import in `spieldaten.json`.\n''', encoding='utf-8')
 
-          Path(f'README_{version}.md').write_text(f'''# Website {version}\n\nBereinigter Test2-v2-Stand für den ersten echten Bundesliga-Teilabschluss.\n\n## Grundlage\n- Funktionaler und saisonaler Datenstand: Live `4.9.2-HF12-HF23`.\n- Einzige darüberliegende funktionale Teständerung: Champions-League-TEST11 einschließlich der TEST10-Tabellenkorrektur.\n\n## Installation\n- `full.zip`: vollständige Neuablage dieses Teststands.\n- `update.zip`: Overlay gegenüber Live `4.9.2-HF12-HF23`.\n\n## Pflichtprüfung\n1. Bundesliga-Seite und Startseite laden.\n2. Admin-Import vor dem Teilabschluss nur mit echten Kicktipp-Daten durchführen.\n3. 1/9-Teilabschluss kontrollieren: Highscore, Ranglistenverlauf, Teamwertung, Tippverteilung und Logbuch.\n4. Champions-League-Seite separat auf OpenLigaDB-Daten und JavaScript-Fehler prüfen.\n''', encoding='utf-8')
+          Path(f'README_{version}.md').write_text(f'''# Website {version}\n\nBereinigter Test2-v2-Stand für den ersten echten Bundesliga-Teilabschluss.\n\n## Grundlage\n- Funktionaler und saisonaler Datenstand: Live `4.9.2-HF12-HF23`.\n- Einzige darüberliegende funktionale Teständerung: Champions-League-TEST11 einschließlich der TEST10-Tabellenkorrektur.\n\n## Pakete\n- `update.zip`: Overlay gegenüber Live `4.9.2-HF12-HF23`.\n- `full.zip`: vollständige Neuablage dieses Teststands.\n- Beide ZIPs werden durch den Build als GitHub-Actions-Artefakte erzeugt; `full.zip` wird wegen der GitHub-Einzeldateigrenze nicht ins Repository committed.\n\n## Pflichtprüfung\n1. Bundesliga-Seite und Startseite laden.\n2. Admin-Import vor dem Teilabschluss nur mit echten Kicktipp-Daten durchführen.\n3. 1/9-Teilabschluss kontrollieren: Highscore, Ranglistenverlauf, Teamwertung, Tippverteilung und Logbuch.\n4. Champions-League-Seite separat auf OpenLigaDB-Daten und JavaScript-Fehler prüfen.\n''', encoding='utf-8')
 
-          Path(f'DATEILISTE_ERSETZEN_NEU_LOESCHEN_{version}.md').write_text(f'''# Ersetzen / Neu / Löschen – {version}\n\n## ERSETZEN gegenüber Live 4.9.2-HF12-HF23\n- `wettbewerb.js`\n- `champions-league.html`\n- `VERSION.txt`\n\n## NEU\n- `CHANGELOG_{version}.md`\n- `README_{version}.md`\n- `DATEILISTE_ERSETZEN_NEU_LOESCHEN_{version}.md`\n- `packages/{version}/update.zip`\n- `packages/{version}/full.zip`\n\n## LÖSCHEN\n- Keine Projektdateien.\n\nHinweis: Beim Bereinigen des Test-Repositories werden gemeinsame Projektdateien auf den aktuellen Live-HF23-Stand zurückgeführt. Historische TEST-Dokumentation bleibt als Archiv erhalten.\n''', encoding='utf-8')
+          Path(f'DATEILISTE_ERSETZEN_NEU_LOESCHEN_{version}.md').write_text(f'''# Ersetzen / Neu / Löschen – {version}\n\n## ERSETZEN gegenüber Live 4.9.2-HF12-HF23\n- `wettbewerb.js`\n- `champions-league.html`\n- `VERSION.txt`\n\n## NEU\n- `CHANGELOG_{version}.md`\n- `README_{version}.md`\n- `DATEILISTE_ERSETZEN_NEU_LOESCHEN_{version}.md`\n- Build-Artefakt `update.zip`\n- Build-Artefakt `full.zip`\n\n## LÖSCHEN\n- Keine Projektdateien.\n\nHinweis: Beim Bereinigen des Test-Repositories werden gemeinsame Projektdateien auf den aktuellen Live-HF23-Stand zurückgeführt. Historische TEST-Dokumentation bleibt als Archiv erhalten.\n''', encoding='utf-8')
           PY
 
       - name: Build update and full packages
@@ -78,17 +78,15 @@ jobs:
           set -euo pipefail
           cd work
           VERSION='4.9.2-HF12-HF23-TEST11'
-          PKG="packages/$VERSION"
-          rm -rf "$PKG"
-          mkdir -p "$PKG/update"
-          cp wettbewerb.js champions-league.html VERSION.txt "$PKG/update/"
-          cp "CHANGELOG_$VERSION.md" "README_$VERSION.md" "DATEILISTE_ERSETZEN_NEU_LOESCHEN_$VERSION.md" "$PKG/update/"
-          (cd "$PKG/update" && zip -qr ../update.zip .)
-          rm -rf "$PKG/update"
+          rm -rf /tmp/tosmc-packages /tmp/tosmc-full
+          mkdir -p /tmp/tosmc-packages/update
+          cp wettbewerb.js champions-league.html VERSION.txt /tmp/tosmc-packages/update/
+          cp "CHANGELOG_$VERSION.md" "README_$VERSION.md" "DATEILISTE_ERSETZEN_NEU_LOESCHEN_$VERSION.md" /tmp/tosmc-packages/update/
+          (cd /tmp/tosmc-packages/update && zip -qr ../update.zip .)
 
           mkdir -p /tmp/tosmc-full
-          rsync -a --exclude='.git/' --exclude='packages/' --exclude='.github/workflows/one-shot-resync-hf23-test11.yml' ./ /tmp/tosmc-full/
-          (cd /tmp/tosmc-full && zip -qr "$GITHUB_WORKSPACE/work/$PKG/full.zip" .)
+          rsync -a --exclude='.git/' --exclude='.github/workflows/one-shot-resync-hf23-test11.yml' ./ /tmp/tosmc-full/
+          (cd /tmp/tosmc-full && zip -qr /tmp/tosmc-packages/full.zip .)
 
       - name: Commit synchronized Test2-v2 branch
         shell: bash
@@ -98,5 +96,19 @@ jobs:
           git config user.name 'OldSmugglersClub'
           git config user.email 'captain@the-old-smugglers-club.de'
           git add -A
-          git commit -m 'Test2-v2: resync to HF23 plus approved TEST11' || exit 0
+          git commit -m 'Test2-v2: resync to HF23 plus approved TEST11' || true
           git push origin HEAD:resync-hf23-test11
+
+      - name: Upload update package
+        uses: actions/upload-artifact@v4
+        with:
+          name: TOSMC-4.9.2-HF12-HF23-TEST11-Update
+          path: /tmp/tosmc-packages/update.zip
+          compression-level: 0
+
+      - name: Upload full package
+        uses: actions/upload-artifact@v4
+        with:
+          name: TOSMC-4.9.2-HF12-HF23-TEST11-Full
+          path: /tmp/tosmc-packages/full.zip
+          compression-level: 0
