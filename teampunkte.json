@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
-  "datenVersion": 3,
+  "datenVersion": 4,
   "aktualisiert": "2026-08-23",
   "saison": "2026-27",
   "hinweis": "Teamdurchschnitt als arithmetisches Mittel aller aktiven Teammitglieder; echte Nichtabgabe zählt mit 0 Punkten.",
-  "berechnetAm": "2026-08-23T13:17:06.354Z",
-  "quelle": "Kicktipp-Einzelranglisten + Tipper-Gruppen / Admin 6.5.0-WB3-HF1-HF1-LF4-HF4-HF6",
+  "berechnetAm": "2026-08-23T14:17:41.394Z",
+  "quelle": "Kicktipp-Einzelranglisten + Tipper-Gruppen / Admin 6.5.0-HF2",
   "gesamt": [
     {
       "platz": 1,
