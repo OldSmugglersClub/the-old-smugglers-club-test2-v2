@@ -78,11 +78,9 @@
    „Datenschutzerklärung“ vollständig im bestehenden Kasten bleiben.
    Keine Worttrennung, kein Desktop-Eingriff. */
 
-/* 4.9.2-HF10-TEST6: Besucherfehler Mobile Footer.
-   Nur mobil: untere goldene Abschlusslinie der Footer-Kachel wiederherstellen.
-   Desktop bleibt unverändert. */
-@media (max-width: 850px) {
-  .legal-footer {
-    border-bottom: 1px solid rgba(219,169,66,.66);
+/* 4.9.2-HF10-TEST7: Mobile Footer-Kacheln unten wieder geschlossen. */
+@media (max-width: 620px) {
+  .legal-footer a {
+    border-bottom-color: rgba(196,151,71,.65);
   }
 }
