@@ -154,6 +154,7 @@
       </a>
       <div class="actions">
         <a class="action" href="./index.html">Zur Clubseite</a>
+        <a class="action" href="./kicktipp.html?path=/tippuebersicht" aria-label="Kicktipp Live Action öffnen">Kicktipp Live Action</a>
         <a class="action" href="https://www.kicktipp.de/the-old-smugglers-club/" target="_blank" rel="noopener noreferrer">Kicktipp direkt</a>
       </div>
     </div>
@@ -195,7 +196,14 @@
               }
               if (window.kicktipp) {
                 window.kicktipp.click = function () {};
-                window.kicktipp.onPageChanged = function () {};
+                window.kicktipp.onPageChanged = function (path) {
+                  try {
+                    var u = new URL(window.location.href);
+                    if (path) u.searchParams.set('path', path);
+                    else u.searchParams.delete('path');
+                    window.history.replaceState(null, '', u.pathname + u.search);
+                  } catch (e) {}
+                };
               }
             } catch (e) {
               // Die Einbettung ist optional. Fehler dürfen die TOSMC-Seite nicht beeinflussen.
