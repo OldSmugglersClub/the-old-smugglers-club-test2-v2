@@ -1,0 +1,14 @@
+# Ersetzen / Neu / Löschen – 4.9.2-HF12-HF26-TEST19-HF2
+
+## ERSETZEN
+- `outro.js`
+- `outro.css`
+- `VERSION.txt`
+
+## NEU
+- `CHANGELOG_4.9.2-HF12-HF26-TEST19-HF2.md`
+- `README_4.9.2-HF12-HF26-TEST19-HF2.md`
+- `DATEILISTE_ERSETZEN_NEU_LOESCHEN_4.9.2-HF12-HF26-TEST19-HF2.md`
+
+## LÖSCHEN
+- nichts
