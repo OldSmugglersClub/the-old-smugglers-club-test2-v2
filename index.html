@@ -1614,18 +1614,18 @@
       color: var(--gold-light);
     }
 
+    /* TEST17 – interaktives Schiffbruch-Intro. Nur Intro-Komponente; Grundlayout unverändert. */
     .welcome {
       position: fixed;
       inset: 0;
       z-index: 5000;
-      display: grid;
-      place-items: center;
-      background:
-        radial-gradient(circle, rgba(89,53,18,.20), transparent 35%),
-        rgba(4,3,2,.97);
+      overflow: hidden;
+      background: #020304;
       opacity: 1;
       visibility: visible;
-      transition: opacity .65s ease, visibility .65s ease;
+      transition: opacity .72s ease, visibility .72s ease;
+      cursor: pointer;
+      touch-action: manipulation;
     }
 
     .welcome.hidden {
@@ -1634,17 +1634,123 @@
       pointer-events: none;
     }
 
-    .welcome-box {
-      text-align: center;
-      padding: 2rem;
+    .welcome-scene {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(180deg, rgba(0,0,0,.04), rgba(0,0,0,.16) 58%, rgba(0,0,0,.62)),
+        url("./assets/intro/shipwreck-intro.jpg");
+      background-size: cover;
+      background-position: 30% center;
+      transform: scale(1.03);
+      filter: saturate(.86) contrast(1.08) brightness(.82);
+      transition: background-position 2.5s cubic-bezier(.2,.72,.2,1), transform 2.5s cubic-bezier(.2,.72,.2,1), filter 2.2s ease;
+      animation: introSeaDrift 5.6s ease-in-out infinite alternate;
     }
 
-    .welcome-box img {
-      width: min(240px, 55vw);
-      margin: 0 auto 1rem;
-      border-radius: 50%;
-      border: 2px solid var(--gold);
-      box-shadow: 0 0 40px rgba(213,161,59,.25);
+    .welcome::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,.46) 100%),
+        linear-gradient(180deg, rgba(0,0,0,.16), transparent 45%, rgba(0,0,0,.34));
+      transition: opacity .9s ease;
+    }
+
+    .welcome::after {
+      content: "";
+      position: absolute;
+      left: -12%;
+      right: -12%;
+      bottom: -9vh;
+      z-index: 3;
+      height: 30vh;
+      pointer-events: none;
+      opacity: .33;
+      background:
+        repeating-radial-gradient(ellipse at 50% 110%, rgba(225,239,244,.18) 0 1px, transparent 2px 20px),
+        linear-gradient(180deg, transparent, rgba(3,8,12,.72));
+      transform: rotate(-1deg);
+      animation: introWaves 2.9s ease-in-out infinite alternate;
+    }
+
+    .welcome-copy {
+      position: absolute;
+      z-index: 5;
+      left: 50%;
+      bottom: clamp(1.4rem, 5vh, 3.2rem);
+      width: min(92vw, 680px);
+      transform: translateX(-50%);
+      text-align: center;
+      color: #f2d27e;
+      text-shadow: 0 2px 8px #000, 0 0 22px rgba(0,0,0,.88);
+      transition: opacity .45s ease, transform .45s ease;
+    }
+
+    .welcome-copy strong {
+      display: block;
+      font-size: clamp(1.05rem, 2.1vw, 1.45rem);
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .welcome-copy span {
+      display: block;
+      margin-top: .35rem;
+      color: #e8d9b8;
+      font-size: clamp(.88rem, 1.7vw, 1.03rem);
+    }
+
+    .welcome-coco {
+      position: absolute;
+      z-index: 4;
+      top: 7vh;
+      right: 6vw;
+      width: clamp(118px, 15vw, 230px);
+      opacity: 0;
+      transform: translate(30px,-18px) rotate(-4deg) scale(.92);
+      filter: drop-shadow(0 14px 20px rgba(0,0,0,.52));
+      transition: opacity .55s ease, transform .8s cubic-bezier(.2,.75,.2,1);
+      pointer-events: none;
+    }
+
+    .welcome.is-leaving { cursor: default; }
+    .welcome.is-leaving .welcome-copy { opacity: 0; transform: translate(-50%, 18px); }
+    .welcome.is-leaving .welcome-scene {
+      background-position: 72% center;
+      transform: scale(1.11);
+      filter: saturate(.92) contrast(1.08) brightness(.68);
+      animation: none;
+    }
+    .welcome.is-island .welcome-coco {
+      opacity: .94;
+      transform: translate(0,0) rotate(-2deg) scale(1);
+    }
+    .welcome.is-fading::before { opacity: .96; }
+
+    @keyframes introSeaDrift {
+      from { transform: scale(1.03) translate3d(-.35%,0,0) rotate(-.08deg); }
+      to   { transform: scale(1.045) translate3d(.35%,-.2%,0) rotate(.08deg); }
+    }
+
+    @keyframes introWaves {
+      from { transform: translateX(-1.2%) rotate(-1deg); opacity: .24; }
+      to   { transform: translateX(1.2%) rotate(.6deg); opacity: .39; }
+    }
+
+    @media (max-width: 700px) {
+      .welcome-scene { background-position: 26% center; }
+      .welcome.is-leaving .welcome-scene { background-position: 70% center; }
+      .welcome-coco { top: 9vh; right: 2vw; width: clamp(96px, 28vw, 150px); }
+      .welcome-copy { bottom: max(1.2rem, env(safe-area-inset-bottom)); padding: 0 .75rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .welcome-scene, .welcome::after { animation: none; }
+      .welcome-scene { transition-duration: .45s; }
     }
 
     @media (max-width: 900px) {
@@ -5695,11 +5801,12 @@
     </defs>
   </svg>
 
-  <div class="welcome" id="welcome" aria-hidden="true">
-    <div class="welcome-box">
-      <img src="./logo.jpeg" alt="" decoding="async">
-      <h2>Willkommen an Bord</h2>
-      <p>Die Schatzkammer des Old Smugglers Club wird geöffnet …</p>
+  <div class="welcome" id="welcome" role="button" tabindex="0" aria-label="Vom Rettungsboot an Land gehen">
+    <div class="welcome-scene" aria-hidden="true"></div>
+    <img class="welcome-coco" src="./assets/logbuch/coco-logbuch.png" alt="" aria-hidden="true" decoding="async">
+    <div class="welcome-copy" aria-hidden="true">
+      <strong>Das Boot hält nicht mehr lange.</strong>
+      <span>Tippe auf das Rettungsboot und bring dich an Land.</span>
     </div>
   </div>
 
@@ -6964,11 +7071,116 @@
 
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        document.getElementById("welcome").classList.add("hidden");
-      }, 1100);
-    });
+    // TEST17 – Schiffbruch-Intro mit Audio erst nach realer Nutzerinteraktion.
+    (function initShipwreckIntro() {
+      const intro = document.getElementById("welcome");
+      if (!intro) return;
+
+      let started = false;
+      let audioContext = null;
+
+      function makeNoiseBuffer(ctx, seconds) {
+        const length = Math.max(1, Math.floor(ctx.sampleRate * seconds));
+        const buffer = ctx.createBuffer(1, length, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < length; i += 1) {
+          const fade = 1 - (i / length);
+          data[i] = (Math.random() * 2 - 1) * fade;
+        }
+        return buffer;
+      }
+
+      function gainRamp(gainNode, start, peak, end, t0, t1, t2) {
+        const g = gainNode.gain;
+        g.cancelScheduledValues(t0);
+        g.setValueAtTime(Math.max(.0001, start), t0);
+        g.exponentialRampToValueAtTime(Math.max(.0001, peak), t1);
+        g.exponentialRampToValueAtTime(Math.max(.0001, end), t2);
+      }
+
+      function playShipwreckAudio() {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        try {
+          audioContext = audioContext || new AudioCtx();
+          const ctx = audioContext;
+          if (ctx.state === "suspended") ctx.resume();
+          const now = ctx.currentTime + .02;
+          const master = ctx.createGain();
+          master.gain.setValueAtTime(.68, now);
+          master.connect(ctx.destination);
+
+          // Holz/Schiff: dunkles gefiltertes Knarren und Wasserrauschen.
+          const wood = ctx.createBufferSource();
+          wood.buffer = makeNoiseBuffer(ctx, 1.25);
+          const woodFilter = ctx.createBiquadFilter();
+          woodFilter.type = "bandpass"; woodFilter.frequency.value = 310; woodFilter.Q.value = 2.6;
+          const woodGain = ctx.createGain();
+          gainRamp(woodGain, .0001, .16, .0001, now, now + .08, now + 1.15);
+          wood.connect(woodFilter).connect(woodGain).connect(master); wood.start(now);
+
+          // Tiefer Whoosh.
+          const whoosh = ctx.createBufferSource();
+          whoosh.buffer = makeNoiseBuffer(ctx, 1.2);
+          const whooshFilter = ctx.createBiquadFilter();
+          whooshFilter.type = "lowpass";
+          whooshFilter.frequency.setValueAtTime(180, now + .35);
+          whooshFilter.frequency.exponentialRampToValueAtTime(1500, now + 1.05);
+          const whooshGain = ctx.createGain();
+          gainRamp(whooshGain, .0001, .22, .0001, now + .3, now + .95, now + 1.35);
+          whoosh.connect(whooshFilter).connect(whooshGain).connect(master); whoosh.start(now + .3);
+
+          // Cinematic Impact + Subbass.
+          const impact = ctx.createOscillator(); impact.type = "sine";
+          impact.frequency.setValueAtTime(72, now + 1.1);
+          impact.frequency.exponentialRampToValueAtTime(38, now + 2.1);
+          const impactGain = ctx.createGain();
+          gainRamp(impactGain, .0001, .58, .0001, now + 1.08, now + 1.12, now + 2.2);
+          impact.connect(impactGain).connect(master); impact.start(now + 1.08); impact.stop(now + 2.25);
+
+          const hit = ctx.createBufferSource(); hit.buffer = makeNoiseBuffer(ctx, .48);
+          const hitFilter = ctx.createBiquadFilter(); hitFilter.type = "lowpass"; hitFilter.frequency.value = 900;
+          const hitGain = ctx.createGain(); gainRamp(hitGain, .0001, .34, .0001, now + 1.08, now + 1.1, now + 1.52);
+          hit.connect(hitFilter).connect(hitGain).connect(master); hit.start(now + 1.08);
+
+          // Coco: kurzer, zweistufiger Ruf – bewusst als Akzent, nicht als Dauersound.
+          [0, .17].forEach((offset, index) => {
+            const bird = ctx.createOscillator();
+            bird.type = index ? "triangle" : "sawtooth";
+            bird.frequency.setValueAtTime(index ? 980 : 760, now + 3.05 + offset);
+            bird.frequency.exponentialRampToValueAtTime(index ? 1450 : 1180, now + 3.12 + offset);
+            bird.frequency.exponentialRampToValueAtTime(index ? 690 : 610, now + 3.28 + offset);
+            const birdGain = ctx.createGain();
+            gainRamp(birdGain, .0001, index ? .065 : .08, .0001, now + 3.04 + offset, now + 3.10 + offset, now + 3.32 + offset);
+            bird.connect(birdGain).connect(master); bird.start(now + 3.04 + offset); bird.stop(now + 3.36 + offset);
+          });
+        } catch (error) {
+          console.warn("Intro-Audio konnte nicht gestartet werden:", error);
+        }
+      }
+
+      function leaveBoat() {
+        if (started) return;
+        started = true;
+        intro.classList.add("is-leaving");
+        intro.setAttribute("aria-disabled", "true");
+        playShipwreckAudio();
+        window.setTimeout(() => intro.classList.add("is-island"), 2250);
+        window.setTimeout(() => intro.classList.add("is-fading"), 4050);
+        window.setTimeout(() => {
+          intro.classList.add("hidden");
+          intro.setAttribute("aria-hidden", "true");
+        }, 4850);
+      }
+
+      intro.addEventListener("click", leaveBoat);
+      intro.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          leaveBoat();
+        }
+      });
+    })();
   </script>
 
   <script>
