@@ -5587,6 +5587,7 @@
 
 </style>
   <link rel="stylesheet" href="./legal.css">
+  <link rel="stylesheet" href="./outro.css">
   <script src="./hall-of-fame-runtime.js"></script>
   <script src="./highscore-data-adapter.js"></script>
 </head>
@@ -5733,10 +5734,35 @@
           <li><a href="#kummerkasten">Kummerkasten</a></li>
           <li><a href="./stalk-o-meter.html">Stalk-O-Meter</a></li>
           <li><a href="./coco/">Coco</a></li>
+          <li><a href="#landgang" id="landgang-link">Landgang</a></li>
         </ul>
       </nav>
     </div>
   </div>
+
+  <section class="outro-layer" id="outro-layer" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Landgang">
+    <div class="outro-scene" aria-hidden="true">
+      <p class="outro-title">Zeit für den Landgang</p>
+      <div class="outro-haze"></div>
+      <div class="treasure-chest">
+        <div class="treasure-bed"></div>
+        <span class="coin c1"></span>
+        <span class="coin c2"></span>
+        <span class="coin c3"></span>
+        <span class="coin c4"></span>
+        <span class="coin c5"></span>
+        <div class="chest-lid"></div>
+        <div class="chest-body"></div>
+        <div class="chest-impact"></div>
+      </div>
+    </div>
+    <div class="outro-fallback">
+      <div class="outro-fallback__inner">
+        <h2>Der Landgang ist beendet.</h2>
+        <p>Du kannst diesen Tab jetzt schließen.</p>
+      </div>
+    </div>
+  </section>
 
   <main>
     <section class="hero-grid">
@@ -6247,6 +6273,7 @@
     </div>
   </footer>
 
+  <script src="./outro.js"></script>
   <script src="./datenregister.js"></script>
   <script src="./datenmodell.js"></script>
   <script src="./team-badge.js"></script>

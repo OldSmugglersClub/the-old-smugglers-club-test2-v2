@@ -1,0 +1,342 @@
+/* TOSMC 4.9.2-HF12-HF26-TEST19 — separates Landgang outro module from site layout. */
+body.is-outro-active {
+  overflow: hidden;
+}
+
+.outro-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: grid;
+  place-items: center;
+  padding: clamp(18px, 4vw, 48px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 68%, rgba(121, 74, 16, .18), transparent 28%),
+    radial-gradient(circle at 50% 45%, rgba(52, 32, 13, .28), transparent 42%),
+    linear-gradient(180deg, #080705 0%, #020202 72%, #000 100%);
+  transition: opacity 180ms ease, visibility 0s linear 180ms;
+}
+
+.outro-layer.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 180ms ease;
+}
+
+.outro-layer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .55;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.012) 0 1px, transparent 1px 9px),
+    radial-gradient(ellipse at 50% 84%, rgba(221, 161, 45, .14), transparent 24%);
+  pointer-events: none;
+}
+
+.outro-scene {
+  position: relative;
+  width: min(780px, 94vw);
+  height: min(610px, 78vh);
+  display: grid;
+  place-items: end center;
+  perspective: 1200px;
+  transform: translateY(10px) scale(.985);
+  opacity: 0;
+  transition: opacity 180ms ease, transform 320ms cubic-bezier(.2,.8,.2,1);
+}
+
+.outro-layer.is-active .outro-scene {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.outro-haze {
+  position: absolute;
+  left: 50%;
+  bottom: 16%;
+  width: min(700px, 96vw);
+  height: 42%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(218, 157, 54, .11), transparent 68%);
+  filter: blur(16px);
+  pointer-events: none;
+}
+
+.treasure-chest {
+  --chest-w: min(560px, 82vw);
+  position: relative;
+  width: var(--chest-w);
+  height: calc(var(--chest-w) * .64);
+  filter: drop-shadow(0 32px 28px rgba(0,0,0,.72));
+  transform-style: preserve-3d;
+}
+
+.chest-body,
+.chest-lid {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  border: 2px solid #6f4519;
+  background:
+    linear-gradient(90deg, transparent 0 16%, rgba(13,7,3,.28) 16% 18%, transparent 18% 49%, rgba(13,7,3,.3) 49% 51%, transparent 51% 82%, rgba(13,7,3,.26) 82% 84%, transparent 84%),
+    repeating-linear-gradient(0deg, rgba(255,232,168,.025) 0 3px, rgba(25,12,3,.05) 3px 7px),
+    linear-gradient(90deg, #3b1d08, #7a4216 17%, #a15c22 39%, #65320f 65%, #321705);
+  box-shadow:
+    inset 0 0 0 4px rgba(23,10,3,.5),
+    inset 0 18px 28px rgba(255,186,69,.06),
+    inset 0 -20px 30px rgba(0,0,0,.46);
+}
+
+.chest-body {
+  bottom: 0;
+  height: 49%;
+  border-radius: 7px 7px 18px 18px;
+  overflow: hidden;
+}
+
+.chest-body::before,
+.chest-lid::before {
+  content: "";
+  position: absolute;
+  inset: 7% -2.5%;
+  border-top: 10px solid #6b491d;
+  border-bottom: 10px solid #3d260e;
+  box-shadow: 0 2px 0 #ba8934, 0 -2px 0 #1d1106;
+  pointer-events: none;
+}
+
+.chest-body::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 8%;
+  width: 12%;
+  height: 44%;
+  transform: translateX(-50%);
+  border: 2px solid #d1a64e;
+  border-radius: 5px 5px 12px 12px;
+  background: linear-gradient(90deg, #4a2e11, #d0a44c 18%, #6e4718 48%, #d5ac54 78%, #4b2c0d);
+  box-shadow: 0 0 0 2px #241407, 0 3px 8px rgba(0,0,0,.55);
+}
+
+.chest-lid {
+  bottom: 46%;
+  height: 36%;
+  border-radius: 58% 58% 7px 7px / 58% 58% 7px 7px;
+  transform-origin: 50% 100%;
+  transform: rotateX(-62deg) translateZ(3px);
+  transition: transform 660ms cubic-bezier(.64,.03,.77,.36);
+  overflow: hidden;
+  will-change: transform;
+}
+
+.chest-lid::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 1%;
+  width: 11%;
+  height: 32%;
+  transform: translateX(-50%);
+  border-left: 2px solid #d0a54e;
+  border-right: 2px solid #5d3a14;
+  background: linear-gradient(90deg, #4b2d0d, #c79842 25%, #73501d 58%, #d5aa51 82%, #4b2b0b);
+}
+
+.outro-layer.is-closing .chest-lid {
+  transform: rotateX(0deg) translateZ(0);
+}
+
+.treasure-bed {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 34%;
+  height: 29%;
+  z-index: 3;
+  border-radius: 48% 48% 25% 25%;
+  background:
+    radial-gradient(circle at 18% 57%, #ffe287 0 2.4%, #b87315 2.8% 5%, transparent 5.5%),
+    radial-gradient(circle at 31% 38%, #f6cc52 0 2%, #945713 2.5% 4.8%, transparent 5.4%),
+    radial-gradient(circle at 47% 59%, #fff0a3 0 2%, #a96b16 2.5% 5.3%, transparent 5.8%),
+    radial-gradient(circle at 65% 35%, #f0bf3e 0 2.2%, #8c4e10 2.8% 5%, transparent 5.5%),
+    radial-gradient(circle at 81% 55%, #ffe891 0 2.1%, #9a5b14 2.6% 5%, transparent 5.5%),
+    radial-gradient(ellipse at 50% 70%, #be7c16 0 16%, #6f3a0b 52%, transparent 69%);
+  filter: drop-shadow(0 -8px 16px rgba(239,178,53,.22));
+  transition: opacity 150ms ease 500ms, transform 610ms cubic-bezier(.55,.01,.75,.3), filter 250ms ease;
+}
+
+.treasure-bed::before,
+.treasure-bed::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  box-shadow: inset -3px -4px 8px rgba(0,0,0,.32), 0 0 12px currentColor;
+}
+
+.treasure-bed::before {
+  width: 11%; height: 24%; left: 20%; top: 22%;
+  color: rgba(194,30,31,.38);
+  background: radial-gradient(circle at 35% 30%, #ffd3cf 0 7%, #9e2026 20% 62%, #43070a 78%);
+  transform: rotate(-13deg);
+}
+
+.treasure-bed::after {
+  width: 9%; height: 21%; right: 22%; top: 27%;
+  color: rgba(28,115,123,.4);
+  background: radial-gradient(circle at 35% 30%, #d4ffff 0 7%, #23747d 22% 63%, #0a2c32 80%);
+  transform: rotate(16deg);
+}
+
+.outro-layer.is-closing .treasure-bed {
+  opacity: .08;
+  transform: translateY(20px) scale(.96);
+  filter: brightness(.45);
+}
+
+.coin {
+  position: absolute;
+  z-index: 4;
+  width: clamp(19px, 4vw, 34px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid #7a4c10;
+  background: radial-gradient(circle at 35% 30%, #fff2a5 0 12%, #d8a429 26%, #8d5510 72%, #f0c456 100%);
+  box-shadow: inset 0 0 0 3px rgba(255,226,126,.18), 0 4px 9px rgba(0,0,0,.45), 0 0 12px rgba(235,177,47,.16);
+  transition: transform 580ms cubic-bezier(.55,.01,.75,.3), opacity 180ms ease 430ms;
+}
+.coin::after {
+  content: "✦";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: rgba(83,45,7,.66);
+  font-size: .58em;
+}
+.coin.c1 { left: 22%; bottom: 43%; transform: rotate(-16deg); }
+.coin.c2 { left: 39%; bottom: 50%; transform: scale(.88) rotate(24deg); }
+.coin.c3 { right: 34%; bottom: 43%; transform: scale(1.05) rotate(-8deg); }
+.coin.c4 { right: 18%; bottom: 48%; transform: scale(.8) rotate(19deg); }
+.coin.c5 { left: 48%; bottom: 38%; transform: scale(.76) rotate(-25deg); }
+.outro-layer.is-closing .coin { opacity: .1; transform: translateY(20px) scale(.7); }
+
+.chest-impact {
+  position: absolute;
+  left: 50%;
+  bottom: 28%;
+  width: 70%;
+  height: 12%;
+  transform: translateX(-50%) scaleX(.6);
+  opacity: 0;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(231,177,68,.19), transparent 68%);
+  filter: blur(8px);
+}
+
+.outro-layer.is-impact .treasure-chest {
+  animation: chest-impact 220ms cubic-bezier(.25,.75,.35,1) both;
+}
+.outro-layer.is-impact .chest-impact {
+  animation: impact-flash 260ms ease-out both;
+}
+
+@keyframes chest-impact {
+  0% { transform: translateY(0) scale(1); }
+  28% { transform: translateY(7px) scale(1.012,.985); }
+  62% { transform: translateY(-2px) scale(.995,1.004); }
+  100% { transform: translateY(0) scale(1); }
+}
+@keyframes impact-flash {
+  0% { opacity: 0; transform: translateX(-50%) scaleX(.55); }
+  25% { opacity: 1; transform: translateX(-50%) scaleX(1); }
+  100% { opacity: 0; transform: translateX(-50%) scaleX(1.25); }
+}
+
+.outro-title {
+  position: absolute;
+  top: 3%;
+  left: 50%;
+  width: 100%;
+  transform: translateX(-50%);
+  margin: 0;
+  text-align: center;
+  color: #d8b963;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1rem, 2.2vw, 1.35rem);
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 8px #000;
+  opacity: .78;
+}
+
+.outro-layer.is-closing .outro-title {
+  opacity: .24;
+  transition: opacity 600ms ease;
+}
+
+.outro-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  opacity: 0;
+  visibility: hidden;
+  background: #000;
+  transition: opacity 360ms ease, visibility 0s linear 360ms;
+}
+
+.outro-fallback__inner {
+  max-width: 620px;
+  text-align: center;
+  color: #d9bd78;
+}
+.outro-fallback__inner h2 {
+  margin: 0 0 .75rem;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.7rem, 5vw, 3rem);
+  color: #e4c772;
+  letter-spacing: .04em;
+}
+.outro-fallback__inner p {
+  margin: 0;
+  color: #9c8a65;
+  font-size: clamp(.95rem, 2vw, 1.08rem);
+}
+
+.outro-layer.is-fallback .outro-scene {
+  opacity: 0;
+  transform: scale(.98);
+  transition: opacity 260ms ease, transform 260ms ease;
+}
+.outro-layer.is-fallback .outro-fallback {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 360ms ease 120ms;
+}
+
+@media (max-width: 720px) {
+  .outro-scene { height: min(560px, 76vh); }
+  .treasure-chest { --chest-w: min(500px, 88vw); }
+  .outro-title { top: 7%; letter-spacing: .11em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chest-lid,
+  .treasure-bed,
+  .coin,
+  .outro-scene,
+  .outro-layer,
+  .outro-fallback { transition-duration: 1ms !important; }
+  .outro-layer.is-impact .treasure-chest,
+  .outro-layer.is-impact .chest-impact { animation-duration: 1ms !important; }
+}
