@@ -182,15 +182,6 @@
     .integration-fallback p { color: var(--muted); line-height: 1.55; }
     .integration-fallback .action { margin-top: .5rem; }
     .integration-shell::selection { background: #a36d22; color: #fff4cf; }
-    .safety-note {
-      margin-top: 1rem;
-      padding: .8rem 1rem;
-      border-left: 3px solid var(--gold);
-      background: rgba(214,168,75,.07);
-      color: var(--muted);
-      line-height: 1.45;
-      font-size: .92rem;
-    }
     @media (max-width: 720px) {
       .nav-inner { min-height: 54px; }
       .brand span { display: none; }
@@ -250,13 +241,11 @@
     <section class="intro" aria-labelledby="integration-title">
       <span class="eyebrow">Kicktipp-Integration · unabhängig von der Clubseite</span>
       <h1 id="integration-title">Kicktipp Live Action</h1>
-      <p>Die Live-Ansicht startet direkt in der Tippübersicht. Kicktipp bleibt parallel jederzeit separat erreichbar.</p>
     </section>
 
     <section class="integration-shell" aria-label="Eingebettetes Kicktipp-Tippspiel">
       <div class="integration-head">
         <strong>Kicktipp Live Action · The Old Smugglers Club</strong>
-        <span id="kicktipp-status">Kicktipp wird geladen …</span>
       </div>
       <div class="integration-content" id="kicktipp-host">
         <script>
@@ -357,10 +346,6 @@
         </div>
       </div>
     </section>
-
-    <div class="safety-note">
-      Testschutz: Das Kicktipp-Script wird ausschließlich auf dieser Seite geladen. Keine bestehende TOSMC-Seite und keine bestehende Funktion benötigt diese Integration.
-    </div>
   </main>
 </body>
 </html>
