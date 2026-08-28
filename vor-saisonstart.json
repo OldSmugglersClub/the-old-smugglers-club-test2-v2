@@ -8,7 +8,7 @@
   "ereignisFestgelegt": true,
   "ereignisLink": "./bundesliga.html#spieltag-1",
   "buttonText": "Zum Ereignis",
-  "kicktippLink": "./kicktipp.html?path=tippuebersicht",
+  "kicktippLink": "./kicktipp.html?path=tippuebersicht&br_p=%2Fthe-old-smugglers-club%2Ftippuebersicht",
   "kicktippButtonText": "Kicktipp Live Action",
   "emblemKurz": "OSC",
   "emblemText": "CREW",

@@ -34,7 +34,7 @@
   "buttons": [
     {
       "text": "Kicktipp Live Action",
-      "link": "./kicktipp.html?path=tippuebersicht",
+      "link": "./kicktipp.html?path=tippuebersicht&br_p=%2Fthe-old-smugglers-club%2Ftippuebersicht",
       "neuesFenster": false,
       "stil": "primaer",
       "anzeigen": true
