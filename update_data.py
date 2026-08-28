@@ -8,7 +8,7 @@
   "ereignisFestgelegt": false,
   "ereignisLink": "",
   "buttonText": "Zum Ereignis",
-  "kicktippLink": "./kicktipp.html?path=/tippuebersicht",
+  "kicktippLink": "./kicktipp.html?path=tippuebersicht",
   "kicktippButtonText": "Kicktipp Live Action",
   "emblemKurz": "OSC",
   "emblemText": "CREW",

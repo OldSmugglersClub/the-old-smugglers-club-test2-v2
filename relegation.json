@@ -23,7 +23,7 @@
   "buttons": [
     {
       "text": "Kicktipp Live Action",
-      "link": "./kicktipp.html?path=/tippuebersicht",
+      "link": "./kicktipp.html?path=tippuebersicht",
       "neuesFenster": false,
       "stil": "primaer",
       "anzeigen": true

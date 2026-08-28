@@ -251,12 +251,13 @@
 
             try {
               var requested = new URL(window.location.href).searchParams.get('path');
-              if (requested && requested.charAt(0) === '/') desiredPath = requested;
+              if (requested) desiredPath = normalisePath(requested);
             } catch (e) {}
 
             function normalisePath(path) {
               var value = String(path || '').trim();
               if (!value) return '';
+              if (/^[a-z0-9_-]+$/i.test(value)) value = '/' + value;
               try { value = new URL(value, 'https://www.kicktipp.de').pathname; } catch (e) {}
               return value.replace(/^\/the-old-smugglers-club(?=\/|$)/, '') || '/';
             }
@@ -299,7 +300,7 @@
                   }
                   try {
                     var u = new URL(window.location.href);
-                    if (path) u.searchParams.set('path', normalisePath(path));
+                    if (path) u.searchParams.set('path', normalisePath(path).replace(/^\//, ''));
                     else u.searchParams.delete('path');
                     window.history.replaceState(null, '', u.pathname + u.search);
                   } catch (e) {}

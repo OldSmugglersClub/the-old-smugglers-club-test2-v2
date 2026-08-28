@@ -10,7 +10,7 @@
   "hinweis": "",
   "uebersichtLink": "",
   "uebersichtButtonText": "Alle Termine ansehen",
-  "kicktippLink": "./kicktipp.html?path=/tippuebersicht",
+  "kicktippLink": "./kicktipp.html?path=tippuebersicht",
   "kicktippButtonText": "Kicktipp Live Action",
   "platzhalterDatum": "TT.MM.JJJJ · --:--",
   "platzhalterWettbewerb": "Wettbewerb offen",

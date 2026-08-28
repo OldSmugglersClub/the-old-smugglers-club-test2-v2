@@ -8,7 +8,7 @@
   "ereignisFestgelegt": true,
   "ereignisLink": "./bundesliga.html#spieltag-1",
   "buttonText": "Zum Ereignis",
-  "kicktippLink": "./kicktipp.html?path=/tippuebersicht",
+  "kicktippLink": "./kicktipp.html?path=tippuebersicht",
   "kicktippButtonText": "Kicktipp Live Action",
   "emblemKurz": "OSC",
   "emblemText": "CREW",
