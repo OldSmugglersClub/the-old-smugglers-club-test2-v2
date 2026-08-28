@@ -5789,8 +5789,7 @@
 
           <div class="welcome-command-actions">
             <a class="welcome-command-button" id="welcome-kicktipp-link"
-               href="#"
-               target="_blank" rel="noopener noreferrer">
+               href="#">
               <svg aria-hidden="true"><use href="#icon-skull"></use></svg>
               <span>Zur Tipprunde</span>
             </a>
@@ -5892,12 +5891,9 @@
 
       <footer class="matchday-actions sm-schedule__actions">
         <a class="button button-secondary is-hidden" id="sm-overview-link" href="#" aria-hidden="true"></a>
-        <a class="button button-secondary sm-kicktipp-live-action"
+        <a class="button button-primary sm-kicktipp-live-action" id="sm-kicktipp-link"
            href="./kicktipp.html?path=/tippuebersicht"
-           aria-label="Kicktipp Live Action in der Clubseite öffnen">Kicktipp Live Action</a>
-        <a class="button button-primary" id="sm-kicktipp-link"
-           href="https://www.kicktipp.de/the-old-smugglers-club/"
-           target="_blank" rel="noopener noreferrer">Jetzt bei Kicktipp tippen</a>
+           aria-label="Kicktipp Live Action öffnen">Kicktipp Live Action</a>
       </footer>
     </section>
 
@@ -6497,9 +6493,11 @@
       if (!link) return;
       const href = typeof config?.kicktippLink === "string" ? config.kicktippLink.trim() : "";
       const text = typeof config?.kicktippButtonText === "string" ? config.kicktippButtonText.trim() : "";
-      const label = text || "Zur Tipprunde";
+      const label = text || "Kicktipp Live Action";
       link.querySelector("span")?.replaceChildren(label);
       link.href = href || "#";
+      link.removeAttribute("target");
+      link.removeAttribute("rel");
       link.classList.toggle("is-hidden", !href);
       link.setAttribute("aria-hidden", String(!href));
       if (!href) link.removeAttribute("target");
@@ -6838,6 +6836,8 @@
           const visible = Boolean(href && text);
           elements.kicktipp.href = visible ? href : "#";
           elements.kicktipp.textContent = visible ? text : "";
+          elements.kicktipp.removeAttribute("target");
+          elements.kicktipp.removeAttribute("rel");
           elements.kicktipp.classList.toggle("is-hidden", !visible);
           elements.kicktipp.setAttribute("aria-hidden", String(!visible));
         }

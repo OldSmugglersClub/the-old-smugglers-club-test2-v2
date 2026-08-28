@@ -8,8 +8,8 @@
   "ereignisFestgelegt": false,
   "ereignisLink": "",
   "buttonText": "Zum Ereignis",
-  "kicktippLink": "https://www.kicktipp.de/the-old-smugglers-club/",
-  "kicktippButtonText": "Jetzt bei Kicktipp tippen",
+  "kicktippLink": "./kicktipp.html?path=/tippuebersicht",
+  "kicktippButtonText": "Kicktipp Live Action",
   "emblemKurz": "OSC",
   "emblemText": "CREW",
   "spiele": [
