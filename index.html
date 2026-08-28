@@ -1614,25 +1614,18 @@
       color: var(--gold-light);
     }
 
-
-    /* TEST18 – Schiffbruch-Intro: saubere, scharfe Panorama-Komponente ohne Storyboard-Artefakte. */
-    body.intro-lock { overflow: hidden; }
-
     .welcome {
       position: fixed;
       inset: 0;
       z-index: 5000;
-      overflow: hidden;
+      display: grid;
+      place-items: center;
       background:
-        radial-gradient(circle at 52% 46%, rgba(36,47,54,.20), transparent 34%),
-        linear-gradient(180deg, #010304 0%, #05080a 46%, #020304 100%);
+        radial-gradient(circle, rgba(89,53,18,.20), transparent 35%),
+        rgba(4,3,2,.97);
       opacity: 1;
       visibility: visible;
-      transition: opacity .72s ease, visibility .72s ease;
-      cursor: pointer;
-      touch-action: manipulation;
-      user-select: none;
-      outline: none;
+      transition: opacity .65s ease, visibility .65s ease;
     }
 
     .welcome.hidden {
@@ -1641,158 +1634,17 @@
       pointer-events: none;
     }
 
-    .welcome-stage {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-    }
-
-    .welcome-film {
-      position: relative;
-      width: 112vw;
-      min-width: 112vw;
-      max-width: none;
-      height: auto;
-      display: block;
-      transform: translate3d(-1.5vw,0,0) scale(1.005);
-      transform-origin: 50% 50%;
-      filter: saturate(.92) contrast(1.05) brightness(.88);
-      transition: transform 2.55s cubic-bezier(.18,.72,.18,1), filter 2.25s ease;
-      will-change: transform;
-    }
-
-    .welcome-stage::before,
-    .welcome-stage::after {
-      content: "";
-      position: absolute;
-      z-index: 2;
-      left: 0;
-      right: 0;
-      height: 1px;
-      pointer-events: none;
-      background: linear-gradient(90deg, transparent, rgba(205,151,58,.58) 18%, rgba(235,192,101,.78) 50%, rgba(205,151,58,.58) 82%, transparent);
-      box-shadow: 0 0 14px rgba(173,112,28,.22);
-    }
-
-    .welcome-stage::before { top: calc(50% - 16vw); }
-    .welcome-stage::after  { bottom: calc(50% - 16vw); }
-
-    .welcome-shade {
-      position: absolute;
-      inset: 0;
-      z-index: 3;
-      pointer-events: none;
-      background:
-        radial-gradient(ellipse at 28% 52%, transparent 25%, rgba(0,0,0,.10) 58%, rgba(0,0,0,.44) 100%),
-        linear-gradient(180deg, rgba(0,0,0,.12), transparent 30%, transparent 70%, rgba(0,0,0,.18));
-      transition: opacity .7s ease, background .8s ease;
-    }
-
-    .welcome-copy {
-      position: absolute;
-      z-index: 6;
-      left: 50%;
-      bottom: clamp(2rem, 7vh, 4.6rem);
-      width: min(90vw, 780px);
-      transform: translateX(-50%);
+    .welcome-box {
       text-align: center;
-      color: #f0c86d;
-      text-shadow: 0 2px 10px #000, 0 0 26px rgba(0,0,0,.94);
-      transition: opacity .42s ease, transform .42s ease;
+      padding: 2rem;
     }
 
-    .welcome-copy strong {
-      display: block;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(1.1rem, 2.35vw, 1.68rem);
-      letter-spacing: .12em;
-      line-height: 1.18;
-      text-transform: uppercase;
-    }
-
-    .welcome-copy span {
-      display: block;
-      margin-top: .48rem;
-      color: #e8dbc0;
-      font-size: clamp(.9rem, 1.45vw, 1.06rem);
-      letter-spacing: .015em;
-    }
-
-    .welcome-coco {
-      position: absolute;
-      z-index: 5;
-      top: 15%;
-      right: 9%;
-      width: clamp(120px, 14vw, 220px);
-      opacity: 0;
-      transform: translate3d(28px,-12px,0) rotate(-4deg) scale(.94);
-      filter: drop-shadow(0 14px 20px rgba(0,0,0,.58));
-      transition: opacity .5s ease, transform .72s cubic-bezier(.2,.78,.2,1);
-      pointer-events: none;
-    }
-
-    .welcome-skip-note {
-      position: absolute;
-      z-index: 6;
-      top: max(1rem, env(safe-area-inset-top));
-      right: max(1.15rem, env(safe-area-inset-right));
-      color: rgba(226,203,153,.58);
-      font-size: .72rem;
-      letter-spacing: .09em;
-      text-transform: uppercase;
-      opacity: 0;
-      transition: opacity .3s ease;
-      pointer-events: none;
-    }
-
-    .welcome:focus-visible { box-shadow: inset 0 0 0 2px rgba(226,183,86,.65); }
-    .welcome.is-leaving { cursor: default; }
-    .welcome.is-leaving .welcome-copy { opacity: 0; transform: translate(-50%, 14px); }
-    .welcome.is-leaving .welcome-film {
-      transform: translate3d(-7.5vw,0,0) scale(1.055);
-      filter: saturate(.96) contrast(1.06) brightness(.74);
-    }
-    .welcome.is-leaving .welcome-shade {
-      background:
-        radial-gradient(ellipse at 68% 48%, transparent 20%, rgba(0,0,0,.08) 58%, rgba(0,0,0,.48) 100%),
-        linear-gradient(180deg, rgba(0,0,0,.18), transparent 36%, transparent 68%, rgba(0,0,0,.24));
-    }
-    .welcome.is-island .welcome-coco {
-      opacity: .96;
-      transform: translate3d(0,0,0) rotate(-2deg) scale(1);
-    }
-    .welcome.is-island .welcome-copy {
-      opacity: 1;
-      transform: translateX(-50%);
-    }
-    .welcome.is-island .welcome-skip-note { opacity: .72; }
-    .welcome.is-fading { opacity: 0; }
-
-    @media (max-width: 800px) {
-      .welcome-film {
-        width: auto;
-        min-width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: 27% center;
-        transform: scale(1.02);
-      }
-      .welcome.is-leaving .welcome-film {
-        object-position: 66% center;
-        transform: scale(1.08);
-      }
-      .welcome-stage::before,
-      .welcome-stage::after { display: none; }
-      .welcome-coco { top: 12%; right: 2%; width: clamp(100px, 29vw, 150px); }
-      .welcome-copy { bottom: max(1.35rem, calc(env(safe-area-inset-bottom) + .65rem)); padding: 0 .8rem; }
-      .welcome-copy strong { letter-spacing: .075em; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .welcome-film { transition-duration: .55s; }
-      .welcome-coco { transition-duration: .35s; }
+    .welcome-box img {
+      width: min(240px, 55vw);
+      margin: 0 auto 1rem;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 40px rgba(213,161,59,.25);
     }
 
     @media (max-width: 900px) {
@@ -5843,18 +5695,12 @@
     </defs>
   </svg>
 
-  <div class="welcome" id="welcome" role="button" tabindex="0" aria-label="Vom beschädigten Rettungsboot an Land gehen">
-    <div class="welcome-stage" aria-hidden="true">
-      <img class="welcome-film" src="./assets/intro/shipwreck-panorama.jpg" alt="" decoding="sync" fetchpriority="high">
-      <div class="welcome-shade"></div>
+  <div class="welcome" id="welcome" aria-hidden="true">
+    <div class="welcome-box">
+      <img src="./logo.jpeg" alt="" decoding="async">
+      <h2>Willkommen an Bord</h2>
+      <p>Die Schatzkammer des Old Smugglers Club wird geöffnet …</p>
     </div>
-    <img class="welcome-coco" src="./assets/logbuch/coco-logbuch.png" alt="" aria-hidden="true" decoding="async">
-    <div class="welcome-copy" aria-hidden="true">
-      <strong id="intro-title">Das Boot hält nicht mehr lange.</strong>
-      <span id="intro-subtitle">Tippe auf die Szene und bring dich an Land.</span>
-    </div>
-    <div class="welcome-skip-note" aria-hidden="true">Land in Sicht</div>
-    <audio id="intro-audio" preload="auto" src="./assets/intro/smuggler-intro.mp3"></audio>
   </div>
 
   <header class="site-header" id="start">
@@ -7118,60 +6964,11 @@
 
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // TEST18 – interaktives Schiffbruch-Intro; Audio startet zuverlässig erst nach Tap/Klick.
-    (function initShipwreckIntro() {
-      const intro = document.getElementById("welcome");
-      const audio = document.getElementById("intro-audio");
-      const title = document.getElementById("intro-title");
-      const subtitle = document.getElementById("intro-subtitle");
-      if (!intro) return;
-
-      document.body.classList.add("intro-lock");
-      let started = false;
-
-      function finishIntro() {
-        intro.classList.add("hidden");
-        intro.setAttribute("aria-hidden", "true");
-        document.body.classList.remove("intro-lock");
-      }
-
-      function leaveBoat() {
-        if (started) return;
-        started = true;
-        intro.classList.add("is-leaving");
-        intro.setAttribute("aria-disabled", "true");
-
-        if (audio) {
-          audio.currentTime = 0;
-          const playback = audio.play();
-          if (playback && typeof playback.catch === "function") {
-            playback.catch((error) => console.warn("Intro-Audio konnte nicht gestartet werden:", error));
-          }
-        }
-
-        window.setTimeout(() => {
-          if (title) title.textContent = "Land in Sicht.";
-          if (subtitle) subtitle.textContent = "Nur noch ein paar Schritte …";
-          intro.classList.add("is-island");
-        }, 2250);
-
-        window.setTimeout(() => {
-          if (title) title.textContent = "Du bist nicht allein.";
-          if (subtitle) subtitle.textContent = "Coco hat dich längst entdeckt.";
-        }, 3150);
-
-        window.setTimeout(() => intro.classList.add("is-fading"), 4200);
-        window.setTimeout(finishIntro, 4900);
-      }
-
-      intro.addEventListener("click", leaveBoat);
-      intro.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          leaveBoat();
-        }
-      });
-    })();
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("welcome").classList.add("hidden");
+      }, 1100);
+    });
   </script>
 
   <script>
