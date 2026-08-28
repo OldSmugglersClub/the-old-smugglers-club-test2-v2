@@ -1614,18 +1614,25 @@
       color: var(--gold-light);
     }
 
-    /* TEST17 – interaktives Schiffbruch-Intro. Nur Intro-Komponente; Grundlayout unverändert. */
+
+    /* TEST18 – Schiffbruch-Intro: saubere, scharfe Panorama-Komponente ohne Storyboard-Artefakte. */
+    body.intro-lock { overflow: hidden; }
+
     .welcome {
       position: fixed;
       inset: 0;
       z-index: 5000;
       overflow: hidden;
-      background: #020304;
+      background:
+        radial-gradient(circle at 52% 46%, rgba(36,47,54,.20), transparent 34%),
+        linear-gradient(180deg, #010304 0%, #05080a 46%, #020304 100%);
       opacity: 1;
       visibility: visible;
       transition: opacity .72s ease, visibility .72s ease;
       cursor: pointer;
       touch-action: manipulation;
+      user-select: none;
+      outline: none;
     }
 
     .welcome.hidden {
@@ -1634,123 +1641,158 @@
       pointer-events: none;
     }
 
-    .welcome-scene {
+    .welcome-stage {
       position: absolute;
       inset: 0;
-      background-image:
-        linear-gradient(180deg, rgba(0,0,0,.04), rgba(0,0,0,.16) 58%, rgba(0,0,0,.62)),
-        url("./assets/intro/shipwreck-intro.jpg");
-      background-size: cover;
-      background-position: 30% center;
-      transform: scale(1.03);
-      filter: saturate(.86) contrast(1.08) brightness(.82);
-      transition: background-position 2.5s cubic-bezier(.2,.72,.2,1), transform 2.5s cubic-bezier(.2,.72,.2,1), filter 2.2s ease;
-      animation: introSeaDrift 5.6s ease-in-out infinite alternate;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
     }
 
-    .welcome::before {
+    .welcome-film {
+      position: relative;
+      width: 112vw;
+      min-width: 112vw;
+      max-width: none;
+      height: auto;
+      display: block;
+      transform: translate3d(-1.5vw,0,0) scale(1.005);
+      transform-origin: 50% 50%;
+      filter: saturate(.92) contrast(1.05) brightness(.88);
+      transition: transform 2.55s cubic-bezier(.18,.72,.18,1), filter 2.25s ease;
+      will-change: transform;
+    }
+
+    .welcome-stage::before,
+    .welcome-stage::after {
       content: "";
       position: absolute;
-      inset: 0;
       z-index: 2;
+      left: 0;
+      right: 0;
+      height: 1px;
       pointer-events: none;
-      background:
-        radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,.46) 100%),
-        linear-gradient(180deg, rgba(0,0,0,.16), transparent 45%, rgba(0,0,0,.34));
-      transition: opacity .9s ease;
+      background: linear-gradient(90deg, transparent, rgba(205,151,58,.58) 18%, rgba(235,192,101,.78) 50%, rgba(205,151,58,.58) 82%, transparent);
+      box-shadow: 0 0 14px rgba(173,112,28,.22);
     }
 
-    .welcome::after {
-      content: "";
+    .welcome-stage::before { top: calc(50% - 16vw); }
+    .welcome-stage::after  { bottom: calc(50% - 16vw); }
+
+    .welcome-shade {
       position: absolute;
-      left: -12%;
-      right: -12%;
-      bottom: -9vh;
+      inset: 0;
       z-index: 3;
-      height: 30vh;
       pointer-events: none;
-      opacity: .33;
       background:
-        repeating-radial-gradient(ellipse at 50% 110%, rgba(225,239,244,.18) 0 1px, transparent 2px 20px),
-        linear-gradient(180deg, transparent, rgba(3,8,12,.72));
-      transform: rotate(-1deg);
-      animation: introWaves 2.9s ease-in-out infinite alternate;
+        radial-gradient(ellipse at 28% 52%, transparent 25%, rgba(0,0,0,.10) 58%, rgba(0,0,0,.44) 100%),
+        linear-gradient(180deg, rgba(0,0,0,.12), transparent 30%, transparent 70%, rgba(0,0,0,.18));
+      transition: opacity .7s ease, background .8s ease;
     }
 
     .welcome-copy {
       position: absolute;
-      z-index: 5;
+      z-index: 6;
       left: 50%;
-      bottom: clamp(1.4rem, 5vh, 3.2rem);
-      width: min(92vw, 680px);
+      bottom: clamp(2rem, 7vh, 4.6rem);
+      width: min(90vw, 780px);
       transform: translateX(-50%);
       text-align: center;
-      color: #f2d27e;
-      text-shadow: 0 2px 8px #000, 0 0 22px rgba(0,0,0,.88);
-      transition: opacity .45s ease, transform .45s ease;
+      color: #f0c86d;
+      text-shadow: 0 2px 10px #000, 0 0 26px rgba(0,0,0,.94);
+      transition: opacity .42s ease, transform .42s ease;
     }
 
     .welcome-copy strong {
       display: block;
-      font-size: clamp(1.05rem, 2.1vw, 1.45rem);
-      letter-spacing: .09em;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.1rem, 2.35vw, 1.68rem);
+      letter-spacing: .12em;
+      line-height: 1.18;
       text-transform: uppercase;
     }
 
     .welcome-copy span {
       display: block;
-      margin-top: .35rem;
-      color: #e8d9b8;
-      font-size: clamp(.88rem, 1.7vw, 1.03rem);
+      margin-top: .48rem;
+      color: #e8dbc0;
+      font-size: clamp(.9rem, 1.45vw, 1.06rem);
+      letter-spacing: .015em;
     }
 
     .welcome-coco {
       position: absolute;
-      z-index: 4;
-      top: 7vh;
-      right: 6vw;
-      width: clamp(118px, 15vw, 230px);
+      z-index: 5;
+      top: 15%;
+      right: 9%;
+      width: clamp(120px, 14vw, 220px);
       opacity: 0;
-      transform: translate(30px,-18px) rotate(-4deg) scale(.92);
-      filter: drop-shadow(0 14px 20px rgba(0,0,0,.52));
-      transition: opacity .55s ease, transform .8s cubic-bezier(.2,.75,.2,1);
+      transform: translate3d(28px,-12px,0) rotate(-4deg) scale(.94);
+      filter: drop-shadow(0 14px 20px rgba(0,0,0,.58));
+      transition: opacity .5s ease, transform .72s cubic-bezier(.2,.78,.2,1);
       pointer-events: none;
     }
 
+    .welcome-skip-note {
+      position: absolute;
+      z-index: 6;
+      top: max(1rem, env(safe-area-inset-top));
+      right: max(1.15rem, env(safe-area-inset-right));
+      color: rgba(226,203,153,.58);
+      font-size: .72rem;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      opacity: 0;
+      transition: opacity .3s ease;
+      pointer-events: none;
+    }
+
+    .welcome:focus-visible { box-shadow: inset 0 0 0 2px rgba(226,183,86,.65); }
     .welcome.is-leaving { cursor: default; }
-    .welcome.is-leaving .welcome-copy { opacity: 0; transform: translate(-50%, 18px); }
-    .welcome.is-leaving .welcome-scene {
-      background-position: 72% center;
-      transform: scale(1.11);
-      filter: saturate(.92) contrast(1.08) brightness(.68);
-      animation: none;
+    .welcome.is-leaving .welcome-copy { opacity: 0; transform: translate(-50%, 14px); }
+    .welcome.is-leaving .welcome-film {
+      transform: translate3d(-7.5vw,0,0) scale(1.055);
+      filter: saturate(.96) contrast(1.06) brightness(.74);
+    }
+    .welcome.is-leaving .welcome-shade {
+      background:
+        radial-gradient(ellipse at 68% 48%, transparent 20%, rgba(0,0,0,.08) 58%, rgba(0,0,0,.48) 100%),
+        linear-gradient(180deg, rgba(0,0,0,.18), transparent 36%, transparent 68%, rgba(0,0,0,.24));
     }
     .welcome.is-island .welcome-coco {
-      opacity: .94;
-      transform: translate(0,0) rotate(-2deg) scale(1);
+      opacity: .96;
+      transform: translate3d(0,0,0) rotate(-2deg) scale(1);
     }
-    .welcome.is-fading::before { opacity: .96; }
-
-    @keyframes introSeaDrift {
-      from { transform: scale(1.03) translate3d(-.35%,0,0) rotate(-.08deg); }
-      to   { transform: scale(1.045) translate3d(.35%,-.2%,0) rotate(.08deg); }
+    .welcome.is-island .welcome-copy {
+      opacity: 1;
+      transform: translateX(-50%);
     }
+    .welcome.is-island .welcome-skip-note { opacity: .72; }
+    .welcome.is-fading { opacity: 0; }
 
-    @keyframes introWaves {
-      from { transform: translateX(-1.2%) rotate(-1deg); opacity: .24; }
-      to   { transform: translateX(1.2%) rotate(.6deg); opacity: .39; }
-    }
-
-    @media (max-width: 700px) {
-      .welcome-scene { background-position: 26% center; }
-      .welcome.is-leaving .welcome-scene { background-position: 70% center; }
-      .welcome-coco { top: 9vh; right: 2vw; width: clamp(96px, 28vw, 150px); }
-      .welcome-copy { bottom: max(1.2rem, env(safe-area-inset-bottom)); padding: 0 .75rem; }
+    @media (max-width: 800px) {
+      .welcome-film {
+        width: auto;
+        min-width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 27% center;
+        transform: scale(1.02);
+      }
+      .welcome.is-leaving .welcome-film {
+        object-position: 66% center;
+        transform: scale(1.08);
+      }
+      .welcome-stage::before,
+      .welcome-stage::after { display: none; }
+      .welcome-coco { top: 12%; right: 2%; width: clamp(100px, 29vw, 150px); }
+      .welcome-copy { bottom: max(1.35rem, calc(env(safe-area-inset-bottom) + .65rem)); padding: 0 .8rem; }
+      .welcome-copy strong { letter-spacing: .075em; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .welcome-scene, .welcome::after { animation: none; }
-      .welcome-scene { transition-duration: .45s; }
+      .welcome-film { transition-duration: .55s; }
+      .welcome-coco { transition-duration: .35s; }
     }
 
     @media (max-width: 900px) {
@@ -5801,13 +5843,18 @@
     </defs>
   </svg>
 
-  <div class="welcome" id="welcome" role="button" tabindex="0" aria-label="Vom Rettungsboot an Land gehen">
-    <div class="welcome-scene" aria-hidden="true"></div>
+  <div class="welcome" id="welcome" role="button" tabindex="0" aria-label="Vom beschädigten Rettungsboot an Land gehen">
+    <div class="welcome-stage" aria-hidden="true">
+      <img class="welcome-film" src="./assets/intro/shipwreck-panorama.jpg" alt="" decoding="sync" fetchpriority="high">
+      <div class="welcome-shade"></div>
+    </div>
     <img class="welcome-coco" src="./assets/logbuch/coco-logbuch.png" alt="" aria-hidden="true" decoding="async">
     <div class="welcome-copy" aria-hidden="true">
-      <strong>Das Boot hält nicht mehr lange.</strong>
-      <span>Tippe auf das Rettungsboot und bring dich an Land.</span>
+      <strong id="intro-title">Das Boot hält nicht mehr lange.</strong>
+      <span id="intro-subtitle">Tippe auf die Szene und bring dich an Land.</span>
     </div>
+    <div class="welcome-skip-note" aria-hidden="true">Land in Sicht</div>
+    <audio id="intro-audio" preload="auto" src="./assets/intro/smuggler-intro.mp3"></audio>
   </div>
 
   <header class="site-header" id="start">
@@ -7071,92 +7118,21 @@
 
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // TEST17 – Schiffbruch-Intro mit Audio erst nach realer Nutzerinteraktion.
+    // TEST18 – interaktives Schiffbruch-Intro; Audio startet zuverlässig erst nach Tap/Klick.
     (function initShipwreckIntro() {
       const intro = document.getElementById("welcome");
+      const audio = document.getElementById("intro-audio");
+      const title = document.getElementById("intro-title");
+      const subtitle = document.getElementById("intro-subtitle");
       if (!intro) return;
 
+      document.body.classList.add("intro-lock");
       let started = false;
-      let audioContext = null;
 
-      function makeNoiseBuffer(ctx, seconds) {
-        const length = Math.max(1, Math.floor(ctx.sampleRate * seconds));
-        const buffer = ctx.createBuffer(1, length, ctx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let i = 0; i < length; i += 1) {
-          const fade = 1 - (i / length);
-          data[i] = (Math.random() * 2 - 1) * fade;
-        }
-        return buffer;
-      }
-
-      function gainRamp(gainNode, start, peak, end, t0, t1, t2) {
-        const g = gainNode.gain;
-        g.cancelScheduledValues(t0);
-        g.setValueAtTime(Math.max(.0001, start), t0);
-        g.exponentialRampToValueAtTime(Math.max(.0001, peak), t1);
-        g.exponentialRampToValueAtTime(Math.max(.0001, end), t2);
-      }
-
-      function playShipwreckAudio() {
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        if (!AudioCtx) return;
-        try {
-          audioContext = audioContext || new AudioCtx();
-          const ctx = audioContext;
-          if (ctx.state === "suspended") ctx.resume();
-          const now = ctx.currentTime + .02;
-          const master = ctx.createGain();
-          master.gain.setValueAtTime(.68, now);
-          master.connect(ctx.destination);
-
-          // Holz/Schiff: dunkles gefiltertes Knarren und Wasserrauschen.
-          const wood = ctx.createBufferSource();
-          wood.buffer = makeNoiseBuffer(ctx, 1.25);
-          const woodFilter = ctx.createBiquadFilter();
-          woodFilter.type = "bandpass"; woodFilter.frequency.value = 310; woodFilter.Q.value = 2.6;
-          const woodGain = ctx.createGain();
-          gainRamp(woodGain, .0001, .16, .0001, now, now + .08, now + 1.15);
-          wood.connect(woodFilter).connect(woodGain).connect(master); wood.start(now);
-
-          // Tiefer Whoosh.
-          const whoosh = ctx.createBufferSource();
-          whoosh.buffer = makeNoiseBuffer(ctx, 1.2);
-          const whooshFilter = ctx.createBiquadFilter();
-          whooshFilter.type = "lowpass";
-          whooshFilter.frequency.setValueAtTime(180, now + .35);
-          whooshFilter.frequency.exponentialRampToValueAtTime(1500, now + 1.05);
-          const whooshGain = ctx.createGain();
-          gainRamp(whooshGain, .0001, .22, .0001, now + .3, now + .95, now + 1.35);
-          whoosh.connect(whooshFilter).connect(whooshGain).connect(master); whoosh.start(now + .3);
-
-          // Cinematic Impact + Subbass.
-          const impact = ctx.createOscillator(); impact.type = "sine";
-          impact.frequency.setValueAtTime(72, now + 1.1);
-          impact.frequency.exponentialRampToValueAtTime(38, now + 2.1);
-          const impactGain = ctx.createGain();
-          gainRamp(impactGain, .0001, .58, .0001, now + 1.08, now + 1.12, now + 2.2);
-          impact.connect(impactGain).connect(master); impact.start(now + 1.08); impact.stop(now + 2.25);
-
-          const hit = ctx.createBufferSource(); hit.buffer = makeNoiseBuffer(ctx, .48);
-          const hitFilter = ctx.createBiquadFilter(); hitFilter.type = "lowpass"; hitFilter.frequency.value = 900;
-          const hitGain = ctx.createGain(); gainRamp(hitGain, .0001, .34, .0001, now + 1.08, now + 1.1, now + 1.52);
-          hit.connect(hitFilter).connect(hitGain).connect(master); hit.start(now + 1.08);
-
-          // Coco: kurzer, zweistufiger Ruf – bewusst als Akzent, nicht als Dauersound.
-          [0, .17].forEach((offset, index) => {
-            const bird = ctx.createOscillator();
-            bird.type = index ? "triangle" : "sawtooth";
-            bird.frequency.setValueAtTime(index ? 980 : 760, now + 3.05 + offset);
-            bird.frequency.exponentialRampToValueAtTime(index ? 1450 : 1180, now + 3.12 + offset);
-            bird.frequency.exponentialRampToValueAtTime(index ? 690 : 610, now + 3.28 + offset);
-            const birdGain = ctx.createGain();
-            gainRamp(birdGain, .0001, index ? .065 : .08, .0001, now + 3.04 + offset, now + 3.10 + offset, now + 3.32 + offset);
-            bird.connect(birdGain).connect(master); bird.start(now + 3.04 + offset); bird.stop(now + 3.36 + offset);
-          });
-        } catch (error) {
-          console.warn("Intro-Audio konnte nicht gestartet werden:", error);
-        }
+      function finishIntro() {
+        intro.classList.add("hidden");
+        intro.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("intro-lock");
       }
 
       function leaveBoat() {
@@ -7164,13 +7140,28 @@
         started = true;
         intro.classList.add("is-leaving");
         intro.setAttribute("aria-disabled", "true");
-        playShipwreckAudio();
-        window.setTimeout(() => intro.classList.add("is-island"), 2250);
-        window.setTimeout(() => intro.classList.add("is-fading"), 4050);
+
+        if (audio) {
+          audio.currentTime = 0;
+          const playback = audio.play();
+          if (playback && typeof playback.catch === "function") {
+            playback.catch((error) => console.warn("Intro-Audio konnte nicht gestartet werden:", error));
+          }
+        }
+
         window.setTimeout(() => {
-          intro.classList.add("hidden");
-          intro.setAttribute("aria-hidden", "true");
-        }, 4850);
+          if (title) title.textContent = "Land in Sicht.";
+          if (subtitle) subtitle.textContent = "Nur noch ein paar Schritte …";
+          intro.classList.add("is-island");
+        }, 2250);
+
+        window.setTimeout(() => {
+          if (title) title.textContent = "Du bist nicht allein.";
+          if (subtitle) subtitle.textContent = "Coco hat dich längst entdeckt.";
+        }, 3150);
+
+        window.setTimeout(() => intro.classList.add("is-fading"), 4200);
+        window.setTimeout(finishIntro, 4900);
       }
 
       intro.addEventListener("click", leaveBoat);
