@@ -1,6 +1,6 @@
 {
-  "erstelltAm": "2026-08-28T22:39:56.531Z",
-  "generatorVersion": "6.5.0-HF4-HF1",
+  "erstelltAm": "2026-08-28T23:12:05.345Z",
+  "generatorVersion": "6.5.0-HF4-HF2",
   "modus": "zwischenstand",
   "auftrag": {
     "wertung": "bundesliga",
@@ -11,22 +11,34 @@
   },
   "freigabe": {
     "highscore": true,
+    "spieldaten": true,
+    "tippverteilung": true,
     "spieltagAbgeschlossen": false,
     "spieltagssieg": false,
     "logbuch": false,
     "spieltag30Sekunden": false
   },
   "integritaet": {
-    "quelle": "Kicktipp-Gesamt- und Spieltagsranglisten sowie Kicktipp-Teamübersichten",
+    "quelle": "Kicktipp-Gesamt-, Spieltags- und Tippdaten sowie Kicktipp-Teamübersichten",
     "teilnehmer": 100,
     "spieltagTeilnehmer": 100,
     "punktgenau": true,
     "teamwerteOffiziell": true,
     "teamSpieltagswerteKontrolliert": true,
+    "tippverteilung": {
+      "spiele": 1,
+      "abgegeben": 95,
+      "nichtAbgegeben": 5,
+      "verborgen": 0
+    },
+    "aktualisierteSpiele": [
+      "bl-2026-27-01-001"
+    ],
     "mathematischGeprueft": true
   },
   "uploadDateien": [
     "spielbetrieb.json",
+    "spieldaten.json",
     "highscore.json",
     "website-view.json"
   ]

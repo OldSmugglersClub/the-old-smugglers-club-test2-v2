@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
   "datenVersion": 1,
-  "aktualisiertAm": "2026-08-28T22:39:56.531Z",
+  "aktualisiertAm": "2026-08-28T23:12:05.345Z",
   "saison": "2026-27",
   "modus": "test",
-  "quelle": "Admin 6.5.0-HF4-HF1 Zwischenstand",
+  "quelle": "Admin 6.5.0-HF4-HF2 Zwischenstand",
   "highscore": {
     "wettbewerbe": {
       "bundesliga": {

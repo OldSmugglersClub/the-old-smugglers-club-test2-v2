@@ -1,5 +1,6 @@
 ERSETZEN:
 - spielbetrieb.json
+- spieldaten.json
 - highscore.json
 - website-view.json
 

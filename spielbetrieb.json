@@ -1,9 +1,9 @@
 {
   "schemaVersion": 3,
   "datenVersion": 7,
-  "aktualisiertAm": "2026-08-28T22:39:56.531Z",
+  "aktualisiertAm": "2026-08-28T23:12:05.345Z",
   "aktiveSaison": "2026-27",
-  "quelle": "The Old Smugglers Club Admin 6.5.0-HF4-HF1 Zwischenstand",
+  "quelle": "The Old Smugglers Club Admin 6.5.0-HF4-HF2 Zwischenstand",
   "regeln": {
     "tendenz": 2,
     "differenz": 3,
@@ -2972,14 +2972,38 @@
             "datumAnzeige": "28.08.2026",
             "anstoss": "20:30",
             "terminBestaetigt": true,
-            "heimtore": null,
-            "auswaertstore": null,
-            "status": "terminiert",
+            "heimtore": 5,
+            "auswaertstore": 1,
+            "status": "beendet",
             "sonderwertungen": [],
             "notiz": "",
-            "quelleStand": "2026-07-30",
+            "quelleStand": "2026-08-28",
             "heimTeamId": "bayern-muenchen",
-            "auswaertsTeamId": "stuttgart"
+            "auswaertsTeamId": "stuttgart",
+            "ergebnisNach90MinutenBestaetigt": true,
+            "tippverteilung": {
+              "schemaVersion": 1,
+              "quelle": "Kicktipp – Tipps aller Tipper",
+              "stand": "2026-08-28T23:12:05.345Z",
+              "abgegeben": 95,
+              "nichtAbgegeben": 5,
+              "verborgen": 0,
+              "tendenzen": {
+                "1": {
+                  "anzahl": 91,
+                  "prozent": 95.8
+                },
+                "2": {
+                  "anzahl": 1,
+                  "prozent": 1.1
+                },
+                "X": {
+                  "anzahl": 3,
+                  "prozent": 3.2
+                }
+              }
+            },
+            "aktualisiertAm": "2026-08-28T23:12:05.345Z"
           },
           {
             "id": "bl-2026-27-01-003",
@@ -32591,7 +32615,7 @@
             "tippImporte": []
           }
         ],
-        "statusErmitteltAm": "2026-08-28T22:39:56.556Z"
+        "statusErmitteltAm": "2026-08-28T23:12:05.371Z"
       },
       {
         "id": "2026-27__smugglerauftrag__2-spieltag__sma-2026-27-02-013",
@@ -33549,7 +33573,7 @@
             "tippImporte": []
           }
         ],
-        "statusErmitteltAm": "2026-08-28T22:39:56.556Z"
+        "statusErmitteltAm": "2026-08-28T23:12:05.371Z"
       },
       {
         "id": "2026-27__bundesliga__1-spieltag__bl-2026-27-01-001-bl-2026-27-01-002-bl-2026-27-01-003-bl-2026-27-01-004-bl-2026-27-01-005-bl-2026-27-01-006-bl-2026-27-01-007-bl-2026-27-01-008-bl-2026-27-01-009",
@@ -33558,8 +33582,8 @@
         "wertung": "bundesliga",
         "label": "Bundesliga",
         "runde": "1. Spieltag",
-        "erstelltAm": "2026-08-28T22:37:03.385Z",
-        "aktualisiertAm": "2026-08-28T22:39:56.557Z",
+        "erstelltAm": "2026-08-28T23:11:03.649Z",
+        "aktualisiertAm": "2026-08-28T23:12:05.373Z",
         "spiele": [
           {
             "id": "bl-2026-27-01-001",
@@ -33807,7 +33831,7 @@
         ],
         "tippImportHistorie": [],
         "status": "teilweise",
-        "statusErmitteltAm": "2026-08-28T22:39:56.557Z"
+        "statusErmitteltAm": "2026-08-28T23:12:05.373Z"
       }
     ]
   },
