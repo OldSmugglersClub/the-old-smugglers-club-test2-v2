@@ -1780,24 +1780,19 @@ function bundesligaInfoCards(cards, goalData) {
       }
     };
 
-    const shown = entries.slice(0, 3);
-    const listText = shown
-      .map((entry, index) => `${index + 1}. ${entry.name} · ${entry.tore} ${entry.tore === 1 ? "Tor" : "Tore"}`)
-      .join(" · ");
-
-    const topGoals = leader.tore;
-    const additionalLeaders = entries
-      .slice(3)
-      .filter(entry => entry.tore === topGoals)
-      .length;
-    const equalText = additionalLeaders
-      ? ` · +${additionalLeaders} weitere mit ${topGoals} ${topGoals === 1 ? "Tor" : "Toren"}`
-      : "";
+    // TEST28: Verfolgerfeld zeigt ausschließlich OpenLigaDB-Plätze 2 bis 5.
+    // Platz 1 bleibt ausschließlich in der Torjäger-Kachel.
+    const chasers = entries.slice(1, 5);
+    const listText = chasers.length
+      ? chasers
+          .map((entry, index) => `${index + 2}. ${entry.name} · ${entry.tore} ${entry.tore === 1 ? "Tor" : "Tore"}`)
+          .join(" · ")
+      : "Noch keine Verfolger.";
 
     result[1] = {
       ...result[1],
-      titel: "Torjägerfeld",
-      text: `${listText}${equalText}`
+      titel: "Verfolgerfeld",
+      text: listText
     };
 
     return result;
