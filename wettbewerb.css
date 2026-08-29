@@ -1226,3 +1226,37 @@ body.page-dynamo-dresden{
   opacity: 0.9;
   font-size: 0.95em;
 }
+
+
+/* 4.9.2-HF12-HF30-TEST29: Verfolgerfeld Plätze 2–5 sauber zentriert untereinander. */
+.goalgetter-chasers {
+  min-height: 150px;
+  display: grid;
+  align-content: center;
+  justify-items: stretch;
+  gap: 0.7rem;
+}
+
+.goalgetter-chaser-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.65rem;
+  width: min(100%, 320px);
+  margin-inline: auto;
+  text-align: left;
+}
+
+.goalgetter-chaser-place,
+.goalgetter-chaser-goals {
+  white-space: nowrap;
+}
+
+.goalgetter-chaser-name {
+  text-align: center;
+  font-weight: 700;
+}
+
+.goalgetter-chasers-empty {
+  text-align: center;
+}
