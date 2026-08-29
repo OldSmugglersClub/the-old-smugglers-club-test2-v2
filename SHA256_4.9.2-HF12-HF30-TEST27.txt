@@ -1,0 +1,12 @@
+# SHA-256 – 4.9.2-HF12-HF30-TEST27
+# Prüfsummen der ersetzten und neu hinzugefügten Dateien; diese Datei selbst ist ausgenommen.
+
+f4564bbb9ece42b315f2428f4cdc9ce04be3e94f764e1aedc03a558788626795  CHANGELOG_4.9.2-HF12-HF30-TEST27.md
+d7cfc70d1aa2e2299cb90af7cafc0090756ace15b37ebf079a9c2c72126abaee  DATEILISTE_ERSETZEN_NEU_LOESCHEN_4.9.2-HF12-HF30-TEST27.md
+01115fba1a6556011af5930fab293630942dfa1178a09e644032e2f9d1c1513b  README_4.9.2-HF12-HF30-TEST27.md
+718097b03530757f42d8a35f073a7860cf580e46be9acbf9b65e046dfb2bac5f  VERSION.txt
+07803694a5f467d381e867b8cf2a55e267199d842a99805e5680f0e25fe4fd71  assets/torjaeger-kanone.png
+b42fe1284039847e07149e8ee5e8d49a32fecf4985266cc360312c6a98068686  scripts/bundesliga-torjaeger-core.mjs
+c7f6b7c0a46e2857974e32927c70429ebbba3e6edd11ad5b47e41af96939d702  scripts/tests/bundesliga-torjaeger-test.mjs
+77b0a2a2d9916a0f09783331c7a8567d4561b5df970b5225aa87ae9e946330a6  wettbewerb.css
+380bc5b77d9ebc05cc06a0d277bd48fa3533ec04798048949f090060be46824e  wettbewerb.js

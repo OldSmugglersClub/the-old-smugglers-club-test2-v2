@@ -1199,3 +1199,30 @@ body.page-dynamo-dresden{
   border-radius: 0;
   overflow: visible;
 }
+
+
+/* 4.9.2-HF12-HF30-TEST27: Torjäger-Platz-1 in bestehender Bundesliga-Infokachel. */
+.goalgetter-leader {
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+  text-align: center;
+}
+
+.goalgetter-cannon {
+  display: block;
+  width: min(100%, 180px);
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.goalgetter-leader-name {
+  font-weight: 700;
+}
+
+.goalgetter-leader-goals {
+  opacity: 0.9;
+  font-size: 0.95em;
+}
