@@ -1,18 +1,14 @@
 {
   "schemaVersion": 1,
-  "datenVersion": 1,
+  "datenVersion": 2,
   "aktualisiert": "2026-08-29",
   "saison": "2026/2027",
   "quelle": "OpenLigaDB getgoalgetters/bl1/2026",
   "status": "bereit",
   "torjaeger": [
     {
-      "name": "Aleksandar Pavlovic",
-      "tore": 1
-    },
-    {
-      "name": "D. Upamecano",
-      "tore": 1
+      "name": "Younes Ebnoutalib",
+      "tore": 2
     },
     {
       "name": "J. Vagnoman",
@@ -23,7 +19,35 @@
       "tore": 1
     },
     {
+      "name": "D. Upamecano",
+      "tore": 1
+    },
+    {
       "name": "M. Olise",
+      "tore": 1
+    },
+    {
+      "name": "Aleksandar Pavlovic",
+      "tore": 1
+    },
+    {
+      "name": "R. Baku",
+      "tore": 1
+    },
+    {
+      "name": "Emmanuel Latte Lath",
+      "tore": 1
+    },
+    {
+      "name": "A. Daghim",
+      "tore": 1
+    },
+    {
+      "name": "L. Petkov",
+      "tore": 1
+    },
+    {
+      "name": "Cole Campbell",
       "tore": 1
     }
   ]
