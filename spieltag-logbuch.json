@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "datenVersion": 6,
-  "aktualisiert": "2026-08-30T18:30:38.123Z",
+  "aktualisiert": "2026-08-30T19:24:07.622Z",
   "saison": "2026-27",
   "regelwerk": {
     "kapitaene": "Alle Tipper mit der höchsten tatsächlichen Spieltagspunktzahl; kein künstlicher Tie-Break.",
@@ -2453,7 +2453,7 @@
       "bezeichnung": "Bundesliga 1. Spieltag",
       "wettbewerb": "bundesliga",
       "runde": "1. Spieltag",
-      "abgeschlossen": false,
+      "abgeschlossen": true,
       "spielIds": [
         "bl-2026-27-01-001",
         "bl-2026-27-01-003",
@@ -2467,44 +2467,12 @@
       ],
       "kapitaene": [
         {
-          "teilnehmerId": "souvard",
-          "teilnehmer": "Souvard",
-          "punkte": 13,
-          "exakt": 1,
-          "differenz": 2,
-          "tendenz": 1
-        },
-        {
-          "teilnehmerId": "bigdog",
-          "teilnehmer": "Bigdog",
-          "punkte": 13,
-          "exakt": 1,
-          "differenz": 2,
-          "tendenz": 1
-        },
-        {
-          "teilnehmerId": "glatze583",
-          "teilnehmer": "Glatze583",
-          "punkte": 13,
-          "exakt": 0,
-          "differenz": 3,
+          "teilnehmerId": "pochzerjung",
+          "teilnehmer": "PochzerJung",
+          "punkte": 17,
+          "exakt": 2,
+          "differenz": 1,
           "tendenz": 2
-        },
-        {
-          "teilnehmerId": "glueckspfennig",
-          "teilnehmer": "Glückspfennig",
-          "punkte": 13,
-          "exakt": 1,
-          "differenz": 2,
-          "tendenz": 1
-        },
-        {
-          "teilnehmerId": "luki1887",
-          "teilnehmer": "Luki1887",
-          "punkte": 13,
-          "exakt": 1,
-          "differenz": 2,
-          "tendenz": 1
         }
       ],
       "highlights": [
@@ -2513,48 +2481,16 @@
           "prioritaet": 100,
           "anzeigen": true,
           "daten": {
-            "punkte": 13,
-            "anzahl": 5,
+            "punkte": 17,
+            "anzahl": 1,
             "tipper": [
               {
-                "teilnehmerId": "souvard",
-                "teilnehmer": "Souvard",
-                "punkte": 13,
-                "exakt": 1,
-                "differenz": 2,
-                "tendenz": 1
-              },
-              {
-                "teilnehmerId": "bigdog",
-                "teilnehmer": "Bigdog",
-                "punkte": 13,
-                "exakt": 1,
-                "differenz": 2,
-                "tendenz": 1
-              },
-              {
-                "teilnehmerId": "glatze583",
-                "teilnehmer": "Glatze583",
-                "punkte": 13,
-                "exakt": 0,
-                "differenz": 3,
+                "teilnehmerId": "pochzerjung",
+                "teilnehmer": "PochzerJung",
+                "punkte": 17,
+                "exakt": 2,
+                "differenz": 1,
                 "tendenz": 2
-              },
-              {
-                "teilnehmerId": "glueckspfennig",
-                "teilnehmer": "Glückspfennig",
-                "punkte": 13,
-                "exakt": 1,
-                "differenz": 2,
-                "tendenz": 1
-              },
-              {
-                "teilnehmerId": "luki1887",
-                "teilnehmer": "Luki1887",
-                "punkte": 13,
-                "exakt": 1,
-                "differenz": 2,
-                "tendenz": 1
               }
             ]
           }
@@ -2734,15 +2670,15 @@
                       "exakt": false
                     },
                     {
-                      "teilnehmerId": "milad",
-                      "teilnehmer": "Milad",
-                      "tipp": "2:1",
-                      "exakt": false
-                    },
-                    {
                       "teilnehmerId": "audauzvares",
                       "teilnehmer": "Audauzvares",
                       "tipp": "7:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "milad",
+                      "teilnehmer": "Milad",
+                      "tipp": "2:1",
                       "exakt": false
                     }
                   ],
@@ -2758,8 +2694,18 @@
           "anzeigen": true,
           "daten": {
             "maxExakt": 2,
-            "anzahl": 2,
+            "anzahl": 4,
             "tipper": [
+              {
+                "teilnehmerId": "pochzerjung",
+                "teilnehmer": "PochzerJung",
+                "exakt": 2
+              },
+              {
+                "teilnehmerId": "gerrit1887",
+                "teilnehmer": "Gerrit1887",
+                "exakt": 2
+              },
               {
                 "teilnehmerId": "jakob",
                 "teilnehmer": "Jakob",
@@ -2780,20 +2726,20 @@
           "daten": {
             "teams": [
               {
-                "team": "Old Smugglers Team",
-                "durchschnitt": 8.28,
-                "punktesumme": 207,
-                "mitglieder": 25
+                "team": "New Smugglers Team",
+                "durchschnitt": 10.61,
+                "punktesumme": 796,
+                "mitglieder": 75
               },
               {
-                "team": "New Smugglers Team",
-                "durchschnitt": 8.13,
-                "punktesumme": 610,
-                "mitglieder": 75
+                "team": "Old Smugglers Team",
+                "durchschnitt": 10.56,
+                "punktesumme": 264,
+                "mitglieder": 25
               }
             ],
-            "sieger": "Old Smugglers Team",
-            "differenz": 0.15
+            "sieger": "New Smugglers Team",
+            "differenz": 0.05
           }
         },
         {
@@ -2804,11 +2750,11 @@
           "daten": {
             "gewinner": [
               {
-                "teilnehmerId": "luki1887",
-                "teilnehmer": "Luki1887",
+                "teilnehmerId": "pochzerjung",
+                "teilnehmer": "PochzerJung",
                 "vorher": 68,
-                "jetzt": 15,
-                "veraenderung": 53
+                "jetzt": 11,
+                "veraenderung": 57
               }
             ],
             "verlierer": [
@@ -2816,12 +2762,12 @@
                 "teilnehmerId": "yauguru",
                 "teilnehmer": "Yauguru",
                 "vorher": 6,
-                "jetzt": 89,
-                "veraenderung": -83
+                "jetzt": 92,
+                "veraenderung": -86
               }
             ],
-            "maxGewinn": 53,
-            "maxVerlust": -83
+            "maxGewinn": 57,
+            "maxVerlust": -86
           }
         },
         {
@@ -2830,10 +2776,10 @@
           "anzeigen": true,
           "daten": {
             "abgegeben": 95,
-            "nichtAbgegeben": 100,
-            "exakt": 33,
-            "differenz": 90,
-            "tendenz": 191
+            "nichtAbgegeben": 7,
+            "exakt": 35,
+            "differenz": 93,
+            "tendenz": 303
           }
         }
       ]

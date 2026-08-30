@@ -4,7 +4,7 @@
   "aktualisiert": "2026-08-30",
   "saison": "2026-27",
   "hinweis": "Kumulative Smugglerwertung. Jeder abgeschlossene Smugglerauftrag zählt als eigener Spieltag; geteilte Spieltagssiege werden anteilig kumuliert. Testpakete simulieren denselben kumulierten Fachstand wie der spätere Produktivexport.",
-  "berechnetAm": "2026-08-30T18:30:38.123Z",
+  "berechnetAm": "2026-08-30T19:24:07.622Z",
   "regeln": {
     "tendenz": 2,
     "differenz": 3,
@@ -13,7 +13,7 @@
     "wertungszeit": "90 Minuten einschließlich Nachspielzeit, ohne Verlängerung und Elfmeterschießen"
   },
   "auftraegeGesamt": 3,
-  "auftraegeAbgeschlossen": 2,
+  "auftraegeAbgeschlossen": 3,
   "status": "testvorschau",
   "wertungen": [
     {
