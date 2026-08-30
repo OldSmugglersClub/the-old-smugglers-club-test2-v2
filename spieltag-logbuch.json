@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "datenVersion": 5,
-  "aktualisiert": "2026-08-29T18:49:50.401Z",
+  "datenVersion": 6,
+  "aktualisiert": "2026-08-30T18:30:38.123Z",
   "saison": "2026-27",
   "regelwerk": {
     "kapitaene": "Alle Tipper mit der höchsten tatsächlichen Spieltagspunktzahl; kein künstlicher Tie-Break.",
@@ -2444,6 +2444,396 @@
             "exakt": 0,
             "differenz": 21,
             "tendenz": 38
+          }
+        }
+      ]
+    },
+    {
+      "id": "2026-27__bundesliga__1-spieltag__bl-2026-27-01-001-bl-2026-27-01-002-bl-2026-27-01-003-bl-2026-27-01-004-bl-2026-27-01-005-bl-2026-27-01-006-bl-2026-27-01-007-bl-2026-27-01-008-bl-2026-27-01-009",
+      "bezeichnung": "Bundesliga 1. Spieltag",
+      "wettbewerb": "bundesliga",
+      "runde": "1. Spieltag",
+      "abgeschlossen": false,
+      "spielIds": [
+        "bl-2026-27-01-001",
+        "bl-2026-27-01-003",
+        "bl-2026-27-01-006",
+        "bl-2026-27-01-007",
+        "bl-2026-27-01-008",
+        "bl-2026-27-01-009",
+        "bl-2026-27-01-002",
+        "bl-2026-27-01-004",
+        "bl-2026-27-01-005"
+      ],
+      "kapitaene": [
+        {
+          "teilnehmerId": "souvard",
+          "teilnehmer": "Souvard",
+          "punkte": 13,
+          "exakt": 1,
+          "differenz": 2,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "bigdog",
+          "teilnehmer": "Bigdog",
+          "punkte": 13,
+          "exakt": 1,
+          "differenz": 2,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "glatze583",
+          "teilnehmer": "Glatze583",
+          "punkte": 13,
+          "exakt": 0,
+          "differenz": 3,
+          "tendenz": 2
+        },
+        {
+          "teilnehmerId": "glueckspfennig",
+          "teilnehmer": "Glückspfennig",
+          "punkte": 13,
+          "exakt": 1,
+          "differenz": 2,
+          "tendenz": 1
+        },
+        {
+          "teilnehmerId": "luki1887",
+          "teilnehmer": "Luki1887",
+          "punkte": 13,
+          "exakt": 1,
+          "differenz": 2,
+          "tendenz": 1
+        }
+      ],
+      "highlights": [
+        {
+          "typ": "kapitaene",
+          "prioritaet": 100,
+          "anzeigen": true,
+          "daten": {
+            "punkte": 13,
+            "anzahl": 5,
+            "tipper": [
+              {
+                "teilnehmerId": "souvard",
+                "teilnehmer": "Souvard",
+                "punkte": 13,
+                "exakt": 1,
+                "differenz": 2,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "bigdog",
+                "teilnehmer": "Bigdog",
+                "punkte": 13,
+                "exakt": 1,
+                "differenz": 2,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "glatze583",
+                "teilnehmer": "Glatze583",
+                "punkte": 13,
+                "exakt": 0,
+                "differenz": 3,
+                "tendenz": 2
+              },
+              {
+                "teilnehmerId": "glueckspfennig",
+                "teilnehmer": "Glückspfennig",
+                "punkte": 13,
+                "exakt": 1,
+                "differenz": 2,
+                "tendenz": 1
+              },
+              {
+                "teilnehmerId": "luki1887",
+                "teilnehmer": "Luki1887",
+                "punkte": 13,
+                "exakt": 1,
+                "differenz": 2,
+                "tendenz": 1
+              }
+            ]
+          }
+        },
+        {
+          "typ": "gegen-den-strom",
+          "prioritaet": 90,
+          "anzeigen": true,
+          "daten": {
+            "spielId": "bl-2026-27-01-006",
+            "heimTeam": "mainz-05",
+            "auswaertsTeam": "paderborn",
+            "ergebnis": "0:0",
+            "abgegeben": 93,
+            "nichtAbgegeben": 7,
+            "tippverteilung": {
+              "1": 85,
+              "2": 3,
+              "X": 5
+            },
+            "exakt": 0,
+            "differenz": 5,
+            "tendenz": 0,
+            "richtigerAusgang": "X",
+            "meistGetippt": {
+              "ausgang": "1",
+              "anzahl": 85
+            },
+            "gegenDenStrom": true,
+            "richtigeTendenz": {
+              "anzahl": 5,
+              "anteil": 5.4,
+              "tipper": [
+                {
+                  "teilnehmerId": "handgottes",
+                  "teilnehmer": "HandGottes",
+                  "tipp": "2:2",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "berndibroti",
+                  "teilnehmer": "Berndibroti",
+                  "tipp": "1:1",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "kunstblume",
+                  "teilnehmer": "Kunstblume",
+                  "tipp": "1:1",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "mary-grace",
+                  "teilnehmer": "Mary-Grace",
+                  "tipp": "2:2",
+                  "exakt": false
+                },
+                {
+                  "teilnehmerId": "gruber",
+                  "teilnehmer": "gRuBer",
+                  "tipp": "2:2",
+                  "exakt": false
+                }
+              ],
+              "exakteTipps": 0
+            }
+          }
+        },
+        {
+          "typ": "wer-hats-gerochen",
+          "prioritaet": 85,
+          "anzeigen": true,
+          "daten": {
+            "grenzeProzent": 25,
+            "testOverride": false,
+            "faelle": [
+              {
+                "spielId": "bl-2026-27-01-006",
+                "heimTeam": "mainz-05",
+                "auswaertsTeam": "paderborn",
+                "ergebnis": "0:0",
+                "abgegeben": 93,
+                "nichtAbgegeben": 7,
+                "tippverteilung": {
+                  "1": 85,
+                  "2": 3,
+                  "X": 5
+                },
+                "exakt": 0,
+                "differenz": 5,
+                "tendenz": 0,
+                "richtigerAusgang": "X",
+                "meistGetippt": {
+                  "ausgang": "1",
+                  "anzahl": 85
+                },
+                "gegenDenStrom": true,
+                "richtigeTendenz": {
+                  "anzahl": 5,
+                  "anteil": 5.4,
+                  "tipper": [
+                    {
+                      "teilnehmerId": "handgottes",
+                      "teilnehmer": "HandGottes",
+                      "tipp": "2:2",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "berndibroti",
+                      "teilnehmer": "Berndibroti",
+                      "tipp": "1:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "kunstblume",
+                      "teilnehmer": "Kunstblume",
+                      "tipp": "1:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "mary-grace",
+                      "teilnehmer": "Mary-Grace",
+                      "tipp": "2:2",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "gruber",
+                      "teilnehmer": "gRuBer",
+                      "tipp": "2:2",
+                      "exakt": false
+                    }
+                  ],
+                  "exakteTipps": 0
+                }
+              },
+              {
+                "spielId": "bl-2026-27-01-009",
+                "heimTeam": "elversberg",
+                "auswaertsTeam": "leverkusen",
+                "ergebnis": "3:2",
+                "abgegeben": 93,
+                "nichtAbgegeben": 7,
+                "tippverteilung": {
+                  "1": 5,
+                  "2": 84,
+                  "X": 4
+                },
+                "exakt": 0,
+                "differenz": 4,
+                "tendenz": 1,
+                "richtigerAusgang": "1",
+                "meistGetippt": {
+                  "ausgang": "2",
+                  "anzahl": 84
+                },
+                "gegenDenStrom": true,
+                "richtigeTendenz": {
+                  "anzahl": 5,
+                  "anteil": 5.4,
+                  "tipper": [
+                    {
+                      "teilnehmerId": "glueckspfennig",
+                      "teilnehmer": "Glückspfennig",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "gruber",
+                      "teilnehmer": "gRuBer",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "aufdieblaue",
+                      "teilnehmer": "AufdieBlaue",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "milad",
+                      "teilnehmer": "Milad",
+                      "tipp": "2:1",
+                      "exakt": false
+                    },
+                    {
+                      "teilnehmerId": "audauzvares",
+                      "teilnehmer": "Audauzvares",
+                      "tipp": "7:1",
+                      "exakt": false
+                    }
+                  ],
+                  "exakteTipps": 0
+                }
+              }
+            ]
+          }
+        },
+        {
+          "typ": "volltreffer",
+          "prioritaet": 80,
+          "anzeigen": true,
+          "daten": {
+            "maxExakt": 2,
+            "anzahl": 2,
+            "tipper": [
+              {
+                "teilnehmerId": "jakob",
+                "teilnehmer": "Jakob",
+                "exakt": 2
+              },
+              {
+                "teilnehmerId": "playboymarc88",
+                "teilnehmer": "PlayBoyMarc88",
+                "exakt": 2
+              }
+            ]
+          }
+        },
+        {
+          "typ": "crewduell",
+          "prioritaet": 70,
+          "anzeigen": true,
+          "daten": {
+            "teams": [
+              {
+                "team": "Old Smugglers Team",
+                "durchschnitt": 8.28,
+                "punktesumme": 207,
+                "mitglieder": 25
+              },
+              {
+                "team": "New Smugglers Team",
+                "durchschnitt": 8.13,
+                "punktesumme": 610,
+                "mitglieder": 75
+              }
+            ],
+            "sieger": "Old Smugglers Team",
+            "differenz": 0.15
+          }
+        },
+        {
+          "typ": "kursbewegung",
+          "prioritaet": 40,
+          "anzeigen": true,
+          "grund": null,
+          "daten": {
+            "gewinner": [
+              {
+                "teilnehmerId": "luki1887",
+                "teilnehmer": "Luki1887",
+                "vorher": 68,
+                "jetzt": 15,
+                "veraenderung": 53
+              }
+            ],
+            "verlierer": [
+              {
+                "teilnehmerId": "yauguru",
+                "teilnehmer": "Yauguru",
+                "vorher": 6,
+                "jetzt": 89,
+                "veraenderung": -83
+              }
+            ],
+            "maxGewinn": 53,
+            "maxVerlust": -83
+          }
+        },
+        {
+          "typ": "zahlen-aus-der-kombuese",
+          "prioritaet": 30,
+          "anzeigen": true,
+          "daten": {
+            "abgegeben": 95,
+            "nichtAbgegeben": 100,
+            "exakt": 33,
+            "differenz": 90,
+            "tendenz": 191
           }
         }
       ]
