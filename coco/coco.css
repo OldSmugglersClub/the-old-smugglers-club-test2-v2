@@ -204,3 +204,55 @@
   transform:translateX(-50%);
   background:linear-gradient(90deg,transparent,rgba(242,206,120,.62),transparent);
 }
+
+
+/* TEST39 – harmonische Desktop-Balance nach TEST38.
+   Nur Layout/Optik. Keine Funktions-, Daten- oder Logikänderung. */
+@media (min-width:821px){
+  .coco-main{
+    grid-template-columns:minmax(0,1.28fr) minmax(360px,.72fr);
+    gap:18px;
+  }
+  .oracle-column{gap:16px}
+  .match-card{padding:16px 18px}
+  .coco-stage{aspect-ratio:3/2}
+  .oracle-actions{padding:18px 18px 20px}
+  .coco-button{
+    width:min(100%,320px);
+    font-size:1.05rem;
+    padding:14px 30px;
+  }
+  .side{gap:16px}
+
+  /* Rechte Informationszone: ein gemeinsamer visueller Maßstab. */
+  .stats-panel,.rules{
+    padding:18px;
+    border-color:rgba(214,168,75,.42);
+    background:linear-gradient(180deg,rgba(51,35,21,.97),rgba(29,20,13,.97));
+    box-shadow:0 18px 38px rgba(0,0,0,.40),inset 0 1px rgba(255,255,255,.05);
+  }
+  .stats-panel h2,.rules h2{
+    margin:0 0 12px;
+    font-size:1.18rem;
+    color:var(--coco-gold2);
+  }
+  .stats{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .stats div{
+    min-height:74px;
+    padding:12px 13px;
+    border-radius:11px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .stats strong{font-size:1.4rem;line-height:1.05}
+  .stats span{font-size:.79rem;line-height:1.25;margin-top:5px}
+  .rules{
+    font-size:.9rem;
+    line-height:1.5;
+  }
+  .rules p{margin:.45rem 0;color:var(--coco-muted)}
+}
