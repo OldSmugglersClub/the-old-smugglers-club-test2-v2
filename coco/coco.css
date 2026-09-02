@@ -139,3 +139,68 @@
 @media(max-width:430px){
   .coco-button{min-width:0}
 }
+
+/* TEST38 – sichtbare, kontrollierte Neugewichtung der Coco-Seite.
+   Ausschließlich Layout/Optik; keine Funktions-, Daten- oder Logikänderung. */
+@media (min-width:821px){
+  .coco-main{
+    grid-template-columns:minmax(0,1.55fr) minmax(300px,.65fr);
+    gap:20px;
+  }
+  .oracle-column{gap:14px}
+  .match-card{padding:14px 18px}
+  .coco-stage{aspect-ratio:4/3}
+  .oracle-card{
+    border-color:rgba(242,206,120,.62);
+    box-shadow:0 28px 64px rgba(0,0,0,.58),0 0 34px rgba(214,168,75,.055),inset 0 1px rgba(255,255,255,.07);
+  }
+  .oracle-actions{padding:20px 18px 22px}
+  .coco-button{
+    width:min(100%,340px);
+    font-size:1.08rem;
+    padding:15px 32px;
+  }
+  .side{gap:13px}
+  .stats-panel{padding:16px}
+  .rules{
+    padding:14px 16px;
+    font-size:.82rem;
+    line-height:1.42;
+    background:linear-gradient(180deg,rgba(42,29,18,.90),rgba(24,17,11,.92));
+    border-color:rgba(214,168,75,.26);
+    box-shadow:0 12px 28px rgba(0,0,0,.30),inset 0 1px rgba(255,255,255,.035);
+  }
+  .rules h2{
+    margin-bottom:8px;
+    font-size:1.05rem;
+    color:#ddbd76;
+  }
+  .rules p{margin:.32rem 0;color:#b9aa8d}
+  .stats-panel{
+    border-color:rgba(242,206,120,.52);
+    box-shadow:0 18px 38px rgba(0,0,0,.42),inset 0 1px rgba(255,255,255,.055);
+  }
+  .stats-panel h2{font-size:1.28rem;margin-bottom:13px}
+}
+
+/* Fokus klar auf Orakel/Bild und Hauptaktion, ohne das vorhandene Asset zu beschneiden. */
+.coco-stage{
+  background:radial-gradient(circle at 50% 42%,rgba(92,57,22,.16),rgba(9,6,4,.96) 68%);
+}
+.coco-stage::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:2;
+  background:linear-gradient(180deg,rgba(242,206,120,.035),transparent 18%,transparent 80%,rgba(0,0,0,.18));
+}
+.oracle-actions{position:relative}
+.oracle-actions::before{
+  content:"";
+  position:absolute;
+  left:50%;top:0;
+  width:min(62%,360px);height:1px;
+  transform:translateX(-50%);
+  background:linear-gradient(90deg,transparent,rgba(242,206,120,.62),transparent);
+}

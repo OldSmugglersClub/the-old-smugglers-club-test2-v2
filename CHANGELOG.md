@@ -1,3 +1,4 @@
+- TEST38: Coco-Seite sichtbar neu gewichtet: größerer Orakelbereich, stärkere Hauptaktion, kompaktere Nebenpanels; ausschließlich HTML/CSS-Darstellung, keine Funktions- oder Datenänderung.
 - TEST37: Coco-Orakel rein visuell aufgewertet (Panels, Fokuszustände, CTA, Tiefenwirkung); keine Funktions-, Daten- oder Logikänderung.
 # CHANGELOG
 - TEST36: Zeitgesteuerte Website-Mitteilung auf der Startseite ergänzt.
