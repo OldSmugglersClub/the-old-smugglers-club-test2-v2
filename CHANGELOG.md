@@ -1,3 +1,4 @@
+- TEST40: Coco-Seite harmonisiert: ausgewogenes Desktop-Spaltenverhältnis, gleichwertige Bilanz-/Kodex-Kacheln, größere Bilanztypografie und kompakterer Aktionsbereich; keine Funktions- oder Datenänderung.
 - TEST39: Coco-Seite harmonisiert: moderates Desktop-Spaltenverhältnis, Bild wieder auf 3:2, rechte Bilanz-/Kodex-Zone mit einheitlichen Abständen, Rahmen, Typografie und Statistik-Kachelhöhen; keine Funktions- oder Datenänderung.
 - TEST38: Coco-Seite sichtbar neu gewichtet: größerer Orakelbereich, stärkere Hauptaktion, kompaktere Nebenpanels; ausschließlich HTML/CSS-Darstellung, keine Funktions- oder Datenänderung.
 - TEST37: Coco-Orakel rein visuell aufgewertet (Panels, Fokuszustände, CTA, Tiefenwirkung); keine Funktions-, Daten- oder Logikänderung.

@@ -140,119 +140,65 @@
   .coco-button{min-width:0}
 }
 
-/* TEST38 – sichtbare, kontrollierte Neugewichtung der Coco-Seite.
-   Ausschließlich Layout/Optik; keine Funktions-, Daten- oder Logikänderung. */
+/* TEST40 – harmonisierte Coco-Proportionen auf Basis des Nutzerfeedbacks.
+   Sichtbare, aber kontrollierte Layout-Politur. Keine Funktions-, Daten- oder Logikänderung. */
 @media (min-width:821px){
+  /* Rückkehr zu einer ausgewogenen Grundproportion statt bildlastiger TEST38/39-Aufteilung. */
   .coco-main{
-    grid-template-columns:minmax(0,1.55fr) minmax(300px,.65fr);
-    gap:20px;
-  }
-  .oracle-column{gap:14px}
-  .match-card{padding:14px 18px}
-  .coco-stage{aspect-ratio:4/3}
-  .oracle-card{
-    border-color:rgba(242,206,120,.62);
-    box-shadow:0 28px 64px rgba(0,0,0,.58),0 0 34px rgba(214,168,75,.055),inset 0 1px rgba(255,255,255,.07);
-  }
-  .oracle-actions{padding:20px 18px 22px}
-  .coco-button{
-    width:min(100%,340px);
-    font-size:1.08rem;
-    padding:15px 32px;
-  }
-  .side{gap:13px}
-  .stats-panel{padding:16px}
-  .rules{
-    padding:14px 16px;
-    font-size:.82rem;
-    line-height:1.42;
-    background:linear-gradient(180deg,rgba(42,29,18,.90),rgba(24,17,11,.92));
-    border-color:rgba(214,168,75,.26);
-    box-shadow:0 12px 28px rgba(0,0,0,.30),inset 0 1px rgba(255,255,255,.035);
-  }
-  .rules h2{
-    margin-bottom:8px;
-    font-size:1.05rem;
-    color:#ddbd76;
-  }
-  .rules p{margin:.32rem 0;color:#b9aa8d}
-  .stats-panel{
-    border-color:rgba(242,206,120,.52);
-    box-shadow:0 18px 38px rgba(0,0,0,.42),inset 0 1px rgba(255,255,255,.055);
-  }
-  .stats-panel h2{font-size:1.28rem;margin-bottom:13px}
-}
-
-/* Fokus klar auf Orakel/Bild und Hauptaktion, ohne das vorhandene Asset zu beschneiden. */
-.coco-stage{
-  background:radial-gradient(circle at 50% 42%,rgba(92,57,22,.16),rgba(9,6,4,.96) 68%);
-}
-.coco-stage::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  z-index:2;
-  background:linear-gradient(180deg,rgba(242,206,120,.035),transparent 18%,transparent 80%,rgba(0,0,0,.18));
-}
-.oracle-actions{position:relative}
-.oracle-actions::before{
-  content:"";
-  position:absolute;
-  left:50%;top:0;
-  width:min(62%,360px);height:1px;
-  transform:translateX(-50%);
-  background:linear-gradient(90deg,transparent,rgba(242,206,120,.62),transparent);
-}
-
-
-/* TEST39 – harmonische Desktop-Balance nach TEST38.
-   Nur Layout/Optik. Keine Funktions-, Daten- oder Logikänderung. */
-@media (min-width:821px){
-  .coco-main{
-    grid-template-columns:minmax(0,1.28fr) minmax(360px,.72fr);
+    grid-template-columns:minmax(0,1.2fr) minmax(380px,.8fr);
     gap:18px;
+    align-items:start;
   }
   .oracle-column{gap:16px}
   .match-card{padding:16px 18px}
   .coco-stage{aspect-ratio:3/2}
-  .oracle-actions{padding:18px 18px 20px}
-  .coco-button{
-    width:min(100%,320px);
-    font-size:1.05rem;
-    padding:14px 30px;
-  }
-  .side{gap:16px}
 
-  /* Rechte Informationszone: ein gemeinsamer visueller Maßstab. */
+  /* Hauptaktion präsent, aber der Aktionsbereich bleibt kompakt. */
+  .oracle-actions{padding:15px 18px 17px}
+  .coco-button{
+    width:min(100%,300px);
+    min-width:230px;
+    font-size:1.03rem;
+    padding:13px 28px;
+  }
+  .status{margin-top:10px}
+
+  /* Rechte Informationszone: beide Außenkacheln im gleichen Maßstab. */
+  .side{gap:16px}
   .stats-panel,.rules{
-    padding:18px;
+    min-height:286px;
+    padding:20px;
     border-color:rgba(214,168,75,.42);
     background:linear-gradient(180deg,rgba(51,35,21,.97),rgba(29,20,13,.97));
     box-shadow:0 18px 38px rgba(0,0,0,.40),inset 0 1px rgba(255,255,255,.05);
   }
   .stats-panel h2,.rules h2{
-    margin:0 0 12px;
-    font-size:1.18rem;
+    margin:0 0 14px;
+    font-size:1.22rem;
+    line-height:1.15;
     color:var(--coco-gold2);
   }
+
+  /* Bilanz: sechs gleichmäßige, etwas großzügigere Felder. */
   .stats{
     grid-template-columns:1fr 1fr;
     gap:10px;
   }
   .stats div{
-    min-height:74px;
-    padding:12px 13px;
+    min-height:66px;
+    padding:11px 13px;
     border-radius:11px;
     display:flex;
     flex-direction:column;
     justify-content:center;
   }
-  .stats strong{font-size:1.4rem;line-height:1.05}
-  .stats span{font-size:.79rem;line-height:1.25;margin-top:5px}
+  .stats strong{font-size:1.48rem;line-height:1.05}
+  .stats span{font-size:.82rem;line-height:1.25;margin-top:4px}
+
+  /* Kodex bleibt gleichwertige Kachel; Text bekommt Luft statt zusammengepresst zu wirken. */
   .rules{
-    font-size:.9rem;
-    line-height:1.5;
+    font-size:.93rem;
+    line-height:1.55;
   }
-  .rules p{margin:.45rem 0;color:var(--coco-muted)}
+  .rules p{margin:.58rem 0;color:var(--coco-muted)}
 }
