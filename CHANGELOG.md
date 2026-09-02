@@ -1,3 +1,4 @@
+- TEST37: Coco-Orakel rein visuell aufgewertet (Panels, Fokuszustände, CTA, Tiefenwirkung); keine Funktions-, Daten- oder Logikänderung.
 # CHANGELOG
 - TEST36: Zeitgesteuerte Website-Mitteilung auf der Startseite ergänzt.
 - Konfiguration erfolgt über `website-mitteilung.json`; fehlerhafte oder fehlende Konfiguration blockiert die Website nicht.
