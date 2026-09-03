@@ -918,17 +918,24 @@
     const rawDate = openLigaDbMatchDate(match);
     const rawTime = String(match?.matchDateTime ?? match?.MatchDateTime ?? "").match(/T(\d{2}:\d{2})/)?.[1] || "";
     const score = openLigaDbFinalResult(match);
+    const homeName = openLigaDbTeamName(match?.team1);
+    const awayName = openLigaDbTeamName(match?.team2);
     return {
       id: match?.matchID ? `openligadb-cl-${match.matchID}` : "",
       datum: provisional || !rawDate ? "Terminierung offen" : formatDate(rawDate),
       datumSortierung: provisional || !rawDate ? "9999-12-31" : rawDate,
       datumIso: provisional || !rawDate ? "" : rawDate,
       anstoss: provisional || !rawTime ? "" : rawTime,
-      heimTeamId: "",
-      heim: openLigaDbTeamName(match?.team1),
+      // TEST44: Die allgemeinen Match-Zeilen rendern Wappen ausschließlich über
+      // heimTeamId/auswaertsTeamId. TEST42/43 hatten zwar eine CL-spezifische
+      // Wappenauflösung ergänzt, die Ansetzungen selbst verloren diese Zuordnung
+      // beim Umwandeln der OpenLigaDB-Partien jedoch wieder. Deshalb werden die
+      // bereits geprüften lokalen CL-Team-IDs hier direkt mitgegeben.
+      heimTeamId: championsLeagueLocalBadgeId(homeName),
+      heim: homeName,
       trenner: "–",
-      auswaertsTeamId: "",
-      auswaerts: openLigaDbTeamName(match?.team2),
+      auswaertsTeamId: championsLeagueLocalBadgeId(awayName),
+      auswaerts: awayName,
       ergebnis: score,
       status: provisional ? "Terminierung offen" : "",
       runde: matchdayNumber ? `${matchdayNumber}. Spieltag` : "Ligaphase",

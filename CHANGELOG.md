@@ -1,3 +1,9 @@
+# TEST44 – Champions-League-Wappen in Ansetzungen
+
+- CL-Ansetzungen übergeben jetzt die geprüften lokalen Team-IDs an die bestehende Matchzeilen-Wappenlogik.
+- Dadurch werden bekannte Originalwappen bzw. der bestehende lokale Fallback auch in den OpenLigaDB-Ansetzungen zuverlässig gerendert.
+- Keine Änderung an Spieltags-, Tabellen-, Wertungs-, Counter- oder Datenlogik.
+
 # Test2v2 4.9.2-HF12-HF41-TEST43
 
 ## Ziel
