@@ -1,3 +1,10 @@
+# 4.9.2-HF12-HF42 – Champions-League-Ansetzungen/Wappen
+
+- Live-Übernahme des in Test2v2 abgenommenen TEST46-Stands.
+- CL-Ansetzungen verwenden denselben Wappen-Renderer wie die Tabelle.
+- Vollständige OpenLigaDB-Teamobjekte bleiben bis zur Matchdarstellung erhalten.
+- Keine Änderung an Counter, Wertungen, Tabellenlogik, Spieltagserkennung oder Datenquellen gegenüber TEST46.
+
 # TEST44 – Champions-League-Wappen in Ansetzungen
 
 - CL-Ansetzungen übergeben jetzt die geprüften lokalen Team-IDs an die bestehende Matchzeilen-Wappenlogik.
@@ -148,3 +155,6 @@ Technische Vorprüfung bestanden; Realtest im Test2v2-Repo durch den Nutzer steh
 - Drei Live-Auto-Workflows ohne Funktionsänderung neu gespeichert.
 - Ausschließlich Kommentar zur Scheduler-Neuregistrierung ergänzt.
 - Cron-Zeiten, Jobs, Berechtigungen und Fachlogik unverändert.
+
+## 4.9.2-HF12-HF42-TEST47
+- DFB-Pokal/Europa League: Turnierbaum-Vorbereitung vereinheitlicht und Wertungsstart ab Achtelfinale direkt am Turnierbaum sichtbar gemacht.
