@@ -554,7 +554,7 @@
     return wrap;
   }
 
-  const OPENLIGADB_CL_MATCHES_PROTOTYPE_URL = "https://api.openligadb.de/getmatchdata/ucl2026/2026";
+  const OPENLIGADB_CL_MATCHES_PROTOTYPE_URL = "https://api.openligadb.de/getmatchdata/ucl/2026";
   const OPENLIGADB_EL_MATCHES_PROTOTYPE_URL = "https://api.openligadb.de/getmatchdata/uel/2026";
   const EUROPA_LEAGUE_FALLBACK_PROTOTYPE_URL = "./europa-league-ko-2026.json";
   const OPENLIGADB_DFB_PROTOTYPE_URL = "https://api.openligadb.de/getmatchdata/dfb/2026";
@@ -745,12 +745,68 @@
     return /^\d{4}-\d{2}-\d{2}$/.test(value) ? value : "";
   }
 
+  function championsLeagueMatchdayNumber(match) {
+    const group = match?.group || {};
+    const label = normalizeRoundLabel(group?.groupName ?? group?.GroupName ?? "");
+    const fromLabel = Number(label.match(/^(\d+)\s*spieltag$/i)?.[1]);
+    if (Number.isInteger(fromLabel) && fromLabel >= 1 && fromLabel <= 8) return fromLabel;
+
+    const fromOrder = Number(
+      group?.groupOrderID ?? group?.groupOrderId ?? group?.GroupOrderID ?? group?.GroupOrderId
+    );
+    return Number.isInteger(fromOrder) && fromOrder >= 1 && fromOrder <= 8 ? fromOrder : null;
+  }
+
+  function championsLeagueMatchHasKickoff(match) {
+    const raw = String(match?.matchDateTime ?? match?.MatchDateTime ?? "");
+    return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/.test(raw);
+  }
+
+  function championsLeagueClusterIsPlausible(cluster) {
+    if (!cluster || safeArray(cluster.matches).length !== 18) return false;
+    const teams = new Set();
+    for (const match of cluster.matches) {
+      if (!championsLeagueMatchHasKickoff(match)) return false;
+      const home = String(match?.team1?.teamId ?? match?.team1?.teamID ?? openLigaDbTeamName(match?.team1));
+      const away = String(match?.team2?.teamId ?? match?.team2?.teamID ?? openLigaDbTeamName(match?.team2));
+      if (!home || !away || teams.has(home) || teams.has(away)) return false;
+      teams.add(home); teams.add(away);
+    }
+    return teams.size === 36;
+  }
+
   function championsLeagueMatchdayClusters(matches) {
     const phaseMatches = safeArray(matches);
-    if (phaseMatches.length < 144) return [];
+    if (!phaseMatches.length) return [];
 
+    // Bevorzugt die explizite OpenLigaDB-Spieltagszuordnung. Damit kann jeder
+    // bereits vollständig terminierte Spieltag sofort angezeigt werden, ohne
+    // auf die komplette Ligaphase mit 144 Partien warten zu müssen.
+    const byMatchday = new Map();
+    phaseMatches.forEach(match => {
+      const number = championsLeagueMatchdayNumber(match);
+      if (!number) return;
+      if (!byMatchday.has(number)) byMatchday.set(number, []);
+      byMatchday.get(number).push(match);
+    });
+
+    const explicit = [...byMatchday.entries()]
+      .map(([matchdayNumber, groupedMatches]) => ({
+        matchdayNumber,
+        dates: [...new Set(groupedMatches.map(openLigaDbMatchDate).filter(Boolean))].sort(),
+        matches: groupedMatches
+      }))
+      .filter(championsLeagueClusterIsPlausible)
+      .sort((a, b) => a.matchdayNumber - b.matchdayNumber);
+
+    if (explicit.length) return explicit;
+
+    // Fallback für OpenLigaDB-Datensätze, die weiterhin nur "Ligaphase"
+    // liefern: ausschließlich vollständig terminierte 18er-Termincluster
+    // übernehmen. Unvollständige oder künstliche Zuordnungen bleiben außen vor.
     const byDate = new Map();
     phaseMatches.forEach(match => {
+      if (!championsLeagueMatchHasKickoff(match)) return;
       const date = openLigaDbMatchDate(match);
       if (!date) return;
       if (!byDate.has(date)) byDate.set(date, []);
@@ -772,19 +828,10 @@
       }
     });
 
-    if (clusters.length !== 8) return [];
-    const allPlausible = clusters.every(cluster => {
-      if (cluster.matches.length !== 18) return false;
-      const teams = new Set();
-      for (const match of cluster.matches) {
-        const home = String(match?.team1?.teamId ?? match?.team1?.teamID ?? openLigaDbTeamName(match?.team1));
-        const away = String(match?.team2?.teamId ?? match?.team2?.teamID ?? openLigaDbTeamName(match?.team2));
-        if (!home || !away || teams.has(home) || teams.has(away)) return false;
-        teams.add(home); teams.add(away);
-      }
-      return teams.size === 36;
-    });
-    return allPlausible ? clusters : [];
+    return clusters
+      .filter(championsLeagueClusterIsPlausible)
+      .slice(0, 8)
+      .map((cluster, index) => ({ ...cluster, matchdayNumber: index + 1 }));
   }
 
   function championsLeagueDisplayMatch(match, matchdayNumber = null, provisional = false) {
@@ -815,7 +862,8 @@
     if (slug !== "champions-league") return;
     const matches = championsLeaguePhaseMatches(openLigaDbMatches);
     const clusters = championsLeagueMatchdayClusters(matches);
-    const scheduleConfirmed = clusters.length === 8;
+    const scheduledMatchdays = clusters.length;
+    const scheduleConfirmed = scheduledMatchdays > 0;
 
     const section = document.createElement("section");
     section.className = "dynamic-section competition-situation";
@@ -833,8 +881,8 @@
     grid.className = "situation-grid";
     const cards = [
       ["Datenquelle", matches.length ? "OpenLigaDB verbunden" : "Noch keine Ligaphasen-Daten", matches.length ? "Die Community-Daten werden bei jedem Laden neu abgefragt." : "Die Seite wartet auf verwertbare OpenLigaDB-Daten."],
-      ["Spieltagszuordnung", scheduleConfirmed ? "8 Spieltage erkannt" : "Noch nicht belastbar", scheduleConfirmed ? "Alle acht Spieltage erfüllen die Plausibilitätsprüfung mit je 18 Spielen und 36 Teams." : "OpenLigaDB führt die Partien derzeit gemeinsam unter „Ligaphase“. Keine künstliche Zuordnung wird erzeugt."],
-      ["Terminierung", scheduleConfirmed ? "Plausibel strukturiert" : "Noch in Bearbeitung", scheduleConfirmed ? "Die Ligaphase ist anhand der offiziellen Termincluster strukturiert." : "Platzhalter- oder unvollständige Termine werden nicht als echte Spieltage behandelt."],
+      ["Spieltagszuordnung", scheduleConfirmed ? `${scheduledMatchdays} von 8 Spieltagen erkannt` : "Noch nicht belastbar", scheduleConfirmed ? "Jeder angezeigte Spieltag enthält 18 vollständig terminierte Spiele mit 36 eindeutigen Teams." : "OpenLigaDB liefert derzeit noch keinen vollständig terminierten 18er-Spieltag. Keine künstliche Zuordnung wird erzeugt."],
+      ["Terminierung", scheduleConfirmed ? "Veröffentlichte Spieltage aktiv" : "Noch in Bearbeitung", scheduleConfirmed ? "Sobald OpenLigaDB einen weiteren vollständigen Spieltag terminiert, wird er beim nächsten Laden automatisch ergänzt." : "Platzhalter- oder unvollständige Termine werden nicht als echte Spieltage behandelt."],
       ["Wappen", "Lokale Stammdaten + geprüfter Fallback", "Lokale Originalwappen haben Vorrang. Nur sichere HTTP(S)-Wappen von OpenLigaDB werden ersatzweise geladen; Base64-Daten bleiben ausgeschlossen."]
     ];
     cards.forEach(([label, value, detail]) => {
@@ -857,8 +905,8 @@
     const note = document.createElement("p");
     note.className = "data-note";
     note.textContent = scheduleConfirmed
-      ? "Die acht Spieltage wurden nur nach erfolgreicher Plausibilitätsprüfung aus der OpenLigaDB-Terminierung gebildet."
-      : "OpenLigaDB hat bereits Ligaphasen-Paarungen erfasst, aber noch keine belastbare Verteilung auf die acht Spieltage. Deshalb werden die Paarungen ohne erfundene Spieltagsnummern und ohne Platzhaltertermine angezeigt.";
+      ? `Aktuell sind ${scheduledMatchdays} von 8 Spieltagen vollständig terminiert und plausibilisiert. Weitere Spieltage erscheinen automatisch, sobald OpenLigaDB sie vollständig bereitstellt.`
+      : "OpenLigaDB hat bereits Ligaphasen-Paarungen erfasst, aber noch keinen vollständigen terminieren 18er-Spieltag. Deshalb werden keine erfundenen Spieltagsnummern oder Platzhaltertermine angezeigt.";
     schedule.appendChild(note);
 
     if (scheduleConfirmed) {
@@ -870,13 +918,14 @@
         details.open = index === 0;
         const summary = document.createElement("summary");
         summary.className = "matchday-summary";
-        const label = document.createElement("span"); label.textContent = `${index + 1}. Spieltag`;
+        const matchdayNumber = cluster.matchdayNumber || index + 1;
+        const label = document.createElement("span"); label.textContent = `${matchdayNumber}. Spieltag`;
         const count = document.createElement("span"); count.className = "matchday-count"; count.textContent = `${cluster.matches.length} Spiele`;
         summary.append(label, count);
         const rows = cluster.matches
           .slice()
           .sort((a, b) => String(a?.matchDateTime ?? "").localeCompare(String(b?.matchDateTime ?? "")))
-          .map(match => championsLeagueDisplayMatch(match, index + 1, false));
+          .map(match => championsLeagueDisplayMatch(match, matchdayNumber, false));
         details.append(summary, createMatchList(rows));
         accordion.appendChild(details);
       });
@@ -884,7 +933,7 @@
     } else {
       const waiting = document.createElement("p");
       waiting.className = "data-note";
-      waiting.textContent = `${matches.length} Paarungen sind bei OpenLigaDB bereits erfasst. Die Besucheransicht zeigt sie erst dann als regulären Spielplan, wenn alle acht Spieltage eindeutig und plausibel zugeordnet werden können.`;
+      waiting.textContent = `${matches.length} Paarungen sind bei OpenLigaDB bereits erfasst. Die Besucheransicht schaltet jeden Spieltag einzeln frei, sobald dafür 18 Spiele mit bestätigtem Anstoß und 36 eindeutigen Teams vorliegen.`;
       schedule.appendChild(waiting);
     }
     root.appendChild(schedule);
