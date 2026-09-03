@@ -933,9 +933,11 @@
       // bereits geprüften lokalen CL-Team-IDs hier direkt mitgegeben.
       heimTeamId: championsLeagueLocalBadgeId(homeName),
       heim: homeName,
+      heimTeamSource: match?.team1 || null,
       trenner: "–",
       auswaertsTeamId: championsLeagueLocalBadgeId(awayName),
       auswaerts: awayName,
+      auswaertsTeamSource: match?.team2 || null,
       ergebnis: score,
       status: provisional ? "Terminierung offen" : "",
       runde: matchdayNumber ? `${matchdayNumber}. Spieltag` : "Ligaphase",
@@ -1013,7 +1015,15 @@
           .slice()
           .sort((a, b) => String(a?.matchDateTime ?? "").localeCompare(String(b?.matchDateTime ?? "")))
           .map(match => championsLeagueDisplayMatch(match, matchdayNumber, false));
-        details.append(summary, createMatchList(rows));
+        details.append(summary, createMatchList(rows, {
+          teamIdentityFactory: (teamId, teamName, modifier, match, side) => {
+            const sourceTeam = side === "home" ? match?.heimTeamSource : match?.auswaertsTeamSource;
+            return createChampionsLeagueTeamIdentity(
+              sourceTeam || { teamId, teamName },
+              modifier
+            );
+          }
+        }));
         accordion.appendChild(details);
       });
       schedule.appendChild(accordion);
@@ -1039,10 +1049,42 @@
     }
   }
 
+  function championsLeagueBadgeLookupKeys(teamNameValue) {
+    const normalized = normalizeTeamLabel(teamNameValue);
+    if (!normalized) return [];
+
+    const keys = new Set([normalized]);
+    const prefixes = ["fc", "fk", "sc", "sk", "ac", "as", "cf", "rc", "ssc", "osc", "sv", "vfb", "vfl", "tsg"];
+    let reduced = normalized;
+
+    // OpenLigaDB verwendet bei einigen Clubs wechselnde Präfixe, z. B.
+    // „FC Arsenal“ statt „Arsenal FC“ oder „FK Bodø/Glimt“. Diese Präfixe
+    // dürfen die Zuordnung zum lokalen Badge nicht verhindern.
+    for (let i = 0; i < 3; i += 1) {
+      const parts = reduced.split(" ").filter(Boolean);
+      if (!parts.length || !prefixes.includes(parts[0])) break;
+      parts.shift();
+      reduced = parts.join(" ").trim();
+      if (reduced) keys.add(reduced);
+    }
+
+    // Zusätzlich Varianten mit nachgestelltem FC/CF erfassen.
+    for (const suffix of [" fc", " cf", " sk", " fk"]) {
+      if (normalized.endsWith(suffix)) keys.add(normalized.slice(0, -suffix.length).trim());
+    }
+
+    return [...keys].filter(Boolean);
+  }
+
   function championsLeagueLocalBadgeId(teamNameValue) {
     const genericId = resolveTeamId("", teamNameValue);
     if (genericId) return genericId;
-    return CHAMPIONS_LEAGUE_TEAM_BADGE_IDS[normalizeTeamLabel(teamNameValue)] || "";
+
+    for (const key of championsLeagueBadgeLookupKeys(teamNameValue)) {
+      const mapped = CHAMPIONS_LEAGUE_TEAM_BADGE_IDS[key];
+      if (mapped) return mapped;
+    }
+    return "";
   }
 
   function createChampionsLeagueTeamIdentity(team, modifier = "") {
@@ -1071,10 +1113,9 @@
       badge.className = "team-identity__badge";
 
       const renderLocalFallback = () => {
-        if (localId && window.OSCTeamBadge) {
-          window.OSCTeamBadge.render(badge, localId, name, { loading: "lazy" });
-        } else {
-          badge.remove();
+        if (window.OSCTeamBadge) {
+          const fallbackId = localId || `cl-${normalizeTeamLabel(name).replace(/\s+/g, "-") || "team"}`;
+          window.OSCTeamBadge.render(badge, fallbackId, name, { loading: "lazy" });
         }
       };
 
@@ -2216,10 +2257,14 @@ function bundesligaInfoCards(cards, goalData) {
 
       const pairing = document.createElement("strong");
       pairing.className = "match-pairing";
+      const teamIdentityFactory = typeof options.teamIdentityFactory === "function"
+        ? options.teamIdentityFactory
+        : (teamId, teamName, modifier) => createTeamIdentity(teamId, teamName, modifier);
+
       pairing.append(
-        createTeamIdentity(match.heimTeamId, match.heim, "team-identity--home"),
+        teamIdentityFactory(match.heimTeamId, match.heim, "team-identity--home", match, "home"),
         Object.assign(document.createElement("span"), { className: "match-pairing__separator", textContent: match.trenner || "–" }),
-        createTeamIdentity(match.auswaertsTeamId, match.auswaerts, "team-identity--away")
+        teamIdentityFactory(match.auswaertsTeamId, match.auswaerts, "team-identity--away", match, "away")
       );
 
       const resultWrap = document.createElement("span");
