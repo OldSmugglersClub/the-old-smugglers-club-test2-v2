@@ -555,6 +555,86 @@
   }
 
   const OPENLIGADB_CL_MATCHES_PROTOTYPE_URL = "https://api.openligadb.de/getmatchdata/ucl/2026";
+  const CHAMPIONS_LEAGUE_TEAM_BADGE_IDS = Object.freeze({
+    "aek athens": "aek-athen",
+    "aek athen": "aek-athen",
+    "lask linz": "lask",
+    "lask": "lask",
+    "club brugge": "club-brugge",
+    "club brugge kv": "club-brugge",
+    "aston villa": "aston-villa",
+    "borussia dortmund": "dortmund",
+    "villarreal cf": "villarreal-cf",
+    "villarreal": "villarreal-cf",
+    "fc porto": "fc-porto",
+    "porto": "fc-porto",
+    "manchester city": "manchester-city",
+    "lille osc": "osc-lille",
+    "osc lille": "osc-lille",
+    "lille": "osc-lille",
+    "real betis seville": "real-betis",
+    "real betis": "real-betis",
+    "real madrid": "real-madrid",
+    "inter milano": "inter-mailand",
+    "inter mailand": "inter-mailand",
+    "inter": "inter-mailand",
+    "fc barcelona": "barcelona",
+    "barcelona": "barcelona",
+    "feyenoord rotterdam": "feyenoord-rotterdam",
+    "feyenoord": "feyenoord-rotterdam",
+    "vfb stuttgart": "stuttgart",
+    "viking fk": "viking-fk",
+    "viking": "viking-fk",
+    "liverpool fc": "fc-liverpool",
+    "fc liverpool": "fc-liverpool",
+    "liverpool": "fc-liverpool",
+    "atletico madrid": "atletico-madrid",
+    "atletico de madrid": "atletico-madrid",
+    "paris saint germain": "paris-saint-germain",
+    "paris st germain": "paris-saint-germain",
+    "psg": "paris-saint-germain",
+    "slovan bratislava": "slovan-bratislava",
+    "sk slovan bratislava": "slovan-bratislava",
+    "sporting cp": "sporting-lissabon",
+    "sporting lissabon": "sporting-lissabon",
+    "galatasaray istanbul": "galatasaray",
+    "galatasaray": "galatasaray",
+    "ssc napoli": "ssc-neapel",
+    "napoli": "ssc-neapel",
+    "ssc neapel": "ssc-neapel",
+    "arsenal fc": "arsenal",
+    "arsenal": "arsenal",
+    "fenerbahce istanbul": "fenerbahce",
+    "fenerbahce sk": "fenerbahce",
+    "fenerbahce": "fenerbahce",
+    "as roma": "as-rom",
+    "as rom": "as-rom",
+    "roma": "as-rom",
+    "psv eindhoven": "psv-eindhoven",
+    "psv": "psv-eindhoven",
+    "fc shakhtar donetsk": "schachtar-donezk",
+    "shakhtar donetsk": "schachtar-donezk",
+    "schachtar donezk": "schachtar-donezk",
+    "como 1907": "como-1907",
+    "como": "como-1907",
+    "rb leipzig": "rb-leipzig",
+    "fc bayern munchen": "bayern-muenchen",
+    "bayern munich": "bayern-muenchen",
+    "bayern munchen": "bayern-muenchen",
+    "bodoe glimt": "bod-glimt",
+    "bodo glimt": "bod-glimt",
+    "bod glimt": "bod-glimt",
+    "manchester united": "manchester-united",
+    "sabah masazir": "sabah-fc",
+    "sabah fc": "sabah-fc",
+    "sabah": "sabah-fc",
+    "slavia prague": "slavia-prag",
+    "slavia prag": "slavia-prag",
+    "slavia praha": "slavia-prag",
+    "racing club de lens": "rc-lens",
+    "rc lens": "rc-lens",
+    "lens": "rc-lens"
+  });
   const OPENLIGADB_EL_MATCHES_PROTOTYPE_URL = "https://api.openligadb.de/getmatchdata/uel/2026";
   const EUROPA_LEAGUE_FALLBACK_PROTOTYPE_URL = "./europa-league-ko-2026.json";
   const OPENLIGADB_DFB_PROTOTYPE_URL = "https://api.openligadb.de/getmatchdata/dfb/2026";
@@ -952,27 +1032,60 @@
     }
   }
 
+  function championsLeagueLocalBadgeId(teamNameValue) {
+    const genericId = resolveTeamId("", teamNameValue);
+    if (genericId) return genericId;
+    return CHAMPIONS_LEAGUE_TEAM_BADGE_IDS[normalizeTeamLabel(teamNameValue)] || "";
+  }
+
   function createChampionsLeagueTeamIdentity(team, modifier = "") {
     const name = openLigaDbTeamName(team);
-    const localId = resolveTeamId("", name);
-    if (localId) return createTeamIdentity(localId, name, modifier);
+    const localId = championsLeagueLocalBadgeId(name);
+    const hasLocalOriginal = Boolean(
+      localId &&
+      window.OSCTeamBadge &&
+      typeof window.OSCTeamBadge.originalLogoPath === "function" &&
+      window.OSCTeamBadge.originalLogoPath(localId)
+    );
+
+    // Lokale Originalwappen bleiben die erste Wahl. Für die übrigen CL-Teams
+    // wird zunächst das sichere OpenLigaDB-Wappen versucht; bei fehlender oder
+    // nicht ladbarer Fremdquelle fällt die Anzeige auf das bereits vorhandene
+    // lokale Schmugglersiegel desselben Vereins zurück. So bleibt die Wappenachse
+    // vollständig belegt, ohne externe Logos in das Repository zu kopieren.
+    if (hasLocalOriginal) return createTeamIdentity(localId, name, modifier);
 
     const wrap = document.createElement("span");
     wrap.className = `team-identity${modifier ? ` ${modifier}` : ""}`;
     const iconUrl = openLigaDbSafeIconUrl(team);
-    if (iconUrl) {
+
+    if (iconUrl || localId) {
       const badge = document.createElement("span");
       badge.className = "team-identity__badge";
-      const image = document.createElement("img");
-      image.src = iconUrl;
-      image.alt = "";
-      image.loading = "lazy";
-      image.decoding = "async";
-      image.referrerPolicy = "no-referrer";
-      image.addEventListener("error", () => badge.remove(), { once: true });
-      badge.appendChild(image);
+
+      const renderLocalFallback = () => {
+        if (localId && window.OSCTeamBadge) {
+          window.OSCTeamBadge.render(badge, localId, name, { loading: "lazy" });
+        } else {
+          badge.remove();
+        }
+      };
+
+      if (iconUrl) {
+        const image = document.createElement("img");
+        image.src = iconUrl;
+        image.alt = "";
+        image.loading = "lazy";
+        image.decoding = "async";
+        image.referrerPolicy = "no-referrer";
+        image.addEventListener("error", renderLocalFallback, { once: true });
+        badge.appendChild(image);
+      } else {
+        renderLocalFallback();
+      }
       wrap.appendChild(badge);
     }
+
     const label = document.createElement("span");
     label.className = "team-identity__name";
     label.textContent = name;

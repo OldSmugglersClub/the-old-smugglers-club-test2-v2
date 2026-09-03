@@ -1,0 +1,16 @@
+# Ersetzen / Neu / Löschen – 4.9.2-HF12-HF41-TEST42
+
+## Ersetzen
+- `wettbewerb.js`
+- `VERSION.txt`
+- `CHANGELOG.md`
+
+## Neu
+- `CHANGELOG_4.9.2-HF12-HF41-TEST42.md`
+- `README_4.9.2-HF12-HF41-TEST42.md`
+- `DATEILISTE_ERSETZEN_NEU_LOESCHEN_4.9.2-HF12-HF41-TEST42.md`
+- `TESTPROTOKOLL_4.9.2-HF12-HF41-TEST42.md`
+- `SHA256_4.9.2-HF12-HF41-TEST42.txt`
+
+## Löschen
+- keine
