@@ -1071,17 +1071,32 @@
         }
       };
 
-      if (iconUrl) {
-        const image = document.createElement("img");
-        image.src = iconUrl;
-        image.alt = "";
-        image.loading = "lazy";
-        image.decoding = "async";
-        image.referrerPolicy = "no-referrer";
-        image.addEventListener("error", renderLocalFallback, { once: true });
-        badge.appendChild(image);
-      } else {
-        renderLocalFallback();
+      // Den lokalen Badge immer sofort rendern. Dadurch bleibt die Wappenposition
+      // auch dann sichtbar, wenn eine externe OpenLigaDB-Bildquelle langsam,
+      // blockiert oder technisch mit HTTP 200 aber ohne brauchbares Bild antwortet.
+      renderLocalFallback();
+
+      // Nur wenn kein lokales Originalwappen existiert, darf ein erfolgreich
+      // vorgeladenes OpenLigaDB-Wappen den lokalen Fallback ersetzen. Ein Fehler
+      // oder Hängen der Fremdquelle kann damit keine leere Badge-Fläche mehr erzeugen.
+      if (!hasLocalOriginal && iconUrl) {
+        const probe = new Image();
+        probe.decoding = "async";
+        probe.referrerPolicy = "no-referrer";
+        probe.onload = () => {
+          if (!probe.naturalWidth || !probe.naturalHeight || !badge.isConnected) return;
+          const image = document.createElement("img");
+          image.src = iconUrl;
+          image.alt = "";
+          image.loading = "lazy";
+          image.decoding = "async";
+          image.referrerPolicy = "no-referrer";
+          image.addEventListener("error", renderLocalFallback, { once: true });
+          badge.replaceChildren(image);
+          badge.dataset.badgeSource = "openligadb";
+        };
+        probe.onerror = () => {};
+        probe.src = iconUrl;
       }
       wrap.appendChild(badge);
     }
