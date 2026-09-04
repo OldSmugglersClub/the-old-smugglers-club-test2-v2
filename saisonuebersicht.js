@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const DATA_VERSION = "4.9.2-HF12-HF52-TEST65";
+  const DATA_VERSION = "4.9.2-HF12-HF53-TEST66";
   const OPENLIGADB_URLS = Object.freeze({
     "dfb-pokal": "https://api.openligadb.de/getmatchdata/dfb/2026",
     "champions-league": "https://api.openligadb.de/getmatchdata/ucl/2026",
