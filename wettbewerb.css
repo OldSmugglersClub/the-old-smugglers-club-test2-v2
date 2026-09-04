@@ -1317,6 +1317,18 @@ body.page-dynamo-dresden{
     drop-shadow(0 0 22px rgba(50, 113, 215, .52));
 }
 
+/* 4.9.2-HF12-HF50-TEST60: randbereinigtes Europa-League-Logo nutzt die Kartenhoehe. */
+.page-europa-league .competition-logo-box {
+  min-height: 205px;
+}
+
+.page-europa-league .competition-logo-image {
+  width: auto;
+  max-width: 100%;
+  height: min(100%, 220px);
+  max-height: 220px;
+}
+
 
 /* 4.9.2-HF12-HF46: DFB-Pokal-Kacheln mit Torjäger und letzten fünf Pokalsiegern. */
 .recent-winners {

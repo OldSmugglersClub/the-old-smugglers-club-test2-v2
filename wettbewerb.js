@@ -658,8 +658,8 @@
   const EUROPA_LEAGUE_RECENT_WINNERS = Object.freeze([
     { saison: "2025/2026", teamId: "aston-villa", name: "Aston Villa" },
     { saison: "2024/2025", teamId: "tottenham-hotspur", name: "Tottenham Hotspur" },
-    { saison: "2023/2024", teamId: "", name: "Atalanta" },
-    { saison: "2022/2023", teamId: "", name: "Sevilla FC" },
+    { saison: "2023/2024", teamId: "atalanta", name: "Atalanta" },
+    { saison: "2022/2023", teamId: "sevilla", name: "Sevilla FC" },
     { saison: "2021/2022", teamId: "frankfurt", name: "Eintracht Frankfurt" }
   ]);
   const DFB_BRACKET_ROUNDS = [
