@@ -1317,16 +1317,27 @@ body.page-dynamo-dresden{
     drop-shadow(0 0 22px rgba(50, 113, 215, .52));
 }
 
-/* 4.9.2-HF12-HF50-TEST60: randbereinigtes Europa-League-Logo nutzt die Kartenhoehe. */
+/* 4.9.2-HF12-HF50-TEST61: originales Querformat fuellt das rechte Europa-League-Fenster. */
+.page-europa-league .info-card--competition-logo {
+  padding: 0;
+  overflow: hidden;
+}
+
+.page-europa-league .info-card--competition-logo > p,
 .page-europa-league .competition-logo-box {
+  width: 100%;
+  height: 100%;
   min-height: 205px;
 }
 
 .page-europa-league .competition-logo-image {
-  width: auto;
-  max-width: 100%;
-  height: min(100%, 220px);
-  max-height: 220px;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  object-position: center center;
+  margin: 0;
 }
 
 
