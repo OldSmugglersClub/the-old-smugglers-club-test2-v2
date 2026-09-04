@@ -1301,3 +1301,40 @@ body.page-dynamo-dresden{
   object-position: center center;
   margin: auto;
 }
+
+
+/* 4.9.2-HF12-HF46: DFB-Pokal-Kacheln mit Torjäger und letzten fünf Pokalsiegern. */
+.recent-winners {
+  min-height: 205px;
+  display: grid;
+  align-content: center;
+  gap: 0.55rem;
+}
+
+.recent-winner-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.85rem;
+  width: min(100%, 390px);
+  margin-inline: auto;
+}
+
+.recent-winner-team {
+  min-width: 0;
+}
+
+.recent-winner-team .team-identity__name {
+  text-align: left;
+  font-weight: 700;
+}
+
+.recent-winner-season {
+  white-space: nowrap;
+  opacity: 0.9;
+  font-size: 0.95em;
+}
+
+.recent-winners-empty {
+  text-align: center;
+}
