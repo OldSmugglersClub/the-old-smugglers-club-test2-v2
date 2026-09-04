@@ -1399,3 +1399,63 @@ body.page-dynamo-dresden{
     width: 100%;
   }
 }
+
+
+/* TEST55: Bundesliga-Torjäger übernimmt die in TEST54 abgenommene DFB-Pokal-Anordnung.
+   Spielername und Tore bleiben unterhalb des Bildes. */
+.info-card--bundesliga-goalgetter {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  overflow: hidden;
+}
+
+.info-card--bundesliga-goalgetter > h2 {
+  margin: 0 0 .5rem;
+}
+
+.info-card--bundesliga-goalgetter > p {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.info-card--bundesliga-goalgetter .goalgetter-leader {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto auto auto;
+  align-content: center;
+  justify-items: stretch;
+  gap: .35rem;
+  text-align: center;
+}
+
+.info-card--bundesliga-goalgetter .goalgetter-cannon {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center center;
+  border-radius: 10px;
+}
+
+.info-card--bundesliga-goalgetter .goalgetter-leader-name {
+  margin-top: .15rem;
+  font-weight: 800;
+  font-size: 1.15rem;
+  line-height: 1.15;
+}
+
+.info-card--bundesliga-goalgetter .goalgetter-leader-goals {
+  margin-top: 0;
+  opacity: .9;
+  font-size: 1rem;
+}
+
+@media (max-width: 800px) {
+  .info-card--bundesliga-goalgetter .goalgetter-cannon {
+    width: 100%;
+  }
+}
