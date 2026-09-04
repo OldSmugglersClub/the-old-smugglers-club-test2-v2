@@ -1317,7 +1317,19 @@ body.page-dynamo-dresden{
     drop-shadow(0 0 22px rgba(50, 113, 215, .52));
 }
 
-/* 4.9.2-HF12-HF50-TEST61: originales Querformat fuellt das rechte Europa-League-Fenster. */
+/* 4.9.2-HF12-HF50-TEST63: drei kompakte, symmetrische Europa-League-Fenster. */
+.page-europa-league #info-cards > .info-card {
+  height: 290px;
+  min-height: 290px;
+}
+
+.page-europa-league #info-cards > .info-card h2 {
+  margin-bottom: .5rem;
+  font-size: clamp(.95rem, 1.55vw, 1.2rem);
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
 .page-europa-league .info-card--competition-logo {
   padding: 0;
   overflow: hidden;
@@ -1338,6 +1350,58 @@ body.page-dynamo-dresden{
   object-fit: cover;
   object-position: center center;
   margin: 0;
+}
+
+.page-europa-league .info-card--europa-league-goalgetter,
+.page-europa-league .info-card--recent-winners {
+  padding: 12px;
+}
+
+.page-europa-league .info-card--europa-league-goalgetter .goalgetter-leader {
+  grid-template-rows: minmax(0, 1fr) auto auto;
+  align-content: stretch;
+  min-height: 0;
+}
+
+.page-europa-league .info-card--europa-league-goalgetter .goalgetter-cannon {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.page-europa-league .goalgetter-leader-name,
+.page-europa-league .goalgetter-leader-goals,
+.page-europa-league .recent-winner-team .team-identity__name,
+.page-europa-league .recent-winner-season {
+  white-space: nowrap;
+}
+
+.page-europa-league .info-card--recent-winners .recent-winner-row {
+  gap: .5rem;
+}
+
+@media (max-width: 420px) {
+  .page-europa-league #info-cards > .info-card h2 {
+    font-size: .78rem;
+  }
+
+  .page-europa-league .info-card--recent-winners .recent-winner-row {
+    gap: .35rem;
+    font-size: .75rem;
+  }
+
+  .page-europa-league .info-card--recent-winners .team-identity {
+    gap: .35rem;
+  }
+
+  .page-europa-league .info-card--recent-winners .team-identity__badge {
+    flex-basis: 26px;
+    width: 26px;
+    height: 26px;
+  }
 }
 
 

@@ -2200,7 +2200,7 @@ function normalizeGoalGetterEntries(goalGetterData) {
     }
 
     if (result[1]) {
-      result[1] = { ...result[1], titel: "Die letzten 5 Europa-League-Sieger", text: "", winners: EUROPA_LEAGUE_RECENT_WINNERS };
+      result[1] = { ...result[1], titel: "Letzte 5 Europa-League-Sieger", text: "", winners: EUROPA_LEAGUE_RECENT_WINNERS };
     }
 
     if (result[2]) {
