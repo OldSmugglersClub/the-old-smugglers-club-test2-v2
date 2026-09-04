@@ -2163,6 +2163,7 @@ function normalizeGoalGetterEntries(goalGetterData) {
         box.append(img, name, goals);
         p.appendChild(box);
       } else if (Array.isArray(card.chasers)) {
+        article.classList.add("info-card--goalgetter-chasers");
         const box = document.createElement("div");
         box.className = "goalgetter-chasers";
 

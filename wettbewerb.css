@@ -1459,3 +1459,31 @@ body.page-dynamo-dresden{
     width: 100%;
   }
 }
+
+
+/* 4.9.2-HF12-HF46-TEST56: Bundesliga-Verfolgerfeld nutzt die volle Kartenhöhe. */
+.info-card--goalgetter-chasers {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-card--goalgetter-chasers > p {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.info-card--goalgetter-chasers .goalgetter-chasers {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  align-content: stretch;
+  gap: 0;
+}
+
+.info-card--goalgetter-chasers .goalgetter-chaser-row {
+  align-self: center;
+  width: min(100%, 320px);
+}
