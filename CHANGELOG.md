@@ -1,3 +1,9 @@
+# 4.9.2-HF12-HF43-TEST49
+
+- Bundesliga: Logo in der rechten Infokachel deutlich größer und weiterhin exakt horizontal/vertikal zentriert.
+- Dezente rote Flächenwirkung im rechten Fenster für bessere optische Ausfüllung.
+- Torjäger und Verfolgerfeld unverändert.
+
 # 4.9.2-HF12-HF43-TEST48
 
 - Bundesliga: rechte Infokachel zeigt nun mittig das Bundesliga-Logo statt des bisherigen Datenzentrale-Texts.
