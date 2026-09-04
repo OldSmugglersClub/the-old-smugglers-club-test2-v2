@@ -1,3 +1,9 @@
+# 4.9.2-HF12-HF43-TEST50
+
+- Bundesliga: rechtes Fenster verwendet jetzt vollständig das vom Nutzer bereitgestellte Bundesliga-Logo.
+- Logo horizontal und vertikal mittig zentriert und großflächig eingepasst.
+- Linke und mittlere Bundesliga-Kachel unverändert.
+
 # 4.9.2-HF12-HF43-TEST49
 
 - Bundesliga: Logo in der rechten Infokachel deutlich größer und weiterhin exakt horizontal/vertikal zentriert.

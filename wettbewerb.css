@@ -1262,12 +1262,12 @@ body.page-dynamo-dresden{
 }
 
 
-/* 4.9.2-HF12-HF43-TEST49: Bundesliga-Logo großflächiger, exakt mittig und nur in rechter Infokachel. */
+/* 4.9.2-HF12-HF43-TEST50: vom Nutzer bereitgestelltes Bundesliga-Logo vollständig, groß und exakt zentriert. */
 .info-card--competition-logo {
   display: flex;
   align-items: stretch;
   justify-content: center;
-  padding-block: 10px;
+  padding: 10px 12px;
 }
 
 .info-card--competition-logo > p {
@@ -1275,10 +1275,11 @@ body.page-dynamo-dresden{
   height: 100%;
   margin: 0;
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .competition-logo-box {
-  position: relative;
   width: 100%;
   min-height: 205px;
   display: flex;
@@ -1288,22 +1289,15 @@ body.page-dynamo-dresden{
 }
 
 .competition-logo-box::before {
-  content: "";
-  position: absolute;
-  inset: 4px 8px;
-  border-radius: 10px;
-  background: radial-gradient(ellipse at center, rgba(226,0,26,.18) 0%, rgba(226,0,26,.08) 42%, transparent 74%);
-  pointer-events: none;
+  content: none;
 }
 
 .competition-logo-image {
-  position: relative;
-  z-index: 1;
   display: block;
-  height: 216px;
-  max-height: 100%;
-  width: auto;
-  max-width: 88%;
+  width: min(94%, 360px);
+  height: auto;
+  max-height: 220px;
   object-fit: contain;
+  object-position: center center;
   margin: auto;
 }
