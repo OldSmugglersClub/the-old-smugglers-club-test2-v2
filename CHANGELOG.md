@@ -1,3 +1,9 @@
+# 4.9.2-HF12-HF44
+
+- Live-Übernahme von `4.9.2-HF12-HF43-TEST50`.
+- Rechte Bundesliga-Kachel: vollständiges Nutzer-Logo statt Infotext, groß und exakt zentriert.
+- Linke und mittlere Bundesliga-Kachel sowie Datenlogik unverändert.
+
 # 4.9.2-HF12-HF43-TEST50
 
 - Bundesliga: rechtes Fenster verwendet jetzt vollständig das vom Nutzer bereitgestellte Bundesliga-Logo.
@@ -182,3 +188,6 @@ Technische Vorprüfung bestanden; Realtest im Test2v2-Repo durch den Nutzer steh
 
 ## 4.9.2-HF12-HF43
 - DFB-Pokal/Europa League: Turnierbaum-Vorbereitung vereinheitlicht und Wertungsstart ab Achtelfinale direkt am Turnierbaum sichtbar gemacht.
+
+## 4.9.2-HF12-HF44-TEST51
+- DFB-Pokal: rechte Informationskachel auf das vom Nutzer bereitgestellte, vollständig zentrierte Logo umgestellt; bisherige Überschrift und Wertungstext entfernt.
