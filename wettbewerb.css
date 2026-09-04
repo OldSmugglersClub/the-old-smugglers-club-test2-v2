@@ -1338,3 +1338,64 @@ body.page-dynamo-dresden{
 .recent-winners-empty {
   text-align: center;
 }
+
+
+/* 4.9.2-HF12-HF46-TEST53: DFB-Pokal-Torjaeger nutzt die komplette linke Kachel. */
+.info-card--dfb-goalgetter {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  overflow: hidden;
+}
+
+.info-card--dfb-goalgetter > h2 {
+  margin: 0 0 .5rem;
+}
+
+.info-card--dfb-goalgetter > p {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+/* TEST54: DFB-Pokal-Torjäger nutzt die verfügbare Breite vollständig;
+   Spielername und Tore bleiben bewusst unterhalb des Bildes. */
+.info-card--dfb-goalgetter .goalgetter-leader {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto auto auto;
+  align-content: center;
+  justify-items: stretch;
+  gap: .35rem;
+  text-align: center;
+}
+
+.info-card--dfb-goalgetter .goalgetter-cannon {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center center;
+  border-radius: 10px;
+}
+
+.info-card--dfb-goalgetter .goalgetter-leader-name {
+  margin-top: .15rem;
+  font-weight: 800;
+  font-size: 1.15rem;
+  line-height: 1.15;
+}
+
+.info-card--dfb-goalgetter .goalgetter-leader-goals {
+  margin-top: 0;
+  opacity: .9;
+  font-size: 1rem;
+}
+
+@media (max-width: 800px) {
+  .info-card--dfb-goalgetter .goalgetter-cannon {
+    width: 100%;
+  }
+}

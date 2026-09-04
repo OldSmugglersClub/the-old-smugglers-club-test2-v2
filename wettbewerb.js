@@ -2140,6 +2140,8 @@ function normalizeGoalGetterEntries(goalGetterData) {
         box.appendChild(img);
         p.appendChild(box);
       } else if (card.leader) {
+        if (slug === "dfb-pokal") article.classList.add("info-card--dfb-goalgetter");
+
         const box = document.createElement("div");
         box.className = "goalgetter-leader";
 
