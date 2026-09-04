@@ -1260,3 +1260,33 @@ body.page-dynamo-dresden{
 .goalgetter-chasers-empty {
   text-align: center;
 }
+
+
+/* 4.9.2-HF12-HF43-TEST48: Bundesliga-Logo mittig in rechter Infokachel. */
+.info-card--competition-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-card--competition-logo > p {
+  width: 100%;
+  margin: 0;
+}
+
+.competition-logo-box {
+  min-height: 190px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.competition-logo-image {
+  display: block;
+  width: min(72%, 230px);
+  height: auto;
+  max-height: 190px;
+  object-fit: contain;
+  margin: 0 auto;
+}
