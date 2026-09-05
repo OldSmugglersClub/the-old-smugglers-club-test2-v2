@@ -2285,42 +2285,115 @@ function normalizeGoalGetterEntries(goalGetterData) {
     return result;
   }
 
-  function relegationInfoCards(cards) {
+  function relegationTeamKey(match, side) {
+    const id = side === "home" ? match?.heimTeamId : match?.auswaertsTeamId;
+    const name = side === "home" ? match?.heim : match?.auswaerts;
+    return String(id || name || "").trim();
+  }
+
+  function relegationTeamLabel(match, side) {
+    const id = side === "home" ? match?.heimTeamId : match?.auswaertsTeamId;
+    const fallback = side === "home" ? match?.heim : match?.auswaerts;
+    return teamName(createTeamLookup(currentTeamData), id, fallback);
+  }
+
+  function completedRelegationDecision(games, type) {
+    const pair = safeArray(games)
+      .filter(match => String(match?.notiz || "").toLowerCase().includes(type))
+      .sort((a, b) => String(a?.datum || "").localeCompare(String(b?.datum || "")));
+    if (pair.length !== 2) return null;
+    if (pair.some(match => numericScore(match?.heimtore) === null || numericScore(match?.auswaertstore) === null)) return null;
+
+    const first = pair[0];
+    const firstHome = relegationTeamKey(first, "home");
+    const firstAway = relegationTeamKey(first, "away");
+    const labels = new Map([
+      [firstHome, relegationTeamLabel(first, "home")],
+      [firstAway, relegationTeamLabel(first, "away")]
+    ]);
+    if (!firstHome || !firstAway || /16\.|dritter|offen/i.test(`${labels.get(firstHome)} ${labels.get(firstAway)}`)) return null;
+
+    const totals = new Map([[firstHome, 0], [firstAway, 0]]);
+    let validPair = true;
+    pair.forEach(match => {
+      const homeKey = relegationTeamKey(match, "home");
+      const awayKey = relegationTeamKey(match, "away");
+      if (!totals.has(homeKey) || !totals.has(awayKey)) {
+        validPair = false;
+        return;
+      }
+      totals.set(homeKey, totals.get(homeKey) + numericScore(match.heimtore));
+      totals.set(awayKey, totals.get(awayKey) + numericScore(match.auswaertstore));
+      labels.set(homeKey, relegationTeamLabel(match, "home"));
+      labels.set(awayKey, relegationTeamLabel(match, "away"));
+    });
+
+    if (!validPair) return null;
+    if (totals.get(firstHome) === totals.get(firstAway)) return null;
+    const winner = totals.get(firstHome) > totals.get(firstAway) ? firstHome : firstAway;
+    const loser = winner === firstHome ? firstAway : firstHome;
+    return { winner, loser, labels, firstHome, firstAway };
+  }
+
+  function liveRelegationSummary(gameData) {
+    const relegationGames = allCentralGames(gameData).filter(match => match?.wettbewerb === "relegation");
+    const seasons = [...new Set(relegationGames.map(match => String(match?.saison || "")).filter(Boolean))].sort().reverse();
+
+    for (const season of seasons) {
+      const games = relegationGames.filter(match => String(match?.saison || "") === season);
+      const bundesliga = completedRelegationDecision(games, "bundesliga-relegation");
+      const zweiteLiga = completedRelegationDecision(games, "relegation 2. bundesliga");
+      if (!bundesliga || !zweiteLiga) continue;
+
+      const bundesligaIncumbent = bundesliga.firstHome;
+      const bundesligaChallenger = bundesliga.firstAway;
+      const zweiteLigaChallenger = zweiteLiga.firstHome;
+      const zweiteLigaIncumbent = zweiteLiga.firstAway;
+
+      return {
+        season: season.replace("/20", "/"),
+        rows: [
+          bundesliga.winner === bundesligaChallenger
+            ? { title: "Bundesliga", positive: `↑ ${bundesliga.labels.get(bundesliga.winner)}`, negative: `↓ ${bundesliga.labels.get(bundesliga.loser)}` }
+            : { title: "Bundesliga", positive: `${bundesliga.labels.get(bundesligaIncumbent)} bleibt`, negative: `${bundesliga.labels.get(bundesligaChallenger)} bleibt` },
+          zweiteLiga.winner === zweiteLigaChallenger
+            ? { title: "2. Bundesliga", positive: `↑ ${zweiteLiga.labels.get(zweiteLiga.winner)}`, negative: `↓ ${zweiteLiga.labels.get(zweiteLiga.loser)}` }
+            : { title: "2. Bundesliga", positive: `${zweiteLiga.labels.get(zweiteLigaIncumbent)} bleibt`, negative: `${zweiteLiga.labels.get(zweiteLigaChallenger)} bleibt` }
+        ]
+      };
+    }
+
+    return {
+      season: "2025/26",
+      rows: [
+        { title: "Bundesliga", positive: "↑ Paderborn", negative: "↓ Wolfsburg" },
+        { title: "2. Bundesliga", positive: "Fürth bleibt", negative: "Essen bleibt" }
+      ]
+    };
+  }
+
+  function relegationInfoCards(cards, gameData) {
     const result = safeArray(cards).map(card => ({ ...card }));
     if (slug !== "relegation") return result;
+    const summary = liveRelegationSummary(gameData);
 
     if (result[0]) {
       result[0] = {
         ...result[0],
         titel: "",
         text: "",
-        logo: "./assets/dfb-logo.webp",
-        logoAlt: "Logo des Deutschen Fußball-Bundes",
-        logoClass: "relegation-dfb-logo"
+        logo: "./assets/dfl-logo.png",
+        logoAlt: "Logo der Deutschen Fußball Liga",
+        logoClass: "relegation-dfl-logo"
       };
     }
 
     if (result[1]) {
       result[1] = {
         ...result[1],
-        titel: "Hoch oder Runter · 2025/26",
+        titel: `Hoch oder Runter · ${summary.season}`,
         text: "",
-        relegationSummary: [
-          {
-            duel: "Bundesliga ↕ 2. Bundesliga",
-            firstLeg: "Wolfsburg 0:0 Paderborn",
-            secondLeg: "Paderborn 2:1 n. V. Wolfsburg",
-            promoted: "↑ Paderborn",
-            relegated: "↓ Wolfsburg"
-          },
-          {
-            duel: "2. Bundesliga ↕ 3. Liga",
-            firstLeg: "Essen 1:0 Fürth",
-            secondLeg: "Fürth 2:0 Essen",
-            promoted: "= Fürth bleibt",
-            relegated: "= Essen bleibt"
-          }
-        ]
+        relegationSummary: summary.rows
       };
     }
 
@@ -2435,24 +2508,17 @@ function normalizeGoalGetterEntries(goalGetterData) {
           block.className = "relegation-duel";
           const title = document.createElement("strong");
           title.className = "relegation-duel-title";
-          title.textContent = entry.duel || "";
-          const legs = document.createElement("div");
-          legs.className = "relegation-results";
-          const firstLeg = document.createElement("span");
-          firstLeg.textContent = entry.firstLeg || "";
-          const secondLeg = document.createElement("span");
-          secondLeg.textContent = entry.secondLeg || "";
-          legs.append(firstLeg, secondLeg);
+          title.textContent = entry.title || "";
           const outcome = document.createElement("div");
           outcome.className = "relegation-outcome";
           const promoted = document.createElement("span");
           promoted.className = "relegation-up";
-          promoted.textContent = entry.promoted || "";
+          promoted.textContent = entry.positive || "";
           const relegated = document.createElement("span");
           relegated.className = "relegation-down";
-          relegated.textContent = entry.relegated || "";
+          relegated.textContent = entry.negative || "";
           outcome.append(promoted, relegated);
-          block.append(title, legs, outcome);
+          block.append(title, outcome);
           box.appendChild(block);
         });
 
@@ -3003,7 +3069,7 @@ function normalizeGoalGetterEntries(goalGetterData) {
             : slug === "dynamo-dresden"
               ? dynamoDresdenInfoCards(data.karten, dynamoMatchData)
               : slug === "relegation"
-                ? relegationInfoCards(data.karten)
+                ? relegationInfoCards(data.karten, centralGameData)
                 : data.karten;
       renderCards(preparedCards);
 

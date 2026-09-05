@@ -1519,13 +1519,13 @@ body.page-dynamo-dresden{
   min-height: 0;
 }
 
-.page-relegation .relegation-dfb-logo {
-  background: radial-gradient(circle at 50% 48%, #173f31 0%, #0c241b 58%, #070d0a 100%);
+.page-relegation .relegation-dfl-logo {
+  background: #fff;
 }
 
-.page-relegation .relegation-dfb-logo .competition-logo-image {
-  width: 86%;
-  height: 86%;
+.page-relegation .relegation-dfl-logo .competition-logo-image {
+  width: 94%;
+  height: 94%;
   max-width: none;
   max-height: none;
   object-fit: contain;
@@ -1538,8 +1538,12 @@ body.page-dynamo-dresden{
   height: 100%;
   max-width: none;
   max-height: none;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center center;
+}
+
+.page-relegation .relegation-event-logo {
+  background: #d8d8d8;
 }
 
 .page-relegation .info-card--relegation-summary {
@@ -1569,7 +1573,7 @@ body.page-dynamo-dresden{
   min-height: 0;
   display: grid;
   align-content: center;
-  gap: .25rem;
+  gap: .75rem;
   padding: .48rem .58rem;
   border: 1px solid rgba(190, 145, 62, .42);
   border-radius: 9px;
@@ -1578,7 +1582,7 @@ body.page-dynamo-dresden{
 
 .relegation-duel-title {
   color: #efca70;
-  font-size: .82rem;
+  font-size: 1.08rem;
   text-align: center;
   white-space: nowrap;
 }
@@ -1601,7 +1605,7 @@ body.page-dynamo-dresden{
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: .35rem;
-  font-size: .78rem;
+  font-size: clamp(.88rem, 1.45vw, 1.08rem);
   font-weight: 700;
   text-align: center;
 }
@@ -1620,9 +1624,8 @@ body.page-dynamo-dresden{
   }
 
   .relegation-duel-title,
-  .relegation-results,
   .relegation-outcome {
-    font-size: .72rem;
+    font-size: .82rem;
   }
 }
 
