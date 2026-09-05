@@ -2382,9 +2382,9 @@ function normalizeGoalGetterEntries(goalGetterData) {
         ...result[0],
         titel: "",
         text: "",
-        logo: "./assets/dfl-logo.png",
-        logoAlt: "Logo der Deutschen Fußball Liga",
-        logoClass: "relegation-dfl-logo"
+        logo: "./assets/relegation-gespenst.png",
+        logoAlt: "Bundesliga-Relegation mit Gespenst",
+        logoClass: "relegation-ghost-image"
       };
     }
 
