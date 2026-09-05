@@ -2382,7 +2382,7 @@ function normalizeGoalGetterEntries(goalGetterData) {
         ...result[0],
         titel: "",
         text: "",
-        logo: "./assets/relegation-gespenst.png",
+        logo: "./assets/relegation-gespenst-neu.png",
         logoAlt: "Bundesliga-Relegation mit Gespenst",
         logoClass: "relegation-ghost-image"
       };
