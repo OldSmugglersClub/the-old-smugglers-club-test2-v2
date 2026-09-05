@@ -2354,11 +2354,11 @@ function normalizeGoalGetterEntries(goalGetterData) {
         season: season.replace("/20", "/"),
         rows: [
           bundesliga.winner === bundesligaChallenger
-            ? { title: "Bundesliga", positive: `↑ ${bundesliga.labels.get(bundesliga.winner)}`, negative: `↓ ${bundesliga.labels.get(bundesliga.loser)}` }
-            : { title: "Bundesliga", positive: `${bundesliga.labels.get(bundesligaIncumbent)} bleibt`, negative: `${bundesliga.labels.get(bundesligaChallenger)} bleibt` },
+            ? { title: "Ober-Deck", positive: `↑ ${bundesliga.labels.get(bundesliga.winner)}`, negative: `↓ ${bundesliga.labels.get(bundesliga.loser)}` }
+            : { title: "Ober-Deck", positive: `${bundesliga.labels.get(bundesligaIncumbent)} bleibt`, negative: `${bundesliga.labels.get(bundesligaChallenger)} bleibt` },
           zweiteLiga.winner === zweiteLigaChallenger
-            ? { title: "2. Bundesliga", positive: `↑ ${zweiteLiga.labels.get(zweiteLiga.winner)}`, negative: `↓ ${zweiteLiga.labels.get(zweiteLiga.loser)}` }
-            : { title: "2. Bundesliga", positive: `${zweiteLiga.labels.get(zweiteLigaIncumbent)} bleibt`, negative: `${zweiteLiga.labels.get(zweiteLigaChallenger)} bleibt` }
+            ? { title: "Unter-Deck", positive: `↑ ${zweiteLiga.labels.get(zweiteLiga.winner)}`, negative: `↓ ${zweiteLiga.labels.get(zweiteLiga.loser)}` }
+            : { title: "Unter-Deck", positive: `${zweiteLiga.labels.get(zweiteLigaIncumbent)} bleibt`, negative: `${zweiteLiga.labels.get(zweiteLigaChallenger)} bleibt` }
         ]
       };
     }
@@ -2366,8 +2366,8 @@ function normalizeGoalGetterEntries(goalGetterData) {
     return {
       season: "2025/26",
       rows: [
-        { title: "Bundesliga", positive: "↑ Paderborn", negative: "↓ Wolfsburg" },
-        { title: "2. Bundesliga", positive: "Fürth bleibt", negative: "Essen bleibt" }
+        { title: "Ober-Deck", positive: "↑ Paderborn", negative: "↓ Wolfsburg" },
+        { title: "Unter-Deck", positive: "Fürth bleibt", negative: "Essen bleibt" }
       ]
     };
   }
