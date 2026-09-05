@@ -2285,6 +2285,59 @@ function normalizeGoalGetterEntries(goalGetterData) {
     return result;
   }
 
+  function relegationInfoCards(cards) {
+    const result = safeArray(cards).map(card => ({ ...card }));
+    if (slug !== "relegation") return result;
+
+    if (result[0]) {
+      result[0] = {
+        ...result[0],
+        titel: "",
+        text: "",
+        logo: "./assets/dfb-logo.webp",
+        logoAlt: "Logo des Deutschen Fußball-Bundes",
+        logoClass: "relegation-dfb-logo"
+      };
+    }
+
+    if (result[1]) {
+      result[1] = {
+        ...result[1],
+        titel: "Hoch oder Runter · 2025/26",
+        text: "",
+        relegationSummary: [
+          {
+            duel: "Bundesliga ↕ 2. Bundesliga",
+            firstLeg: "Wolfsburg 0:0 Paderborn",
+            secondLeg: "Paderborn 2:1 n. V. Wolfsburg",
+            promoted: "↑ Paderborn",
+            relegated: "↓ Wolfsburg"
+          },
+          {
+            duel: "2. Bundesliga ↕ 3. Liga",
+            firstLeg: "Essen 1:0 Fürth",
+            secondLeg: "Fürth 2:0 Essen",
+            promoted: "= Fürth bleibt",
+            relegated: "= Essen bleibt"
+          }
+        ]
+      };
+    }
+
+    if (result[2]) {
+      result[2] = {
+        ...result[2],
+        titel: "",
+        text: "",
+        logo: "./assets/relegation-logo.webp",
+        logoAlt: "Relegation Bundesliga und 2. Bundesliga",
+        logoClass: "relegation-event-logo"
+      };
+    }
+
+    return result;
+  }
+
   function renderCards(cards) {
     const root = $("info-cards");
     root.innerHTML = "";
@@ -2296,6 +2349,7 @@ function normalizeGoalGetterEntries(goalGetterData) {
       const p = document.createElement("p");
       if (card.logo) {
         article.classList.add("info-card--competition-logo");
+        if (card.logoClass) article.classList.add(card.logoClass);
         h2.classList.add("is-hidden");
         const box = document.createElement("div");
         box.className = "competition-logo-box";
@@ -2369,6 +2423,38 @@ function normalizeGoalGetterEntries(goalGetterData) {
             box.appendChild(row);
           });
         }
+
+        p.appendChild(box);
+      } else if (Array.isArray(card.relegationSummary)) {
+        article.classList.add("info-card--relegation-summary");
+        const box = document.createElement("div");
+        box.className = "relegation-summary";
+
+        card.relegationSummary.forEach(entry => {
+          const block = document.createElement("section");
+          block.className = "relegation-duel";
+          const title = document.createElement("strong");
+          title.className = "relegation-duel-title";
+          title.textContent = entry.duel || "";
+          const legs = document.createElement("div");
+          legs.className = "relegation-results";
+          const firstLeg = document.createElement("span");
+          firstLeg.textContent = entry.firstLeg || "";
+          const secondLeg = document.createElement("span");
+          secondLeg.textContent = entry.secondLeg || "";
+          legs.append(firstLeg, secondLeg);
+          const outcome = document.createElement("div");
+          outcome.className = "relegation-outcome";
+          const promoted = document.createElement("span");
+          promoted.className = "relegation-up";
+          promoted.textContent = entry.promoted || "";
+          const relegated = document.createElement("span");
+          relegated.className = "relegation-down";
+          relegated.textContent = entry.relegated || "";
+          outcome.append(promoted, relegated);
+          block.append(title, legs, outcome);
+          box.appendChild(block);
+        });
 
         p.appendChild(box);
       } else if (Array.isArray(card.achievements)) {
@@ -2914,8 +3000,10 @@ function normalizeGoalGetterEntries(goalGetterData) {
             ? championsLeagueInfoCards(data.karten, championsLeagueGoalGetterData)
             : slug === "europa-league"
               ? europaLeagueInfoCards(data.karten, europaLeagueGoalGetterData)
-              : slug === "dynamo-dresden"
-                ? dynamoDresdenInfoCards(data.karten, dynamoMatchData)
+            : slug === "dynamo-dresden"
+              ? dynamoDresdenInfoCards(data.karten, dynamoMatchData)
+              : slug === "relegation"
+                ? relegationInfoCards(data.karten)
                 : data.karten;
       renderCards(preparedCards);
 
