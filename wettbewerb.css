@@ -1376,9 +1376,9 @@ body.page-dynamo-dresden{
 }
 
 .page-dynamo-dresden #info-cards > .info-card h2 {
-  margin-bottom: .5rem;
-  font-size: clamp(.9rem, 1.45vw, 1.16rem);
-  line-height: 1.1;
+  margin-bottom: .72rem;
+  font-size: clamp(1.12rem, 1.85vw, 1.42rem);
+  line-height: 1.08;
   text-align: center;
   white-space: nowrap;
 }
@@ -1412,7 +1412,7 @@ body.page-dynamo-dresden{
 }
 
 .page-dynamo-dresden .info-card--achievements > p {
-  height: calc(100% - 1.8rem);
+  height: calc(100% - 2.25rem);
 }
 
 .club-achievements {
@@ -1424,9 +1424,9 @@ body.page-dynamo-dresden{
 
 .club-achievement-row {
   display: grid;
-  grid-template-columns: minmax(68px, .8fr) minmax(0, 2.2fr);
+  grid-template-columns: minmax(104px, 1fr) minmax(0, 2fr);
   align-items: center;
-  gap: .7rem;
+  column-gap: .85rem;
   padding: .38rem .65rem;
   border: 1px solid rgba(190, 145, 62, .34);
   border-radius: 8px;
@@ -1438,6 +1438,10 @@ body.page-dynamo-dresden{
   font-size: clamp(1.05rem, 1.8vw, 1.4rem);
   text-align: right;
   white-space: nowrap;
+}
+
+.club-achievement-row:last-child .club-achievement-value {
+  font-size: clamp(.9rem, 1.45vw, 1.12rem);
 }
 
 .club-achievement-label {
@@ -1470,11 +1474,11 @@ body.page-dynamo-dresden{
 
 @media (max-width: 420px) {
   .page-dynamo-dresden #info-cards > .info-card h2 {
-    font-size: .78rem;
+    font-size: 1rem;
   }
 
   .club-achievement-row {
-    grid-template-columns: 58px minmax(0, 1fr);
+    grid-template-columns: 82px minmax(0, 1fr);
     gap: .45rem;
     padding-inline: .45rem;
     font-size: .78rem;
