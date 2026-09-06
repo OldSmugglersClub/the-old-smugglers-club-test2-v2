@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "datenVersion": 9,
+  "datenVersion": 10,
   "aktualisiert": "2026-09-06",
   "saison": "2026/2027",
   "quelle": "OpenLigaDB getgoalgetters/bl1/2026",
@@ -87,11 +87,11 @@
       "tore": 1
     },
     {
-      "name": "S. El Mala",
+      "name": "O. Kabak",
       "tore": 1
     },
     {
-      "name": "O. Kabak",
+      "name": "S. El Mala",
       "tore": 1
     },
     {
@@ -216,6 +216,10 @@
     },
     {
       "name": "R. Fellhauer",
+      "tore": 1
+    },
+    {
+      "name": "F. Rieder",
       "tore": 1
     },
     {
