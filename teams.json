@@ -1,9 +1,9 @@
 {
   "schemaVersion": 2,
-  "datenVersion": 14,
-  "aktualisiert": "2026-09-05",
+  "datenVersion": 15,
+  "aktualisiert": "2026-09-06",
   "hinweis": "Kompatible Website-Ausgabe, automatisch aus spielbetrieb.json/stammdaten.vereine erzeugt. Nicht direkt bearbeiten.",
-  "quelle": "Admin 6.5.0-HF13-TEST4-HF1",
+  "quelle": "Admin 6.5.0-HF13-TEST4-HF4",
   "teams": [
     {
       "id": "heidenheim",
@@ -1036,6 +1036,441 @@
       "apiAliase": [
         "VfL Wolfsburg",
         "wolfsburg"
+      ]
+    },
+    {
+      "id": "club-brugge",
+      "name": "Club Brügge",
+      "kurzname": "Brügge",
+      "land": "Belgien",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "FC Brügge",
+        "Brügge",
+        "Club Brügge"
+      ]
+    },
+    {
+      "id": "aek-athen",
+      "name": "AEK Athen",
+      "kurzname": "AEK Athen",
+      "land": "Griechenland",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "AEK Athen",
+        "AEK Athen",
+        "AEK Athen"
+      ]
+    },
+    {
+      "id": "lask",
+      "name": "LASK",
+      "kurzname": "LA",
+      "land": "Österreich",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "LASK",
+        "LA",
+        "LASK"
+      ]
+    },
+    {
+      "id": "fc-porto",
+      "name": "FC Porto",
+      "kurzname": "Porto",
+      "land": "Portugal",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "FC Porto",
+        "Porto",
+        "FC Porto"
+      ]
+    },
+    {
+      "id": "villarreal-cf",
+      "name": "Villarreal CF",
+      "kurzname": "Villarreal CF",
+      "land": "Spanien",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "Villarreal CF",
+        "Villarreal CF",
+        "Villarreal CF"
+      ]
+    },
+    {
+      "id": "osc-lille",
+      "name": "OSC Lille",
+      "kurzname": "Lille",
+      "land": "Frankreich",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "Lille OSC",
+        "Lille",
+        "OSC Lille"
+      ]
+    },
+    {
+      "id": "real-betis",
+      "name": "Real Betis",
+      "kurzname": "Real Betis",
+      "land": "Spanien",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "Real Betis",
+        "Real Betis",
+        "Real Betis"
+      ]
+    },
+    {
+      "id": "feyenoord-rotterdam",
+      "name": "Feyenoord Rotterdam",
+      "kurzname": "Feyenoord",
+      "land": "Niederlande",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "Feyenoord Rotterdam",
+        "Feyenoord",
+        "Feyenoord Rotterdam"
+      ]
+    },
+    {
+      "id": "viking-fk",
+      "name": "Viking FK",
+      "kurzname": "Viking",
+      "land": "Norwegen",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "Viking",
+        "Viking",
+        "Viking FK"
+      ]
+    },
+    {
+      "id": "atletico-madrid",
+      "name": "Atlético Madrid",
+      "kurzname": "Atlético Madrid",
+      "land": "Spanien",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "Atletico Madrid",
+        "Atlético Madrid"
+      ]
+    },
+    {
+      "id": "slovan-bratislava",
+      "name": "Slovan Bratislava",
+      "kurzname": "Bratislava",
+      "land": "Slowakei",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "Slovan Bratislava",
+        "Bratislava",
+        "Slovan Bratislava"
+      ]
+    },
+    {
+      "id": "ssc-neapel",
+      "name": "SSC Neapel",
+      "kurzname": "SSC Neapel",
+      "land": "Italien",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "SSC Napoli",
+        "SSC Neapel"
+      ]
+    },
+    {
+      "id": "arsenal",
+      "name": "Arsenal",
+      "kurzname": "Arsenal",
+      "land": "England",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "FC Arsenal",
+        "Arsenal",
+        "Arsenal"
+      ]
+    },
+    {
+      "id": "galatasaray",
+      "name": "Galatasaray",
+      "kurzname": "Galatasaray",
+      "land": "Türkei",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "Galatasaray Istanbul",
+        "Galatasaray",
+        "Galatasaray"
+      ]
+    },
+    {
+      "id": "psv-eindhoven",
+      "name": "PSV Eindhoven",
+      "kurzname": "PSV",
+      "land": "Niederlande",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "PSV Eindhoven",
+        "PSV",
+        "PSV Eindhoven"
+      ]
+    },
+    {
+      "id": "schachtar-donezk",
+      "name": "Schachtar Donezk",
+      "kurzname": "Shakhtar Donetsk",
+      "land": "Ukraine",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "Shakhtar Donetsk",
+        "Shakhtar Donetsk",
+        "Schachtar Donezk"
+      ]
+    },
+    {
+      "id": "fenerbahce",
+      "name": "Fenerbahçe",
+      "kurzname": "Fenerbahçe",
+      "land": "Türkei",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "Fenerbahçe SK",
+        "Fenerbahçe",
+        "Fenerbahçe"
+      ]
+    },
+    {
+      "id": "as-rom",
+      "name": "AS Rom",
+      "kurzname": "AS Rom",
+      "land": "Italien",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "AS Rom",
+        "AS Rom",
+        "AS Rom"
+      ]
+    },
+    {
+      "id": "bod-glimt",
+      "name": "Bodø/Glimt",
+      "kurzname": "Bodö/Glimt",
+      "land": "Norwegen",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "FK Bodö/Glimt",
+        "Bodö/Glimt",
+        "Bodø/Glimt"
+      ]
+    },
+    {
+      "id": "sabah-fc",
+      "name": "Sabah FC",
+      "kurzname": "Sabah",
+      "land": "Aserbaidschan",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "Sabah",
+        "Sabah",
+        "Sabah FC"
+      ]
+    },
+    {
+      "id": "como-1907",
+      "name": "Como 1907",
+      "kurzname": "Como 1907",
+      "land": "Italien",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "Como 1907",
+        "Como 1907",
+        "Como 1907"
+      ]
+    },
+    {
+      "id": "slavia-prag",
+      "name": "Slavia Prag",
+      "kurzname": "Slavia Prag",
+      "land": "Tschechien",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "Slavia Prag",
+        "Slavia Prag",
+        "Slavia Prag"
+      ]
+    },
+    {
+      "id": "rc-lens",
+      "name": "RC Lens",
+      "kurzname": "Lens",
+      "land": "Frankreich",
+      "logo": "",
+      "aktiv": true,
+      "national": null,
+      "international": {
+        "uefa": true,
+        "wettbewerb": null
+      },
+      "kicktippAliase": [],
+      "apiAliase": [
+        "RC Lens",
+        "Lens",
+        "RC Lens"
       ]
     }
   ]
