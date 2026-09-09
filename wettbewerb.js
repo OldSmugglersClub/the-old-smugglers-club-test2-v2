@@ -1129,64 +1129,18 @@
   function createChampionsLeagueTeamIdentity(team, modifier = "") {
     const name = openLigaDbTeamName(team);
     const localId = championsLeagueLocalBadgeId(name);
-    const hasLocalOriginal = Boolean(
-      localId &&
-      window.OSCTeamBadge &&
-      typeof window.OSCTeamBadge.originalLogoPath === "function" &&
-      window.OSCTeamBadge.originalLogoPath(localId)
-    );
-
-    // Lokale Originalwappen bleiben die erste Wahl. Für die übrigen CL-Teams
-    // wird zunächst das sichere OpenLigaDB-Wappen versucht; bei fehlender oder
-    // nicht ladbarer Fremdquelle fällt die Anzeige auf das bereits vorhandene
-    // lokale Schmugglersiegel desselben Vereins zurück. So bleibt die Wappenachse
-    // vollständig belegt, ohne externe Logos in das Repository zu kopieren.
-    if (hasLocalOriginal) return createTeamIdentity(localId, name, modifier);
+    // Alle Ansichten verwenden ausschließlich das verbindliche lokale
+    // Originalwappen-Register. Die Release-Prüfung blockiert jeden Datenstand,
+    // in dem ein verwendetes Team noch kein lokal archiviertes Original besitzt.
+    if (localId) return createTeamIdentity(localId, name, modifier);
 
     const wrap = document.createElement("span");
     wrap.className = `team-identity${modifier ? ` ${modifier}` : ""}`;
-    const iconUrl = openLigaDbSafeIconUrl(team);
-
-    if (iconUrl || localId) {
-      const badge = document.createElement("span");
-      badge.className = "team-identity__badge";
-
-      const renderLocalFallback = () => {
-        if (window.OSCTeamBadge) {
-          const fallbackId = localId || `cl-${normalizeTeamLabel(name).replace(/\s+/g, "-") || "team"}`;
-          window.OSCTeamBadge.render(badge, fallbackId, name, { loading: "lazy" });
-        }
-      };
-
-      // Den lokalen Badge immer sofort rendern. Dadurch bleibt die Wappenposition
-      // auch dann sichtbar, wenn eine externe OpenLigaDB-Bildquelle langsam,
-      // blockiert oder technisch mit HTTP 200 aber ohne brauchbares Bild antwortet.
-      renderLocalFallback();
-
-      // Nur wenn kein lokales Originalwappen existiert, darf ein erfolgreich
-      // vorgeladenes OpenLigaDB-Wappen den lokalen Fallback ersetzen. Ein Fehler
-      // oder Hängen der Fremdquelle kann damit keine leere Badge-Fläche mehr erzeugen.
-      if (!hasLocalOriginal && iconUrl) {
-        const probe = new Image();
-        probe.decoding = "async";
-        probe.referrerPolicy = "no-referrer";
-        probe.onload = () => {
-          if (!probe.naturalWidth || !probe.naturalHeight || !badge.isConnected) return;
-          const image = document.createElement("img");
-          image.src = iconUrl;
-          image.alt = "";
-          image.loading = "lazy";
-          image.decoding = "async";
-          image.referrerPolicy = "no-referrer";
-          image.addEventListener("error", renderLocalFallback, { once: true });
-          badge.replaceChildren(image);
-          badge.dataset.badgeSource = "openligadb";
-        };
-        probe.onerror = () => {};
-        probe.src = iconUrl;
-      }
-      wrap.appendChild(badge);
-    }
+    const badge = document.createElement("span");
+    badge.className = "team-identity__badge";
+    const unresolvedId = `cl-${normalizeTeamLabel(name).replace(/\s+/g, "-") || "team"}`;
+    window.OSCTeamBadge?.render(badge, unresolvedId, name, { loading: "lazy" });
+    wrap.appendChild(badge);
 
     const label = document.createElement("span");
     label.className = "team-identity__name";
