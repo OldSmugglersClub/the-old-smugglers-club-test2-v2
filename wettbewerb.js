@@ -2461,9 +2461,9 @@ function normalizeGoalGetterEntries(goalGetterData) {
         ...result[2],
         titel: "",
         text: "",
-        featureImage: "./assets/piratenkodex-classicos.jpg",
+        featureImage: "./assets/piratenkodex-classicos-querformat.png",
         featureImageAlt: "Old Smugglers Classico’s",
-        featureImageClass: "feature-image--contain"
+        featureImageClass: "feature-image--cover"
       };
     }
 
