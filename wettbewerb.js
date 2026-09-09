@@ -2424,6 +2424,50 @@ function normalizeGoalGetterEntries(goalGetterData) {
     return result;
   }
 
+  function piratenkodexInfoCards(cards) {
+    const result = safeArray(cards).map(card => ({ ...card }));
+    if (slug !== "piratenkodex") return result;
+
+    if (result[0]) {
+      result[0] = {
+        ...result[0],
+        titel: "",
+        text: "",
+        featureImage: "./assets/piratenkodex-kronjuwelen.jpg",
+        featureImageAlt: "Die Kronjuwelen des Piratenkodex"
+      };
+    }
+
+    if (result[1]) {
+      result[1] = {
+        ...result[1],
+        titel: "Letztes Aufeinandertreffen",
+        text: "",
+        recentMeetings: [
+          { home: "FC Barcelona", score: "2:0", away: "Real Madrid", season: "2025/26" },
+          { home: "AC Mailand", score: "1:0", away: "Inter Mailand", season: "2025/26" },
+          { home: "FC Liverpool", score: "2:3", away: "Manchester United", season: "2025/26" },
+          { home: "Inter Mailand", score: "3:2", away: "Juventus Turin", season: "2025/26" },
+          { home: "Paris Saint-Germain", score: "5:0", away: "Olympique Marseille", season: "2025/26" },
+          { home: "Manchester City", score: "0:2", away: "Manchester United", season: "2025/26" },
+          { home: "Manchester City", score: "4:0", away: "FC Liverpool", season: "2025/26" }
+        ]
+      };
+    }
+
+    if (result[2]) {
+      result[2] = {
+        ...result[2],
+        titel: "",
+        text: "",
+        featureImage: "./assets/piratenkodex-classicos.jpg",
+        featureImageAlt: "Old Smugglers Classico’s"
+      };
+    }
+
+    return result;
+  }
+
   function renderCards(cards) {
     const root = $("info-cards");
     root.innerHTML = "";
@@ -2433,7 +2477,21 @@ function normalizeGoalGetterEntries(goalGetterData) {
       const h2 = document.createElement("h2");
       h2.textContent = card.titel || "";
       const p = document.createElement("p");
-      if (card.logo) {
+      if (card.featureImage) {
+        article.classList.add("info-card--feature-image");
+        h2.classList.add("is-hidden");
+        const box = document.createElement("div");
+        box.className = "feature-image-box";
+        box.style.setProperty("--feature-image", `url("${card.featureImage}")`);
+
+        const img = document.createElement("img");
+        img.className = "feature-image";
+        img.src = card.featureImage;
+        img.alt = card.featureImageAlt || "Piratenkodex-Motiv";
+
+        box.appendChild(img);
+        p.appendChild(box);
+      } else if (card.logo) {
         article.classList.add("info-card--competition-logo");
         if (card.logoClass) article.classList.add(card.logoClass);
         h2.classList.add("is-hidden");
@@ -2510,6 +2568,23 @@ function normalizeGoalGetterEntries(goalGetterData) {
           });
         }
 
+        p.appendChild(box);
+      } else if (Array.isArray(card.recentMeetings)) {
+        article.classList.add("info-card--recent-meetings");
+        const box = document.createElement("div");
+        box.className = "recent-meetings";
+        card.recentMeetings.forEach(entry => {
+          const row = document.createElement("div");
+          row.className = "recent-meeting-row";
+          const pairing = document.createElement("span");
+          pairing.className = "recent-meeting-pairing";
+          pairing.textContent = `${entry.home} ${entry.score} ${entry.away}`;
+          const season = document.createElement("span");
+          season.className = "recent-meeting-season";
+          season.textContent = entry.season || "";
+          row.append(pairing, season);
+          box.appendChild(row);
+        });
         p.appendChild(box);
       } else if (Array.isArray(card.relegationSummary)) {
         article.classList.add("info-card--relegation-summary");
@@ -3095,7 +3170,9 @@ function normalizeGoalGetterEntries(goalGetterData) {
               ? dynamoDresdenInfoCards(data.karten, dynamoMatchData)
               : slug === "relegation"
                 ? relegationInfoCards(data.karten, centralGameData)
-                : data.karten;
+                : slug === "piratenkodex"
+                  ? piratenkodexInfoCards(data.karten)
+                  : data.karten;
       renderCards(preparedCards);
 
       const statusBox = $("status-box");
