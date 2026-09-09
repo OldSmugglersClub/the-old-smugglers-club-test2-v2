@@ -2434,14 +2434,15 @@ function normalizeGoalGetterEntries(goalGetterData) {
         titel: "",
         text: "",
         featureImage: "./assets/piratenkodex-kronjuwelen.jpg",
-        featureImageAlt: "Die Kronjuwelen des Piratenkodex"
+        featureImageAlt: "Die Kronjuwelen des Piratenkodex",
+        featureImageClass: "feature-image--cover"
       };
     }
 
     if (result[1]) {
       result[1] = {
         ...result[1],
-        titel: "Letztes Aufeinandertreffen",
+        titel: "Saison 2025/2026",
         text: "",
         recentMeetings: [
           { home: "FC Barcelona", score: "2:0", away: "Real Madrid", season: "2025/26" },
@@ -2461,7 +2462,8 @@ function normalizeGoalGetterEntries(goalGetterData) {
         titel: "",
         text: "",
         featureImage: "./assets/piratenkodex-classicos.jpg",
-        featureImageAlt: "Old Smugglers Classico’s"
+        featureImageAlt: "Old Smugglers Classico’s",
+        featureImageClass: "feature-image--contain"
       };
     }
 
@@ -2486,6 +2488,7 @@ function normalizeGoalGetterEntries(goalGetterData) {
 
         const img = document.createElement("img");
         img.className = "feature-image";
+        if (card.featureImageClass) img.classList.add(card.featureImageClass);
         img.src = card.featureImage;
         img.alt = card.featureImageAlt || "Piratenkodex-Motiv";
 
@@ -2576,13 +2579,16 @@ function normalizeGoalGetterEntries(goalGetterData) {
         card.recentMeetings.forEach(entry => {
           const row = document.createElement("div");
           row.className = "recent-meeting-row";
-          const pairing = document.createElement("span");
-          pairing.className = "recent-meeting-pairing";
-          pairing.textContent = `${entry.home} ${entry.score} ${entry.away}`;
-          const season = document.createElement("span");
-          season.className = "recent-meeting-season";
-          season.textContent = entry.season || "";
-          row.append(pairing, season);
+          const home = document.createElement("span");
+          home.className = "recent-meeting-home";
+          home.textContent = entry.home || "";
+          const score = document.createElement("strong");
+          score.className = "recent-meeting-score";
+          score.textContent = entry.score || "–";
+          const away = document.createElement("span");
+          away.className = "recent-meeting-away";
+          away.textContent = entry.away || "";
+          row.append(home, score, away);
           box.appendChild(row);
         });
         p.appendChild(box);
