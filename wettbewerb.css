@@ -1801,9 +1801,24 @@ body.page-dynamo-dresden{
 }
 
 .feature-image--contain {
-  width: calc(100% - 18px);
-  height: calc(100% - 18px);
+  width: auto;
+  height: auto;
+  max-width: calc(100% - 24px);
+  max-height: calc(100% - 24px);
   object-fit: contain;
+}
+
+.page-piratenkodex .info-card--feature-contain .feature-image-box {
+  padding: 12px;
+}
+
+.page-piratenkodex .info-card--feature-contain .feature-image {
+  width: auto !important;
+  height: auto !important;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain !important;
+  object-position: center center;
 }
 
 .page-piratenkodex .info-card--recent-meetings {

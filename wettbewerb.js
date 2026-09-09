@@ -2481,6 +2481,9 @@ function normalizeGoalGetterEntries(goalGetterData) {
       const p = document.createElement("p");
       if (card.featureImage) {
         article.classList.add("info-card--feature-image");
+        if (card.featureImageClass === "feature-image--contain") {
+          article.classList.add("info-card--feature-contain");
+        }
         h2.classList.add("is-hidden");
         const box = document.createElement("div");
         box.className = "feature-image-box";
