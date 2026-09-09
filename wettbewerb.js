@@ -2643,8 +2643,16 @@ function normalizeGoalGetterEntries(goalGetterData) {
     const link = document.createElement("a");
     const anchor = cocoMatchAnchor(match);
     const returnTarget = `${window.location.pathname}${window.location.search}#${anchor}`;
+    const params = new URLSearchParams({
+      game: match.id,
+      competition: slug,
+      round: match.runde || "Spiele",
+      home: match.heimTeamId || "",
+      away: match.auswaertsTeamId || "",
+      return: returnTarget
+    });
     link.className = "coco-match-link";
-    link.href = `./coco/?game=${encodeURIComponent(match.id)}&return=${encodeURIComponent(returnTarget)}`;
+    link.href = `./coco/?${params.toString()}`;
     link.textContent = "Coco fragen";
     link.setAttribute("aria-label", `Coco zu ${match.heim} gegen ${match.auswaerts} fragen`);
     return link;
