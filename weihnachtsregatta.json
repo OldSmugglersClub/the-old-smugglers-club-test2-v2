@@ -5,8 +5,11 @@
   "beschreibung": "Fünf ausgewählte Begegnungen über den Jahreswechsel bilden gemeinsam einen besonderen Kicktipp-Spieltag des Old Smugglers Club.",
   "karten": [
     {
-      "titel": "Modus",
-      "text": "Die Weihnachtsregatta besteht aus fünf realen Spielen, die gemeinsam als ein eigener Tippspieltag gewertet werden."
+      "titel": "",
+      "text": "",
+      "featureImage": "./assets/weihnachtsregatta-2026.jpg",
+      "featureImageAlt": "Weihnachtsregatta 2026/2027 – fünf ausgewählte Spiele",
+      "featureImageClass": "feature-image--contain"
     },
     {
       "titel": "Zeitraum",

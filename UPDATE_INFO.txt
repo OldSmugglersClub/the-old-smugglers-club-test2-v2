@@ -1,0 +1,30 @@
+TOSMC TEST2V2 – Weihnachtsregatta linkes Fenster
+
+Basis: 4.9.2-HF12-HF64
+Ziel: ausschließlich Test2v2
+
+ERSETZEN:
+- weihnachtsregatta.html
+- weihnachtsregatta.json
+
+NEU:
+- assets/weihnachtsregatta-2026.jpg
+
+NICHT GEÄNDERT:
+- wettbewerb.js
+- wettbewerb.css
+- team-badge.js / teams.json
+- Bundesliga / Champions League / Piratenkodex und alle anderen Wettbewerbseiten
+
+Wirkung:
+- Titel „Modus“ im linken Fenster entfällt.
+- Bisheriger Text im linken Fenster entfällt.
+- Weihnachtsregatta-Bild wird proportional mit object-fit: contain eingebunden.
+- Bild bleibt innerhalb des Fensters und wird nicht abgeschnitten.
+
+Pflichttest in Test2v2:
+1. Weihnachtsregatta Desktop öffnen: linkes Bild vollständig sichtbar, kein „Modus“, kein alter Text.
+2. Mobil prüfen: kein Überstand / kein Abschneiden.
+3. Bundesliga, Champions League und Piratenkodex kurz öffnen: Darstellung/Wappen unverändert.
+
+Live-Repo bleibt unangetastet.
