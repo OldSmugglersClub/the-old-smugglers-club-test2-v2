@@ -1,31 +1,23 @@
-TOSMC Test2v2 – Besuchertext-Cleanup
-Version: 4.9.2-HF12-HF65
+TOSMC Test2v2 HF65 – Regressionstest-Fix
 
-Ziel:
-- rein technische/erklaerende Besuchertexte entfernen, die besonders mobil Platz kosten
-- echte Status-, Fehler- und TOSMC-Teilnahmehinweise beibehalten
+Geaendert:
+- scripts/tests/champions-league-doppelliste-test.mjs
 
-Entfernt:
-- Saisonuebersicht: langer Quellen-/Automatikhinweis
-- Bundesliga: automatischer Statistik-Erklaertext
-- Champions League: 8-von-8-Terminierungs-Erklaertext bei bestaetigtem Spielplan
-- Champions League: Tabellen-Berechnungserklaertext
-- Champions League: K.-o.-Aggregat-Erklaertext
-- Bundesliga/CL/EL/DFB: rein erklaerende Kartentexte zu automatischer Ladung bzw. Siegerwappen
+Zweck:
+- Entfernt die veraltete harte HF64-Erwartung.
+- Prueft stattdessen, dass alle acht Wettbewerbsseiten dieselbe gemeinsame wettbewerb.js-Cache-Kennung verwenden.
+- Aktueller Stand wird korrekt als 4.9.2-HF12-HF65 erkannt.
 
-Beibehalten:
-- echte Daten-nicht-verfuegbar-Meldungen
-- unvollstaendige CL-Daten-/Terminierungswarnungen
-- TOSMC-Wertung-ab-Achtelfinale-Hinweise fuer CL/DFB
-- sonstige Wettbewerbsregeln und inhaltlich relevante Hinweise
+Nicht geaendert:
+- keine Website-Datei
+- kein JavaScript-/CSS-Produktionscode
+- keine JSON-/Datenpfade
+- keine Wappen-/Teamlogik
+- VERSION.txt bleibt 4.9.2-HF12-HF65
 
-Gemeinsame Datei:
-- wettbewerb.js wurde gezielt geaendert
-- deshalb Cache-Key auf allen 8 Wettbewerbsseiten einheitlich auf 4.9.2-HF12-HF65 gesetzt
-
-Schutz:
-- wettbewerb.css unveraendert
-- teams.json unveraendert
-- assets/team-logos unveraendert
-- datenregister.js / datenmodell.js / team-badge.js unveraendert
-- SCHUTZ2 Release Guard: OK
+Pruefungen nach Fix:
+- TOSMC Release Guard: OK
+- Originalwappen: OK 75/75
+- Teamstammdaten: OK 75/75
+- Paarungsachsen-Test: OK
+- CL-Doppellisten-Test: OK
