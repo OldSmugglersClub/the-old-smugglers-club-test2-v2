@@ -1,31 +1,31 @@
-TOSMC Test2v2 – Weihnachtsregatta Ein-Fenster-Layout
+TOSMC Test2v2 – Besuchertext-Cleanup
+Version: 4.9.2-HF12-HF65
 
-ZIEL
-- Drei Infofenster werden auf der Weihnachtsregatta-Seite zu einem einzigen großen Bildfenster.
-- Das neue, freigegebene Weihnachtsregatta-Bild ersetzt das bisherige Bild.
-- Zeitraum- und Wertungsfenster entfallen aus der Kartenreihe.
-- Das Bild wird proportional ohne Abschneiden im großen Fenster dargestellt.
+Ziel:
+- rein technische/erklaerende Besuchertexte entfernen, die besonders mobil Platz kosten
+- echte Status-, Fehler- und TOSMC-Teilnahmehinweise beibehalten
 
-GEAENDERT
-- weihnachtsregatta.html
-- weihnachtsregatta.json
-- assets/weihnachtsregatta-2026.jpg
+Entfernt:
+- Saisonuebersicht: langer Quellen-/Automatikhinweis
+- Bundesliga: automatischer Statistik-Erklaertext
+- Champions League: 8-von-8-Terminierungs-Erklaertext bei bestaetigtem Spielplan
+- Champions League: Tabellen-Berechnungserklaertext
+- Champions League: K.-o.-Aggregat-Erklaertext
+- Bundesliga/CL/EL/DFB: rein erklaerende Kartentexte zu automatischer Ladung bzw. Siegerwappen
 
-NICHT GEAENDERT / GESCHUETZT
-- wettbewerb.js
-- wettbewerb.css
-- teams.json
-- datenregister.js
-- datenmodell.js
-- team-badge.js
-- Bundesliga, Champions League, Piratenkodex und alle anderen Wettbewerbsseiten
+Beibehalten:
+- echte Daten-nicht-verfuegbar-Meldungen
+- unvollstaendige CL-Daten-/Terminierungswarnungen
+- TOSMC-Wertung-ab-Achtelfinale-Hinweise fuer CL/DFB
+- sonstige Wettbewerbsregeln und inhaltlich relevante Hinweise
 
-TECHNIK
-- Einspaltiges Grid nur unter .page-weihnachtsregatta
-- Bildfenster Seitenverhaeltnis 1916:821
-- object-fit: contain, kein Cropping
-- neuer Cache-Parameter fuer das ersetzte Bildasset
+Gemeinsame Datei:
+- wettbewerb.js wurde gezielt geaendert
+- deshalb Cache-Key auf allen 8 Wettbewerbsseiten einheitlich auf 4.9.2-HF12-HF65 gesetzt
 
-ZIELSYSTEM
-- ausschliesslich Test2v2
-- Live-Repo wird nicht veraendert
+Schutz:
+- wettbewerb.css unveraendert
+- teams.json unveraendert
+- assets/team-logos unveraendert
+- datenregister.js / datenmodell.js / team-badge.js unveraendert
+- SCHUTZ2 Release Guard: OK
