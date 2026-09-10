@@ -1,23 +1,13 @@
-TOSMC Test2v2 HF65 – Regressionstest-Fix
+TOSMC Test2v2 – Dynamo Dresden Besuchertext-Cleanup
+
+Entfernt:
+- statischer Block "Regeln der Dynamo-Aufträge"
 
 Geaendert:
-- scripts/tests/champions-league-doppelliste-test.mjs
-
-Zweck:
-- Entfernt die veraltete harte HF64-Erwartung.
-- Prueft stattdessen, dass alle acht Wettbewerbsseiten dieselbe gemeinsame wettbewerb.js-Cache-Kennung verwenden.
-- Aktueller Stand wird korrekt als 4.9.2-HF12-HF65 erkannt.
+- dynamo-dresden.json
 
 Nicht geaendert:
-- keine Website-Datei
-- kein JavaScript-/CSS-Produktionscode
-- keine JSON-/Datenpfade
-- keine Wappen-/Teamlogik
-- VERSION.txt bleibt 4.9.2-HF12-HF65
-
-Pruefungen nach Fix:
-- TOSMC Release Guard: OK
-- Originalwappen: OK 75/75
-- Teamstammdaten: OK 75/75
-- Paarungsachsen-Test: OK
-- CL-Doppellisten-Test: OK
+- wettbewerb.js
+- wettbewerb.css
+- Team-/Wappenlogik
+- andere Wettbewerbsseiten/-daten
