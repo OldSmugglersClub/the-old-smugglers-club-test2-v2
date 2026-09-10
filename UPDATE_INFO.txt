@@ -1,18 +1,31 @@
-TOSMC Test2v2 Weihnachtsregatta – Streifenfix linkes Fenster
+TOSMC Test2v2 – Weihnachtsregatta Ein-Fenster-Layout
 
-Zweck:
-- Entfernt die oben/unten sichtbaren grauen/weißen Streifen im linken Weihnachtsregatta-Fenster.
+ZIEL
+- Drei Infofenster werden auf der Weihnachtsregatta-Seite zu einem einzigen großen Bildfenster.
+- Das neue, freigegebene Weihnachtsregatta-Bild ersetzt das bisherige Bild.
+- Zeitraum- und Wertungsfenster entfallen aus der Kartenreihe.
+- Das Bild wird proportional ohne Abschneiden im großen Fenster dargestellt.
 
-Geaenderte Datei:
+GEAENDERT
 - weihnachtsregatta.html
+- weihnachtsregatta.json
+- assets/weihnachtsregatta-2026.jpg
 
-Wichtig:
-- Keine Aenderung an wettbewerb.js
-- Keine Aenderung an wettbewerb.css
-- Keine Aenderung an Bundesliga, Champions League, Piratenkodex oder anderen Wettbewerben
-- Kein neues Bildasset, keine JSON-Aenderung
+NICHT GEAENDERT / GESCHUETZT
+- wettbewerb.js
+- wettbewerb.css
+- teams.json
+- datenregister.js
+- datenmodell.js
+- team-badge.js
+- Bundesliga, Champions League, Piratenkodex und alle anderen Wettbewerbsseiten
 
-Technik:
-- Seitenlokale CSS-Anpassung nur fuer das erste Infofenster der Weihnachtsregatta
-- Randloses Fuellen des Bildes (cover) statt Contain-Restflaechen
-- Blurred-Hintergrund fuer diese Karte deaktiviert
+TECHNIK
+- Einspaltiges Grid nur unter .page-weihnachtsregatta
+- Bildfenster Seitenverhaeltnis 1916:821
+- object-fit: contain, kein Cropping
+- neuer Cache-Parameter fuer das ersetzte Bildasset
+
+ZIELSYSTEM
+- ausschliesslich Test2v2
+- Live-Repo wird nicht veraendert
