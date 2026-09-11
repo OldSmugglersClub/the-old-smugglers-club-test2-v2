@@ -1,19 +1,15 @@
-# 4.9.2-HF12-HF89-TEST2
+# 4.9.2-HF12-HF90-TEST1
 
-- „Kicktipp Live Action“ in der Desktop-Ansicht um 4 px nach unten versetzt.
-- Mobile Darstellung, Abstände der Statuskacheln und funktionale Datenpfade unverändert.
-
-# 4.9.2-HF12-HF89-TEST1
-
-- Desktop-Nachkorrektur der Kachel „Der Hohe Schmugglerrat“.
-- Redundante Schnelllinks unter dem Kicktipp-Button werden nur oberhalb von 900 px ausgeblendet.
-- Desktop-Mindesthöhe von 500 px auf 455 px reduziert; der Kicktipp-Button bleibt vollständig innerhalb des Rahmens.
-- Mobile Darstellung und funktionale Datenpfade unverändert.
+- Desktop: Inhalte der Counter-Kachel werden über die verfügbare Höhe gleichmäßig verteilt.
+- Mobil: Schnellzugriffe der Startzentrale als 2×2-Raster mit 52 px Mindesthöhe und größerem Innenabstand.
+- Desktop-Schnellzugriffe, mobile Counter-Kachel und funktionale Datenpfade unverändert.
 
 # 4.9.2-HF12-HF89
 
-- Desktop-Korrektur der Kachel „Der Hohe Schmugglerrat“.
-- Mindesthöhe der Kachel auf 500 px gesetzt, damit „Kicktipp Live Action“ und die darunterliegenden Schnellzugriffe vollständig innerhalb des Rahmens bleiben.
+- Live-Übernahme des in Test2v2 abgenommenen Stands `4.9.2-HF12-HF89-TEST2`.
+- Desktop-Kachel „Der Hohe Schmugglerrat“ auf 455 px Mindesthöhe korrigiert.
+- Redundante Schnelllinks in dieser Kachel auf Desktop ausgeblendet.
+- „Kicktipp Live Action“ auf Desktop um 4 px nach unten feinjustiert.
 - Mobile Darstellung und funktionale Datenpfade unverändert.
 
 # 4.9.2-HF12-HF44
