@@ -98,23 +98,22 @@ function storyFromEntry(entry){
  }
  return null;
 }
-function renderThirtySeconds(entry,pending){
- const host=$("#logbook-30s"); if(!host) return;
- if(pending?.active){
-  host.innerHTML=`<div class="logbook-30s-pending"><span class="logbook-kicker">${esc(pending.kicker)}</span><strong>${esc(keepSpieltag(pending.title))}</strong><p>${esc(pending.text)}</p>${pending.detail?`<small>${esc(pending.detail)}</small>`:""}</div>`;
-  return;
- }
- if(!entry){
-  host.innerHTML='<div class="logbook-30s-empty">Noch kein abgeschlossener Spieltag für die Kurzfassung vorhanden.</div>';
-  return;
- }
+function thirtySecondsCompletedHtml(entry,withPreviousLabel=false){
+ if(!entry)return '<div class="logbook-30s-empty">Noch kein abgeschlossener Spieltag für die Kurzfassung vorhanden.</div>';
  const stats=[startStat(entry,"kapitaene"),startStat(entry,"gegen-den-strom"),startStat(entry,"volltreffer")].filter(Boolean);
  const story=storyFromEntry(entry);
- if(!stats.length&&!story){
-  host.innerHTML='<div class="logbook-30s-empty">Für diesen Spieltag liegen noch keine freigegebenen Kurzmeldungen vor.</div>';
+ if(!stats.length&&!story)return '<div class="logbook-30s-empty">Für diesen Spieltag liegen noch keine freigegebenen Kurzmeldungen vor.</div>';
+ const previous=withPreviousLabel?'<div class="logbook-30s-previous-label"><span class="logbook-kicker">Zuletzt abgeschlossen</span></div>':'';
+ return `${previous}<div class="logbook-30s-head"><span class="logbook-kicker">${formatThirtySecondsKicker(entry.bezeichnung||entry.runde||"Letzter Spieltag")}</span></div>${stats.length?`<div class="logbook-30s-stats">${stats.map(stat=>`<article class="logbook-30s-stat"><span>${esc(stat.label)}</span><strong>${Number(stat.value).toLocaleString("de-DE")}</strong><small>${esc(stat.copy)}</small></article>`).join("")}</div>`:""}${story?`<article class="logbook-30s-story"><span>${esc(story.kicker||"Die Geschichte des Spieltags")}</span><strong>${esc(story.title)}</strong><p>${esc(story.text)}</p></article>`:""}`;
+}
+function renderThirtySeconds(entry,pending){
+ const host=$("#logbook-30s"); if(!host) return;
+ const completed=thirtySecondsCompletedHtml(entry,Boolean(pending?.active&&entry));
+ if(pending?.active){
+  host.innerHTML=`<div class="logbook-30s-pending"><span class="logbook-kicker">${esc(pending.kicker)}</span><strong>${esc(keepSpieltag(pending.title))}</strong><p>${esc(pending.text)}</p>${pending.detail?`<small>${esc(pending.detail)}</small>`:""}</div>${completed}`;
   return;
  }
- host.innerHTML=`<div class="logbook-30s-head"><span class="logbook-kicker">${formatThirtySecondsKicker(entry.bezeichnung||entry.runde||"Letzter Spieltag")}</span></div>${stats.length?`<div class="logbook-30s-stats">${stats.map(stat=>`<article class="logbook-30s-stat"><span>${esc(stat.label)}</span><strong>${Number(stat.value).toLocaleString("de-DE")}</strong><small>${esc(stat.copy)}</small></article>`).join("")}</div>`:""}${story?`<article class="logbook-30s-story"><span>${esc(story.kicker||"Die Geschichte des Spieltags")}</span><strong>${esc(story.title)}</strong><p>${esc(story.text)}</p></article>`:""}`;
+ host.innerHTML=completed;
 }
 
 function shortNames(rows,max=8){
@@ -305,14 +304,15 @@ function formCrewCard(entry){
 
 function renderEntry(entry,pending){
  const host=$("#lb-current"); if(!host) return;
- if(pending?.active){
-  host.innerHTML=`<section class="lb-entry lb-entry--pending"><header class="lb-entry-head"><span>${esc(pending.kicker)}</span><h2>${esc(keepSpieltag(pending.title))}</h2></header><div class="lb-pending-copy"><p>${esc(pending.text)}</p>${pending.detail?`<strong>${esc(pending.detail)}</strong>`:""}<small>Frühere abgeschlossene Logbücher bleiben unten im Archiv erreichbar.</small></div></section>`;
-  document.title="Auswertung läuft | The Old Smugglers Club";
+ const pendingHtml=pending?.active?`<section class="lb-entry lb-entry--pending"><header class="lb-entry-head"><span>${esc(pending.kicker)}</span><h2>${esc(keepSpieltag(pending.title))}</h2></header><div class="lb-pending-copy"><p>${esc(pending.text)}</p>${pending.detail?`<strong>${esc(pending.detail)}</strong>`:""}<small>Abgeschlossene Spieltage bleiben weiterhin vollständig abrufbar.</small></div></section>`:"";
+ if(!entry){
+  host.innerHTML=pendingHtml||'<div class="lb-status">Noch kein abgeschlossenes Logbuch vorhanden.</div>';
+  if(pending?.active)document.title="Auswertung läuft | The Old Smugglers Club";
   return;
  }
- if(!entry){host.innerHTML='<div class="lb-status">Noch kein abgeschlossenes Logbuch vorhanden.</div>';return}
- host.innerHTML=`<section class="lb-entry"><header class="lb-entry-head"><span>${esc(entry.wettbewerb||"Spieltag")}</span><h2>${esc(keepSpieltag(entry.bezeichnung||entry.runde||"Logbuch"))}</h2></header><div class="lb-highlight-grid">${renderHighlightsWithCoco(entry)}</div></section>`;
- document.title=`${entry.bezeichnung||"Logbuch"} | The Old Smugglers Club`;
+ const completedHtml=`<section class="lb-entry"><header class="lb-entry-head"><span>${pending?.active?"Zuletzt abgeschlossen · ":""}${esc(entry.wettbewerb||"Spieltag")}</span><h2>${esc(keepSpieltag(entry.bezeichnung||entry.runde||"Logbuch"))}</h2></header><div class="lb-highlight-grid">${renderHighlightsWithCoco(entry)}</div></section>`;
+ host.innerHTML=`${pendingHtml}${completedHtml}`;
+ document.title=pending?.active?"Auswertung läuft | The Old Smugglers Club":`${entry.bezeichnung||"Logbuch"} | The Old Smugglers Club`;
 }
 function archive(){
  const host=$("#lb-archive-list"); if(!host) return;
@@ -327,7 +327,7 @@ function archive(){
  }).join("");
  host.addEventListener("click",ev=>{
    const b=ev.target.closest("button[data-log-id]"); if(!b)return;
-   const entry=(data.logbuecher||[]).find(x=>x.id===b.dataset.logId); renderEntry(entry,null);
+   const entry=(data.logbuecher||[]).find(x=>x.id===b.dataset.logId); renderEntry(entry,currentPending);
    host.querySelectorAll("button").forEach(x=>x.setAttribute("aria-current",String(x===b)));
  });
 }
@@ -398,8 +398,8 @@ function buildPending(view,matchdayDoc,gameDoc,logs){
  if(!names.length)return {active:false};
  const title="Die Beute wird noch gezählt";
  const text=names.length>1
-  ?"Mehrere Tippspieltage haben bereits begonnen. Die alten Spieltagswerte bleiben verborgen, bis die betroffenen Wertungsblöcke vollständig ausgewertet sind."
-  :"Der aktuelle Tippspieltag hat bereits begonnen. Die alten Spieltagswerte bleiben verborgen, bis der Wertungsblock vollständig ausgewertet ist.";
+  ?"Mehrere Tippspieltage haben bereits begonnen. Neue Rückblicke erscheinen erst, wenn die jeweiligen Wertungsblöcke vollständig ausgewertet sind."
+  :"Der aktuelle Tippspieltag hat bereits begonnen. Sein Rückblick erscheint erst, wenn der Wertungsblock vollständig ausgewertet ist.";
  const detail=explicit?.detail||(names.length?names.join(" · "):"");
  return {active:true,kicker:"Neuer Wertungsblock läuft",title,text,detail};
 }
@@ -411,7 +411,7 @@ async function init(){
    ]);
    if(!logDoc)throw Error("spieltag-logbuch.json nicht erreichbar");
    data=logDoc; spieltagpunkteDoc=spieltagpunkte; gameById=new Map(flattenGames(games).map(g=>[g.id,g])); teamById=new Map(arr(teams?.teams).map(t=>[String(t?.id||""),t])); const latest=(data.logbuecher||[]).at(-1)||null;
-   const pending=buildPending(view,matchdays,games,arr(data.logbuecher));
+   const pending=buildPending(view,matchdays,games,arr(data.logbuecher)); currentPending=pending;
    renderThirtySeconds(latest,pending); renderEntry(latest,pending); archive();
    const st=$("#lb-status"); if(st) st.remove();
  }catch(e){

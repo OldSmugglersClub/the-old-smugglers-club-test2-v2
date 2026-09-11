@@ -929,3 +929,18 @@ body{overflow-x:hidden}
   .lb-highlight--movement .lb-movement-grid{grid-template-columns:1fr}
   .lb-movement-side{padding:10px}
 }
+
+/* Website 4.9.2-HF72 – laufender Wertungsblock blockiert abgeschlossene Rueckblicke nicht mehr */
+.logbook-30s-previous-label{
+  margin:14px 0 8px;
+  padding-top:12px;
+  border-top:1px solid rgba(198,142,47,.22);
+}
+.logbook-30s-previous-label .logbook-kicker{
+  color:#d7a64d;
+  font-size:.68rem;
+  font-weight:900;
+  letter-spacing:.10em;
+  text-transform:uppercase;
+}
+#lb-current .lb-entry--pending + .lb-entry{margin-top:18px}
