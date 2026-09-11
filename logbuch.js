@@ -171,7 +171,7 @@ function renderHighlight(h,entry){
    const total=totalExact(entry),best=Number(d.maxExakt||0),leaders=Number(d.anzahl||arr(d.tipper).length||0);
    const totalText=total===null?"Die Gesamtzahl der exakten Ergebnistipps ist für diesen Eintrag nicht belastbar hinterlegt.":`Insgesamt gab es <strong>${total} ${total===1?"exakten Ergebnistipp":"exakte Ergebnistipps"}</strong>.`;
    const leaderText=leaders===1?`${esc(firstTipperName(d.tipper)||"Ein Tipper")} sammelte mit <strong>${best}</strong> die meisten Volltreffer.`:`<strong>${leaders} Tipper</strong> teilten sich mit je <strong>${best}</strong> die meisten Volltreffer.`;
-   return `<article class="lb-highlight lb-highlight--volltreffer"><h3>Volltreffer</h3><p>${totalText} ${leaderText}</p><div class="lb-names">${shortNames(d.tipper)}</div></article>`;
+   return `<article class="lb-highlight lb-highlight--volltreffer"><h3>Treffsicherster Smuggler</h3><p>${totalText} ${leaderText}</p><div class="lb-names">${shortNames(d.tipper)}</div></article>`;
  }
  if(h.typ==="crewduell"){
    const teams=d.teams||[]; const a=teams[0],b=teams[1];
