@@ -68,8 +68,9 @@ function storyFromEntry(entry){
   const relation=submitted>0?`${count} von ${submitted}`:String(count);
   const result=d.ergebnis||((Number.isFinite(game.heimtore)&&Number.isFinite(game.auswaertstore))?`${game.heimtore}:${game.auswaertstore}`:"");
   return {
-   title:`${home} – ${away}: ${relation} Smuggler segelten in die falsche Richtung.`,
-   text:`Die größte Tippgruppe setzte auf ${outcomeLabel(d.meistGetippt?.ausgang)}. Die Partie endete ${result||"anders als erwartet"}; ${right} tippten ${outcomeLabel(d.richtigerAusgang)}, ${exact} davon exakt.`
+   kicker:"Überraschung des Spieltags",
+   title:`${home} – ${away}${result?` · ${result}`:""}`,
+   text:`${relation} Smuggler lagen mit ihrem Tipp daneben. Die klare Mehrheit setzte auf ${outcomeLabel(d.meistGetippt?.ausgang)}. Nur ${right} hatten ${outcomeLabel(d.richtigerAusgang)} auf dem Zettel, ${exact} davon sogar exakt.`
   };
  }
  const smelled=validSmelledHighlight(entry);
@@ -106,7 +107,7 @@ function renderThirtySeconds(entry,pending){
   host.innerHTML='<div class="logbook-30s-empty">Für diesen Spieltag liegen noch keine freigegebenen Kurzmeldungen vor.</div>';
   return;
  }
- host.innerHTML=`<div class="logbook-30s-head"><span class="logbook-kicker">${formatThirtySecondsKicker(entry.bezeichnung||entry.runde||"Letzter Spieltag")}</span></div>${stats.length?`<div class="logbook-30s-stats">${stats.map(stat=>`<article class="logbook-30s-stat"><span>${esc(stat.label)}</span><strong>${Number(stat.value).toLocaleString("de-DE")}</strong><small>${esc(stat.copy)}</small></article>`).join("")}</div>`:""}${story?`<article class="logbook-30s-story"><span>Die Geschichte des Spieltags</span><strong>${esc(story.title)}</strong><p>${esc(story.text)}</p></article>`:""}`;
+ host.innerHTML=`<div class="logbook-30s-head"><span class="logbook-kicker">${formatThirtySecondsKicker(entry.bezeichnung||entry.runde||"Letzter Spieltag")}</span></div>${stats.length?`<div class="logbook-30s-stats">${stats.map(stat=>`<article class="logbook-30s-stat"><span>${esc(stat.label)}</span><strong>${Number(stat.value).toLocaleString("de-DE")}</strong><small>${esc(stat.copy)}</small></article>`).join("")}</div>`:""}${story?`<article class="logbook-30s-story"><span>${esc(story.kicker||"Die Geschichte des Spieltags")}</span><strong>${esc(story.title)}</strong><p>${esc(story.text)}</p></article>`:""}`;
 }
 
 function shortNames(rows,max=8){
