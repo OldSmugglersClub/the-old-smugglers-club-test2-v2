@@ -8,6 +8,7 @@ const keepSpieltag=v=>String(v??"").replace(/(\d+\.)\s+(Spieltag)/gi,"$1\u00a0$2
 const formatThirtySecondsKicker=v=>esc(keepSpieltag(v)).replace(/(\d+\.)/g,'<span class="logbook-30s-round">$1</span>');
 let data=null;
 let gameById=new Map();
+let teamById=new Map();
 let spieltagpunkteDoc=null;
 
 function shown(entry){return (entry?.highlights||[]).filter(h=>h?.anzeigen===true)}
@@ -52,13 +53,23 @@ function startStat(entry,type){
  }
  return null;
 }
+function teamDisplayName(id){
+ const key=String(id||"");
+ const team=teamById.get(key);
+ if(team?.name)return String(team.name);
+ return key?key.split("-").map(part=>part?part.charAt(0).toUpperCase()+part.slice(1):part).join(" "):"Team offen";
+}
 function storyFromEntry(entry){
  const against=highlight(entry,"gegen-den-strom");
  if(against){
-  const d=against.daten||{},count=Number(d.meistGetippt?.anzahl||0),exact=Number(d.exakt||0);
+  const d=against.daten||{},game=gameById.get(d.spielId)||{};
+  const home=teamDisplayName(d.heimTeam||game.heimTeamId),away=teamDisplayName(d.auswaertsTeam||game.auswaertsTeamId);
+  const count=Number(d.meistGetippt?.anzahl||0),submitted=Number(d.abgegeben||0),right=Number(d.richtigeTendenz?.anzahl||0),exact=Number(d.exakt||0);
+  const relation=submitted>0?`${count} von ${submitted}`:String(count);
+  const result=d.ergebnis||((Number.isFinite(game.heimtore)&&Number.isFinite(game.auswaertstore))?`${game.heimtore}:${game.auswaertstore}`:"");
   return {
-   title:`${count} Smuggler segelten in die falsche Richtung.`,
-   text:`Die größte Tippgruppe setzte auf ${outcomeLabel(d.meistGetippt?.ausgang)}. Richtig war ${outcomeLabel(d.richtigerAusgang)}; ${exact} trafen ${d.ergebnis||"das Ergebnis"} exakt.`
+   title:`${home} – ${away}: ${relation} Smuggler segelten in die falsche Richtung.`,
+   text:`Die größte Tippgruppe setzte auf ${outcomeLabel(d.meistGetippt?.ausgang)}. Die Partie endete ${result||"anders als erwartet"}; ${right} tippten ${outcomeLabel(d.richtigerAusgang)}, ${exact} davon exakt.`
   };
  }
  const smelled=validSmelledHighlight(entry);
@@ -372,11 +383,11 @@ function buildPending(view,matchdayDoc,gameDoc,logs){
 
 async function init(){
  try{
-   const [logDoc,view,matchdays,games,spieltagpunkte]=await Promise.all([
-     fetchJson("./spieltag-logbuch.json"),fetchJson("./website-view.json"),fetchJson("./tippspieltage.json"),fetchJson("./spieldaten.json"),fetchJson("./spieltagpunkte.json")
+   const [logDoc,view,matchdays,games,spieltagpunkte,teams]=await Promise.all([
+     fetchJson("./spieltag-logbuch.json"),fetchJson("./website-view.json"),fetchJson("./tippspieltage.json"),fetchJson("./spieldaten.json"),fetchJson("./spieltagpunkte.json"),fetchJson("./teams.json")
    ]);
    if(!logDoc)throw Error("spieltag-logbuch.json nicht erreichbar");
-   data=logDoc; spieltagpunkteDoc=spieltagpunkte; gameById=new Map(flattenGames(games).map(g=>[g.id,g])); const latest=(data.logbuecher||[]).at(-1)||null;
+   data=logDoc; spieltagpunkteDoc=spieltagpunkte; gameById=new Map(flattenGames(games).map(g=>[g.id,g])); teamById=new Map(arr(teams?.teams).map(t=>[String(t?.id||""),t])); const latest=(data.logbuecher||[]).at(-1)||null;
    const pending=buildPending(view,matchdays,games,arr(data.logbuecher));
    renderThirtySeconds(latest,pending); renderEntry(latest,pending); archive();
    const st=$("#lb-status"); if(st) st.remove();
