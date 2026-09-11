@@ -3327,6 +3327,7 @@ function normalizeGoalGetterEntries(goalGetterData) {
     if (slug === "champions-league") renderCompetitionSituation(gameData, teamData, root, championsLeagueSituationGames(openLigaDbClTable));
     else renderCompetitionSituation(gameData, teamData, root);
 
+    if (slug === "bundesliga") renderBundesligaStatistics(gameData, teamData, root);
     renderMidNavigation(buttons, root);
 
     if (slug === "bundesliga") {
@@ -3335,32 +3336,45 @@ function normalizeGoalGetterEntries(goalGetterData) {
       renderBundesligaTable(gameData, teamData, tableData, root);
       renderMidNavigation(buttons, root);
       renderBundesligaFormTable(gameData, teamData, root);
-      renderMidNavigation(buttons, root);
-      renderBundesligaStatistics(gameData, teamData, root);
     } else if (slug === "champions-league") {
       championsLeaguePhaseOverviewRendered = renderStandardGamesSlot(coreSections, buttons, root, { championsLeague: true, openLigaDbMatches: openLigaDbClTable, gameData, title: "Spiele der Champions League" });
       renderMidNavigation(buttons, root);
       renderChampionsLeagueTable(openLigaDbClTable, root);
       renderMidNavigation(buttons, root);
       renderChampionsLeagueFormTable(openLigaDbClTable, root);
-      renderMidNavigation(buttons, root);
-      renderChampionsLeagueKnockoutPrototype(openLigaDbClTable, root);
+      {
+        const beforeOptional = root.children.length;
+        renderChampionsLeagueKnockoutPrototype(openLigaDbClTable, root);
+        if (root.children.length > beforeOptional) {
+          root.children[beforeOptional].insertAdjacentElement("beforebegin", competitionNavigation(buttons, "mid"));
+        }
+      }
     } else if (slug === "europa-league") {
       renderStandardGamesSlot(coreSections, buttons, root, { title: "Spiele der Europa League", emptyText: "Noch keine von euch getippte Runde veröffentlicht. Die TOSMC-Wertung startet ab dem Achtelfinale." });
       renderMidNavigation(buttons, root);
       renderEuropaLeagueTable(openLigaDbElMatches, root);
       renderMidNavigation(buttons, root);
       renderEuropaLeagueFormTable(openLigaDbElMatches, root);
-      renderMidNavigation(buttons, root);
-      renderEuropaLeagueKnockoutPrototype(openLigaDbElMatches, europaLeagueFallback, root);
+      {
+        const beforeOptional = root.children.length;
+        renderEuropaLeagueKnockoutPrototype(openLigaDbElMatches, europaLeagueFallback, root);
+        if (root.children.length > beforeOptional) {
+          root.children[beforeOptional].insertAdjacentElement("beforebegin", competitionNavigation(buttons, "mid"));
+        }
+      }
     } else if (slug === "dfb-pokal") {
       renderStandardGamesSlot(coreSections, buttons, root, { title: "Spiele des DFB-Pokals", emptyText: "Noch keine von euch getippte Runde veröffentlicht. Die TOSMC-Wertung startet ab dem Achtelfinale." });
       renderMidNavigation(buttons, root);
       renderPlaceholderSection("Tabelle", "Der DFB-Pokal ist ein K.-o.-Wettbewerb und besitzt keine klassische Ligatabelle.", root);
       renderMidNavigation(buttons, root);
       renderOpenLigaDbFormTable("Formtabelle", openLigaDbDfbMatches, root, { emptyText: "Die Formtabelle erscheint automatisch, sobald abgeschlossene DFB-Pokalspiele vorliegen." });
-      renderMidNavigation(buttons, root);
-      renderDfbKnockoutPrototype(openLigaDbDfbMatches, root);
+      {
+        const beforeOptional = root.children.length;
+        renderDfbKnockoutPrototype(openLigaDbDfbMatches, root);
+        if (root.children.length > beforeOptional) {
+          root.children[beforeOptional].insertAdjacentElement("beforebegin", competitionNavigation(buttons, "mid"));
+        }
+      }
     } else if (slug === "dynamo-dresden") {
       renderStandardGamesSlot(coreSections, buttons, root, { title: "Spiele von Dynamo Dresden" });
       renderMidNavigation(buttons, root);
