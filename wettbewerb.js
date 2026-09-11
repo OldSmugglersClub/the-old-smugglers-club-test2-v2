@@ -3003,6 +3003,7 @@ function normalizeGoalGetterEntries(goalGetterData) {
     let championsLeaguePhaseOverviewRendered = false;
     if (slug === "champions-league") {
       renderCompetitionSituation(gameData, teamData, root, championsLeagueSituationGames(openLigaDbClTable));
+      renderMidNavigation(buttons, root);
       championsLeaguePhaseOverviewRendered = renderChampionsLeaguePhaseOverview(openLigaDbClTable, gameData, root);
     } else {
       renderCompetitionSituation(gameData, teamData, root);
@@ -3016,6 +3017,7 @@ function normalizeGoalGetterEntries(goalGetterData) {
     renderDfbKnockoutPrototype(openLigaDbDfbMatches, root);
     if (slug === "bundesliga") {
       renderBundesligaTable(gameData, teamData, tableData, root);
+      renderMidNavigation(buttons, root);
       renderBundesligaStatistics(gameData, teamData, root);
       renderMidNavigation(buttons, root);
     }
