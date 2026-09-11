@@ -36,6 +36,12 @@ function firstTipperName(rows){
  return first?String(first):"";
 }
 
+function anyHighlight(entry,type){return arr(entry?.highlights).find(h=>h?.typ===type)}
+function totalExact(entry){
+ const galley=anyHighlight(entry,"zahlen-aus-der-kombuese")?.daten||{};
+ const value=Number(galley.exakt);
+ return Number.isFinite(value)&&value>=0?value:null;
+}
 function startStat(entry,type){
  const h=highlight(entry,type),d=h?.daten||{};
  if(!h)return null;
@@ -44,12 +50,13 @@ function startStat(entry,type){
   return {label:"Kapitäne",value,copy:value===1?"holt die Beute":"teilen die Beute"};
  }
  if(type==="gegen-den-strom"){
-  const value=Number(d.meistGetippt?.anzahl||0);
-  return {label:"Gegen den Strom",value,copy:value===1?"lag daneben":"lagen daneben"};
+  const value=Number(d.richtigeTendenz?.anzahl||0);
+  return {label:"Gegen den Strom",value,copy:value===1?"lag richtig":"lagen richtig"};
  }
  if(type==="volltreffer"){
-  const value=Number(d.anzahl||arr(d.tipper).length||0);
-  return {label:"Volltreffer",value,copy:value===1?"traf exakt":"trafen exakt"};
+  const value=totalExact(entry);
+  if(value===null)return null;
+  return {label:"Volltreffer",value,copy:value===1?"exakter Ergebnistipp":"exakte Ergebnistipps"};
  }
  return null;
 }
@@ -70,7 +77,7 @@ function storyFromEntry(entry){
   return {
    kicker:"Überraschung des Spieltags",
    title:`${home} – ${away}${result?` · ${result}`:""}`,
-   text:`${relation} Smuggler lagen mit ihrem Tipp daneben. Die klare Mehrheit setzte auf ${outcomeLabel(d.meistGetippt?.ausgang)}. Nur ${right} hatten ${outcomeLabel(d.richtigerAusgang)} auf dem Zettel, ${exact} davon sogar exakt.`
+   text:`${relation} setzten auf ${outcomeLabel(d.meistGetippt?.ausgang)}. Nur ${right} tippten ${outcomeLabel(d.richtigerAusgang)} und lagen damit gegen den Strom richtig. ${exact} davon trafen sogar exakt.`
   };
  }
  const smelled=validSmelledHighlight(entry);
@@ -117,7 +124,7 @@ function shortNames(rows,max=8){
 }
 function outcomeLabel(v){return v==="1"?"Heimsieg":v==="2"?"Auswärtssieg":"Remis"}
 
-function renderHighlight(h){
+function renderHighlight(h,entry){
  const d=h.daten||{};
  if(h.typ==="kapitaene"){
    const count=Number(d.anzahl||0),name=firstTipperName(d.tipper);
@@ -126,7 +133,13 @@ function renderHighlight(h){
     :`<strong>${count} Tipper</strong> teilen sich mit ${Number(d.punkte||0)} Punkten die beste Spieltagsleistung.`;
    return `<article class="lb-highlight lb-highlight--wide lb-highlight--captains"><h3>Kapitäne des Spieltags</h3><p>${text}</p><div class="lb-names">${shortNames(d.tipper)}</div></article>`;
  }
- if(h.typ==="gegen-den-strom") return `<article class="lb-highlight lb-highlight--hero"><h3>Gegen den Strom</h3><p>Die größte Tippgruppe setzte auf <strong>${esc(outcomeLabel(d.meistGetippt?.ausgang))}</strong> (${Number(d.meistGetippt?.anzahl||0)} Tipps) und lag falsch. Richtig war <strong>${esc(outcomeLabel(d.richtigerAusgang))}</strong>; ${Number(d.exakt||0)} Tipper trafen ${esc(d.ergebnis||"")} exakt.</p><div class="lb-scoreline"><div><strong>${Number(d.tippverteilung?.["1"]||0)}</strong><span>Heimsieg</span></div><div><strong>${Number(d.tippverteilung?.X||0)}</strong><span>Remis</span></div><div><strong>${Number(d.tippverteilung?.["2"]||0)}</strong><span>Auswärtssieg</span></div></div></article>`;
+ if(h.typ==="gegen-den-strom"){
+   const home=teamDisplayName(d.heimTeam),away=teamDisplayName(d.auswaertsTeam);
+   const right=Number(d.richtigeTendenz?.anzahl||0),majority=Number(d.meistGetippt?.anzahl||0),exact=Number(d.exakt||0);
+   const result=d.ergebnis?` · ${esc(d.ergebnis)}`:"";
+   const names=shortNames(d.richtigeTendenz?.tipper);
+   return `<article class="lb-highlight lb-highlight--hero"><h3>Gegen den Strom</h3><p><strong>${esc(home)} – ${esc(away)}${result}</strong><br><strong>${right} ${right===1?"Smuggler":"Smuggler"}</strong> ${right===1?"tippte":"tippten"} gegen die größte Tippgruppe und ${right===1?"lag":"lagen"} richtig. ${majority} setzten auf ${esc(outcomeLabel(d.meistGetippt?.ausgang))}. ${exact} ${exact===1?"Tipp traf":"Tipps trafen"} das Ergebnis exakt.</p>${names?`<div class="lb-names">${names}</div>`:""}<div class="lb-scoreline"><div><strong>${Number(d.tippverteilung?.["1"]||0)}</strong><span>Heimsieg</span></div><div><strong>${Number(d.tippverteilung?.X||0)}</strong><span>Remis</span></div><div><strong>${Number(d.tippverteilung?.["2"]||0)}</strong><span>Auswärtssieg</span></div></div></article>`;
+ }
  if(h.typ==="wer-hats-gerochen"){
    const cases=sensationCases(h);
    if(!cases.length)return "";
@@ -154,7 +167,12 @@ function renderHighlight(h){
      </section>`;
    }).join("")}</article>`;
  }
- if(h.typ==="volltreffer") return `<article class="lb-highlight lb-highlight--volltreffer"><h3>Volltreffer</h3><p>Die stärksten Präzisionstreffer: <strong>${Number(d.maxExakt||0)} exakt</strong> im Spieltag.</p><div class="lb-names">${shortNames(d.tipper)}</div></article>`;
+ if(h.typ==="volltreffer"){
+   const total=totalExact(entry),best=Number(d.maxExakt||0),leaders=Number(d.anzahl||arr(d.tipper).length||0);
+   const totalText=total===null?"Die Gesamtzahl der exakten Ergebnistipps ist für diesen Eintrag nicht belastbar hinterlegt.":`Insgesamt gab es <strong>${total} ${total===1?"exakten Ergebnistipp":"exakte Ergebnistipps"}</strong>.`;
+   const leaderText=leaders===1?`${esc(firstTipperName(d.tipper)||"Ein Tipper")} sammelte mit <strong>${best}</strong> die meisten Volltreffer.`:`<strong>${leaders} Tipper</strong> teilten sich mit je <strong>${best}</strong> die meisten Volltreffer.`;
+   return `<article class="lb-highlight lb-highlight--volltreffer"><h3>Volltreffer</h3><p>${totalText} ${leaderText}</p><div class="lb-names">${shortNames(d.tipper)}</div></article>`;
+ }
  if(h.typ==="crewduell"){
    const teams=d.teams||[]; const a=teams[0],b=teams[1];
    return `<article class="lb-highlight lb-highlight--crew">
@@ -210,7 +228,7 @@ function renderHighlightsWithCoco(entry){
  const rows=[];
  let inserted=false;
  for(const h of shown(entry)){
-   const rendered=renderHighlight(h);
+   const rendered=renderHighlight(h,entry);
    if(rendered)rows.push(rendered);
 
    if(h?.typ==="crewduell"){
