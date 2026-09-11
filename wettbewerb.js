@@ -3473,7 +3473,7 @@ function normalizeGoalGetterEntries(goalGetterData) {
     else renderCompetitionSituation(gameData, teamData, root);
 
     if (slug === "bundesliga") renderBundesligaStatistics(gameData, teamData, root);
-    renderMidNavigation(buttons, root);
+    if (slug !== "champions-league") renderMidNavigation(buttons, root);
 
     if (slug === "bundesliga") {
       renderStandardGamesSlot(coreSections, buttons, root, { title: "Spiele der Bundesliga" });
