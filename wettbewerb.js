@@ -3327,6 +3327,8 @@ function normalizeGoalGetterEntries(goalGetterData) {
     if (slug === "champions-league") renderCompetitionSituation(gameData, teamData, root, championsLeagueSituationGames(openLigaDbClTable));
     else renderCompetitionSituation(gameData, teamData, root);
 
+    renderMidNavigation(buttons, root);
+
     if (slug === "bundesliga") {
       renderStandardGamesSlot(coreSections, buttons, root, { title: "Spiele der Bundesliga" });
       renderMidNavigation(buttons, root);
@@ -3365,14 +3367,12 @@ function normalizeGoalGetterEntries(goalGetterData) {
       renderDynamoTableExcerpt(dynamoMatchData, root);
       renderMidNavigation(buttons, root);
       renderDynamoDutyForm(dynamoMatchData, openLigaDbDfbMatches, root);
-      renderMidNavigation(buttons, root);
     } else {
       renderStandardGamesSlot(coreSections, buttons, root, { title: competitionDefinition(slug)?.scheduleTitle || "Spiele" });
       renderMidNavigation(buttons, root);
       renderPlaceholderSection("Tabelle", "Für diesen Wettbewerb gibt es keine klassische Ligatabelle. Sobald eine belastbare Tabellenwertung fachlich vorgesehen ist, erscheint sie hier automatisch.", root);
       renderMidNavigation(buttons, root);
       renderPlaceholderSection("Formtabelle", "Eine belastbare Formtabelle ist für diesen Wettbewerb derzeit nicht sinnvoll ableitbar. Der Platz bleibt für eine spätere automatische Darstellung vorbereitet.", root);
-      renderMidNavigation(buttons, root);
     }
 
     editorial.forEach(section => {
