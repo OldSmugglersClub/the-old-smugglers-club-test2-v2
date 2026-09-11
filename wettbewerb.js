@@ -3526,20 +3526,15 @@ function normalizeGoalGetterEntries(goalGetterData) {
       }
     } else if (slug === "dfb-pokal") {
       renderStandardGamesSlot(coreSections, buttons, root, { title: "Spiele des DFB-Pokals", emptyText: "Noch keine von euch getippte Runde veröffentlicht. Die TOSMC-Wertung startet ab dem Achtelfinale." });
-      const dfbContentStart = root.children.length;
       const { completed: completedDfbMatches } = openLigaDbCompletedRows(openLigaDbDfbMatches);
+      const knockoutPreview = document.createElement("div");
+      renderDfbKnockoutPrototype(openLigaDbDfbMatches, knockoutPreview);
+      const dfbKnockoutVisible = knockoutPreview.children.length > 0;
+      if (completedDfbMatches.length || dfbKnockoutVisible) renderMidNavigation(buttons, root);
       if (completedDfbMatches.length) {
         renderOpenLigaDbFormTable("Formtabelle", openLigaDbDfbMatches, root, { emptyText: "Die Formtabelle erscheint automatisch, sobald abgeschlossene DFB-Pokalspiele vorliegen." });
       }
-      const beforeOptional = root.children.length;
-      renderDfbKnockoutPrototype(openLigaDbDfbMatches, root);
-      const dfbKnockoutVisible = root.children.length > beforeOptional;
-      if (completedDfbMatches.length || dfbKnockoutVisible) {
-        root.children[dfbContentStart].insertAdjacentElement("beforebegin", competitionNavigation(buttons, "mid"));
-      }
-      if (dfbKnockoutVisible && completedDfbMatches.length) {
-        root.children[beforeOptional].insertAdjacentElement("beforebegin", competitionNavigation(buttons, "mid"));
-      }
+      while (knockoutPreview.firstChild) root.appendChild(knockoutPreview.firstChild);
     } else if (slug === "dynamo-dresden") {
       renderStandardGamesSlot(coreSections, buttons, root, { title: "Spiele von Dynamo Dresden" });
       renderMidNavigation(buttons, root);
