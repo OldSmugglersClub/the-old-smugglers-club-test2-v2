@@ -1,3 +1,8 @@
+# 4.9.2-HF12-HF89-TEST2
+
+- „Kicktipp Live Action“ in der Desktop-Ansicht um 4 px nach unten versetzt.
+- Mobile Darstellung, Abstände der Statuskacheln und funktionale Datenpfade unverändert.
+
 # 4.9.2-HF12-HF89-TEST1
 
 - Desktop-Nachkorrektur der Kachel „Der Hohe Schmugglerrat“.
