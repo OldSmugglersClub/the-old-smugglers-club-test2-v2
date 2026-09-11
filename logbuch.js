@@ -197,13 +197,17 @@ function renderHighlight(h,entry){
    </article>`;
  }
  if(h.typ==="kursbewegung"){
-   const movementNames=(rows,direction)=>arr(rows).slice(0,5).map(row=>{
-     const value=Math.abs(Number(row?.veraenderung||0));
+   const movementSide=(title,rows,direction)=>{
+     const people=arr(rows).slice(0,5);
      const symbol=direction==="up"?"▲":"▼";
      const sign=direction==="up"?"+":"−";
-     return `<span class="lb-name lb-name--movement is-${direction}">${esc(row?.teilnehmer||"")} <strong>${symbol} ${sign}${value}</strong></span>`;
-   }).join("");
-   return `<article class="lb-highlight"><h3>Kursbewegung</h3><p>Größter Sprung: <strong>+${Number(d.maxGewinn||0)} Plätze</strong>. Größter Verlust: <strong>${Number(d.maxVerlust||0)} Plätze</strong>.</p><div class="lb-names lb-movement-names">${movementNames(d.gewinner,"up")}${movementNames(d.verlierer,"down")}</div></article>`;
+     const names=people.map(row=>{
+       const value=Math.abs(Number(row?.veraenderung||0));
+       return `<span class="lb-name lb-name--movement is-${direction}"><span>${esc(row?.teilnehmer||"")}</span><strong>${symbol} ${sign}${value} Plätze</strong></span>`;
+     }).join("");
+     return `<div class="lb-movement-side is-${direction}"><h4>${title}</h4><div class="lb-names lb-movement-names">${names}</div></div>`;
+   };
+   return `<article class="lb-highlight lb-highlight--movement"><h3>Kursbewegung</h3><div class="lb-movement-grid">${movementSide("Größter Sprung",d.gewinner,"up")}${movementSide("Größter Verlust",d.verlierer,"down")}</div></article>`;
  }
  if(h.typ==="zahlen-aus-der-kombuese") return `<article class="lb-highlight lb-highlight--wide lb-highlight--galley"><h3>Zahlen aus der Kombüse</h3><div class="lb-galley-grid"><div><strong>${Number(d.abgegeben||0)}</strong><span>Abgaben</span></div><div><strong>${Number(d.nichtAbgegeben||0)}</strong><span>Nichtabgaben</span></div><div><strong>${Number(d.exakt||0)}</strong><span>Exakt</span></div><div><strong>${Number(d.differenz||0)}</strong><span>Differenz</span></div><div><strong>${Number(d.tendenz||0)}</strong><span>Tendenz</span></div></div></article>`;
  return "";
