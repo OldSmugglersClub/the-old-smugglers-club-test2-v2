@@ -10,6 +10,7 @@ let data=null;
 let gameById=new Map();
 let teamById=new Map();
 let spieltagpunkteDoc=null;
+let currentPending={active:false};
 
 function shown(entry){return (entry?.highlights||[]).filter(h=>h?.anzeigen===true)}
 function highlight(entry,type){return shown(entry).find(h=>h.typ===type)}
