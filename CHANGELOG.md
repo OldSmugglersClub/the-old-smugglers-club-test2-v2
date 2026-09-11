@@ -1,3 +1,9 @@
+# 4.9.2-HF12-HF89
+
+- Desktop-Korrektur der Kachel „Der Hohe Schmugglerrat“.
+- Mindesthöhe der Kachel auf 500 px gesetzt, damit „Kicktipp Live Action“ und die darunterliegenden Schnellzugriffe vollständig innerhalb des Rahmens bleiben.
+- Mobile Darstellung und funktionale Datenpfade unverändert.
+
 # 4.9.2-HF12-HF44
 
 - Live-Übernahme von `4.9.2-HF12-HF43-TEST50`.
@@ -191,3 +197,10 @@ Technische Vorprüfung bestanden; Realtest im Test2v2-Repo durch den Nutzer steh
 
 ## 4.9.2-HF12-HF44-TEST51
 - DFB-Pokal: rechte Informationskachel auf das vom Nutzer bereitgestellte, vollständig zentrierte Logo umgestellt; bisherige Überschrift und Wertungstext entfernt.
+
+## 4.9.2-HF12-HF45
+- DFB-Pokal: abgenommenen TEST51-Stand live übernommen.
+- Rechte Informationskachel zeigt ausschließlich das vom Nutzer bereitgestellte DFB-Pokal-Logo.
+- Überschrift „Wertung“ und Wertungstext entfernt.
+- Logo vollständig sowie horizontal und vertikal zentriert.
+- Linke und mittlere Informationskachel unverändert.
