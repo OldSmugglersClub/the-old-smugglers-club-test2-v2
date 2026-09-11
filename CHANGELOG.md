@@ -1,3 +1,10 @@
+# 4.9.2-HF12-HF89-TEST1
+
+- Desktop-Nachkorrektur der Kachel „Der Hohe Schmugglerrat“.
+- Redundante Schnelllinks unter dem Kicktipp-Button werden nur oberhalb von 900 px ausgeblendet.
+- Desktop-Mindesthöhe von 500 px auf 455 px reduziert; der Kicktipp-Button bleibt vollständig innerhalb des Rahmens.
+- Mobile Darstellung und funktionale Datenpfade unverändert.
+
 # 4.9.2-HF12-HF89
 
 - Desktop-Korrektur der Kachel „Der Hohe Schmugglerrat“.
