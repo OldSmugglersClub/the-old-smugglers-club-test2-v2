@@ -380,6 +380,151 @@
     return card;
   }
 
+  function finalOpenLigaDbResult(match) {
+    const results = safeArray(match?.matchResults);
+    const finalResult = results.find(result => Number(result?.resultTypeID ?? result?.resultTypeId ?? result?.ResultTypeID ?? -1) === 2)
+      || results.find(result => {
+        const name = String(result?.resultName ?? result?.resultTypeName ?? "").toLocaleLowerCase("de");
+        return name.includes("end") || name.includes("final");
+      })
+      || results.at(-1);
+    if (!finalResult) return null;
+    const homeGoals = Number(finalResult?.pointsTeam1 ?? finalResult?.PointsTeam1);
+    const awayGoals = Number(finalResult?.pointsTeam2 ?? finalResult?.PointsTeam2);
+    if (!Number.isFinite(homeGoals) || !Number.isFinite(awayGoals)) return null;
+    return { homeGoals, awayGoals };
+  }
+
+  function calculateChampionsLeaguePhaseStatistics(openLigaDbMatches) {
+    const games = championsLeaguePhaseMatches(openLigaDbMatches)
+      .map(match => ({ match, result: finalOpenLigaDbResult(match) }))
+      .filter(entry => entry.result);
+
+    const teams = new Map();
+    function ensureTeam(team) {
+      const id = String(team?.teamId ?? team?.teamID ?? team?.TeamId ?? team?.TeamID ?? "");
+      const name = openLigaDbTeamName(team);
+      const key = id || bracketTeamKey(name);
+      if (!teams.has(key)) {
+        teams.set(key, {
+          id, name, played: 0, goalsFor: 0, goalsAgainst: 0,
+          homePlayed: 0, homePoints: 0, awayPlayed: 0, awayPoints: 0,
+          cleanSheets: 0, currentWinRun: 0, longestWinRun: 0
+        });
+      }
+      return teams.get(key);
+    }
+
+    let totalGoals = 0, homeWins = 0, draws = 0, awayWins = 0;
+    let biggestWin = null, highestScoring = null;
+
+    games.forEach(({ match, result }) => {
+      const { homeGoals, awayGoals } = result;
+      const home = ensureTeam(match?.team1);
+      const away = ensureTeam(match?.team2);
+      home.played += 1; away.played += 1;
+      home.homePlayed += 1; away.awayPlayed += 1;
+      home.goalsFor += homeGoals; home.goalsAgainst += awayGoals;
+      away.goalsFor += awayGoals; away.goalsAgainst += homeGoals;
+      totalGoals += homeGoals + awayGoals;
+
+      let homePts = 0, awayPts = 0;
+      if (homeGoals > awayGoals) { homeWins += 1; homePts = 3; home.currentWinRun += 1; away.currentWinRun = 0; }
+      else if (homeGoals < awayGoals) { awayWins += 1; awayPts = 3; away.currentWinRun += 1; home.currentWinRun = 0; }
+      else { draws += 1; homePts = 1; awayPts = 1; home.currentWinRun = 0; away.currentWinRun = 0; }
+      home.homePoints += homePts; away.awayPoints += awayPts;
+      home.longestWinRun = Math.max(home.longestWinRun, home.currentWinRun);
+      away.longestWinRun = Math.max(away.longestWinRun, away.currentWinRun);
+      if (awayGoals === 0) home.cleanSheets += 1;
+      if (homeGoals === 0) away.cleanSheets += 1;
+
+      const difference = Math.abs(homeGoals - awayGoals);
+      if (!biggestWin || difference > biggestWin.difference) biggestWin = { match, difference, homeGoals, awayGoals };
+      const scoreTotal = homeGoals + awayGoals;
+      if (!highestScoring || scoreTotal > highestScoring.totalGoals) highestScoring = { match, totalGoals: scoreTotal, homeGoals, awayGoals };
+    });
+
+    const rows = [...teams.values()];
+    const by = (selector, direction = "max") => rows.length
+      ? rows.reduce((best, item) => {
+          if (!best) return item;
+          const a = selector(item), b = selector(best);
+          return direction === "min" ? (a < b ? item : best) : (a > b ? item : best);
+        }, null)
+      : null;
+
+    return {
+      games, totalGoals,
+      averageGoals: games.length ? totalGoals / games.length : 0,
+      homeWins, draws, awayWins,
+      bestAttack: by(team => team.goalsFor),
+      bestDefense: by(team => team.goalsAgainst, "min"),
+      bestHome: by(team => team.homePoints),
+      bestAway: by(team => team.awayPoints),
+      mostCleanSheets: by(team => team.cleanSheets),
+      longestWinRun: by(team => team.longestWinRun),
+      biggestWin, highestScoring
+    };
+  }
+
+  function openLigaDbPairingText(record) {
+    const match = record?.match;
+    if (!match) return "–";
+    const home = openLigaDbTeamName(match?.team1);
+    const away = openLigaDbTeamName(match?.team2);
+    return `${home} – ${away} ${record.homeGoals}:${record.awayGoals}`;
+  }
+
+  function renderChampionsLeagueStatistics(openLigaDbMatches, root) {
+    if (slug !== "champions-league") return false;
+    const stats = calculateChampionsLeaguePhaseStatistics(openLigaDbMatches);
+    if (!stats.games.length) return false;
+
+    const section = document.createElement("section");
+    section.className = "dynamic-section bundesliga-statistics champions-league-statistics";
+    const heading = document.createElement("h2");
+    heading.textContent = "Saisonstatistik und Rekorde";
+    section.appendChild(heading);
+
+    const note = document.createElement("p");
+    note.className = "data-note";
+    note.textContent = "Ligaphase der Champions League";
+    section.appendChild(note);
+
+    const overview = document.createElement("div");
+    overview.className = "season-stat-grid";
+    overview.append(
+      createStatCard("Ausgewertete Spiele", String(stats.games.length)),
+      createStatCard("Tore", String(stats.totalGoals), `${stats.averageGoals.toFixed(2).replace(".", ",")} pro Spiel`),
+      createStatCard("Heimsiege", String(stats.homeWins)),
+      createStatCard("Unentschieden", String(stats.draws)),
+      createStatCard("Auswärtssiege", String(stats.awayWins))
+    );
+    section.appendChild(overview);
+
+    const records = document.createElement("div");
+    records.className = "record-grid";
+    [
+      ["Beste Offensive", stats.bestAttack, stats.bestAttack ? `${stats.bestAttack.goalsFor} Tore` : ""],
+      ["Beste Defensive", stats.bestDefense, stats.bestDefense ? `${stats.bestDefense.goalsAgainst} Gegentore` : ""],
+      ["Heimstärkstes Team", stats.bestHome, stats.bestHome ? `${stats.bestHome.homePoints} Punkte aus ${stats.bestHome.homePlayed} Spielen` : ""],
+      ["Auswärtsstärkstes Team", stats.bestAway, stats.bestAway ? `${stats.bestAway.awayPoints} Punkte aus ${stats.bestAway.awayPlayed} Spielen` : ""],
+      ["Meiste Zu-null-Spiele", stats.mostCleanSheets, stats.mostCleanSheets ? `${stats.mostCleanSheets.cleanSheets}` : ""],
+      ["Längste Siegesserie", stats.longestWinRun, stats.longestWinRun ? `${stats.longestWinRun.longestWinRun} Siege` : ""]
+    ].forEach(([label, team, detail]) => records.appendChild(createStatCard(label, team ? team.name : "–", detail)));
+    section.appendChild(records);
+
+    const matchRecords = document.createElement("div");
+    matchRecords.className = "match-records";
+    matchRecords.append(
+      createStatCard("Höchster Sieg", openLigaDbPairingText(stats.biggestWin), stats.biggestWin ? `${stats.biggestWin.difference} Tore Unterschied` : ""),
+      createStatCard("Torreichstes Spiel", openLigaDbPairingText(stats.highestScoring), stats.highestScoring ? `${stats.highestScoring.totalGoals} Tore` : "")
+    );
+    section.appendChild(matchRecords);
+    root.appendChild(section);
+    return true;
+  }
+
   function renderBundesligaStatistics(gameData, teamData, root) {
     const stats = calculateBundesligaStatistics(gameData, teamData);
     const section = document.createElement("section");
@@ -3337,17 +3482,26 @@ function normalizeGoalGetterEntries(goalGetterData) {
       renderMidNavigation(buttons, root);
       renderBundesligaFormTable(gameData, teamData, root);
     } else if (slug === "champions-league") {
+      const knockoutPreview = document.createElement("div");
+      renderChampionsLeagueKnockoutPrototype(openLigaDbClTable, knockoutPreview);
+      const knockoutAvailable = knockoutPreview.children.length > 0;
+
+      if (!knockoutAvailable) {
+        renderChampionsLeagueStatistics(openLigaDbClTable, root);
+        renderMidNavigation(buttons, root);
+      }
+
       championsLeaguePhaseOverviewRendered = renderStandardGamesSlot(coreSections, buttons, root, { championsLeague: true, openLigaDbMatches: openLigaDbClTable, gameData, title: "Spiele der Champions League" });
       renderMidNavigation(buttons, root);
       renderChampionsLeagueTable(openLigaDbClTable, root);
       renderMidNavigation(buttons, root);
       renderChampionsLeagueFormTable(openLigaDbClTable, root);
-      {
-        const beforeOptional = root.children.length;
-        renderChampionsLeagueKnockoutPrototype(openLigaDbClTable, root);
-        if (root.children.length > beforeOptional) {
-          root.children[beforeOptional].insertAdjacentElement("beforebegin", competitionNavigation(buttons, "mid"));
-        }
+
+      if (knockoutAvailable) {
+        renderMidNavigation(buttons, root);
+        while (knockoutPreview.firstChild) root.appendChild(knockoutPreview.firstChild);
+        renderMidNavigation(buttons, root);
+        renderChampionsLeagueStatistics(openLigaDbClTable, root);
       }
     } else if (slug === "europa-league") {
       renderStandardGamesSlot(coreSections, buttons, root, { title: "Spiele der Europa League", emptyText: "Noch keine von euch getippte Runde veröffentlicht. Die TOSMC-Wertung startet ab dem Achtelfinale." });
