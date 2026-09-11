@@ -3473,7 +3473,11 @@ function normalizeGoalGetterEntries(goalGetterData) {
     else renderCompetitionSituation(gameData, teamData, root);
 
     if (slug === "bundesliga") renderBundesligaStatistics(gameData, teamData, root);
-    if (slug !== "champions-league") renderMidNavigation(buttons, root);
+
+    // Dichte Navigation nur dort, wo mehrere umfangreiche Kernblöcke tatsächlich
+    // dauerhaft Inhalt tragen. Kurze/noch vorbereitete Wettbewerbe bleiben bewusst
+    // kompakt: eine Zwischenleiste nach den Spielen + die Abschlussleiste.
+    if (slug === "bundesliga" || slug === "dynamo-dresden") renderMidNavigation(buttons, root);
 
     if (slug === "bundesliga") {
       renderStandardGamesSlot(coreSections, buttons, root, { title: "Spiele der Bundesliga" });
@@ -3507,7 +3511,6 @@ function normalizeGoalGetterEntries(goalGetterData) {
       renderStandardGamesSlot(coreSections, buttons, root, { title: "Spiele der Europa League", emptyText: "Noch keine von euch getippte Runde veröffentlicht. Die TOSMC-Wertung startet ab dem Achtelfinale." });
       renderMidNavigation(buttons, root);
       renderEuropaLeagueTable(openLigaDbElMatches, root);
-      renderMidNavigation(buttons, root);
       renderEuropaLeagueFormTable(openLigaDbElMatches, root);
       {
         const beforeOptional = root.children.length;
@@ -3520,7 +3523,6 @@ function normalizeGoalGetterEntries(goalGetterData) {
       renderStandardGamesSlot(coreSections, buttons, root, { title: "Spiele des DFB-Pokals", emptyText: "Noch keine von euch getippte Runde veröffentlicht. Die TOSMC-Wertung startet ab dem Achtelfinale." });
       renderMidNavigation(buttons, root);
       renderPlaceholderSection("Tabelle", "Der DFB-Pokal ist ein K.-o.-Wettbewerb und besitzt keine klassische Ligatabelle.", root);
-      renderMidNavigation(buttons, root);
       renderOpenLigaDbFormTable("Formtabelle", openLigaDbDfbMatches, root, { emptyText: "Die Formtabelle erscheint automatisch, sobald abgeschlossene DFB-Pokalspiele vorliegen." });
       {
         const beforeOptional = root.children.length;
@@ -3538,7 +3540,6 @@ function normalizeGoalGetterEntries(goalGetterData) {
       renderStandardGamesSlot(coreSections, buttons, root, { title: competitionDefinition(slug)?.scheduleTitle || "Spiele" });
       renderMidNavigation(buttons, root);
       renderPlaceholderSection("Tabelle", "Für diesen Wettbewerb gibt es keine klassische Ligatabelle. Sobald eine belastbare Tabellenwertung fachlich vorgesehen ist, erscheint sie hier automatisch.", root);
-      renderMidNavigation(buttons, root);
       renderPlaceholderSection("Formtabelle", "Eine belastbare Formtabelle ist für diesen Wettbewerb derzeit nicht sinnvoll ableitbar. Der Platz bleibt für eine spätere automatische Darstellung vorbereitet.", root);
     }
 
