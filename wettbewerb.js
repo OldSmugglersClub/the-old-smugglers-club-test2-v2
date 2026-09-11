@@ -2933,21 +2933,66 @@ function normalizeGoalGetterEntries(goalGetterData) {
   }
 
 
-  function renderQuickBackButton(buttons, root) {
-    const backButton = safeArray(buttons).find(button =>
-      button && button.anzeigen !== false && button.text && button.link &&
-      (button.link.includes("#wettbewerbe") || /zurück.*wettbewerb/i.test(button.text))
+  function competitionNavigation(buttons, position = "mid") {
+    const configured = safeArray(buttons).filter(button =>
+      button && button.anzeigen !== false && button.text && button.link
     );
-    if (!backButton) return;
+    const kicktippButton = configured.find(button => /kicktipp/i.test(button.text) || /kicktipp\.html/i.test(button.link));
+    const backButton = configured.find(button =>
+      button.link.includes("#wettbewerbe") || /zurück.*wettbewerb/i.test(button.text)
+    );
 
-    const quickActions = document.createElement("div");
-    quickActions.className = "actions quick-actions";
-    const link = document.createElement("a");
-    link.className = "btn btn-secondary";
-    link.href = backButton.link;
-    link.textContent = backButton.text;
-    quickActions.appendChild(link);
-    root.appendChild(quickActions);
+    const navigation = document.createElement("nav");
+    navigation.className = `actions competition-nav-actions competition-nav-actions--${position}`;
+    navigation.setAttribute("aria-label", position === "mid" ? "Seitennavigation" : "Seitennavigation am Seitenende");
+
+    if (kicktippButton) {
+      const kicktipp = document.createElement("a");
+      kicktipp.className = "btn competition-nav-btn competition-nav-btn--kicktipp";
+      kicktipp.href = kicktippButton.link;
+      kicktipp.textContent = "Kicktipp Live Action";
+      if (kicktippButton.neuesFenster) {
+        kicktipp.target = "_blank";
+        kicktipp.rel = "noopener noreferrer";
+      }
+      navigation.appendChild(kicktipp);
+    }
+
+    if (backButton) {
+      const back = document.createElement("a");
+      back.className = "btn competition-nav-btn competition-nav-btn--back";
+      back.href = backButton.link;
+      back.textContent = "Zurück zu den Wettbewerben";
+      navigation.appendChild(back);
+    }
+
+    const top = document.createElement("a");
+    top.className = "btn competition-nav-btn competition-nav-btn--top";
+    top.href = "#seitenanfang";
+    top.textContent = "Nach oben";
+    top.addEventListener("click", event => {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      history.replaceState(null, "", `${location.pathname}${location.search}`);
+    });
+    navigation.appendChild(top);
+
+    return navigation;
+  }
+
+  function renderMidNavigation(buttons, root) {
+    root.appendChild(competitionNavigation(buttons, "mid"));
+  }
+
+  function insertGenericMidNavigation(buttons, root) {
+    const navigation = competitionNavigation(buttons, "mid");
+    const children = [...root.children].filter(child => !child.classList.contains("competition-nav-actions"));
+    if (!children.length) {
+      root.appendChild(navigation);
+      return;
+    }
+    const target = children[Math.max(0, Math.floor(children.length / 2) - 1)];
+    target.insertAdjacentElement("afterend", navigation);
   }
 
   function renderSections(sections, buttons, gameData, teamData, tableData, openLigaDbDfbMatches, openLigaDbClTable, openLigaDbElMatches, europaLeagueFallback) {
@@ -2962,16 +3007,17 @@ function normalizeGoalGetterEntries(goalGetterData) {
     } else {
       renderCompetitionSituation(gameData, teamData, root);
     }
+    if (slug === "champions-league") {
+      renderMidNavigation(buttons, root);
+    }
     renderChampionsLeagueTable(openLigaDbClTable, root);
     renderChampionsLeagueKnockoutPrototype(openLigaDbClTable, root);
     renderEuropaLeagueKnockoutPrototype(openLigaDbElMatches, europaLeagueFallback, root);
     renderDfbKnockoutPrototype(openLigaDbDfbMatches, root);
-    if (slug === "bundesliga" || slug === "dynamo-dresden") {
-      renderQuickBackButton(buttons, root);
-    }
     if (slug === "bundesliga") {
       renderBundesligaTable(gameData, teamData, tableData, root);
       renderBundesligaStatistics(gameData, teamData, root);
+      renderMidNavigation(buttons, root);
     }
     safeArray(sections).filter(s => s && s.anzeigen !== false).forEach(section => {
       if (championsLeaguePhaseOverviewRendered && section.typ === "spiele" && section.zentral === true) return;
@@ -3009,24 +3055,17 @@ function normalizeGoalGetterEntries(goalGetterData) {
       }
       root.appendChild(article);
     });
+    if (slug !== "bundesliga" && slug !== "champions-league") {
+      insertGenericMidNavigation(buttons, root);
+    }
     root.classList.toggle("is-hidden", root.children.length === 0);
   }
 
   function renderButtons(buttons) {
     const root = $("actions");
     root.innerHTML = "";
-    safeArray(buttons).filter(b => b && b.anzeigen !== false && b.text && b.link).forEach((button, index) => {
-      const a = document.createElement("a");
-      a.className = `btn ${button.stil === "sekundaer" || index > 0 ? "btn-secondary" : "btn-primary"}`;
-      a.href = button.link;
-      a.textContent = button.text;
-      if (button.neuesFenster) {
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-      }
-      root.appendChild(a);
-    });
-    root.classList.toggle("is-hidden", root.children.length === 0);
+    root.appendChild(competitionNavigation(buttons, "bottom"));
+    root.classList.toggle("is-hidden", false);
   }
 
   async function fetchJson(url, required = true) {
@@ -3060,6 +3099,7 @@ function normalizeGoalGetterEntries(goalGetterData) {
 
   async function load() {
     try {
+      if (!document.body.id) document.body.id = "seitenanfang";
       if (window.OSCDataRegistry) {
         [gameDataUrl, teamDataUrl, bundesligaTableUrl, bundesligaGoalGetterUrl, competitionConfigUrl] = await Promise.all([
           window.OSCDataRegistry.url("spiele"),
