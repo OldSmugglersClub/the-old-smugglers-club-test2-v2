@@ -3526,14 +3526,10 @@ function normalizeGoalGetterEntries(goalGetterData) {
       }
     } else if (slug === "dfb-pokal") {
       renderStandardGamesSlot(coreSections, buttons, root, { title: "Spiele des DFB-Pokals", emptyText: "Noch keine von euch getippte Runde veröffentlicht. Die TOSMC-Wertung startet ab dem Achtelfinale." });
-      const { completed: completedDfbMatches } = openLigaDbCompletedRows(openLigaDbDfbMatches);
       const knockoutPreview = document.createElement("div");
       renderDfbKnockoutPrototype(openLigaDbDfbMatches, knockoutPreview);
-      const dfbKnockoutVisible = knockoutPreview.children.length > 0;
-      if (completedDfbMatches.length || dfbKnockoutVisible) renderMidNavigation(buttons, root);
-      if (completedDfbMatches.length) {
-        renderOpenLigaDbFormTable("Formtabelle", openLigaDbDfbMatches, root, { emptyText: "Die Formtabelle erscheint automatisch, sobald abgeschlossene DFB-Pokalspiele vorliegen." });
-      }
+      // DFB-Pokal ist ein K.-o.-Wettbewerb: bewusst keine Liga-/Formtabelle und
+      // keine zusätzliche Zwischen-Navigation vor dem Turnierbaum.
       while (knockoutPreview.firstChild) root.appendChild(knockoutPreview.firstChild);
     } else if (slug === "dynamo-dresden") {
       renderStandardGamesSlot(coreSections, buttons, root, { title: "Spiele von Dynamo Dresden" });
