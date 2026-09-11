@@ -423,9 +423,27 @@
     );
     section.appendChild(matchRecords);
 
-    const formHeading = document.createElement("h3");
-    formHeading.textContent = "Form der letzten fünf Ligaspiele";
-    section.appendChild(formHeading);
+    root.appendChild(section);
+  }
+
+  function renderBundesligaFormTable(gameData, teamData, root) {
+    if (slug !== "bundesliga") return;
+    const stats = calculateBundesligaStatistics(gameData, teamData);
+    const section = document.createElement("section");
+    section.className = "dynamic-section bundesliga-form-section";
+    const heading = document.createElement("h2");
+    heading.textContent = "Formtabelle";
+    section.appendChild(heading);
+
+    if (!stats.formRows.length) {
+      const note = document.createElement("p");
+      note.className = "data-note";
+      note.textContent = "Die Formtabelle erscheint automatisch, sobald abgeschlossene Ligaspiele vorliegen.";
+      section.appendChild(note);
+      root.appendChild(section);
+      return;
+    }
+
     const formWrapper = document.createElement("div");
     formWrapper.className = "table-scroll";
     const table = document.createElement("table");
@@ -456,7 +474,6 @@
     table.appendChild(tbody);
     formWrapper.appendChild(table);
     section.appendChild(formWrapper);
-
     root.appendChild(section);
   }
 
@@ -1244,6 +1261,266 @@
       tbody.appendChild(tr);
     });
     table.appendChild(tbody); wrapper.appendChild(table); section.appendChild(wrapper);
+    root.appendChild(section);
+  }
+
+
+  function openLigaDbCompletedRows(matches) {
+    const teams = new Map();
+    const completed = [];
+
+    function ensureTeam(team) {
+      const id = String(team?.teamId ?? team?.teamID ?? team?.TeamId ?? team?.TeamID ?? "");
+      const name = openLigaDbTeamName(team);
+      const key = id || bracketTeamKey(name);
+      if (!teams.has(key)) {
+        teams.set(key, { key, id, name, sourceTeam: team, played: 0, wins: 0, draws: 0, losses: 0, goalsFor: 0, goalsAgainst: 0, points: 0, formGames: [] });
+      }
+      return teams.get(key);
+    }
+
+    safeArray(matches)
+      .slice()
+      .sort((a, b) => String(a?.matchDateTime ?? a?.MatchDateTime ?? "").localeCompare(String(b?.matchDateTime ?? b?.MatchDateTime ?? "")))
+      .forEach(match => {
+        const score = String(openLigaDbFinalResult(match) || "").match(/^(\d+):(\d+)$/);
+        if (!score) return;
+        const homeGoals = Number(score[1]);
+        const awayGoals = Number(score[2]);
+        const home = ensureTeam(match?.team1);
+        const away = ensureTeam(match?.team2);
+        const date = String(match?.matchDateTime ?? match?.MatchDateTime ?? "");
+
+        home.played += 1; away.played += 1;
+        home.goalsFor += homeGoals; home.goalsAgainst += awayGoals;
+        away.goalsFor += awayGoals; away.goalsAgainst += homeGoals;
+        let homeResult = "U"; let awayResult = "U";
+        if (homeGoals > awayGoals) {
+          home.wins += 1; away.losses += 1; home.points += 3; homeResult = "S"; awayResult = "N";
+        } else if (homeGoals < awayGoals) {
+          away.wins += 1; home.losses += 1; away.points += 3; homeResult = "N"; awayResult = "S";
+        } else {
+          home.draws += 1; away.draws += 1; home.points += 1; away.points += 1;
+        }
+        home.formGames.push({ date, result: homeResult, goalsFor: homeGoals, goalsAgainst: awayGoals });
+        away.formGames.push({ date, result: awayResult, goalsFor: awayGoals, goalsAgainst: homeGoals });
+        completed.push(match);
+      });
+
+    const rows = [...teams.values()].sort((a, b) => {
+      if (b.points !== a.points) return b.points - a.points;
+      const gdA = a.goalsFor - a.goalsAgainst;
+      const gdB = b.goalsFor - b.goalsAgainst;
+      if (gdB !== gdA) return gdB - gdA;
+      if (b.goalsFor !== a.goalsFor) return b.goalsFor - a.goalsFor;
+      return a.name.localeCompare(b.name, "de");
+    });
+    return { rows, completed };
+  }
+
+  function formSummary(team) {
+    const games = safeArray(team?.formGames).slice(-5);
+    return {
+      games,
+      points: games.reduce((sum, game) => sum + (game.result === "S" ? 3 : game.result === "U" ? 1 : 0), 0),
+      goalsFor: games.reduce((sum, game) => sum + Number(game.goalsFor || 0), 0),
+      goalsAgainst: games.reduce((sum, game) => sum + Number(game.goalsAgainst || 0), 0)
+    };
+  }
+
+  function appendFormBadges(cell, games) {
+    const form = document.createElement("div");
+    form.className = "form-badges";
+    safeArray(games).forEach(game => {
+      const badge = document.createElement("span");
+      badge.className = `form-badge form-${String(game.result || "").toLowerCase()}`;
+      badge.textContent = game.result || "–";
+      form.appendChild(badge);
+    });
+    cell.appendChild(form);
+  }
+
+  function renderOpenLigaDbFormTable(title, matches, root, options = {}) {
+    const { rows } = openLigaDbCompletedRows(matches);
+    const minimumGames = Number(options.minimumGames || 1);
+    const formRows = rows
+      .map(team => ({ team, summary: formSummary(team) }))
+      .filter(item => item.summary.games.length >= minimumGames)
+      .sort((a, b) => {
+        if (b.summary.points !== a.summary.points) return b.summary.points - a.summary.points;
+        const gdA = a.summary.goalsFor - a.summary.goalsAgainst;
+        const gdB = b.summary.goalsFor - b.summary.goalsAgainst;
+        if (gdB !== gdA) return gdB - gdA;
+        if (b.summary.goalsFor !== a.summary.goalsFor) return b.summary.goalsFor - a.summary.goalsFor;
+        return a.team.name.localeCompare(b.team.name, "de");
+      });
+
+    const section = document.createElement("section");
+    section.className = "dynamic-section form-section";
+    const heading = document.createElement("h2");
+    heading.textContent = title;
+    section.appendChild(heading);
+
+    if (!formRows.length) {
+      const note = document.createElement("p");
+      note.className = "data-note";
+      note.textContent = options.emptyText || "Die Formtabelle erscheint automatisch, sobald genügend abgeschlossene Spiele vorliegen.";
+      section.appendChild(note);
+      root.appendChild(section);
+      return;
+    }
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "table-scroll";
+    const table = document.createElement("table");
+    table.className = "data-table form-table";
+    table.innerHTML = "<thead><tr><th>Verein</th><th>Form</th><th>Punkte</th><th>Tore</th></tr></thead>";
+    const tbody = document.createElement("tbody");
+    formRows.forEach(({ team, summary }) => {
+      const row = document.createElement("tr");
+      const teamCell = document.createElement("td");
+      teamCell.appendChild(createChampionsLeagueTeamIdentity(team.sourceTeam || { teamId: team.id, teamName: team.name }, "team-identity--table"));
+      const formCell = document.createElement("td");
+      appendFormBadges(formCell, summary.games);
+      const pointsCell = document.createElement("td"); pointsCell.textContent = String(summary.points);
+      const goalsCell = document.createElement("td"); goalsCell.textContent = `${summary.goalsFor}:${summary.goalsAgainst}`;
+      row.append(teamCell, formCell, pointsCell, goalsCell);
+      tbody.appendChild(row);
+    });
+    table.appendChild(tbody); wrapper.appendChild(table); section.appendChild(wrapper); root.appendChild(section);
+  }
+
+  function renderChampionsLeagueFormTable(openLigaDbMatches, root) {
+    if (slug !== "champions-league") return;
+    renderOpenLigaDbFormTable("Formtabelle", championsLeaguePhaseMatches(openLigaDbMatches), root, {
+      emptyText: "Die Champions-League-Formtabelle erscheint automatisch, sobald abgeschlossene Ligaphasen-Spiele vorliegen."
+    });
+  }
+
+  function europaLeaguePhaseMatches(openLigaDbMatches) {
+    return safeArray(openLigaDbMatches).filter(match => {
+      const groupName = normalizeRoundLabel(match?.group?.groupName ?? match?.group?.GroupName ?? "");
+      if (groupName === "ligaphase") return true;
+      const legacyMatchday = Number(groupName.match(/(\d+)\s*spieltag/i)?.[1]);
+      return Number.isFinite(legacyMatchday) && legacyMatchday >= 1 && legacyMatchday <= 8;
+    });
+  }
+
+  function renderEuropaLeagueTable(openLigaDbMatches, root) {
+    if (slug !== "europa-league") return;
+    const { rows } = openLigaDbCompletedRows(europaLeaguePhaseMatches(openLigaDbMatches));
+    const section = document.createElement("section");
+    section.className = "dynamic-section standings-section";
+    const heading = document.createElement("h2"); heading.textContent = "Europa-League-Tabelle"; section.appendChild(heading);
+    if (rows.length < 36) {
+      const note = document.createElement("p"); note.className = "data-note";
+      note.textContent = rows.length
+        ? `Die Ligaphasen-Tabelle wird vollständig eingeblendet, sobald alle 36 Teilnehmer belastbar aus den Spielplandaten vorliegen. Aktuell sind ${rows.length} Teams erfasst.`
+        : "Die Europa-League-Tabelle erscheint automatisch, sobald belastbare Ligaphasen-Daten vorliegen.";
+      section.appendChild(note); root.appendChild(section); return;
+    }
+    const wrapper = document.createElement("div"); wrapper.className = "table-scroll";
+    const table = document.createElement("table"); table.className = "data-table standings-table";
+    table.innerHTML = "<thead><tr><th>Pl.</th><th>Verein</th><th>Sp.</th><th>S</th><th>U</th><th>N</th><th>Tore</th><th>Diff.</th><th>Pkt.</th></tr></thead>";
+    const tbody = document.createElement("tbody");
+    rows.forEach((team, index) => {
+      const tr = document.createElement("tr");
+      const gd = team.goalsFor - team.goalsAgainst;
+      [index + 1, team.name, team.played, team.wins, team.draws, team.losses, `${team.goalsFor}:${team.goalsAgainst}`, gd > 0 ? `+${gd}` : String(gd), team.points].forEach((value, columnIndex) => {
+        const cell = document.createElement(columnIndex === 0 ? "th" : "td");
+        if (columnIndex === 0) cell.scope = "row";
+        if (columnIndex === 1) cell.appendChild(createChampionsLeagueTeamIdentity(team.sourceTeam || { teamId: team.id, teamName: team.name }, "team-identity--table"));
+        else cell.textContent = value;
+        tr.appendChild(cell);
+      });
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody); wrapper.appendChild(table); section.appendChild(wrapper); root.appendChild(section);
+  }
+
+  function renderEuropaLeagueFormTable(openLigaDbMatches, root) {
+    if (slug !== "europa-league") return;
+    renderOpenLigaDbFormTable("Formtabelle", europaLeaguePhaseMatches(openLigaDbMatches), root, {
+      emptyText: "Die Europa-League-Formtabelle erscheint automatisch, sobald abgeschlossene Ligaphasen-Spiele vorliegen."
+    });
+  }
+
+  function renderDynamoTableExcerpt(openLigaDbMatches, root) {
+    if (slug !== "dynamo-dresden") return;
+    const { rows } = openLigaDbCompletedRows(openLigaDbMatches);
+    const index = rows.findIndex(team => Number(team.id) === OPENLIGADB_DYNAMO_TEAM_ID);
+    const section = document.createElement("section"); section.className = "dynamic-section standings-section dynamo-standings-excerpt";
+    const heading = document.createElement("h2"); heading.textContent = "Dynamo in der Tabelle"; section.appendChild(heading);
+    if (index < 0) {
+      const note = document.createElement("p"); note.className = "data-note"; note.textContent = "Der aktuelle Tabellenplatz von Dynamo Dresden ist momentan nicht belastbar verfügbar.";
+      section.appendChild(note); root.appendChild(section); return;
+    }
+    const start = Math.max(0, index - 3);
+    const end = Math.min(rows.length, index + 4);
+    const wrapper = document.createElement("div"); wrapper.className = "table-scroll";
+    const table = document.createElement("table"); table.className = "data-table standings-table dynamo-excerpt-table";
+    table.innerHTML = "<thead><tr><th>Pl.</th><th>Verein</th><th>Sp.</th><th>Tore</th><th>Diff.</th><th>Pkt.</th></tr></thead>";
+    const tbody = document.createElement("tbody");
+    rows.slice(start, end).forEach((team, localIndex) => {
+      const position = start + localIndex + 1;
+      const tr = document.createElement("tr");
+      if (Number(team.id) === OPENLIGADB_DYNAMO_TEAM_ID) tr.classList.add("is-highlighted-team");
+      const gd = team.goalsFor - team.goalsAgainst;
+      [position, team.name, team.played, `${team.goalsFor}:${team.goalsAgainst}`, gd > 0 ? `+${gd}` : String(gd), team.points].forEach((value, columnIndex) => {
+        const cell = document.createElement(columnIndex === 0 ? "th" : "td");
+        if (columnIndex === 0) cell.scope = "row";
+        if (columnIndex === 1) cell.appendChild(createChampionsLeagueTeamIdentity(team.sourceTeam || { teamId: team.id, teamName: team.name }, "team-identity--table"));
+        else cell.textContent = value;
+        tr.appendChild(cell);
+      });
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody); wrapper.appendChild(table); section.appendChild(wrapper); root.appendChild(section);
+  }
+
+  function renderDynamoDutyForm(leagueMatches, dfbMatches, root) {
+    if (slug !== "dynamo-dresden") return;
+    const all = [...safeArray(leagueMatches), ...safeArray(dfbMatches)]
+      .filter(match => {
+        const homeId = Number(match?.team1?.teamId ?? match?.team1?.teamID ?? match?.team1?.TeamId ?? match?.team1?.TeamID);
+        const awayId = Number(match?.team2?.teamId ?? match?.team2?.teamID ?? match?.team2?.TeamId ?? match?.team2?.TeamID);
+        return homeId === OPENLIGADB_DYNAMO_TEAM_ID || awayId === OPENLIGADB_DYNAMO_TEAM_ID;
+      })
+      .sort((a, b) => String(a?.matchDateTime ?? a?.MatchDateTime ?? "").localeCompare(String(b?.matchDateTime ?? b?.MatchDateTime ?? "")));
+    const completed = all.filter(match => /^\d+:\d+$/.test(openLigaDbFinalResult(match))).slice(-5);
+    const section = document.createElement("section"); section.className = "dynamic-section form-section dynamo-duty-form";
+    const heading = document.createElement("h2"); heading.textContent = "Form der letzten 5 Pflichtspiele"; section.appendChild(heading);
+    if (!completed.length) {
+      const note = document.createElement("p"); note.className = "data-note"; note.textContent = "Die Pflichtspiel-Form erscheint automatisch, sobald abgeschlossene Liga- oder DFB-Pokalspiele vorliegen.";
+      section.appendChild(note); root.appendChild(section); return;
+    }
+    let points = 0, goalsFor = 0, goalsAgainst = 0;
+    const games = completed.map(match => {
+      const score = openLigaDbFinalResult(match).match(/^(\d+):(\d+)$/);
+      const homeGoals = Number(score[1]), awayGoals = Number(score[2]);
+      const homeId = Number(match?.team1?.teamId ?? match?.team1?.teamID ?? match?.team1?.TeamId ?? match?.team1?.TeamID);
+      const isHome = homeId === OPENLIGADB_DYNAMO_TEAM_ID;
+      const gf = isHome ? homeGoals : awayGoals;
+      const ga = isHome ? awayGoals : homeGoals;
+      const result = gf > ga ? "S" : gf < ga ? "N" : "U";
+      points += result === "S" ? 3 : result === "U" ? 1 : 0; goalsFor += gf; goalsAgainst += ga;
+      return { result, goalsFor: gf, goalsAgainst: ga };
+    });
+    const wrapper = document.createElement("div"); wrapper.className = "table-scroll";
+    const table = document.createElement("table"); table.className = "data-table form-table";
+    table.innerHTML = "<thead><tr><th>Verein</th><th>Form</th><th>Punkte</th><th>Tore</th></tr></thead>";
+    const tbody = document.createElement("tbody"); const row = document.createElement("tr"); row.classList.add("is-highlighted-team");
+    const teamCell = document.createElement("td"); teamCell.appendChild(createTeamIdentity("dynamo-dresden", "Dynamo Dresden", "team-identity--table"));
+    const formCell = document.createElement("td"); appendFormBadges(formCell, games);
+    const pointsCell = document.createElement("td"); pointsCell.textContent = String(points);
+    const goalsCell = document.createElement("td"); goalsCell.textContent = `${goalsFor}:${goalsAgainst}`;
+    row.append(teamCell, formCell, pointsCell, goalsCell); tbody.appendChild(row); table.appendChild(tbody); wrapper.appendChild(table); section.appendChild(wrapper); root.appendChild(section);
+  }
+
+  function renderPlaceholderSection(title, message, root) {
+    const section = document.createElement("section"); section.className = "dynamic-section synchronized-placeholder";
+    const heading = document.createElement("h2"); heading.textContent = title; section.appendChild(heading);
+    const note = document.createElement("p"); note.className = "data-note"; note.textContent = message; section.appendChild(note);
     root.appendChild(section);
   }
 
@@ -2995,71 +3272,113 @@ function normalizeGoalGetterEntries(goalGetterData) {
     target.insertAdjacentElement("afterend", navigation);
   }
 
-  function renderSections(sections, buttons, gameData, teamData, tableData, openLigaDbDfbMatches, openLigaDbClTable, openLigaDbElMatches, europaLeagueFallback) {
+  function renderConfiguredSection(section, root) {
+    if (!section || section.anzeigen === false) return;
+    const article = document.createElement("section");
+    article.className = "dynamic-section";
+    if (section.titel) {
+      const h2 = document.createElement("h2");
+      h2.textContent = section.titel;
+      article.appendChild(h2);
+    }
+    switch (section.typ) {
+      case "liste": {
+        const ul = document.createElement("ul");
+        safeArray(section.eintraege).forEach(item => {
+          const li = document.createElement("li"); li.textContent = item; ul.appendChild(li);
+        });
+        article.appendChild(ul); break;
+      }
+      case "tabelle":
+      case "rangliste": renderTable(section, article); break;
+      case "spiele": renderMatches(section, article); break;
+      default: {
+        const p = document.createElement("p"); p.textContent = section.text || ""; article.appendChild(p);
+      }
+    }
+    root.appendChild(article);
+  }
+
+  function renderStandardGamesSlot(sections, buttons, root, options = {}) {
+    const central = safeArray(sections).find(section => section && section.typ === "spiele" && section.zentral === true);
+    if (options.championsLeague) {
+      const rendered = renderChampionsLeaguePhaseOverview(options.openLigaDbMatches, options.gameData, root);
+      if (!rendered) renderPlaceholderSection(options.title || "Spiele", options.emptyText || "Noch keine belastbaren Spiele verfügbar.", root);
+      return rendered;
+    }
+    if (central) {
+      renderConfiguredSection(central, root);
+      return false;
+    }
+    renderPlaceholderSection(options.title || competitionDefinition(slug)?.scheduleTitle || "Spiele", options.emptyText || "Noch keine von euch getippte Runde veröffentlicht.", root);
+    return false;
+  }
+
+  function renderSections(sections, buttons, gameData, teamData, tableData, openLigaDbDfbMatches, openLigaDbClTable, openLigaDbElMatches, europaLeagueFallback, dynamoMatchData) {
     const root = $("dynamic-sections");
     root.innerHTML = "";
     document.body.classList.add(`page-${slug}`);
     renderCompetitionNavigator(root);
+
+    const coreSections = safeArray(sections);
+    const editorial = coreSections.filter(section => !(section && section.typ === "spiele" && section.zentral === true));
     let championsLeaguePhaseOverviewRendered = false;
-    if (slug === "champions-league") {
-      renderCompetitionSituation(gameData, teamData, root, championsLeagueSituationGames(openLigaDbClTable));
-      renderMidNavigation(buttons, root);
-      championsLeaguePhaseOverviewRendered = renderChampionsLeaguePhaseOverview(openLigaDbClTable, gameData, root);
-    } else {
-      renderCompetitionSituation(gameData, teamData, root);
-    }
-    if (slug === "champions-league") {
-      renderMidNavigation(buttons, root);
-    }
-    renderChampionsLeagueTable(openLigaDbClTable, root);
-    renderChampionsLeagueKnockoutPrototype(openLigaDbClTable, root);
-    renderEuropaLeagueKnockoutPrototype(openLigaDbElMatches, europaLeagueFallback, root);
-    renderDfbKnockoutPrototype(openLigaDbDfbMatches, root);
+
+    if (slug === "champions-league") renderCompetitionSituation(gameData, teamData, root, championsLeagueSituationGames(openLigaDbClTable));
+    else renderCompetitionSituation(gameData, teamData, root);
+
     if (slug === "bundesliga") {
+      renderStandardGamesSlot(coreSections, buttons, root, { title: "Spiele der Bundesliga" });
+      renderMidNavigation(buttons, root);
       renderBundesligaTable(gameData, teamData, tableData, root);
       renderMidNavigation(buttons, root);
+      renderBundesligaFormTable(gameData, teamData, root);
+      renderMidNavigation(buttons, root);
       renderBundesligaStatistics(gameData, teamData, root);
+    } else if (slug === "champions-league") {
+      championsLeaguePhaseOverviewRendered = renderStandardGamesSlot(coreSections, buttons, root, { championsLeague: true, openLigaDbMatches: openLigaDbClTable, gameData, title: "Spiele der Champions League" });
+      renderMidNavigation(buttons, root);
+      renderChampionsLeagueTable(openLigaDbClTable, root);
+      renderMidNavigation(buttons, root);
+      renderChampionsLeagueFormTable(openLigaDbClTable, root);
+      renderMidNavigation(buttons, root);
+      renderChampionsLeagueKnockoutPrototype(openLigaDbClTable, root);
+    } else if (slug === "europa-league") {
+      renderStandardGamesSlot(coreSections, buttons, root, { title: "Spiele der Europa League", emptyText: "Noch keine von euch getippte Runde veröffentlicht. Die TOSMC-Wertung startet ab dem Achtelfinale." });
+      renderMidNavigation(buttons, root);
+      renderEuropaLeagueTable(openLigaDbElMatches, root);
+      renderMidNavigation(buttons, root);
+      renderEuropaLeagueFormTable(openLigaDbElMatches, root);
+      renderMidNavigation(buttons, root);
+      renderEuropaLeagueKnockoutPrototype(openLigaDbElMatches, europaLeagueFallback, root);
+    } else if (slug === "dfb-pokal") {
+      renderStandardGamesSlot(coreSections, buttons, root, { title: "Spiele des DFB-Pokals", emptyText: "Noch keine von euch getippte Runde veröffentlicht. Die TOSMC-Wertung startet ab dem Achtelfinale." });
+      renderMidNavigation(buttons, root);
+      renderPlaceholderSection("Tabelle", "Der DFB-Pokal ist ein K.-o.-Wettbewerb und besitzt keine klassische Ligatabelle.", root);
+      renderMidNavigation(buttons, root);
+      renderOpenLigaDbFormTable("Formtabelle", openLigaDbDfbMatches, root, { emptyText: "Die Formtabelle erscheint automatisch, sobald abgeschlossene DFB-Pokalspiele vorliegen." });
+      renderMidNavigation(buttons, root);
+      renderDfbKnockoutPrototype(openLigaDbDfbMatches, root);
+    } else if (slug === "dynamo-dresden") {
+      renderStandardGamesSlot(coreSections, buttons, root, { title: "Spiele von Dynamo Dresden" });
+      renderMidNavigation(buttons, root);
+      renderDynamoTableExcerpt(dynamoMatchData, root);
+      renderMidNavigation(buttons, root);
+      renderDynamoDutyForm(dynamoMatchData, openLigaDbDfbMatches, root);
+      renderMidNavigation(buttons, root);
+    } else {
+      renderStandardGamesSlot(coreSections, buttons, root, { title: competitionDefinition(slug)?.scheduleTitle || "Spiele" });
+      renderMidNavigation(buttons, root);
+      renderPlaceholderSection("Tabelle", "Für diesen Wettbewerb gibt es keine klassische Ligatabelle. Sobald eine belastbare Tabellenwertung fachlich vorgesehen ist, erscheint sie hier automatisch.", root);
+      renderMidNavigation(buttons, root);
+      renderPlaceholderSection("Formtabelle", "Eine belastbare Formtabelle ist für diesen Wettbewerb derzeit nicht sinnvoll ableitbar. Der Platz bleibt für eine spätere automatische Darstellung vorbereitet.", root);
       renderMidNavigation(buttons, root);
     }
-    safeArray(sections).filter(s => s && s.anzeigen !== false).forEach(section => {
-      if (championsLeaguePhaseOverviewRendered && section.typ === "spiele" && section.zentral === true) return;
-      const article = document.createElement("section");
-      article.className = "dynamic-section";
-      if (section.titel) {
-        const h2 = document.createElement("h2");
-        h2.textContent = section.titel;
-        article.appendChild(h2);
-      }
 
-      switch (section.typ) {
-        case "liste": {
-          const ul = document.createElement("ul");
-          safeArray(section.eintraege).forEach(item => {
-            const li = document.createElement("li");
-            li.textContent = item;
-            ul.appendChild(li);
-          });
-          article.appendChild(ul);
-          break;
-        }
-        case "tabelle":
-        case "rangliste":
-          renderTable(section, article);
-          break;
-        case "spiele":
-          renderMatches(section, article);
-          break;
-        default: {
-          const p = document.createElement("p");
-          p.textContent = section.text || "";
-          article.appendChild(p);
-        }
-      }
-      root.appendChild(article);
+    editorial.forEach(section => {
+      if (championsLeaguePhaseOverviewRendered && section.typ === "spiele" && section.zentral === true) return;
+      renderConfiguredSection(section, root);
     });
-    if (slug !== "bundesliga" && slug !== "champions-league") {
-      insertGenericMidNavigation(buttons, root);
-    }
     root.classList.toggle("is-hidden", root.children.length === 0);
   }
 
@@ -3122,7 +3441,7 @@ function normalizeGoalGetterEntries(goalGetterData) {
         slug === "europa-league" ? fetchJson(OPENLIGADB_EL_GOALGETTERS_URL, false) : Promise.resolve([]),
         slug === "dynamo-dresden" ? fetchJson(OPENLIGADB_DYNAMO_MATCHES_URL, false) : Promise.resolve([]),
         fetchJson(competitionConfigUrl, false),
-        slug === "dfb-pokal"
+        (slug === "dfb-pokal" || slug === "dynamo-dresden")
           ? fetchJson(OPENLIGADB_DFB_PROTOTYPE_URL, false)
           : Promise.resolve([]),
         slug === "champions-league"
@@ -3184,7 +3503,7 @@ function normalizeGoalGetterEntries(goalGetterData) {
             : [centralSection, ...editorialSections])
         : editorialSections;
 
-      renderSections(sections, data.buttons, centralGameData, teamData, bundesligaTableData, openLigaDbDfbMatches, openLigaDbClTable, openLigaDbElMatches, europaLeagueFallback);
+      renderSections(sections, data.buttons, centralGameData, teamData, bundesligaTableData, openLigaDbDfbMatches, openLigaDbClTable, openLigaDbElMatches, europaLeagueFallback, dynamoMatchData);
       renderButtons(data.buttons);
       text("footer-text", data.fusszeile);
       await loadFooterVersion();

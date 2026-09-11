@@ -2224,3 +2224,15 @@ body.page-dynamo-dresden{
   align-self: center;
   width: min(100%, 320px);
 }
+
+/* HF77 – synchrone Wettbewerbsstruktur */
+.standings-table tr.is-highlighted-team,
+.form-table tr.is-highlighted-team {
+  font-weight: 800;
+  outline: 2px solid rgba(212, 175, 55, 0.65);
+  outline-offset: -2px;
+}
+
+.synchronized-placeholder .data-note {
+  margin-bottom: 0;
+}
