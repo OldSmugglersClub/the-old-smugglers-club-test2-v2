@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "datenVersion": 11,
-  "aktualisiert": "2026-09-10",
+  "datenVersion": 12,
+  "aktualisiert": "2026-09-11",
   "saison": "2026/2027",
   "quelle": "OpenLigaDB getgoalgetters/bl1/2026",
   "status": "bereit",
@@ -20,6 +20,10 @@
     },
     {
       "name": "R. Baku",
+      "tore": 2
+    },
+    {
+      "name": "T. Skarke",
       "tore": 2
     },
     {
@@ -63,15 +67,11 @@
       "tore": 1
     },
     {
-      "name": "A. Nusa",
-      "tore": 1
-    },
-    {
       "name": "R. Reitz",
       "tore": 1
     },
     {
-      "name": "T. Skarke",
+      "name": "A. Nusa",
       "tore": 1
     },
     {
@@ -83,15 +83,15 @@
       "tore": 1
     },
     {
+      "name": "S. El Mala",
+      "tore": 1
+    },
+    {
       "name": "A. Daghim",
       "tore": 1
     },
     {
       "name": "O. Kabak",
-      "tore": 1
-    },
-    {
-      "name": "S. El Mala",
       "tore": 1
     },
     {
@@ -199,15 +199,15 @@
       "tore": 1
     },
     {
+      "name": "R. Königsdörffer",
+      "tore": 1
+    },
+    {
       "name": "P. Mwene",
       "tore": 1
     },
     {
       "name": "S. Becker",
-      "tore": 1
-    },
-    {
-      "name": "R. Königsdörffer",
       "tore": 1
     },
     {
@@ -228,6 +228,18 @@
     },
     {
       "name": "A. Ibrahimovic",
+      "tore": 1
+    },
+    {
+      "name": "M. Wöber",
+      "tore": 1
+    },
+    {
+      "name": "A. Aouchiche",
+      "tore": 1
+    },
+    {
+      "name": "R. Gosens",
       "tore": 1
     }
   ]
