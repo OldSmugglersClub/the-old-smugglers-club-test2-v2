@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "datenVersion": 12,
-  "aktualisiert": "2026-09-11",
+  "datenVersion": 13,
+  "aktualisiert": "2026-09-12",
   "saison": "2026/2027",
   "quelle": "OpenLigaDB getgoalgetters/bl1/2026",
   "status": "bereit",
@@ -31,6 +31,10 @@
       "tore": 2
     },
     {
+      "name": "C. Kofane",
+      "tore": 2
+    },
+    {
       "name": "P. Schick",
       "tore": 2
     },
@@ -39,7 +43,11 @@
       "tore": 2
     },
     {
-      "name": "H. Bolin",
+      "name": "I. Matanovic",
+      "tore": 2
+    },
+    {
+      "name": "Fabio Silva",
       "tore": 2
     },
     {
@@ -47,7 +55,15 @@
       "tore": 2
     },
     {
+      "name": "H. Bolin",
+      "tore": 2
+    },
+    {
       "name": "P. Tietz",
+      "tore": 2
+    },
+    {
+      "name": "J. Burkardt",
       "tore": 2
     },
     {
@@ -59,11 +75,11 @@
       "tore": 1
     },
     {
-      "name": "M. Olise",
+      "name": "Aleksandar Pavlovic",
       "tore": 1
     },
     {
-      "name": "Aleksandar Pavlovic",
+      "name": "M. Olise",
       "tore": 1
     },
     {
@@ -75,11 +91,11 @@
       "tore": 1
     },
     {
-      "name": "L. Querfeld",
+      "name": "Emmanuel Latte Lath",
       "tore": 1
     },
     {
-      "name": "Emmanuel Latte Lath",
+      "name": "L. Querfeld",
       "tore": 1
     },
     {
@@ -95,7 +111,7 @@
       "tore": 1
     },
     {
-      "name": "C. Kofane",
+      "name": "L. Petkov",
       "tore": 1
     },
     {
@@ -107,15 +123,7 @@
       "tore": 1
     },
     {
-      "name": "L. Petkov",
-      "tore": 1
-    },
-    {
       "name": "Giannis Konstantelias",
-      "tore": 1
-    },
-    {
-      "name": "I. Matanovic",
       "tore": 1
     },
     {
@@ -123,7 +131,7 @@
       "tore": 1
     },
     {
-      "name": "A. Kade",
+      "name": "M. Gregoritsch",
       "tore": 1
     },
     {
@@ -131,11 +139,7 @@
       "tore": 1
     },
     {
-      "name": "M. Gregoritsch",
-      "tore": 1
-    },
-    {
-      "name": "B. El Khannouss",
+      "name": "A. Kade",
       "tore": 1
     },
     {
@@ -147,11 +151,11 @@
       "tore": 1
     },
     {
-      "name": "T. Lemperle",
+      "name": "B. El Khannouss",
       "tore": 1
     },
     {
-      "name": "Fabio Silva",
+      "name": "T. Lemperle",
       "tore": 1
     },
     {
@@ -171,6 +175,10 @@
       "tore": 1
     },
     {
+      "name": "J. Scally",
+      "tore": 1
+    },
+    {
       "name": "D. Mokwa",
       "tore": 1
     },
@@ -179,7 +187,7 @@
       "tore": 1
     },
     {
-      "name": "J. Scally",
+      "name": "M. Grüll",
       "tore": 1
     },
     {
@@ -188,10 +196,6 @@
     },
     {
       "name": "N. Füllkrug",
-      "tore": 1
-    },
-    {
-      "name": "M. Grüll",
       "tore": 1
     },
     {
@@ -211,7 +215,11 @@
       "tore": 1
     },
     {
-      "name": "J. Burkardt",
+      "name": "A. Ibrahimovic",
+      "tore": 1
+    },
+    {
+      "name": "Alexis Claude-Maurice",
       "tore": 1
     },
     {
@@ -223,15 +231,7 @@
       "tore": 1
     },
     {
-      "name": "Alexis Claude-Maurice",
-      "tore": 1
-    },
-    {
-      "name": "A. Ibrahimovic",
-      "tore": 1
-    },
-    {
-      "name": "M. Wöber",
+      "name": "R. Gosens",
       "tore": 1
     },
     {
@@ -239,7 +239,19 @@
       "tore": 1
     },
     {
-      "name": "R. Gosens",
+      "name": "M. Wöber",
+      "tore": 1
+    },
+    {
+      "name": "A. Hložek",
+      "tore": 1
+    },
+    {
+      "name": "E. Engelhardt",
+      "tore": 1
+    },
+    {
+      "name": "C. Uzun",
       "tore": 1
     }
   ]
