@@ -212,16 +212,40 @@
           "datumAnzeige": "12.09.2026",
           "anstoss": "13:00",
           "terminBestaetigt": true,
-          "heimtore": null,
-          "auswaertstore": null,
-          "status": "terminiert",
+          "heimtore": 2,
+          "auswaertstore": 2,
+          "status": "beendet",
           "sonderwertungen": [
             "smugglerauftrag"
           ],
           "notiz": "Die genaue Ansetzung innerhalb des angegebenen Spieltagszeitraums ist noch offen. Smugglerauftrag zum 5. Spieltag der 2. Bundesliga.",
           "quelleStand": "2026-07-30",
           "heimTeamId": "braunschweig",
-          "auswaertsTeamId": "dynamo-dresden"
+          "auswaertsTeamId": "dynamo-dresden",
+          "ergebnisNach90MinutenBestaetigt": true,
+          "tippverteilung": {
+            "schemaVersion": 1,
+            "quelle": "Kicktipp – Tipps aller Tipper",
+            "stand": "2026-09-13T05:34:33.675Z",
+            "abgegeben": 77,
+            "nichtAbgegeben": 23,
+            "verborgen": 0,
+            "tendenzen": {
+              "1": {
+                "anzahl": 29,
+                "prozent": 37.7
+              },
+              "2": {
+                "anzahl": 29,
+                "prozent": 37.7
+              },
+              "X": {
+                "anzahl": 19,
+                "prozent": 24.7
+              }
+            }
+          },
+          "aktualisiertAm": "2026-09-13T05:34:33.675Z"
         },
         {
           "id": "sma-2026-27-06-050",
@@ -1820,7 +1844,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-09-13T04:30:50.477Z",
+            "stand": "2026-09-13T04:55:18.196Z",
             "abgegeben": 77,
             "nichtAbgegeben": 23,
             "verborgen": 0,
@@ -1839,7 +1863,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-09-13T04:30:50.477Z"
+          "aktualisiertAm": "2026-09-13T04:55:18.196Z"
         },
         {
           "id": "bl-2026-27-03-019",
@@ -1867,7 +1891,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-09-13T04:30:50.477Z",
+            "stand": "2026-09-13T04:55:18.196Z",
             "abgegeben": 82,
             "nichtAbgegeben": 18,
             "verborgen": 0,
@@ -1886,7 +1910,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-09-13T04:30:50.477Z"
+          "aktualisiertAm": "2026-09-13T04:55:18.196Z"
         },
         {
           "id": "bl-2026-27-03-021",
@@ -1914,7 +1938,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-09-13T04:30:50.477Z",
+            "stand": "2026-09-13T04:55:18.196Z",
             "abgegeben": 82,
             "nichtAbgegeben": 18,
             "verborgen": 0,
@@ -1933,7 +1957,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-09-13T04:30:50.477Z"
+          "aktualisiertAm": "2026-09-13T04:55:18.196Z"
         },
         {
           "id": "bl-2026-27-03-022",
@@ -1961,7 +1985,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-09-13T04:30:50.477Z",
+            "stand": "2026-09-13T04:55:18.196Z",
             "abgegeben": 82,
             "nichtAbgegeben": 18,
             "verborgen": 0,
@@ -1980,7 +2004,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-09-13T04:30:50.477Z"
+          "aktualisiertAm": "2026-09-13T04:55:18.196Z"
         },
         {
           "id": "bl-2026-27-03-023",
@@ -2008,7 +2032,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-09-13T04:30:50.477Z",
+            "stand": "2026-09-13T04:55:18.196Z",
             "abgegeben": 82,
             "nichtAbgegeben": 18,
             "verborgen": 0,
@@ -2027,7 +2051,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-09-13T04:30:50.477Z"
+          "aktualisiertAm": "2026-09-13T04:55:18.196Z"
         },
         {
           "id": "bl-2026-27-03-024",
@@ -2055,7 +2079,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-09-13T04:30:50.477Z",
+            "stand": "2026-09-13T04:55:18.196Z",
             "abgegeben": 82,
             "nichtAbgegeben": 18,
             "verborgen": 0,
@@ -2074,7 +2098,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-09-13T04:30:50.477Z"
+          "aktualisiertAm": "2026-09-13T04:55:18.196Z"
         },
         {
           "id": "bl-2026-27-03-026",
@@ -2102,7 +2126,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-09-13T04:30:50.477Z",
+            "stand": "2026-09-13T04:55:18.196Z",
             "abgegeben": 82,
             "nichtAbgegeben": 18,
             "verborgen": 0,
@@ -2121,7 +2145,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-09-13T04:30:50.477Z"
+          "aktualisiertAm": "2026-09-13T04:55:18.196Z"
         },
         {
           "id": "bl-2026-27-03-020",
@@ -12859,6 +12883,6 @@
       ]
     }
   ],
-  "datenVersion": 43,
+  "datenVersion": 44,
   "aktualisiert": "2026-09-13"
 }
