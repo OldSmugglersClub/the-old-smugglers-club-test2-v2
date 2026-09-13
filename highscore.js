@@ -34,8 +34,8 @@ function renderTabs(){
  $('competition-tabs').innerHTML=catalog.map(([id,label])=>`<button class="hs-main-tab ${scope===id?'is-active':''}" data-scope="${id}" aria-pressed="${scope===id}">${esc(label)}</button>`).join('');
  const allowed=views();if(!allowed.some(x=>x[0]===view))view=allowed[0][0];
  $('view-tabs').innerHTML=allowed.map(([id,label])=>`<button class="hs-chip ${view===id?'is-active':''}" data-view="${id}" aria-pressed="${view===id}">${esc(label)}</button>`).join('');
- document.querySelectorAll('[data-scope]').forEach(b=>b.onclick=()=>{scope=b.dataset.scope;view=scope==='overall'?'individual':'matchday';query='';page=1;$('player-search').value='';render();});
- document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{view=b.dataset.view;query='';page=1;$('player-search').value='';render();});
+ $('competition-tabs').querySelectorAll('[data-scope]').forEach(b=>b.onclick=()=>{scope=b.dataset.scope;view=scope==='overall'?'individual':'matchday';query='';page=1;$('player-search').value='';render();});
+ $('view-tabs').querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{view=b.dataset.view;query='';page=1;$('player-search').value='';render();});
 }
 function renderSummary(list){
  const c=current(),scopeLabel=scope==='overall'?'Saison gesamt':c.label||catalog.find(x=>x[0]===scope)?.[1]||scope;
