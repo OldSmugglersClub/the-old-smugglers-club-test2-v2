@@ -9,3 +9,7 @@
 /* HF101-TEST3 – dekoratives Ehrenlogbuchmotiv; der erfundene Inhalt der rechten Bildhälfte bleibt ausgeblendet */
 .hero{display:grid;grid-template-columns:minmax(280px,.82fr) minmax(0,1.18fr);min-height:390px;padding:0;text-align:left}.hero-visual{position:relative;min-width:0;overflow:hidden;border-right:1px solid var(--line);background:#120a05}.hero-visual:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 68%,rgba(21,12,7,.78))}.hero-visual img{display:block;width:250%;max-width:none;height:100%;object-fit:cover;object-position:left center}.hero-copy{position:relative;z-index:1;align-self:center;padding:clamp(28px,5vw,56px)}.hero p{margin:0}.hero:after{right:clamp(18px,5vw,60px)}
 @media(max-width:760px){.hero{grid-template-columns:1fr;min-height:0}.hero-visual{height:250px;border-right:0;border-bottom:1px solid var(--line)}.hero-visual:after{background:linear-gradient(180deg,transparent 70%,rgba(21,12,7,.78))}.hero-copy{padding:28px 20px;text-align:center}.hero p{margin:auto}}
+
+/* HF101-TEST3-FULLIMAGE – finales Motiv vollständig und ohne Beschnitt */
+.hero{display:block;min-height:0;text-align:center}.hero-visual{width:100%;aspect-ratio:1408/768;border-right:0;border-bottom:1px solid var(--line)}.hero-visual:after{display:none}.hero-visual img{width:100%;height:100%;max-width:100%;object-fit:contain;object-position:center}.hero-copy{padding:clamp(28px,5vw,56px)}.hero p{margin:auto}
+@media(max-width:760px){.hero-visual{height:auto;aspect-ratio:1408/768}.hero-copy{padding:28px 20px}}
