@@ -1,0 +1,5 @@
+TEST6: Reiner UI-/Navigationsumbau in highscore.html.
+Keine Daten- oder Rankinglogik geändert.
+Bestehende untere Buttonleiste bleibt erhalten.
+Zusätzliche identische Buttonleiste wurde oberhalb des Top-3-Bereichs eingefügt.
+TEST5-Highscore-Adapter bleibt im Testsystem unverändert; dieser Testblock portiert ihn später NICHT nach Live.

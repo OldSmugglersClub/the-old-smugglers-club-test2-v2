@@ -1,0 +1,19 @@
+{
+  "basis": "4.9.2-HF12-HF101-TEST5",
+  "ziel": "4.9.2-HF12-HF101-TEST6",
+  "zielbereich": "Highscore Navigation",
+  "aenderungen": [
+    "Vor dem Top-3-Bereich wird eine zweite, identische Navigationsleiste eingefügt.",
+    "Die bestehende Navigationsleiste am Seitenende bleibt unverändert erhalten."
+  ],
+  "nicht_angefasst": [
+    "Highscore-Datenlogik",
+    "highscore-data-adapter.js",
+    "highscore.js",
+    "highscore.json",
+    "website-view.json",
+    "Hall of Fame",
+    "Ehrenlogbuch",
+    "Logbuchdaten"
+  ]
+}
