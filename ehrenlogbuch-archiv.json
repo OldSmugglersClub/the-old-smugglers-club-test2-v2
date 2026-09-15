@@ -8,12 +8,16 @@
       "id": "2025-2026", "label": "2025/2026", "status": "abgeschlossen",
       "gesamtChampion": {"teilnehmerId": "legacy-manuel", "name": "Manuel", "punkte": 346},
       "gesamtTeamSieger": null,
+      "platzierungen": [
+        {"platz": 1, "teilnehmerId": "legacy-manuel", "name": "Manuel", "punkte": 346}
+      ],
+      "platzierungenStatus": "Nur der historisch bestätigte erste Platz ist verfügbar; die vollständige Rangliste 2025/2026 liegt im bereitgestellten Bestand nicht vor.",
       "wettbewerbssieger": [
         {"wettbewerbId": "bundesliga", "wettbewerb": "Bundesliga", "teilnehmerId": "legacy-manuel", "name": "Manuel"},
         {"wettbewerbId": "dfb-pokal", "wettbewerb": "DFB-Pokal", "teilnehmerId": "legacy-manuel", "name": "Manuel"},
         {"wettbewerbId": "champions-league", "wettbewerb": "Champions League", "teilnehmerId": "legacy-zweikampfgott", "name": "ZweikampfGott"},
         {"wettbewerbId": "europa-league", "wettbewerb": "Europa League", "teilnehmerId": "legacy-marius", "name": "Marius"},
-        {"wettbewerbId": "bonuswettbewerb", "wettbewerb": "Bonuswettbewerb", "teilnehmerId": "legacy-marius", "name": "Marius"}
+        {"wettbewerbId": "bonuswettbewerb", "wettbewerb": "Bonuswettbewerb", "teilnehmerId": "legacy-zweikampfgott", "name": "ZweikampfGott", "punkte": 60}
       ],
       "saisonbestwerte": [
         {"id": "gesamtpunkte", "label": "Meiste Gesamtpunkte", "wert": 346, "einheit": "Punkte", "teilnehmerId": "legacy-manuel", "name": "Manuel"},
