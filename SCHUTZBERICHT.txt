@@ -1,3 +1,4 @@
-TEST7: Nur der Button 'Nach oben' wurde aus der zusätzlichen oberen Highscore-Navigationsleiste entfernt.
-Die untere Navigationsleiste bleibt unverändert und enthält weiterhin 'Nach oben'.
-Keine Daten- oder Rankinglogik geändert.
+TEST8: Reiner Mobile-CSS-Fix im Spieltags-Logbuch.
+Ursache: width:100% + horizontales Padding der siteweiten Navigationsbuttons bei <=520px ohne border-box.
+Fix ist absichtlich auf .lb-toolbar .tosmc-nav-button begrenzt.
+site-navigation.css und alle Daten-/Ranking-/Logbuchlogikdateien bleiben unverändert.

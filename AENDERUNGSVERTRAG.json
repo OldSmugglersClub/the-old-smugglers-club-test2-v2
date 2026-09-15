@@ -1,19 +1,20 @@
 {
-  "basis": "4.9.2-HF12-HF101-TEST6",
-  "ziel": "4.9.2-HF12-HF101-TEST7",
-  "zielbereich": "Highscore obere Navigation",
+  "basis": "4.9.2-HF12-HF101-TEST7",
+  "ziel": "4.9.2-HF12-HF101-TEST8",
+  "zielbereich": "Spieltags-Logbuch – mobile Navigation",
+  "ursache": "site-navigation.css setzt auf <=520 px width:100% und Padding; ohne border-box kann der Button über die verfügbare Breite hinausgehen.",
   "aenderungen": [
-    "In der zusätzlich eingefügten oberen Buttonleiste wurde ausschließlich der Button 'Nach oben' entfernt.",
-    "Die untere bestehende Buttonleiste bleibt vollständig unverändert."
+    "Nur im Spieltags-Logbuch: mobile Navigationsbuttons erhalten box-sizing:border-box und max-width:100%.",
+    "Cache-Buster von logbuch.css auf TEST8 erhöht.",
+    "Keine Daten- oder JavaScript-Logik geändert."
   ],
   "nicht_angefasst": [
-    "Highscore-Datenlogik",
-    "highscore-data-adapter.js",
-    "highscore.js",
-    "highscore.json",
+    "site-navigation.css",
+    "logbuch.js",
+    "spieltag-logbuch.json",
     "website-view.json",
+    "highscore",
     "Hall of Fame",
-    "Ehrenlogbuch",
-    "Spieltags-Logbuch"
+    "Ehrenlogbuch"
   ]
 }
