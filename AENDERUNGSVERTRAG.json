@@ -1,20 +1,21 @@
 {
-  "basis": "4.9.2-HF12-HF101-TEST7",
-  "ziel": "4.9.2-HF12-HF101-TEST8",
-  "zielbereich": "Spieltags-Logbuch – mobile Navigation",
-  "ursache": "site-navigation.css setzt auf <=520 px width:100% und Padding; ohne border-box kann der Button über die verfügbare Breite hinausgehen.",
+  "basis": "4.9.2-HF12-HF101-TEST8",
+  "ziel": "4.9.2-HF12-HF101-TEST9",
+  "zielbereich": "Hall of Fame Startseite – Rekordtafel Saisonbezeichnung",
   "aenderungen": [
-    "Nur im Spieltags-Logbuch: mobile Navigationsbuttons erhalten box-sizing:border-box und max-width:100%.",
-    "Cache-Buster von logbuch.css auf TEST8 erhöht.",
-    "Keine Daten- oder JavaScript-Logik geändert."
+    "Unter den drei belegten Rekorden wird die zugehörige Saison angezeigt.",
+    "Bestehende Rekorde 2025/2026 werden über die vorhandene Champion-Saison eindeutig als Saison 2025/2026 dargestellt.",
+    "Künftige freigegebene Rekorde erhalten beim Runtime-Merge automatisch die Saison des echten Saisonabschlusses, sofern die Quelle noch kein eigenes Saisonfeld liefert.",
+    "Weitere Rekorde / Noch offen bleibt unverändert."
   ],
   "nicht_angefasst": [
-    "site-navigation.css",
-    "logbuch.js",
-    "spieltag-logbuch.json",
-    "website-view.json",
-    "highscore",
-    "Hall of Fame",
-    "Ehrenlogbuch"
+    "Rekordwerte und Rekordhalter",
+    "Rekordvergleichslogik",
+    "Hall-of-Fame-Siegerfelder",
+    "Champion-Pokal",
+    "Ehrenlogbuch",
+    "Highscore",
+    "Spieltags-Logbuch",
+    "produktive JSON-Daten"
   ]
 }
