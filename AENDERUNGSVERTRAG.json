@@ -1,10 +1,10 @@
 {
-  "basis": "4.9.2-HF12-HF101-TEST5",
-  "ziel": "4.9.2-HF12-HF101-TEST6",
-  "zielbereich": "Highscore Navigation",
+  "basis": "4.9.2-HF12-HF101-TEST6",
+  "ziel": "4.9.2-HF12-HF101-TEST7",
+  "zielbereich": "Highscore obere Navigation",
   "aenderungen": [
-    "Vor dem Top-3-Bereich wird eine zweite, identische Navigationsleiste eingefügt.",
-    "Die bestehende Navigationsleiste am Seitenende bleibt unverändert erhalten."
+    "In der zusätzlich eingefügten oberen Buttonleiste wurde ausschließlich der Button 'Nach oben' entfernt.",
+    "Die untere bestehende Buttonleiste bleibt vollständig unverändert."
   ],
   "nicht_angefasst": [
     "Highscore-Datenlogik",
@@ -14,6 +14,6 @@
     "website-view.json",
     "Hall of Fame",
     "Ehrenlogbuch",
-    "Logbuchdaten"
+    "Spieltags-Logbuch"
   ]
 }

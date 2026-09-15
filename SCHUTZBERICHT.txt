@@ -1,5 +1,3 @@
-TEST6: Reiner UI-/Navigationsumbau in highscore.html.
+TEST7: Nur der Button 'Nach oben' wurde aus der zusätzlichen oberen Highscore-Navigationsleiste entfernt.
+Die untere Navigationsleiste bleibt unverändert und enthält weiterhin 'Nach oben'.
 Keine Daten- oder Rankinglogik geändert.
-Bestehende untere Buttonleiste bleibt erhalten.
-Zusätzliche identische Buttonleiste wurde oberhalb des Top-3-Bereichs eingefügt.
-TEST5-Highscore-Adapter bleibt im Testsystem unverändert; dieser Testblock portiert ihn später NICHT nach Live.
