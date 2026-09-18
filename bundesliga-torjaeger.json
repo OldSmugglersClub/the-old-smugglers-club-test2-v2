@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "datenVersion": 17,
-  "aktualisiert": "2026-09-13",
+  "datenVersion": 18,
+  "aktualisiert": "2026-09-18",
   "saison": "2026/2027",
   "quelle": "OpenLigaDB getgoalgetters/bl1/2026",
   "status": "bereit",
@@ -39,11 +39,11 @@
       "tore": 2
     },
     {
-      "name": "A. Nusa",
+      "name": "R. Baku",
       "tore": 2
     },
     {
-      "name": "R. Baku",
+      "name": "A. Nusa",
       "tore": 2
     },
     {
@@ -99,10 +99,6 @@
       "tore": 2
     },
     {
-      "name": "Luis Díaz",
-      "tore": 1
-    },
-    {
       "name": "M. Olise",
       "tore": 1
     },
@@ -115,7 +111,15 @@
       "tore": 1
     },
     {
+      "name": "Luis Díaz",
+      "tore": 1
+    },
+    {
       "name": "R. Reitz",
+      "tore": 1
+    },
+    {
+      "name": "L. Querfeld",
       "tore": 1
     },
     {
@@ -123,7 +127,7 @@
       "tore": 1
     },
     {
-      "name": "L. Querfeld",
+      "name": "O. Kabak",
       "tore": 1
     },
     {
@@ -132,10 +136,6 @@
     },
     {
       "name": "S. El Mala",
-      "tore": 1
-    },
-    {
-      "name": "O. Kabak",
       "tore": 1
     },
     {
@@ -203,11 +203,15 @@
       "tore": 1
     },
     {
+      "name": "F. Keidel",
+      "tore": 1
+    },
+    {
       "name": "D. Mokwa",
       "tore": 1
     },
     {
-      "name": "F. Keidel",
+      "name": "M. Grüll",
       "tore": 1
     },
     {
@@ -215,7 +219,7 @@
       "tore": 1
     },
     {
-      "name": "M. Grüll",
+      "name": "R. Königsdörffer",
       "tore": 1
     },
     {
@@ -224,10 +228,6 @@
     },
     {
       "name": "S. Becker",
-      "tore": 1
-    },
-    {
-      "name": "R. Königsdörffer",
       "tore": 1
     },
     {
@@ -247,11 +247,11 @@
       "tore": 1
     },
     {
-      "name": "R. Gosens",
+      "name": "M. Wöber",
       "tore": 1
     },
     {
-      "name": "M. Wöber",
+      "name": "R. Gosens",
       "tore": 1
     },
     {
@@ -267,19 +267,19 @@
       "tore": 1
     },
     {
-      "name": "C. Nkunku",
-      "tore": 1
-    },
-    {
       "name": "T. Gomis",
       "tore": 1
     },
     {
-      "name": "Romulo",
+      "name": "C. Nkunku",
       "tore": 1
     },
     {
       "name": "W. Orbán",
+      "tore": 1
+    },
+    {
+      "name": "Romulo",
       "tore": 1
     },
     {
@@ -288,6 +288,10 @@
     },
     {
       "name": "H. Kane",
+      "tore": 1
+    },
+    {
+      "name": "J. Musiala",
       "tore": 1
     }
   ]
