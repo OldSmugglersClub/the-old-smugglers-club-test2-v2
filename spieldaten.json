@@ -2394,12 +2394,12 @@
           "datumAnzeige": "19.09.2026",
           "anstoss": "18:30",
           "terminBestaetigt": true,
-          "heimtore": null,
-          "auswaertstore": null,
-          "status": "terminiert",
+          "heimtore": 0,
+          "auswaertstore": 1,
+          "status": "beendet",
           "sonderwertungen": [],
           "notiz": "",
-          "quelleStand": "2026-07-30",
+          "quelleStand": "2026-09-19",
           "heimTeamId": "stuttgart",
           "auswaertsTeamId": "dortmund"
         },
@@ -12955,6 +12955,6 @@
       ]
     }
   ],
-  "datenVersion": 49,
+  "datenVersion": 50,
   "aktualisiert": "2026-09-19"
 }
