@@ -793,6 +793,88 @@
     "rc lens": "rc-lens",
     "lens": "rc-lens"
   });
+  // Europa-League-spezifische OpenLigaDB-Namensvarianten. Diese Zuordnung
+  // wird ausschließlich auf der Europa-League-Seite verwendet und verändert
+  // weder andere Wettbewerbe noch das zentrale Team-Stammdatenmodell.
+  const EUROPA_LEAGUE_TEAM_BADGE_IDS = Object.freeze({
+    "rsc anderlecht": "anderlecht",
+    "anderlecht": "anderlecht",
+    "fc ararat armenia": "ararat-armenia",
+    "ararat armenia": "ararat-armenia",
+    "az alkmaar": "az-alkmaar",
+    "az": "az-alkmaar",
+    "besiktas jk": "besiktas",
+    "besiktas": "besiktas",
+    "afc bournemouth": "bournemouth",
+    "bournemouth": "bournemouth",
+    "nk celje": "celje",
+    "celje": "celje",
+    "rc celta de vigo": "celta",
+    "celta de vigo": "celta",
+    "celta vigo": "celta",
+    "celta": "celta",
+    "celtic fc": "celtic",
+    "celtic glasgow": "celtic",
+    "celtic": "celtic",
+    "crystal palace fc": "crystal-palace",
+    "crystal palace": "crystal-palace",
+    "ferencvarosi tc": "ferencvaros",
+    "ferencvaros": "ferencvaros",
+    "gnk dinamo zagreb": "dinamo-zagreb",
+    "dinamo zagreb": "dinamo-zagreb",
+    "hapoel beer sheva": "hapoel-beer-sheva",
+    "hapoel be er sheva": "hapoel-beer-sheva",
+    "jagiellonia bialystok": "jagiellonia",
+    "jagiellonia": "jagiellonia",
+    "lech poznan": "lech-poznan",
+    "lech": "lech-poznan",
+    "levski sofia": "levski-sofia",
+    "levski": "levski-sofia",
+    "lillestrom sk": "lillestrom",
+    "lillestrom": "lillestrom",
+    "olympique lyonnais": "lyon",
+    "olympique lyon": "lyon",
+    "lyon": "lyon",
+    "n e c nijmegen": "nec-nijmegen",
+    "nec nijmegen": "nec-nijmegen",
+    "nec": "nec-nijmegen",
+    "ofi crete": "ofi-crete",
+    "ofi kreta": "ofi-crete",
+    "ofi": "ofi-crete",
+    "olympiacos piraeus": "olympiacos",
+    "olympiakos piraeus": "olympiacos",
+    "olympiacos": "olympiacos",
+    "olympiakos": "olympiacos",
+    "ac omonia nicosia": "omonia-nikosia",
+    "omonia nicosia": "omonia-nikosia",
+    "omonoia nicosia": "omonia-nikosia",
+    "omonia": "omonia-nikosia",
+    "omonoia": "omonia-nikosia",
+    "real sociedad": "real-sociedad",
+    "real sociedad san sebastian": "real-sociedad",
+    "stade rennais": "rennes",
+    "stade rennais fc": "rennes",
+    "rennes": "rennes",
+    "fc salzburg": "salzburg",
+    "red bull salzburg": "salzburg",
+    "rb salzburg": "salzburg",
+    "salzburg": "salzburg",
+    "ac sparta praha": "sparta-praha",
+    "sparta praha": "sparta-praha",
+    "sparta prag": "sparta-praha",
+    "sk sturm graz": "sturm-graz",
+    "sturm graz": "sturm-graz",
+    "sunderland afc": "sunderland",
+    "sunderland": "sunderland",
+    "scu torreense": "torreense",
+    "scu torreense": "torreense",
+    "torreense": "torreense",
+    "royale union saint gilloise": "union-saint-gilloise",
+    "union saint gilloise": "union-saint-gilloise",
+    "union sg": "union-saint-gilloise",
+    "fc viktoria plzen": "viktoria-plzen",
+    "viktoria plzen": "viktoria-plzen"
+  });
   const OPENLIGADB_EL_MATCHES_PROTOTYPE_URL = "https://api.openligadb.de/getmatchdata/uel2026/2026";
   const OPENLIGADB_EL_GOALGETTERS_URL = "https://api.openligadb.de/getgoalgetters/uel2026/2026";
   const OPENLIGADB_DYNAMO_MATCHES_URL = "https://api.openligadb.de/getmatchdata/bl2/2026";
@@ -891,8 +973,12 @@
     card.dataset.team2 = bracketTeamKey(awayName);
 
     teams.append(
-      createTeamIdentity("", homeName, "ko-team"),
-      createTeamIdentity("", awayName, "ko-team")
+      slug === "europa-league"
+        ? createChampionsLeagueTeamIdentity(match?.team1 || { teamName: homeName }, "ko-team")
+        : createTeamIdentity("", homeName, "ko-team"),
+      slug === "europa-league"
+        ? createChampionsLeagueTeamIdentity(match?.team2 || { teamName: awayName }, "ko-team")
+        : createTeamIdentity("", awayName, "ko-team")
     );
 
     const meta = document.createElement("div");
@@ -1279,6 +1365,10 @@
     if (genericId) return genericId;
 
     for (const key of championsLeagueBadgeLookupKeys(teamNameValue)) {
+      if (slug === "europa-league") {
+        const europaLeagueMapped = EUROPA_LEAGUE_TEAM_BADGE_IDS[key];
+        if (europaLeagueMapped) return europaLeagueMapped;
+      }
       const mapped = CHAMPIONS_LEAGUE_TEAM_BADGE_IDS[key];
       if (mapped) return mapped;
     }
