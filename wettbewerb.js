@@ -3785,24 +3785,20 @@ function normalizeGoalGetterEntries(goalGetterData) {
         renderChampionsLeagueStatistics(openLigaDbClTable, root);
       }
     } else if (slug === "europa-league") {
+      // Der TOSMC-Turnierbaum ab Achtelfinale ist der eigentliche Tippbereich
+      // der Europa League und steht deshalb bewusst vor den rein informativen
+      // Ligaphasen-Daten.
+      renderEuropaLeagueKnockoutPrototype(openLigaDbElMatches, europaLeagueFallback, root);
+      renderMidNavigation(buttons, root);
+
       const elScheduleVisible = renderEuropaLeaguePhaseOverview(openLigaDbElMatches, root);
       if (!elScheduleVisible) {
         renderPlaceholderSection("Spiele der Europa League · Ligaphase", "Noch keine belastbaren Ligaphasen-Paarungen aus OpenLigaDB verfügbar.", root);
       }
-      const elDataStart = root.children.length;
-      const elTableVisible = renderEuropaLeagueTable(openLigaDbElMatches, root);
-      const elFormVisible = renderEuropaLeagueFormTable(openLigaDbElMatches, root);
-      const beforeOptional = root.children.length;
-      renderEuropaLeagueKnockoutPrototype(openLigaDbElMatches, europaLeagueFallback, root);
-      const elKnockoutVisible = root.children.length > beforeOptional;
-      // Navigation nur vor tatsächlich sichtbaren Datenblöcken. Keine Leisten vor
-      // leeren Vorbereitungs-Platzhaltern.
-      if (elTableVisible || elFormVisible || elKnockoutVisible) {
-        root.children[elDataStart].insertAdjacentElement("beforebegin", competitionNavigation(buttons, "mid"));
-      }
-      if (elKnockoutVisible && (elTableVisible || elFormVisible)) {
-        root.children[beforeOptional].insertAdjacentElement("beforebegin", competitionNavigation(buttons, "mid"));
-      }
+      renderMidNavigation(buttons, root);
+      renderEuropaLeagueTable(openLigaDbElMatches, root);
+      renderMidNavigation(buttons, root);
+      renderEuropaLeagueFormTable(openLigaDbElMatches, root);
     } else if (slug === "dfb-pokal") {
       renderStandardGamesSlot(coreSections, buttons, root, { title: "Spiele des DFB-Pokals", emptyText: "Noch keine von euch getippte Runde veröffentlicht. Die TOSMC-Wertung startet ab dem Achtelfinale." });
       const earlyRoundsVisible = renderDfbCompletedEarlyRounds(openLigaDbDfbMatches, root);
