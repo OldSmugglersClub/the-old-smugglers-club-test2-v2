@@ -805,6 +805,7 @@
     "az": "az-alkmaar",
     "besiktas jk": "besiktas",
     "besiktas": "besiktas",
+    "besiktas istanbul": "besiktas",
     "afc bournemouth": "bournemouth",
     "bournemouth": "bournemouth",
     "nk celje": "celje",
@@ -820,14 +821,18 @@
     "crystal palace": "crystal-palace",
     "ferencvarosi tc": "ferencvaros",
     "ferencvaros": "ferencvaros",
+    "ferencvaros budapest": "ferencvaros",
     "gnk dinamo zagreb": "dinamo-zagreb",
     "dinamo zagreb": "dinamo-zagreb",
     "hapoel beer sheva": "hapoel-beer-sheva",
     "hapoel be er sheva": "hapoel-beer-sheva",
+    "hapoel beer scheva": "hapoel-beer-sheva",
+    "hapoel be er scheva": "hapoel-beer-sheva",
     "jagiellonia bialystok": "jagiellonia",
     "jagiellonia": "jagiellonia",
     "lech poznan": "lech-poznan",
     "lech": "lech-poznan",
+    "lech posen": "lech-poznan",
     "levski sofia": "levski-sofia",
     "levski": "levski-sofia",
     "lillestrom sk": "lillestrom",
@@ -843,17 +848,22 @@
     "ofi": "ofi-crete",
     "olympiacos piraeus": "olympiacos",
     "olympiakos piraeus": "olympiacos",
+    "olympiacos piraus": "olympiacos",
+    "olympiakos piraus": "olympiacos",
     "olympiacos": "olympiacos",
     "olympiakos": "olympiacos",
     "ac omonia nicosia": "omonia-nikosia",
     "omonia nicosia": "omonia-nikosia",
+    "omonia nikosia": "omonia-nikosia",
     "omonoia nicosia": "omonia-nikosia",
+    "omonoia nikosia": "omonia-nikosia",
     "omonia": "omonia-nikosia",
     "omonoia": "omonia-nikosia",
     "real sociedad": "real-sociedad",
     "real sociedad san sebastian": "real-sociedad",
     "stade rennais": "rennes",
     "stade rennais fc": "rennes",
+    "stade rennes": "rennes",
     "rennes": "rennes",
     "fc salzburg": "salzburg",
     "red bull salzburg": "salzburg",
@@ -867,13 +877,15 @@
     "sunderland afc": "sunderland",
     "sunderland": "sunderland",
     "scu torreense": "torreense",
-    "scu torreense": "torreense",
+    "sc uniao torreense": "torreense",
+    "uniao torreense": "torreense",
     "torreense": "torreense",
     "royale union saint gilloise": "union-saint-gilloise",
     "union saint gilloise": "union-saint-gilloise",
     "union sg": "union-saint-gilloise",
     "fc viktoria plzen": "viktoria-plzen",
-    "viktoria plzen": "viktoria-plzen"
+    "viktoria plzen": "viktoria-plzen",
+    "viktoria pilsen": "viktoria-plzen"
   });
   const OPENLIGADB_EL_MATCHES_PROTOTYPE_URL = "https://api.openligadb.de/getmatchdata/uel2026/2026";
   const OPENLIGADB_EL_GOALGETTERS_URL = "https://api.openligadb.de/getgoalgetters/uel2026/2026";
@@ -1639,6 +1651,98 @@
       const legacyMatchday = Number(groupName.match(/(\d+)\s*spieltag/i)?.[1]);
       return Number.isFinite(legacyMatchday) && legacyMatchday >= 1 && legacyMatchday <= 8;
     });
+  }
+
+  function europaLeagueDisplayMatch(match, matchdayNumber = null) {
+    const rawDate = openLigaDbMatchDate(match);
+    const rawTime = String(match?.matchDateTime ?? match?.MatchDateTime ?? "").match(/T(\d{2}:\d{2})/)?.[1] || "";
+    const score = openLigaDbFinalResult(match);
+    const homeName = openLigaDbTeamName(match?.team1);
+    const awayName = openLigaDbTeamName(match?.team2);
+    const matchId = String(match?.matchID ?? match?.matchId ?? match?.MatchID ?? "").trim();
+    return {
+      id: matchId ? `openligadb-el-${matchId}` : "",
+      datum: rawDate ? formatDate(rawDate) : "Terminierung offen",
+      datumSortierung: rawDate || "9999-12-31",
+      datumIso: rawDate,
+      anstoss: rawTime,
+      heimTeamId: championsLeagueLocalBadgeId(homeName),
+      heim: homeName,
+      heimTeamSource: match?.team1 || null,
+      trenner: "–",
+      auswaertsTeamId: championsLeagueLocalBadgeId(awayName),
+      auswaerts: awayName,
+      auswaertsTeamSource: match?.team2 || null,
+      ergebnis: score,
+      status: rawDate && rawTime ? "" : "Terminierung offen",
+      runde: matchdayNumber ? `${matchdayNumber}. Spieltag` : "Ligaphase",
+      spieltagNummer: matchdayNumber,
+      terminBestaetigt: Boolean(rawDate && rawTime),
+      abgeschlossen: match?.matchIsFinished === true && Boolean(score),
+      tippverteilung: null
+    };
+  }
+
+  function renderEuropaLeaguePhaseOverview(openLigaDbMatches, root) {
+    if (slug !== "europa-league") return false;
+    const matches = europaLeaguePhaseMatches(openLigaDbMatches);
+    const clusters = championsLeagueMatchdayClusters(matches);
+    if (!matches.length) return false;
+
+    const section = document.createElement("section");
+    section.className = "dynamic-section";
+    const heading = document.createElement("h2");
+    heading.textContent = "Spiele der Europa League · Ligaphase";
+    section.appendChild(heading);
+
+    const note = document.createElement("p");
+    note.className = "data-note";
+    note.textContent = "Reine Termin- und Ergebnisübersicht aus OpenLigaDB – die Ligaphase gehört nicht zur TOSMC-Wertung. Getippt wird ab dem Achtelfinale.";
+    section.appendChild(note);
+
+    if (!clusters.length) {
+      const waiting = document.createElement("p");
+      waiting.className = "data-note";
+      waiting.textContent = `${matches.length} Ligaphasen-Paarungen sind bei OpenLigaDB erfasst. Die Spieltagsübersicht wird automatisch eingeblendet, sobald ein vollständiger Spieltag mit 18 terminierten Partien vorliegt.`;
+      section.appendChild(waiting);
+      root.appendChild(section);
+      return true;
+    }
+
+    const accordion = document.createElement("div");
+    accordion.className = "matchday-accordion";
+    clusters.forEach((cluster, index) => {
+      const details = document.createElement("details");
+      details.className = "matchday-group";
+      details.open = index === 0;
+
+      const summary = document.createElement("summary");
+      summary.className = "matchday-summary";
+      const matchdayNumber = cluster.matchdayNumber || index + 1;
+      const label = document.createElement("span");
+      label.textContent = `${matchdayNumber}. Spieltag`;
+      const count = document.createElement("span");
+      count.className = "matchday-count";
+      count.textContent = `${cluster.matches.length} Spiele`;
+      summary.append(label, count);
+
+      const rows = cluster.matches
+        .slice()
+        .sort((a, b) => String(a?.matchDateTime ?? a?.MatchDateTime ?? "").localeCompare(String(b?.matchDateTime ?? b?.MatchDateTime ?? "")))
+        .map(match => europaLeagueDisplayMatch(match, matchdayNumber));
+
+      details.append(summary, createMatchList(rows, {
+        teamIdentityFactory: (teamId, teamName, modifier, displayMatch, side) => {
+          const sourceTeam = side === "home" ? displayMatch?.heimTeamSource : displayMatch?.auswaertsTeamSource;
+          return createChampionsLeagueTeamIdentity(sourceTeam || { teamId, teamName }, modifier);
+        }
+      }));
+      accordion.appendChild(details);
+    });
+
+    section.appendChild(accordion);
+    root.appendChild(section);
+    return true;
   }
 
   function renderEuropaLeagueTable(openLigaDbMatches, root) {
@@ -3681,7 +3785,10 @@ function normalizeGoalGetterEntries(goalGetterData) {
         renderChampionsLeagueStatistics(openLigaDbClTable, root);
       }
     } else if (slug === "europa-league") {
-      renderStandardGamesSlot(coreSections, buttons, root, { title: "Spiele der Europa League", emptyText: "Noch keine von euch getippte Runde veröffentlicht. Die TOSMC-Wertung startet ab dem Achtelfinale." });
+      const elScheduleVisible = renderEuropaLeaguePhaseOverview(openLigaDbElMatches, root);
+      if (!elScheduleVisible) {
+        renderPlaceholderSection("Spiele der Europa League · Ligaphase", "Noch keine belastbaren Ligaphasen-Paarungen aus OpenLigaDB verfügbar.", root);
+      }
       const elDataStart = root.children.length;
       const elTableVisible = renderEuropaLeagueTable(openLigaDbElMatches, root);
       const elFormVisible = renderEuropaLeagueFormTable(openLigaDbElMatches, root);
