@@ -2291,7 +2291,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-09-20T20:42:49.855Z",
+            "stand": "2026-09-20T20:54:59.411Z",
             "abgegeben": 78,
             "nichtAbgegeben": 22,
             "verborgen": 0,
@@ -2310,7 +2310,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-09-20T20:42:49.855Z"
+          "aktualisiertAm": "2026-09-20T20:54:59.411Z"
         },
         {
           "id": "bl-2026-27-04-031",
@@ -2338,7 +2338,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-09-20T20:42:49.855Z",
+            "stand": "2026-09-20T20:54:59.411Z",
             "abgegeben": 80,
             "nichtAbgegeben": 20,
             "verborgen": 0,
@@ -2357,7 +2357,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-09-20T20:42:49.855Z"
+          "aktualisiertAm": "2026-09-20T20:54:59.411Z"
         },
         {
           "id": "bl-2026-27-04-032",
@@ -2385,7 +2385,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-09-20T20:42:49.855Z",
+            "stand": "2026-09-20T20:54:59.411Z",
             "abgegeben": 80,
             "nichtAbgegeben": 20,
             "verborgen": 0,
@@ -2404,7 +2404,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-09-20T20:42:49.855Z"
+          "aktualisiertAm": "2026-09-20T20:54:59.411Z"
         },
         {
           "id": "bl-2026-27-04-033",
@@ -2432,7 +2432,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-09-20T20:42:49.855Z",
+            "stand": "2026-09-20T20:54:59.411Z",
             "abgegeben": 80,
             "nichtAbgegeben": 20,
             "verborgen": 0,
@@ -2451,7 +2451,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-09-20T20:42:49.855Z"
+          "aktualisiertAm": "2026-09-20T20:54:59.411Z"
         },
         {
           "id": "bl-2026-27-04-034",
@@ -2479,7 +2479,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-09-20T20:42:49.855Z",
+            "stand": "2026-09-20T20:54:59.411Z",
             "abgegeben": 80,
             "nichtAbgegeben": 20,
             "verborgen": 0,
@@ -2498,7 +2498,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-09-20T20:42:49.855Z"
+          "aktualisiertAm": "2026-09-20T20:54:59.411Z"
         },
         {
           "id": "bl-2026-27-04-029",
@@ -2526,7 +2526,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-09-20T20:42:49.855Z",
+            "stand": "2026-09-20T20:54:59.411Z",
             "abgegeben": 80,
             "nichtAbgegeben": 20,
             "verborgen": 0,
@@ -2545,7 +2545,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-09-20T20:42:49.855Z"
+          "aktualisiertAm": "2026-09-20T20:54:59.411Z"
         },
         {
           "id": "bl-2026-27-04-030",
@@ -2573,7 +2573,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-09-20T20:42:49.855Z",
+            "stand": "2026-09-20T20:54:59.411Z",
             "abgegeben": 80,
             "nichtAbgegeben": 20,
             "verborgen": 0,
@@ -2592,7 +2592,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-09-20T20:42:49.855Z"
+          "aktualisiertAm": "2026-09-20T20:54:59.411Z"
         },
         {
           "id": "bl-2026-27-04-035",
@@ -2620,7 +2620,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-09-20T20:42:49.855Z",
+            "stand": "2026-09-20T20:54:59.411Z",
             "abgegeben": 80,
             "nichtAbgegeben": 20,
             "verborgen": 0,
@@ -2639,7 +2639,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-09-20T20:42:49.855Z"
+          "aktualisiertAm": "2026-09-20T20:54:59.411Z"
         },
         {
           "id": "bl-2026-27-04-036",
@@ -2660,14 +2660,14 @@
           "status": "beendet",
           "sonderwertungen": [],
           "notiz": "",
-          "quelleStand": "2026-07-30",
+          "quelleStand": "2026-09-20",
           "heimTeamId": "paderborn",
           "auswaertsTeamId": "hoffenheim",
           "ergebnisNach90MinutenBestaetigt": true,
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-09-20T20:42:49.855Z",
+            "stand": "2026-09-20T20:54:59.411Z",
             "abgegeben": 80,
             "nichtAbgegeben": 20,
             "verborgen": 0,
@@ -2686,7 +2686,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-09-20T20:42:49.855Z"
+          "aktualisiertAm": "2026-09-20T20:54:59.411Z"
         },
         {
           "id": "bl-2026-27-05-037",
@@ -2709,7 +2709,31 @@
           "notiz": "Die genaue Ansetzung innerhalb des angegebenen Spieltagszeitraums ist noch offen.",
           "quelleStand": "2026-10-10",
           "heimTeamId": "dortmund",
-          "auswaertsTeamId": "werder-bremen"
+          "auswaertsTeamId": "werder-bremen",
+          "ergebnisNach90MinutenBestaetigt": true,
+          "tippverteilung": {
+            "schemaVersion": 1,
+            "quelle": "Kicktipp – Tipps aller Tipper",
+            "stand": "2026-10-10T05:48:33.055Z",
+            "abgegeben": 75,
+            "nichtAbgegeben": 25,
+            "verborgen": 0,
+            "tendenzen": {
+              "1": {
+                "anzahl": 70,
+                "prozent": 93.3
+              },
+              "2": {
+                "anzahl": 2,
+                "prozent": 2.7
+              },
+              "X": {
+                "anzahl": 3,
+                "prozent": 4
+              }
+            }
+          },
+          "aktualisiertAm": "2026-10-10T05:48:33.055Z"
         },
         {
           "id": "bl-2026-27-05-038",
@@ -13171,6 +13195,6 @@
       ]
     }
   ],
-  "datenVersion": 54,
+  "datenVersion": 56,
   "aktualisiert": "2026-10-10"
 }
