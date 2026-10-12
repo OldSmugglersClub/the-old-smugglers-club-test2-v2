@@ -184,15 +184,25 @@
   }
 
   function appendRemoteSchedules(remoteSchedules) {
+    // TOSMC ist die führende Quelle. Seine importierte OpenLigaDB-Spiel-ID
+    // hat Vorrang vor Vereins-Aliasen oder einer geänderten Anstoßzeit.
     const signatures = new Set(games.map(gameSignature));
+    const remoteIds = new Set(games
+      .filter(game => game.wettbewerb && game.apiMatchId != null)
+      .map(game => `${game.wettbewerb}|${String(game.apiMatchId)}`));
     OPENLIGADB_SOURCES.forEach((source, index) => {
       const rows = Array.isArray(remoteSchedules[index]) ? remoteSchedules[index] : [];
-      rows.map(match => convertOpenLigaDbMatch(match, source)).filter(Boolean).forEach(game => {
+      rows.forEach(match => {
+        const matchId = match?.matchID ?? match?.matchId ?? match?.MatchID;
+        const sourceKey = matchId == null ? '' : `${source.id}|${String(matchId)}`;
+        if (sourceKey && remoteIds.has(sourceKey)) return;
+        const game = convertOpenLigaDbMatch(match, source);
+        if (!game) return;
         const signature = gameSignature(game);
-        if (!signatures.has(signature)) {
-          games.push(game);
-          signatures.add(signature);
-        }
+        if (signatures.has(signature)) return;
+        games.push(game);
+        signatures.add(signature);
+        if (sourceKey) remoteIds.add(sourceKey);
       });
     });
   }
