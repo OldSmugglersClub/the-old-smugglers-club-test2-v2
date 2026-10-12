@@ -1,0 +1,5 @@
+TOSMC Coco-Duplikatfix vom 12.10.2026
+
+Nur coco/coco.js im TEST2v2-Repository ersetzen. Vorher Backup erstellen. Nach Browserprüfung gegebenenfalls identische Datei in Live ersetzen. Keine JSON-Daten ersetzen oder bearbeiten.
+
+Fix: exakte Aliase Paris -> paris-saint-germain, ManU -> manchester-united; Duplikatschluessel nutzt Wettbewerb, Runde, Datum, beide Team-IDs (Anstosszeit ausgenommen). Lokaler TOSMC-Datensatz hat Vorrang.
