@@ -1,8 +1,20 @@
-TOSMC Coco Duplikatfix v2, Grundlage Live-main 12.10.2026.
-NUR TEST2v2: beide Dateien im Ordner coco/ ersetzen.
-1. coco/coco.js (Alias-Abgleich + prioritaere OpenLigaDB-MatchID-Deduplikation)
-2. coco/index.html (Versionsparameter erneuert, damit geaendertes JavaScript frisch geladen wird)
-Keine JSON-Dateien oder historische Wertungen aendern.
-Vorher beide Dateien sichern.
-Nach GitHub Desktop Push im Browser die Test2v2-Seite neu laden und die zwei betroffenen Champions-League-Spiele pruefen.
-Erst nach bestaetigtem TEST ein Live-Update erwaegen.
+TOSMC CL-Spieltag Autoauswahl – Stand 13.10.2026
+
+Basis: Live-main.zip vom 12.10.2026, 18:21:43 (Dateiname).
+
+Änderungen:
+  wettbewerb.js: ausschließlich im renderChampionsLeaguePhaseOverview die automatische
+    Öffnung der Spieltagsgruppen anhand der lokalen Kalendertage gesetzt.
+    Erster Cluster mit Spiel heute oder zukünftig, sonst letzter Cluster.
+  champions-league.html: ausschließlich Versionsparameter von wettbewerb.js
+    zur Cache-Aktualisierung geändert.
+
+Installation NUR Test2v2:
+  1. Beide bestehenden Dateien sichern.
+  2. wettbewerb.js und champions-league.html 1:1 ersetzen.
+  3. Commit + Push, Veröffentlichung abwarten, Browser neu laden.
+  4. Prüfen: CL öffnet 2. Spieltag am 13.10.2026; andere Spieltage manuell aufklappbar;
+     Bundesliga, andere Wettbewerbe, Ergebnisse und Tippverteilung unverändert.
+  5. Erst nach positiver Browserprüfung die identischen Dateien in Live übernehmen.
+
+Keine Daten- oder Wertungsdateien enthalten. Keine Live-Einspielung vor Freigabe.
