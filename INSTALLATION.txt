@@ -1,18 +1,18 @@
-TOSMC – CL Release Guard Cachefix (TEST2v2) – 13.10.2026
+TOSMC – Kicktipp Seitenleiste: Rückbau auf bestätigten Ausgangsstand
+Datum: 13.10.2026
+Ziel: ausschließlich TEST2v2, NICHT LIVE.
 
-Ausgangsbasis: champions-league.html aus dem vorherigen CL-Autoauswahl-Fix.
-Einzige Änderungen: Cache-Kennungen für wettbewerb.js und wettbewerb.css
-entsprechend dem gemeldeten Test2v2 Release Guard angepasst.
+Basis: Test2v2-main vom 13.10.2026 18:17:59 (Version TEST20).
+Rückbau: kicktipp.html bytegenau aus dem Stand vor Desktop-Seitenleiste.
+Version: VERSION.txt TEST21 -> TEST22.
 
-ANWENDUNG
-1. Die aktuelle champions-league.html im Test2v2-Repository sichern.
-2. Ausschließlich champions-league.html aus diesem ZIP ersetzen.
-3. KEINE wettbewerb.js ersetzen; der JS-Fix ist bereits in Test2v2 vorhanden.
-4. GitHub Desktop Diff prüfen: nur zwei URL-Versionen dürfen geändert sein.
-5. Commit/Push, Release Guard erneut prüfen.
-6. Test2v2 mit Strg+F5 laden; CL muss den 2. Spieltag öffnen.
-7. Bundesliga und andere Wettbewerbe weiter prüfen.
+DATEIEN EINBAUEN:
+1. Vorher lokalen Test2v2-Stand sichern.
+2. kicktipp.html und VERSION.txt aus ZIP ins Wurzelverzeichnis des aktuellen Test2v2-Repos kopieren.
+3. In GitHub Desktop kontrollieren: genau diese beiden Dateien verändert, keine weiteren Dateien.
+4. Commit/Push; GitHub-Release-Guard abwarten.
+5. Test2v2 Desktop und Mobile öffnen und prüfen, ob die dekorative Seitenleiste entfernt und Kicktipp weiter funktionsfähig ist.
 
-Hinweis: Ohne aktuellen Test2v2-Repository-Stand ist kein vollständiger
-Release-Guard- oder Browser-End-to-End-Test möglich.
-LIVE NICHT EINSETZEN: Live benutzt andere Cache-Kennungen.
+WICHTIG: Dies gilt für TEST21 als Ausgangslage. Wenn zwischenzeitlich Änderungen an kicktipp.html erfolgten, STOPP und neue ZIP bereitstellen.
+Die Schutzprüfung im Paket wurde gegen einen lokal aus TEST20 + Seitenleiste aufgebauten TEST21-Arbeitsstand mit Rückbau auf TEST22 durchgeführt.
+Keine Änderung an Kicktipp selbst, APIs, JSON oder übrigen Website-Seiten.
