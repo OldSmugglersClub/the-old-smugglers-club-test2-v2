@@ -4,7 +4,7 @@ from pathlib import Path
 import re, sys
 root = Path(sys.argv[1] if len(sys.argv)>1 else ".").resolve()
 files = ["bundesliga.html", "dfb-pokal.html", "champions-league.html", "europa-league.html", "relegation.html", "dynamo-dresden.html", "piratenkodex.html", "weihnachtsregatta.html"]
-new_version = "4.9.2-HF12-HF101-TEST18-DFB1"
+new_version = "4.9.2-HF12-HF101-TEST19-DFB2"
 pattern = re.compile(r'(wettbewerb\.js\?v=)[^"\']+')
 updates = {}
 for name in files:

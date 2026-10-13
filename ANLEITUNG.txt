@@ -1,14 +1,23 @@
-TOSMC – DFB-Pokal, 1. und 2. Hauptrunde – TEST2v2
+TOSMC – DFB-Pokal-Hauptrunden als aufklappbare Gruppen (NUR TEST2v2)
 
-1. Vor jeder Änderung Test2v2-Repository sichern.
-2. wettbewerb.js aus diesem Paket im Test2v2-Repository ersetzen.
-3. Das Skript cache-kennung-test2v2.py auf einer Kopie des Test2v2-Repositorys ausführen:
-   python cache-kennung-test2v2.py "PFAD_ZUM_TEST2v2_REPO"
-   Es ändert nur die Versionskennung von wettbewerb.js auf allen acht Wettbewerbsseiten.
-4. GitHub Desktop Diff prüfen: wettbewerb.js plus acht HTML-Dateien, dort ausschließlich der Versionsparameter.
-5. GitHub Release Guard muss grün sein.
-6. Im Browser DFB 1. und 2. Hauptrunde, offene Spiele, Ergebnisse, andere Wettbewerbe prüfen.
+Basis: zuvor ausgelieferter und vom Nutzer bestätigter DFB-Hauptrunden-Fix.
 
-ACHTUNG: Paket basiert auf der vom Nutzer übergebenen bestätigten Test2v2-wettbewerb.js.
-Es wurden keine historischen JSON-Daten oder Wertungen geändert.
-Die reale OpenLigaDB-Antwort konnte offline nicht geprüft werden.
+Änderungen:
+- Nur renderDfbCompletedEarlyRounds() in wettbewerb.js.
+- 1. und 2. Hauptrunde als <details>/<summary>, passend zur Bundesliga-Oberfläche.
+- Die Runde mit dem nächsten Spiel ab heute wird geöffnet; ansonsten die letzte vorhandene Runde.
+- Paarungen, Ergebnisse, ihre Filterung und TOSMC-Achtelfinal-Grenze bleiben unverändert.
+- Einheitlicher Cache-Parameter für alle acht Wettbewerbs-HTML-Seiten.
+
+TEST2v2 Installation:
+1. Repository und wettbewerb.js sichern.
+2. wettbewerb.js aus diesem ZIP ins Test2v2-Repository kopieren.
+3. Im Root des Test2v2-Repositorys ausführen:
+   python cache-kennung-test2v2.py .
+   (benötigt Python 3; stoppt, falls eine HTML-Datei oder Referenz fehlt)
+4. GitHub Desktop: Diff prüfen (JS nur DFB-Funktion; HTML nur Cache-Version), Commit/Push.
+5. GitHub Release Guard abwarten; bei Fehler NICHT live übernehmen.
+6. Browser in Test2v2: beide Hauptrunden ein-/ausklappen, Paarungen/Ergebnisse,
+   Achtelfinal-Wertung und Bundesliga/CL unverändert prüfen.
+
+KEINE Live-Freigabe vor Bestätigung. Kein JSON wird geändert.
