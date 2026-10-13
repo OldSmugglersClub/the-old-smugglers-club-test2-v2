@@ -1,20 +1,18 @@
-TOSMC CL-Spieltag Autoauswahl – Stand 13.10.2026
+TOSMC – CL Release Guard Cachefix (TEST2v2) – 13.10.2026
 
-Basis: Live-main.zip vom 12.10.2026, 18:21:43 (Dateiname).
+Ausgangsbasis: champions-league.html aus dem vorherigen CL-Autoauswahl-Fix.
+Einzige Änderungen: Cache-Kennungen für wettbewerb.js und wettbewerb.css
+entsprechend dem gemeldeten Test2v2 Release Guard angepasst.
 
-Änderungen:
-  wettbewerb.js: ausschließlich im renderChampionsLeaguePhaseOverview die automatische
-    Öffnung der Spieltagsgruppen anhand der lokalen Kalendertage gesetzt.
-    Erster Cluster mit Spiel heute oder zukünftig, sonst letzter Cluster.
-  champions-league.html: ausschließlich Versionsparameter von wettbewerb.js
-    zur Cache-Aktualisierung geändert.
+ANWENDUNG
+1. Die aktuelle champions-league.html im Test2v2-Repository sichern.
+2. Ausschließlich champions-league.html aus diesem ZIP ersetzen.
+3. KEINE wettbewerb.js ersetzen; der JS-Fix ist bereits in Test2v2 vorhanden.
+4. GitHub Desktop Diff prüfen: nur zwei URL-Versionen dürfen geändert sein.
+5. Commit/Push, Release Guard erneut prüfen.
+6. Test2v2 mit Strg+F5 laden; CL muss den 2. Spieltag öffnen.
+7. Bundesliga und andere Wettbewerbe weiter prüfen.
 
-Installation NUR Test2v2:
-  1. Beide bestehenden Dateien sichern.
-  2. wettbewerb.js und champions-league.html 1:1 ersetzen.
-  3. Commit + Push, Veröffentlichung abwarten, Browser neu laden.
-  4. Prüfen: CL öffnet 2. Spieltag am 13.10.2026; andere Spieltage manuell aufklappbar;
-     Bundesliga, andere Wettbewerbe, Ergebnisse und Tippverteilung unverändert.
-  5. Erst nach positiver Browserprüfung die identischen Dateien in Live übernehmen.
-
-Keine Daten- oder Wertungsdateien enthalten. Keine Live-Einspielung vor Freigabe.
+Hinweis: Ohne aktuellen Test2v2-Repository-Stand ist kein vollständiger
+Release-Guard- oder Browser-End-to-End-Test möglich.
+LIVE NICHT EINSETZEN: Live benutzt andere Cache-Kennungen.
