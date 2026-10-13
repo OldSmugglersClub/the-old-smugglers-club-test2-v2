@@ -1,14 +1,14 @@
-VERSION 23 – FINALER KAPITÄNSTISCH-HINTERGRUND
+TOSMC – DFB-Pokal, 1. und 2. Hauptrunde – TEST2v2
 
-Geändert wurden ausschließlich:
-- neue Hintergrundgrafik: kapitaenstisch-final.jpg
-- die body-Hintergrundreferenz in allen HTML-Dateien
+1. Vor jeder Änderung Test2v2-Repository sichern.
+2. wettbewerb.js aus diesem Paket im Test2v2-Repository ersetzen.
+3. Das Skript cache-kennung-test2v2.py auf einer Kopie des Test2v2-Repositorys ausführen:
+   python cache-kennung-test2v2.py "PFAD_ZUM_TEST2v2_REPO"
+   Es ändert nur die Versionskennung von wettbewerb.js auf allen acht Wettbewerbsseiten.
+4. GitHub Desktop Diff prüfen: wettbewerb.js plus acht HTML-Dateien, dort ausschließlich der Versionsparameter.
+5. GitHub Release Guard muss grün sein.
+6. Im Browser DFB 1. und 2. Hauptrunde, offene Spiele, Ergebnisse, andere Wettbewerbe prüfen.
 
-Unverändert bleiben Layout, Kacheln, Banner, Navigation, Texte,
-Abstände, Größen und Funktionen.
-
-GitHub:
-1. Alle HTML-Dateien hochladen und ersetzen.
-2. kapitaenstisch-final.jpg ins Hauptverzeichnis hochladen.
-3. Commit durchführen.
-4. Nach kurzer Wartezeit Strg+F5 drücken.
+ACHTUNG: Paket basiert auf der vom Nutzer übergebenen bestätigten Test2v2-wettbewerb.js.
+Es wurden keine historischen JSON-Daten oder Wertungen geändert.
+Die reale OpenLigaDB-Antwort konnte offline nicht geprüft werden.
