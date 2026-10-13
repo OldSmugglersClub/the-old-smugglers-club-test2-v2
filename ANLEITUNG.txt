@@ -1,23 +1,21 @@
-TOSMC – DFB-Pokal-Hauptrunden als aufklappbare Gruppen (NUR TEST2v2)
+TOSMC — Kicktipp Live Action: dekorative Desktop-Seitenleiste (Test2v2 PROTOTYP)
 
-Basis: zuvor ausgelieferter und vom Nutzer bestätigter DFB-Hauptrunden-Fix.
+ACHTUNG: Nur zum lokalen Test auf einer Sicherung des aktuellen Test2v2-Repositories.
+KEINE Live-Freigabe. Es liegt keine aktuelle Test2v2-main.zip vor.
 
-Änderungen:
-- Nur renderDfbCompletedEarlyRounds() in wettbewerb.js.
-- 1. und 2. Hauptrunde als <details>/<summary>, passend zur Bundesliga-Oberfläche.
-- Die Runde mit dem nächsten Spiel ab heute wird geöffnet; ansonsten die letzte vorhandene Runde.
-- Paarungen, Ergebnisse, ihre Filterung und TOSMC-Achtelfinal-Grenze bleiben unverändert.
-- Einheitlicher Cache-Parameter für alle acht Wettbewerbs-HTML-Seiten.
+1. Aktuelle Test2v2-main.zip beziehungsweise den aktuellen Test2v2-Ordner sichern.
+2. Skript auf den Wurzelordner dieses Repositories anwenden:
+   python apply_desktop_rail.py "PFAD_ZUM_TEST2V2_REPOSITORY"
+3. Prüfen: git diff -- kicktipp.html
+4. Lokalen Desktop-Browser prüfen: ab 1200px erscheint eine rein dekorative Leiste rechts.
+   Mobile und kleine Fenster (<1200px) behalten exakt das bisherige Layout.
+5. Kritisch: ALLEN Kicktipp-Ansichten durchgehen (Tippübersicht, Gesamtübersicht,
+   Spielplan, Tabelle, Tippabgabe, Bonus). Wenn eine Ansicht rechts mehr Raum
+   braucht und verdeckt würde: STOP und rückgängig machen. Keine Live-Übernahme.
+6. Vor einer TEST2v2-Freigabe: offizielle Versionsnummer gemäß tatsächlichem
+   aktuellen TEST2v2-Stand eindeutig fortschreiben, VERSION.txt und weitere
+   versionsführende Stellen synchronisieren, Release Guard ausführen.
 
-TEST2v2 Installation:
-1. Repository und wettbewerb.js sichern.
-2. wettbewerb.js aus diesem ZIP ins Test2v2-Repository kopieren.
-3. Im Root des Test2v2-Repositorys ausführen:
-   python cache-kennung-test2v2.py .
-   (benötigt Python 3; stoppt, falls eine HTML-Datei oder Referenz fehlt)
-4. GitHub Desktop: Diff prüfen (JS nur DFB-Funktion; HTML nur Cache-Version), Commit/Push.
-5. GitHub Release Guard abwarten; bei Fehler NICHT live übernehmen.
-6. Browser in Test2v2: beide Hauptrunden ein-/ausklappen, Paarungen/Ergebnisse,
-   Achtelfinal-Wertung und Bundesliga/CL unverändert prüfen.
-
-KEINE Live-Freigabe vor Bestätigung. Kein JSON wird geändert.
+Anmerkung: Die fremde Kicktipp-Einbettung kann innere Ansichten dynamisch ändern.
+Daher ist die Überlagerung des Leerraums vor einem manuellen Regressionstest
+nicht als sicher zu bewerten. Das Paket ist kein fertig geprüfter Fix.

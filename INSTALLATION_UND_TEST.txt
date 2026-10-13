@@ -1,0 +1,20 @@
+TOSMC Kicktipp Desktop-Seitenleiste — TEST2v2 PROTOTYP
+Basis: Benutzerupload the-old-smugglers-club-test2-v2-main(20261013-181759).zip
+Offizielle Testversion: 4.9.2-HF12-HF101-TEST20 -> 4.9.2-HF12-HF101-TEST21
+
+Dateien im Paket: kicktipp.html, VERSION.txt
+
+1. Sicherung des aktuellen Test2v2-Repositories erstellen.
+2. Nur beide Dateien auf unverändertem Ausgangsstand ersetzen.
+3. GitHub Desktop: nur kicktipp.html und VERSION.txt geaendert.
+4. Commit und Push, Schutzpruefung muss OK melden.
+5. DESKTOP >= 1200px: Kicktipp-Ansichten einzeln pruefen: Tippuebersicht, Gesamtruebersicht,
+   Wunschergebnis, Tippabgabe, Spielplan, Tabelle, Bonus, andere Wettbewerbe.
+   Insbesondere pruefen, ob die Seitenleiste Inhalte verdeckt oder Buttons ueberlagert.
+6. MOBILE < 1200px: Bildschirmbreiten pruefen; keine neue Seitenleiste darf erscheinen.
+7. Bei einem Problem: STOP, Dateien zuruecksetzen, keine Live-Uebernahme.
+
+EINSCHRAENKUNG: Die Leiste ist ein testpflichtiger Prototyp; fremde Kicktipp-Inhalte
+koennen dynamisch in den vermeintlich freien Bereich hineinreichen. Der Release Guard
+prueft diese visuelle Ueberdeckung nicht. Das CSS der mobilen Ansicht und die
+Kicktipp-Funktionslogik wurden nicht veraendert.
