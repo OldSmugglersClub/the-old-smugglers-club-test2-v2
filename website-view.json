@@ -2520,17 +2520,25 @@
             "rank": 1,
             "name": "New Smugglers Team",
             "memberCount": 75,
-            "pointsSum": 3648,
-            "averagePoints": 48.64,
-            "totalPoints": 48.64
+            "pointsSum": 108,
+            "points": 1.44,
+            "totalPoints": 1.44,
+            "averagePoints": 1.44,
+            "kicktippControlValue": 1.44,
+            "validated": true,
+            "source": "Kicktipp-kontrollierter Mitglieder-Durchschnitt"
           },
           {
             "rank": 2,
             "name": "Old Smugglers Team",
             "memberCount": 25,
-            "pointsSum": 1159,
-            "averagePoints": 46.36,
-            "totalPoints": 46.36
+            "pointsSum": 26,
+            "points": 1.04,
+            "totalPoints": 1.04,
+            "averagePoints": 1.04,
+            "kicktippControlValue": 1.04,
+            "validated": true,
+            "source": "Kicktipp-kontrollierter Mitglieder-Durchschnitt"
           }
         ],
         "matchdayLabel": "Bundesliga 6. Spieltag · Zwischenstand nach 1 von 9 Spielen – die Spieltagswertung wird am Spieltagsende finalisiert.",
@@ -2563,9 +2571,13 @@
           "rank": 1,
           "name": "New Smugglers Team",
           "memberCount": 75,
-          "pointsSum": 3648,
-          "averagePoints": 48.64,
-          "totalPoints": 48.64
+          "pointsSum": 108,
+          "points": 1.44,
+          "totalPoints": 1.44,
+          "averagePoints": 1.44,
+          "kicktippControlValue": 1.44,
+          "validated": true,
+          "source": "Kicktipp-kontrollierter Mitglieder-Durchschnitt"
         },
         "teamResult": "New Smugglers Team",
         "runningMatchday": {
