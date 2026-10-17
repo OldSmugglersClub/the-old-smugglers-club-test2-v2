@@ -1816,10 +1816,10 @@ body[data-view="team"] .hs-podium--simple .hs-rank-card--place-1{
 .hs-page-btn{touch-action:manipulation;cursor:pointer}
 
 /* =========================================================
-   Test2v2 TEST20 – Mobile Wettbewerbs-Gesamtwertung
-   Korrektur des in TEST19 ungültig eingebrachten CSS-Blocks.
-   Nur 7-spaltige Wettbewerbs-Gesamtwertungen mobil.
-   Desktop und andere Highscore-Ansichten bleiben unverändert.
+   Live HF112 – Mobile Wettbewerbs-Gesamtwertung
+   7-spaltige Wettbewerbs-Gesamtwertungen erhalten ein eigenes
+   mobiles Kartenraster. Desktop und andere Highscore-Ansichten
+   bleiben unverändert.
    ========================================================= */
 @media (max-width:700px){
   .hs-table-wrap.is-individual-table.is-competition-overall-table .hs-table tbody tr{
@@ -1866,3 +1866,12 @@ body[data-view="team"] .hs-podium--simple .hs-rank-card--place-1{
     font-size:.86rem;
   }
 }
+
+/* HS-TEAM-OVERALL-TEST1: exakt drei gleichbreite Navigationsfelder in jedem Event. */
+.hs-view-tabs.hs-view-tabs--event{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-items:stretch}
+.hs-view-tabs--event>.hs-chip{width:100%;min-width:0;flex:none;overflow-wrap:anywhere}
+.hs-team-tab-group{min-width:0;display:flex;align-items:center;justify-content:center;gap:5px;border:1px solid #96702d;border-radius:6px;padding:4px;background:rgba(32,19,10,.75)}
+.hs-team-tab-label{font-size:.8rem;color:#e6cd91;font-weight:700;white-space:nowrap}
+.hs-team-tab-actions{display:grid;grid-template-columns:1fr 1fr;min-width:0;flex:1;gap:3px;height:100%}
+.hs-team-tab-actions>.hs-chip{min-width:0;min-height:38px;height:100%;font-size:.79rem;padding:5px 3px;line-height:1.15;overflow-wrap:anywhere}
+@media(max-width:720px){.hs-view-tabs.hs-view-tabs--event{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.hs-view-tabs--event>.hs-chip{flex:none;font-size:clamp(.64rem,2.35vw,.85rem);padding:7px 3px}.hs-team-tab-group{flex-direction:column;gap:2px;padding:2px}.hs-team-tab-label{font-size:.67rem;line-height:1.05}.hs-team-tab-actions{width:100%}.hs-team-tab-actions>.hs-chip{font-size:clamp(.62rem,2.2vw,.79rem);min-height:36px;padding:4px 1px}}

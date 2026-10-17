@@ -1,0 +1,37 @@
+TOSMC Highscore – eventbezogene Team-Gesamtwertung – TEST1
+Basis: Live main.zip 2026-10-17 07:18:22 / Website 4.9.2-HF12-HF112
+
+Nur Test2v2; keine Live-Freigabe.
+
+1. Vorher den aktuellen Test2v2-Stand sichern.
+2. Die drei Dateien aus diesem Paket im Website-Hauptverzeichnis ersetzen:
+   highscore.html, highscore.js, highscore.css
+3. ALLE bestehenden JSON-Datendateien beibehalten. Besonders erforderlich:
+   spielbetrieb.json, website-view.json/highscore.json
+4. Highscore auf Desktop und Mobilgerät prüfen: Je Event nur 3
+   Hauptfelder, der dritte enthält Team: Spieltag | Gesamt.
+5. Im Modus Team / Spieltag MUSS die vorhandene originalgetreue
+   Spieltags-Teamwertung unverändert bleiben.
+6. Im Modus Team / Gesamt werden kumulierte Team-Durchschnitte
+   aus den Einzel-Gesamtständen und den aktiven Teamzuordnungen
+   berechnet. Die Berechnung ist NICHT als separat von Kicktipp
+   bestätigte Wettbewerbs-Teamgesamtwertung gekennzeichnet.
+7. Für Events ohne vollständige verwertbare Daten zeigt die Website
+   keine geschätzten Werte; dies ist kein Nullpunkte-Ergebnis.
+8. Wechsel zu Gesamtwertung (eventübergreifend) muss die alten
+   drei Auswahlmöglichkeiten unverändert zeigen.
+
+Wichtig: Die zusätzliche Ansicht lädt spielbetrieb.json erst bei Auswahl.
+Je nach Dateigröße kann es zu einer Ladepause kommen. Server muss
+spielbetrieb.json bereitstellen. Zukünftige Admin-Updates aktualisieren
+bestehende Einzel-Gesamtwertungen und die zentrale Teamzuordnung;
+die neue Ansicht liest beide jeweils neu beim Seitenaufruf.
+
+Quellstand und Prüfung:
+- Node.js Syntaxprüfung: BESTANDEN
+- Datenprüfung BL und CL: BESTANDEN
+- Leere/fehlende Teammapping-Daten: gesperrt
+- Visueller Browser-Test: NICHT BESTANDEN/NICHT DURCHGEFÜHRT;
+  lokale Browser-Navigation war durch Umgebung gesperrt.
+- Separater Website Release Guard auf produktiven Daten: ausstehend
+- Live-Freigabe: NEIN
