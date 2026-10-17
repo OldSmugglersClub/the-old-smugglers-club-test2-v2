@@ -1,11 +1,19 @@
 {
   "schemaVersion": 1,
-  "datenVersion": 29,
+  "datenVersion": 31,
   "aktualisiert": "2026-10-17",
   "saison": "2026/2027",
   "quelle": "OpenLigaDB getgoalgetters/bl1/2026",
   "status": "bereit",
   "torjaeger": [
+    {
+      "name": "N. Füllkrug",
+      "tore": 6
+    },
+    {
+      "name": "M. Olise",
+      "tore": 5
+    },
     {
       "name": "Younes Ebnoutalib",
       "tore": 5
@@ -15,7 +23,11 @@
       "tore": 5
     },
     {
-      "name": "M. Olise",
+      "name": "P. Tietz",
+      "tore": 5
+    },
+    {
+      "name": "Luis Díaz",
       "tore": 4
     },
     {
@@ -23,15 +35,15 @@
       "tore": 4
     },
     {
-      "name": "N. Füllkrug",
-      "tore": 4
-    },
-    {
-      "name": "P. Tietz",
+      "name": "M. Gregoritsch",
       "tore": 4
     },
     {
       "name": "C. Nkunku",
+      "tore": 4
+    },
+    {
+      "name": "H. Kane",
       "tore": 4
     },
     {
@@ -40,10 +52,6 @@
     },
     {
       "name": "I. Matanovic",
-      "tore": 3
-    },
-    {
-      "name": "M. Gregoritsch",
       "tore": 3
     },
     {
@@ -63,8 +71,8 @@
       "tore": 3
     },
     {
-      "name": "H. Kane",
-      "tore": 3
+      "name": "Aleksandar Pavlovic",
+      "tore": 2
     },
     {
       "name": "J. Vagnoman",
@@ -79,7 +87,7 @@
       "tore": 2
     },
     {
-      "name": "Thijs Dallinga",
+      "name": "S. El Mala",
       "tore": 2
     },
     {
@@ -87,11 +95,15 @@
       "tore": 2
     },
     {
-      "name": "S. El Mala",
+      "name": "Thijs Dallinga",
       "tore": 2
     },
     {
       "name": "C. Kofane",
+      "tore": 2
+    },
+    {
+      "name": "L. Petkov",
       "tore": 2
     },
     {
@@ -123,6 +135,10 @@
       "tore": 2
     },
     {
+      "name": "F. Rieder",
+      "tore": 2
+    },
+    {
       "name": "F. Nmecha",
       "tore": 2
     },
@@ -151,16 +167,20 @@
       "tore": 2
     },
     {
-      "name": "A. Caci",
+      "name": "S. Marino",
       "tore": 2
     },
     {
-      "name": "Aleksandar Pavlovic",
-      "tore": 1
+      "name": "S. Tigges",
+      "tore": 2
     },
     {
-      "name": "Luis Díaz",
-      "tore": 1
+      "name": "M. Muheim",
+      "tore": 2
+    },
+    {
+      "name": "A. Caci",
+      "tore": 2
     },
     {
       "name": "D. Upamecano",
@@ -188,10 +208,6 @@
     },
     {
       "name": "David Mokwa Ntusu",
-      "tore": 1
-    },
-    {
-      "name": "L. Petkov",
       "tore": 1
     },
     {
@@ -251,15 +267,11 @@
       "tore": 1
     },
     {
-      "name": "P. Mwene",
-      "tore": 1
-    },
-    {
       "name": "R. Königsdörffer",
       "tore": 1
     },
     {
-      "name": "F. Rieder",
+      "name": "P. Mwene",
       "tore": 1
     },
     {
@@ -291,11 +303,11 @@
       "tore": 1
     },
     {
-      "name": "Romulo",
+      "name": "W. Orbán",
       "tore": 1
     },
     {
-      "name": "W. Orbán",
+      "name": "Romulo",
       "tore": 1
     },
     {
@@ -339,11 +351,11 @@
       "tore": 1
     },
     {
-      "name": "Calvin Brackelmann",
+      "name": "M. Weiser",
       "tore": 1
     },
     {
-      "name": "M. Weiser",
+      "name": "Calvin Brackelmann",
       "tore": 1
     },
     {
@@ -355,15 +367,7 @@
       "tore": 1
     },
     {
-      "name": "S. Marino",
-      "tore": 1
-    },
-    {
       "name": "Santiago Castaneda",
-      "tore": 1
-    },
-    {
-      "name": "S. Tigges",
       "tore": 1
     },
     {
@@ -383,10 +387,6 @@
       "tore": 1
     },
     {
-      "name": "M. Muheim",
-      "tore": 1
-    },
-    {
       "name": "T. Moffi",
       "tore": 1
     },
@@ -395,11 +395,11 @@
       "tore": 1
     },
     {
-      "name": "B. Hollerbach",
+      "name": "J. Quansah",
       "tore": 1
     },
     {
-      "name": "J. Quansah",
+      "name": "B. Hollerbach",
       "tore": 1
     },
     {
@@ -415,11 +415,11 @@
       "tore": 1
     },
     {
-      "name": "C. Führich",
+      "name": "J. Chabot",
       "tore": 1
     },
     {
-      "name": "J. Chabot",
+      "name": "C. Führich",
       "tore": 1
     },
     {
@@ -436,6 +436,26 @@
     },
     {
       "name": "K. Goto",
+      "tore": 1
+    },
+    {
+      "name": "Maximilian Rohr",
+      "tore": 1
+    },
+    {
+      "name": "Mert Kömür",
+      "tore": 1
+    },
+    {
+      "name": "Frederik Schmahl",
+      "tore": 1
+    },
+    {
+      "name": "Lasse Günther",
+      "tore": 1
+    },
+    {
+      "name": "A. Maksimovic",
       "tore": 1
     }
   ]
