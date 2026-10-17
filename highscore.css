@@ -1875,3 +1875,12 @@ body[data-view="team"] .hs-podium--simple .hs-rank-card--place-1{
 .hs-team-tab-actions{display:grid;grid-template-columns:1fr 1fr;min-width:0;flex:1;gap:3px;height:100%}
 .hs-team-tab-actions>.hs-chip{min-width:0;min-height:38px;height:100%;font-size:.79rem;padding:5px 3px;line-height:1.15;overflow-wrap:anywhere}
 @media(max-width:720px){.hs-view-tabs.hs-view-tabs--event{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.hs-view-tabs--event>.hs-chip{flex:none;font-size:clamp(.64rem,2.35vw,.85rem);padding:7px 3px}.hs-team-tab-group{flex-direction:column;gap:2px;padding:2px}.hs-team-tab-label{font-size:.67rem;line-height:1.05}.hs-team-tab-actions{width:100%}.hs-team-tab-actions>.hs-chip{font-size:clamp(.62rem,2.2vw,.79rem);min-height:36px;padding:4px 1px}}
+
+/* TEAMTEST2: drittes Navigationsfeld ist ein einziges echtes Auswahlmenü. */
+.hs-view-tabs--event>.hs-team-select-wrap{box-sizing:border-box;min-width:0;min-height:44px;height:100%;display:flex;align-items:stretch;position:relative;border:1px solid #9d742e;border-radius:6px;background:linear-gradient(180deg,#341b0b,#1c1008);overflow:hidden}
+.hs-view-tabs--event>.hs-team-select-wrap.is-active{border-color:#d7a94e;background:linear-gradient(180deg,#55300f,#271507)}
+.hs-team-select{display:block;appearance:none;-webkit-appearance:none;width:100%;min-width:0;min-height:44px;padding:6px 30px 6px 12px;background:transparent;color:#f5e2b7;border:0;border-radius:6px;font:inherit;font-weight:600;font-size:clamp(.7rem,1.25vw,.93rem);text-align:center;text-align-last:center;cursor:pointer}
+.hs-team-select option{color:#f4dfac;background:#241509}
+.hs-team-select:focus-visible{outline:2px solid #edbd60;outline-offset:-3px}
+.hs-team-select-wrap::after{content:'▾';position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:1rem;color:#edbf64;pointer-events:none}
+@media(max-width:720px){.hs-view-tabs--event>.hs-team-select-wrap{min-height:44px}.hs-team-select{font-size:clamp(.56rem,2.2vw,.77rem);padding:5px 15px 5px 2px}.hs-team-select-wrap::after{right:4px;font-size:.76rem}}
