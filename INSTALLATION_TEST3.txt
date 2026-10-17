@@ -1,0 +1,13 @@
+TOSMC Highscore TEAMTEST3 – nur für Test2v2.
+
+Backup: die vorhandenen highscore.html, highscore.js und highscore.css sichern.
+Diese drei Dateien aus dem ZIP in das Website-Hauptverzeichnis kopieren. Kein JSON austauschen.
+Browser neu laden (Strg+F5).
+
+Prüfung:
+1. Bundesliga auswählen; Dropdown steht auf „Teamwertung auswählen“.
+2. Erster Klick auf „Spieltags-Teamwertung“ zeigt sofort 1,44 / 1,04 und breite Karten.
+3. Wechsel auf „Gesamt-Teamwertung“ zeigt kumulierte Werte und GENAU dieselben breiten Karten (Desktop/Mobil).
+4. Zurück auf „Spieltags-Teamwertung“ und erneuter Wechsel; Gesamt-Einzelwertung und andere Wettbewerbe prüfen.
+
+Keine Live-Freigabe vor bestandenem Test2v2-Sichttest.

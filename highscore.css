@@ -1688,7 +1688,7 @@
    Rangfolge/Datenlogik bleiben unverändert.
    ======================================================================= */
 
-body[data-view="team"] .hs-podium--simple .hs-rank-grid{
+:is(body[data-view="team"],body[data-view="teamOverall"]) .hs-podium--simple .hs-rank-grid{
   display:flex!important;
   flex-direction:column;
   align-items:stretch;
@@ -1697,7 +1697,7 @@ body[data-view="team"] .hs-podium--simple .hs-rank-grid{
   margin:0 auto!important;
 }
 
-body[data-view="team"] .hs-podium--simple .hs-rank-card{
+:is(body[data-view="team"],body[data-view="teamOverall"]) .hs-podium--simple .hs-rank-card{
   width:100%;
   min-height:148px;
   padding:18px 28px;
@@ -1711,14 +1711,14 @@ body[data-view="team"] .hs-podium--simple .hs-rank-card{
   text-align:center!important;
 }
 
-body[data-view="team"] .hs-podium--simple .hs-rank-medal{
+:is(body[data-view="team"],body[data-view="teamOverall"]) .hs-podium--simple .hs-rank-medal{
   width:70px;
   height:70px;
   flex-basis:auto;
   margin:0;
 }
 
-body[data-view="team"] .hs-podium--simple .hs-rank-name{
+:is(body[data-view="team"],body[data-view="teamOverall"]) .hs-podium--simple .hs-rank-name{
   width:100%;
   min-height:0;
   padding:0 12px;
@@ -1727,12 +1727,12 @@ body[data-view="team"] .hs-podium--simple .hs-rank-name{
   justify-content:center;
 }
 
-body[data-view="team"] .hs-podium--simple .hs-rank-score{
+:is(body[data-view="team"],body[data-view="teamOverall"]) .hs-podium--simple .hs-rank-score{
   margin:0;
   text-align:center!important;
 }
 
-body[data-view="team"] .hs-podium--simple .hs-rank-card small{
+:is(body[data-view="team"],body[data-view="teamOverall"]) .hs-podium--simple .hs-rank-card small{
   margin:0;
   width:100%;
   max-width:none;
@@ -1740,18 +1740,18 @@ body[data-view="team"] .hs-podium--simple .hs-rank-card small{
 }
 
 /* Platz 1 bleibt optisch führend, ohne die Geometrie zu verschieben. */
-body[data-view="team"] .hs-podium--simple .hs-rank-card--place-1{
+:is(body[data-view="team"],body[data-view="teamOverall"]) .hs-podium--simple .hs-rank-card--place-1{
   border-color:#c18b2b;
   background:linear-gradient(180deg,rgba(78,41,15,.82),rgba(18,9,5,.97));
 }
 
 @media (max-width:760px){
-  body[data-view="team"] .hs-podium--simple .hs-rank-grid{
+  :is(body[data-view="team"],body[data-view="teamOverall"]) .hs-podium--simple .hs-rank-grid{
     width:100%!important;
     gap:9px!important;
   }
 
-  body[data-view="team"] .hs-podium--simple .hs-rank-card{
+  :is(body[data-view="team"],body[data-view="teamOverall"]) .hs-podium--simple .hs-rank-card{
     min-height:126px;
     padding:12px 10px;
     grid-template-columns:58px minmax(0,1fr) 82px;
@@ -1760,30 +1760,30 @@ body[data-view="team"] .hs-podium--simple .hs-rank-card--place-1{
     row-gap:5px;
   }
 
-  body[data-view="team"] .hs-podium--simple .hs-rank-medal{
+  :is(body[data-view="team"],body[data-view="teamOverall"]) .hs-podium--simple .hs-rank-medal{
     grid-column:1;
     grid-row:1 / 3;
     width:50px;
     height:50px;
   }
 
-  body[data-view="team"] .hs-podium--simple .hs-rank-name{
+  :is(body[data-view="team"],body[data-view="teamOverall"]) .hs-podium--simple .hs-rank-name{
     grid-column:2;
     grid-row:1;
     padding:0 3px;
     font-size:.9rem;
   }
 
-  body[data-view="team"] .hs-podium--simple .hs-rank-score{
+  :is(body[data-view="team"],body[data-view="teamOverall"]) .hs-podium--simple .hs-rank-score{
     grid-column:3;
     grid-row:1 / 3;
   }
 
-  body[data-view="team"] .hs-podium--simple .hs-rank-score b{
+  :is(body[data-view="team"],body[data-view="teamOverall"]) .hs-podium--simple .hs-rank-score b{
     font-size:1.45rem;
   }
 
-  body[data-view="team"] .hs-podium--simple .hs-rank-card small{
+  :is(body[data-view="team"],body[data-view="teamOverall"]) .hs-podium--simple .hs-rank-card small{
     grid-column:2;
     grid-row:2;
     font-size:.62rem;
@@ -1870,11 +1870,7 @@ body[data-view="team"] .hs-podium--simple .hs-rank-card--place-1{
 /* HS-TEAM-OVERALL-TEST1: exakt drei gleichbreite Navigationsfelder in jedem Event. */
 .hs-view-tabs.hs-view-tabs--event{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-items:stretch}
 .hs-view-tabs--event>.hs-chip{width:100%;min-width:0;flex:none;overflow-wrap:anywhere}
-.hs-team-tab-group{min-width:0;display:flex;align-items:center;justify-content:center;gap:5px;border:1px solid #96702d;border-radius:6px;padding:4px;background:rgba(32,19,10,.75)}
-.hs-team-tab-label{font-size:.8rem;color:#e6cd91;font-weight:700;white-space:nowrap}
-.hs-team-tab-actions{display:grid;grid-template-columns:1fr 1fr;min-width:0;flex:1;gap:3px;height:100%}
-.hs-team-tab-actions>.hs-chip{min-width:0;min-height:38px;height:100%;font-size:.79rem;padding:5px 3px;line-height:1.15;overflow-wrap:anywhere}
-@media(max-width:720px){.hs-view-tabs.hs-view-tabs--event{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.hs-view-tabs--event>.hs-chip{flex:none;font-size:clamp(.64rem,2.35vw,.85rem);padding:7px 3px}.hs-team-tab-group{flex-direction:column;gap:2px;padding:2px}.hs-team-tab-label{font-size:.67rem;line-height:1.05}.hs-team-tab-actions{width:100%}.hs-team-tab-actions>.hs-chip{font-size:clamp(.62rem,2.2vw,.79rem);min-height:36px;padding:4px 1px}}
+@media(max-width:720px){.hs-view-tabs.hs-view-tabs--event{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.hs-view-tabs--event>.hs-chip{flex:none;font-size:clamp(.64rem,2.35vw,.85rem);padding:7px 3px}}
 
 /* TEAMTEST2: drittes Navigationsfeld ist ein einziges echtes Auswahlmenü. */
 .hs-view-tabs--event>.hs-team-select-wrap{box-sizing:border-box;min-width:0;min-height:44px;height:100%;display:flex;align-items:stretch;position:relative;border:1px solid #9d742e;border-radius:6px;background:linear-gradient(180deg,#341b0b,#1c1008);overflow:hidden}

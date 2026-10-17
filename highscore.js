@@ -54,7 +54,7 @@ async function loadEventTeamOverall(){
  return teamOverallPromise;
 }
 function current(){if(scope==='overall')return source.overall||{};return source.competitions?.[scope]||{id:scope,label:catalog.find(x=>x[0]===scope)?.[1]||scope,matchday:[],overall:[],team:[]};}
-function views(){return scope==='overall'?[['individual','Gesamt-Einzelwertung'],['team','Gesamt-Teamwertung'],['bonus','Gesamt-Bonuswertung']]:[['matchday','Spieltagswertung'],['individual','Gesamtwertung'],['team','Spieltags-Teamwertung'],['teamOverall','Team-Gesamtwertung']];}
+function views(){return scope==='overall'?[['individual','Gesamt-Einzelwertung'],['team','Gesamt-Teamwertung'],['bonus','Gesamt-Bonuswertung']]:[['matchday','Spieltagswertung'],['individual','Gesamtwertung'],['team','Spieltags-Teamwertung'],['teamOverall','Gesamt-Teamwertung']];}
 function rows(){const c=current();if(scope==='overall'){if((view==='team'||view==='teamOverall'))return firstNonEmptyArray(c.team,source.teams?.overall,source.gesamt?.team,source.teamOverall);if(view==='bonus')return c.bonus||[];return c.individual||[];}if(view==='matchday')return c.matchday||[];if(view==='team')return c.team||[];if(view==='teamOverall')return teamOverallData?.[scope]||[];return c.overall||[];}
 function rowRank(r,i){return r.rank??r.platz??i+1;}function rowName(r){return r.name||r.teilnehmer||r.team||'–';}function rowPoints(r){if((view==='team'||view==='teamOverall')||view==='teamOverall')return r.averagePoints??r.durchschnitt??r.totalPoints??0;if(view==='bonus')return r.bonusPoints??r.points??0;if(view==='matchday')return r.points??r.punkte??0;return r.totalPoints??r.punkte??0;}
 function allZero(list){return !list.length||list.every(r=>rowPoints(r)===0);}
@@ -76,17 +76,17 @@ function renderTabs(){
  $('view-tabs').classList.toggle('hs-view-tabs--event',scope!=='overall');
  $('view-tabs').innerHTML=scope==='overall'
    ? allowed.map(([id,label])=>`<button class="hs-chip ${view===id?'is-active':''}" data-view="${id}" aria-pressed="${view===id}">${esc(label)}</button>`).join('')
-   : `<button class="hs-chip ${view==='matchday'?'is-active':''}" data-view="matchday" aria-pressed="${view==='matchday'}">Spieltagswertung</button><button class="hs-chip ${view==='individual'?'is-active':''}" data-view="individual" aria-pressed="${view==='individual'}">Gesamtwertung</button><label class="hs-team-select-wrap ${(view==='team'||view==='teamOverall')?'is-active':''}"><span class="sr-only">Teamwertung auswählen</span><select class="hs-team-select" id="hs-team-select" aria-label="Teamwertung auswählen"><option value="team" ${view==='team'?'selected':''}>Spieltags-Teamwertung</option><option value="teamOverall" ${view==='teamOverall'?'selected':''}>Team-Gesamtwertung</option></select></label>`;
+   : `<button class="hs-chip ${view==='matchday'?'is-active':''}" data-view="matchday" aria-pressed="${view==='matchday'}">Spieltagswertung</button><button class="hs-chip ${view==='individual'?'is-active':''}" data-view="individual" aria-pressed="${view==='individual'}">Gesamtwertung</button><label class="hs-team-select-wrap ${(view==='team'||view==='teamOverall')?'is-active':''}"><span class="sr-only">Teamwertung auswählen</span><select class="hs-team-select" id="hs-team-select" aria-label="Teamwertung auswählen"><option value="" disabled ${(view!=='team'&&view!=='teamOverall')?'selected':''}>Teamwertung auswählen</option><option value="team" ${view==='team'?'selected':''}>Spieltags-Teamwertung</option><option value="teamOverall" ${view==='teamOverall'?'selected':''}>Gesamt-Teamwertung</option></select></label>`;
  $('competition-tabs').querySelectorAll('[data-scope]').forEach(b=>b.onclick=()=>{scope=b.dataset.scope;view=scope==='overall'?'individual':'matchday';query='';page=1;$('player-search').value='';render();});
  $('view-tabs').querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{view=b.dataset.view;query='';page=1;$('player-search').value='';render();if(view==='teamOverall')loadEventTeamOverall();});
- const teamSelect=$('hs-team-select');if(teamSelect)teamSelect.onchange=()=>{view=teamSelect.value;query='';page=1;$('player-search').value='';render();if(view==='teamOverall')loadEventTeamOverall();};
+ const teamSelect=$('hs-team-select');if(teamSelect)teamSelect.onchange=()=>{if(!['team','teamOverall'].includes(teamSelect.value))return;view=teamSelect.value;query='';page=1;$('player-search').value='';render();if(view==='teamOverall')loadEventTeamOverall();};
 }
 function renderSummary(list){
  const c=current(),scopeLabel=scope==='overall'?'Saison gesamt':c.label||catalog.find(x=>x[0]===scope)?.[1]||scope;
  const viewLabel=views().find(x=>x[0]===view)?.[1]||view;
  $('summary-scope').textContent=scopeLabel;$('summary-view').textContent=viewLabel;
  const zero=allZero(list),leader=zero?null:list[0];
- const sharedLeaders=!zero&&view!=='team'&&view!=='bonus'?list.filter(r=>Number(rowRank(r,0))===1):[];
+ const sharedLeaders=!zero&&view!=='team'&&view!=='teamOverall'&&view!=='bonus'?list.filter(r=>Number(rowRank(r,0))===1):[];
  const shared=sharedLeaders.length>1;
  $('summary-leader-label').textContent=(view==='team'||view==='teamOverall')?'Führendes Team':view==='bonus'?'Bonusführer':shared?'Gemeinsam Führende':'Führender';
  $('summary-leader').textContent=shared?`${sharedLeaders.length} Spieler`:leader?rowName(leader):'Noch offen';
@@ -136,7 +136,7 @@ function renderPodium(list){
    return;
  }
 
- const sharedLeaders=view!=='team'&&view!=='bonus'?list.filter(r=>Number(rowRank(r,0))===1):[];
+ const sharedLeaders=view!=='team'&&view!=='teamOverall'&&view!=='bonus'?list.filter(r=>Number(rowRank(r,0))===1):[];
  if(sharedLeaders.length>1){
    podium.className='hs-podium hs-podium--simple hs-podium--tie';
    podium.innerHTML=`<div class="hs-simple-deck">
