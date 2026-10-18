@@ -1,5 +1,13 @@
-TOSMC Startseite TEST2 – nach Entfernen des Terminblocks.
-Nur auf Test2v2 testen!
-Vorhandene index.html sichern und die Datei index.html ersetzen. Keine JSON-Dateien austauschen.
-Browser neu laden (Strg+F5). Desktop und Mobil prüfen: kein Leerraum nach letztem Spiel, Kicktipp Live Action sichtbar, normale Spiele und Countdown unverändert.
-Keine Live-Freigabe.
+TOSMC Startseite TEST3 – nur Test2v2
+
+Ausgangsbasis: bestaetigter Startseite TEST2 (2026-10-18).
+
+Bitte NUR index.html im Test2v2-Hauptverzeichnis austauschen.
+Vorher Sicherungskopie anlegen. Keine JSON-Dateien austauschen.
+
+Aenderung: Doppelte innere Containerrahmen der Spieltagskachel
+entfernt (Pseudo-Rahmen und Rahmen der sm-event-list).
+Der aeussere Kachelrahmen und die Tages-Spielkarten bleiben bestehen.
+Funktion, Liste, Scrollverhalten und Datenlogik wurden nicht geaendert.
+
+Bitte Desktop und Mobil pruefen; danach erst Live-Release vorbereiten.

@@ -5664,6 +5664,17 @@
       }
     }
 
+    /* TEST3: Spieltagskachel – nur ein Containerrahmen, Spielkarten bleiben erhalten. */
+    #aktueller-spieltag.sm-schedule::before {
+      content: none;
+    }
+
+    #aktueller-spieltag.sm-schedule .sm-event-list {
+      border: 0;
+      box-shadow: none;
+      background: transparent;
+    }
+
   </style>
   <link rel="stylesheet" href="./highscore.css?v=4.0.1">
   <link rel="stylesheet" href="./logbuch.css?v=4.9.2-HF12-HF73">
