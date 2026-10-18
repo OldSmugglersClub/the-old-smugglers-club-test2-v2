@@ -1,0 +1,16 @@
+TOSMC HIGHSCORE – SMUGGLERAUFTRAEGE GESAMT-TEAMWERTUNG TEST2 (18.10.2026)
+
+NUR TEST2v2 – KEINE LIVE-FREIGABE.
+
+Basis: mobil korrigierte Highscore TEST1 (Desktop und Mobil vom Nutzer bestaetigt).
+
+Installieren: vorhandene highscore.js sichern; ausschliesslich highscore.js im Website-Hauptverzeichnis ersetzen; Browser neu laden.
+NICHT highscore.css oder highscore.html aendern; keine JSON-Dateien ersetzen.
+
+Korrektur: Die bestehende eventbezogene Team-Gesamtberechnung darf Teilnehmer in historischen Gesamt-Ranglisten nicht wegen inzwischen inaktivem Status verwerfen. Alle Teilnehmer-IDs muessen dennoch eindeutig sein und ihre Teamzuordnung sowie Punktwerte gueltig bleiben.
+
+Referenzstand fuer Smugglerauftraege aus der geprueften Live-Datenbasis:
+New Smugglers Team: 630 Punkte / 77 Teilnehmer = 8,18
+Old Smugglers Team: 172 Punkte / 26 Teilnehmer = 6,62
+
+Test2v2: Smugglerauftraege -> Gesamt-Teamwertung; beide Teamkarten; Vergleich Bundesliga, CL; Spieltags-Teamwertung; Auswahl Mobil und Desktop; keine Regressionen.

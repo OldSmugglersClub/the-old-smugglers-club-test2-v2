@@ -13,13 +13,14 @@ window.OSCHighscoreGoToPage=function(requested){
 };
 const $=id=>document.getElementById(id);
 function firstNonEmptyArray(...values){for(const value of values){if(Array.isArray(value)&&value.length)return value;}for(const value of values){if(Array.isArray(value))return value;}return [];}function normalizeLegacy(d){d=d||{};const overall=d.overall||{};d.overall={individual:firstNonEmptyArray(overall.individual,d.individual?.overall),team:firstNonEmptyArray(overall.team,d.gesamt?.team,d.teams?.overall,d.teamOverall),bonus:firstNonEmptyArray(overall.bonus,d.individual?.bonus)};d.competitions=d.competitions||d.wettbewerbe||{};return d;}
+// Team-Gesamtwertung: historische Ranglistenteilnehmer einschliesslich inzwischen inaktiver Mitglieder zuordnen.
 // Nur die Team-Gesamtansicht liest die jeweils aktuelle Teilnehmerzuordnung nach.
 // Keine Speicherung von kumulierten Werten in der Spieltags-Teamwertung.
 function computeEventTeamOverall(db,highscore){
  const members=db?.stammdaten?.teilnehmer;
  if(!Array.isArray(members))throw new Error('Teamzuordnungen fehlen in spielbetrieb.json.');
  const memberById=new Map();
- for(const m of members){if(m?.id&&['Old Smugglers Team','New Smugglers Team'].includes(m.team)&&m.aktiv!==false){
+ for(const m of members){if(m?.id&&['Old Smugglers Team','New Smugglers Team'].includes(m.team)){
   if(memberById.has(m.id))throw new Error('Teilnehmer-ID mehrfach vorhanden.');
   memberById.set(m.id,m.team);
  }}
