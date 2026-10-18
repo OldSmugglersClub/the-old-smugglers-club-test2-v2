@@ -1,0 +1,16 @@
+TOSMC – STARTSEITE „GEPLANT“ MASKIERUNG – TEST1
+===============================================
+Basis: aktuelle Live-Website 4.9.2-HF12-HF117 (index.html bytegleich mit GitHub-Live).
+
+Nur für Test2v2. Keine Freigabe für Live.
+
+1. In deinem lokalen Test2v2-Repository nur index.html durch die beiliegende Datei ersetzen.
+2. GitHub Desktop: Änderungen kontrollieren, Commit und Push origin.
+3. Desktop: rechte obere Ecke der Terminübersicht prüfen: „GEPLANT“ soll verschwunden sein, „18 Events“ sichtbar bleiben.
+4. Mobil: Startseite, Terminliste, Buttons und Hintergrund prüfen.
+5. Bei Bestätigung wird die Änderung neu gegen Live geprüft und als reguläres Release vorbereitet.
+
+Änderung: eine zusätzliche dunkle radiale Hintergrund-Verlaufsebene in .matchday-panel.
+Keine Daten, Script-, Layout-, HTML-Struktur- oder Versionsänderung.
+
+WICHTIG: Nur den Teststand verwenden; die Live-Version bleibt HF117.
