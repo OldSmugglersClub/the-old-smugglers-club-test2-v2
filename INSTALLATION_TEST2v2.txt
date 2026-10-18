@@ -1,20 +1,5 @@
-TOSMC STARTSEITE – TERMINBLOCK ENTFERNEN – TEST1 (18.10.2026)
-
-NUR TEST2v2, KEINE LIVE-FREIGABE.
-
-Geprüfte Ausgangsbasis: Live main.zip vom 17.10.2026, 20:22.
-Änderungsumfang: ausschließlich index.html im Website-Hauptverzeichnis.
-Der gemeinsame Renderingblock „Noch nicht zeitgenau terminiert“ wurde entfernt.
-Dadurch ist er sowohl auf Desktop als auch auf Mobil nicht mehr sichtbar.
-Unverändert: Event-Daten, JSON-Dateien, Zeitplan-Adapter, normale Spielanzeige, Countdown, sonstige Website-Dateien.
-
-INSTALLATION AUF TEST2v2
-1. Die vorhandene index.html sichern.
-2. Vor Einspielung prüfen, ob die index.html von Test2v2 dem geprüften Live-Ausgangsstand entspricht; andernfalls nicht blind überschreiben (unterschiedliche Tests können sonst verloren gehen).
-3. index.html aus dem ZIP ins Website-Hauptverzeichnis kopieren.
-4. Cache hart aktualisieren und Startseite auf Desktop und Mobil prüfen.
-5. Prüfen: keine Rubrik „Noch nicht zeitgenau terminiert“, reguläre angesetzte Spiele sichtbar, Countdown und Eventseiten intakt.
-6. Funktionsbestätigung melden. Danach gesonderte produktive Freigabeprüfung mit frischer Live-Basis.
-
-Website Release Guard auf der modifizierten Live-Kopie: OK, 0 Fehler.
-Inline-JavaScript: node --check bestanden.
+TOSMC Startseite TEST2 – nach Entfernen des Terminblocks.
+Nur auf Test2v2 testen!
+Vorhandene index.html sichern und die Datei index.html ersetzen. Keine JSON-Dateien austauschen.
+Browser neu laden (Strg+F5). Desktop und Mobil prüfen: kein Leerraum nach letztem Spiel, Kicktipp Live Action sichtbar, normale Spiele und Countdown unverändert.
+Keine Live-Freigabe.
