@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "datenVersion": 32,
+  "datenVersion": 33,
   "aktualisiert": "2026-10-18",
   "saison": "2026/2027",
   "quelle": "OpenLigaDB getgoalgetters/bl1/2026",
@@ -71,11 +71,11 @@
       "tore": 3
     },
     {
-      "name": "Aleksandar Pavlovic",
+      "name": "J. Vagnoman",
       "tore": 2
     },
     {
-      "name": "J. Vagnoman",
+      "name": "Aleksandar Pavlovic",
       "tore": 2
     },
     {
@@ -91,11 +91,11 @@
       "tore": 2
     },
     {
-      "name": "Thijs Dallinga",
+      "name": "A. Daghim",
       "tore": 2
     },
     {
-      "name": "A. Daghim",
+      "name": "Thijs Dallinga",
       "tore": 2
     },
     {
@@ -247,11 +247,11 @@
       "tore": 1
     },
     {
-      "name": "T. Lemperle",
+      "name": "L. Avdullahu",
       "tore": 1
     },
     {
-      "name": "L. Avdullahu",
+      "name": "T. Lemperle",
       "tore": 1
     },
     {
@@ -275,11 +275,11 @@
       "tore": 1
     },
     {
-      "name": "R. Königsdörffer",
+      "name": "P. Mwene",
       "tore": 1
     },
     {
-      "name": "P. Mwene",
+      "name": "R. Königsdörffer",
       "tore": 1
     },
     {
@@ -327,11 +327,11 @@
       "tore": 1
     },
     {
-      "name": "Isac Lidberg",
+      "name": "Danny da Costa",
       "tore": 1
     },
     {
-      "name": "Danny da Costa",
+      "name": "S. Machino",
       "tore": 1
     },
     {
@@ -339,11 +339,11 @@
       "tore": 1
     },
     {
-      "name": "F. Neuhaus",
+      "name": "Isac Lidberg",
       "tore": 1
     },
     {
-      "name": "S. Machino",
+      "name": "F. Neuhaus",
       "tore": 1
     },
     {
@@ -439,11 +439,11 @@
       "tore": 1
     },
     {
-      "name": "Maximilian Rohr",
+      "name": "Lasse Günther",
       "tore": 1
     },
     {
-      "name": "Lasse Günther",
+      "name": "Maximilian Rohr",
       "tore": 1
     },
     {
@@ -456,6 +456,14 @@
     },
     {
       "name": "A. Maksimovic",
+      "tore": 1
+    },
+    {
+      "name": "W. Mohya",
+      "tore": 1
+    },
+    {
+      "name": "A. Prass",
       "tore": 1
     }
   ]
