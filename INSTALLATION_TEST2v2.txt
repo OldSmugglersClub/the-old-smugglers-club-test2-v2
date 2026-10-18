@@ -1,13 +1,19 @@
-TOSMC Startseite – TEST4 ausschließlich für Test2v2
+TOSMC – Highscore Fuehrungsdeck / Gleichstaende – TEST1 (18.10.2026)
 
-Basis: bestätigte TEST3-Fassung. Bitte vorhandene index.html sichern.
+NUR TEST2v2. Keine Live-Freigabe.
 
-Einspielen: ausschließlich index.html im Test2v2-Website-Hauptverzeichnis ersetzen.
-Keine JSON-Dateien, CSS- oder JS-Dateien ersetzen.
+Diese beiden Dateien ins Hauptverzeichnis des Test2v2-Repositories ersetzen:
+- highscore.js
+- highscore.html (nur JS-Cache-Kennung angepasst)
 
-Anpassung: Die Terminliste reserviert rechts keinen Scrollleistenplatz mehr und hat keinen zusätzlichen rechten Innenabstand. Das gleicht die äußeren Kartenkanten von „Nächstes Spiel“ und Spieltagsübersicht an.
-Bei vielen Terminen bleibt .is-multiple weiterhin scrollbar.
+Alle anderen Dateien, insbesondere highscore.css, VERSION.txt und saemtliche JSON-Wertungen, unveraendert lassen.
 
-Bitte Desktop und Smartphone prüfen: gleiche rechte und linke Außenkante; alle Spielkarten sichtbar; bei vielen Terminen funktionierender Scrollbereich; Countdown und Kicktipp Live Action unverändert.
+Pruefen:
+1. Bundesliga -> Spieltagswertung -> Spieltag 6: 2 x Rang 1 mit je 19 Punkten, 4 x Rang 3 mit je 18 Punkten. Insgesamt 6 Karten im Fuehrungsdeck.
+2. Mobile Ansicht: sechs Karten im bestehenden Zweispalten-Raster ohne Abschneiden.
+3. Desktop: sechs Karten im bestehenden Dreispalten-Raster.
+4. Alle anderen Wettbewerbe und Ansichten, besonders Teamwertungen, kurz kontrollieren.
+5. Die komplette Rangliste und Kicktipp-Rangfolge duerfen sich nicht aendern.
 
-Nur Test2v2. KEINE LIVE-FREIGABE. Website-Version unverändert.
+Aenderungsumfang: Anzeigeauswahl in renderPodium; keine Punkteaenderung.
+Nach Funktionsbestaetigung wird erst ein regulaeres HF117-Live-Release erstellt.
