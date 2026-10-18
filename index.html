@@ -5675,6 +5675,16 @@
       background: transparent;
     }
 
+    /* TEST4 – gemeinsame rechte Außenkante ohne reservierte Scrollleisten-Rinne.
+       Nur die Terminliste der Startseite; Eventseiten bleiben unberührt. */
+    #aktueller-spieltag.sm-schedule .sm-event-list {
+      scrollbar-gutter: auto;
+      padding-right: 0;
+    }
+    #aktueller-spieltag.sm-schedule .sm-event-list:not(.is-multiple) {
+      overflow-y: visible;
+    }
+
   </style>
   <link rel="stylesheet" href="./highscore.css?v=4.0.1">
   <link rel="stylesheet" href="./logbuch.css?v=4.9.2-HF12-HF73">

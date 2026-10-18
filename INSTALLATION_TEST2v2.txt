@@ -1,13 +1,13 @@
-TOSMC Startseite TEST3 – nur Test2v2
+TOSMC Startseite – TEST4 ausschließlich für Test2v2
 
-Ausgangsbasis: bestaetigter Startseite TEST2 (2026-10-18).
+Basis: bestätigte TEST3-Fassung. Bitte vorhandene index.html sichern.
 
-Bitte NUR index.html im Test2v2-Hauptverzeichnis austauschen.
-Vorher Sicherungskopie anlegen. Keine JSON-Dateien austauschen.
+Einspielen: ausschließlich index.html im Test2v2-Website-Hauptverzeichnis ersetzen.
+Keine JSON-Dateien, CSS- oder JS-Dateien ersetzen.
 
-Aenderung: Doppelte innere Containerrahmen der Spieltagskachel
-entfernt (Pseudo-Rahmen und Rahmen der sm-event-list).
-Der aeussere Kachelrahmen und die Tages-Spielkarten bleiben bestehen.
-Funktion, Liste, Scrollverhalten und Datenlogik wurden nicht geaendert.
+Anpassung: Die Terminliste reserviert rechts keinen Scrollleistenplatz mehr und hat keinen zusätzlichen rechten Innenabstand. Das gleicht die äußeren Kartenkanten von „Nächstes Spiel“ und Spieltagsübersicht an.
+Bei vielen Terminen bleibt .is-multiple weiterhin scrollbar.
 
-Bitte Desktop und Mobil pruefen; danach erst Live-Release vorbereiten.
+Bitte Desktop und Smartphone prüfen: gleiche rechte und linke Außenkante; alle Spielkarten sichtbar; bei vielen Terminen funktionierender Scrollbereich; Countdown und Kicktipp Live Action unverändert.
+
+Nur Test2v2. KEINE LIVE-FREIGABE. Website-Version unverändert.
