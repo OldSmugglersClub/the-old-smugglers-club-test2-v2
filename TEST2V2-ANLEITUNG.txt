@@ -1,16 +1,13 @@
-TOSMC – STARTSEITE „GEPLANT“ MASKIERUNG – TEST1
-===============================================
-Basis: aktuelle Live-Website 4.9.2-HF12-HF117 (index.html bytegleich mit GitHub-Live).
+TOSMC – Startseite GEPLANT-Hintergrund TEST2 (nur Test2v2)
 
-Nur für Test2v2. Keine Freigabe für Live.
+Grundlage: die zuvor ausgelieferte TEST1-index.html, unverändert bis auf eine CSS-Regel.
 
-1. In deinem lokalen Test2v2-Repository nur index.html durch die beiliegende Datei ersetzen.
-2. GitHub Desktop: Änderungen kontrollieren, Commit und Push origin.
-3. Desktop: rechte obere Ecke der Terminübersicht prüfen: „GEPLANT“ soll verschwunden sein, „18 Events“ sichtbar bleiben.
-4. Mobil: Startseite, Terminliste, Buttons und Hintergrund prüfen.
-5. Bei Bestätigung wird die Änderung neu gegen Live geprüft und als reguläres Release vorbereitet.
+TEST1 ließ das eingebettete Wort GEPLANT sichtbar, da die radiale Maske teilweise transparent war.
+TEST2 verwendet einen deckenden dunkelbraunen Maskenkern mit weichem Übergang.
+Die CSS-Regel ist auf Desktop ab 821 px und #aktueller-spieltag begrenzt.
 
-Änderung: eine zusätzliche dunkle radiale Hintergrund-Verlaufsebene in .matchday-panel.
-Keine Daten, Script-, Layout-, HTML-Struktur- oder Versionsänderung.
+Installation: Nur index.html im Test2v2-Repository ersetzen, Commit und Push origin.
+Danach Desktop-Startseite prüfen: Ist GEPLANT verschwunden?
+Auch 18-Events-Badge, Titel, Spielpaare, Scrollbereich und Mobilansicht kurz kontrollieren.
 
-WICHTIG: Nur den Teststand verwenden; die Live-Version bleibt HF117.
+Keine Live-Freigabe. Live-Website HF117 bleibt unverändert.

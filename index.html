@@ -2493,11 +2493,14 @@
         var(--shadow);
     }
 
-    /* Nur Desktop: eingebettetes 'GEPLANT' rechts oben lokal maskieren. */
+    /* TEST2: Desktop – eingebetteten GEPLANT-Schriftzug vollständig verdecken.
+       Deckender Kern statt halbtransparenter TEST1-Maske; sanfter Übergang.
+       Nur Hintergründe, keine Maße, Inhalte oder Interaktionen ändern. */
     @media (min-width: 821px) {
-      .matchday-panel {
+      #aktueller-spieltag.matchday-panel.sm-schedule {
         background-image:
-          radial-gradient(ellipse 540px 145px at 85% 12%, rgba(8,5,3,.97) 0 66%, rgba(8,5,3,.82) 78%, rgba(8,5,3,0) 100%),
+          radial-gradient(ellipse 560px 175px at 77% 5%,
+            #0c0805 0 70%, rgba(12,8,5,.99) 80%, rgba(12,8,5,0) 100%),
           linear-gradient(rgba(7,5,3,.20), rgba(5,3,2,.46)),
           url("./piraten-spieltag-hintergrund.jpg");
       }
