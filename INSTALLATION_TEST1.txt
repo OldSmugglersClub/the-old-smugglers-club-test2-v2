@@ -1,6 +1,5 @@
-TOSMC Startseite – Mobil-Hintergrund TEST1, 18.10.2026
-Nur auf Test2v2 testen. Ausschliesslich index.html im Website-Hauptverzeichnis ersetzen.
-Basis: offizielle Live-Version 4.9.2-HF12-HF114.
-Nur Mobile (bis 760px): Hintergrundbild in der Spieltagskachel durch deckenden dunklen Verlauf ersetzen. Desktop unveraendert. Keine JSON-Dateien ersetzen.
-Pruefen: Smartphone, Desktop, Countdown, Spieleliste, Kicktipp Live Action.
-Keine Live-Freigabe.
+TOSMC Highscore mobile Navigationsfix TEST1 (nur Test2v2)
+Dateien: highscore.js, highscore.css. Desktop unverändert; volle Auswahltexte im nativen Dropdown.
+Beide Dateien im Test2v2 Hauptverzeichnis ersetzen. Cache leeren.
+Mobil: Drei Felder in einer Reihe; Teamwertung/Spieltag/Gesamt ohne Abschneiden. Auswahl beim ersten Klick und beide Wertungen prüfen.
+Desktop: Optik, Werte und Layout unverändert prüfen. Keine Live-Freigabe.
