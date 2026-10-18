@@ -5639,7 +5639,7 @@
       #hall-of-fame .records-grid { grid-template-columns: 1fr; }
       #hall-of-fame .record-card { min-height: 104px; }
 
-      /* TEST18 – nur mobil: Rekordtafel-Titel sicher einzeilig halten. */
+      /* HF111 – nur mobil: Rekordtafel-Titel sicher einzeilig halten. */
       #hall-of-fame .hall-columns--records-only .hall-section-title {
         gap: .35rem;
         font-size: clamp(1.25rem, 6.6vw, 1.6rem);
@@ -7026,42 +7026,6 @@
             elements.list.appendChild(day);
           });
 
-          // Unbestätigte Zeitfenster bleiben sichtbar, beeinflussen aber weder Reihenfolge noch Counter.
-          const announced=timeline.announced.filter(game=>{
-            const from=game._dateFrom;
-            return from && from >= new Intl.DateTimeFormat("en-CA",{year:"numeric",month:"2-digit",day:"2-digit"}).format(now);
-          }).slice(0,6);
-          if(announced.length){
-            const day=document.createElement("section"); day.className="sm-day sm-day--announced";
-            const title=document.createElement("h3"); title.className="sm-day__title"; title.textContent="Noch nicht zeitgenau terminiert";
-            day.appendChild(title);
-            announced.forEach(game=>{
-              const row=document.createElement("div"); row.className="sm-event-row"; row.dataset.competition=game.matchdayType||game.wettbewerb||"";
-              const time=document.createElement("span"); time.className="sm-event-row__time"; time.textContent="--:--";
-              const competition=document.createElement("span"); competition.className="sm-event-row__competition"; competition.textContent=formatEventMatchdayLabel(game, "Ereignis");
-              const match=document.createElement("span"); match.className="sm-event-row__match";
-
-              const homeWrap=document.createElement("span"); homeWrap.className="sm-event-row__team sm-event-row__team--home";
-              const homeSeal=document.createElement("span"); homeSeal.className="sm-event-row__seal";
-              const homeName=document.createElement("span"); homeName.className="sm-event-row__team-name"; homeName.textContent=game.heim;
-              homeWrap.append(homeSeal,homeName);
-
-              const separator=document.createElement("span"); separator.className="sm-event-row__separator"; separator.textContent=game.trenner||"–";
-
-              const awayWrap=document.createElement("span"); awayWrap.className="sm-event-row__team sm-event-row__team--away";
-              const awayName=document.createElement("span"); awayName.className="sm-event-row__team-name"; awayName.textContent=game.auswaerts;
-              const awaySeal=document.createElement("span"); awaySeal.className="sm-event-row__seal";
-              awayWrap.append(awayName,awaySeal);
-
-              match.append(homeWrap,separator,awayWrap);
-              renderTeamSeal(homeSeal,game.heimTeamId,game.heim);
-              renderTeamSeal(awaySeal,game.auswaertsTeamId,game.auswaerts);
-
-              const status=document.createElement("span"); status.className="sm-event-row__status"; status.textContent=game._openReason==="verlegt"?"VERLEGT · TERMIN OFFEN":game._openReason==="abgesagt"?"ABGESAGT · TERMIN OFFEN":game._openReason==="ausgefallen"?"AUSGEFALLEN · TERMIN OFFEN":"ZEIT OFFEN";
-              row.append(time,competition,match,status); day.appendChild(row);
-            });
-            elements.list.appendChild(day);
-          }
           elements.list.classList.toggle("is-empty",!elements.list.children.length);
         }
 

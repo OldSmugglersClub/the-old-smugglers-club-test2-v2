@@ -1,12 +1,20 @@
-TOSMC Highscore TEAMTEST2 – Korrektur von Navigation und Team-Gesamtwertung
+TOSMC STARTSEITE – TERMINBLOCK ENTFERNEN – TEST1 (18.10.2026)
 
-Nur auf Test2v2!
-Vorhandene Dateien sichern. highscore.html, highscore.js und highscore.css ersetzen.
-Browsercache per Strg+F5 leeren.
+NUR TEST2v2, KEINE LIVE-FREIGABE.
 
-Drei bestehende Auswahlfelder bleiben erhalten; das dritte ist ein natives Dropdown.
-Wichtig: Team-Gesamtwertung wird aus highscore.competitions[Event].overall und spielbetrieb.json Mitgliedschaften berechnet. Keine Änderung an JSON-Dateien.
+Geprüfte Ausgangsbasis: Live main.zip vom 17.10.2026, 20:22.
+Änderungsumfang: ausschließlich index.html im Website-Hauptverzeichnis.
+Der gemeinsame Renderingblock „Noch nicht zeitgenau terminiert“ wurde entfernt.
+Dadurch ist er sowohl auf Desktop als auch auf Mobil nicht mehr sichtbar.
+Unverändert: Event-Daten, JSON-Dateien, Zeitplan-Adapter, normale Spielanzeige, Countdown, sonstige Website-Dateien.
 
-Test: Bundesliga -> Dropdown Team-Gesamtwertung -> nicht 1,44/1,04; dann Spieltags-Teamwertung -> Spieltagswerte. Ebenso CL und mobile Darstellung prüfen.
+INSTALLATION AUF TEST2v2
+1. Die vorhandene index.html sichern.
+2. Vor Einspielung prüfen, ob die index.html von Test2v2 dem geprüften Live-Ausgangsstand entspricht; andernfalls nicht blind überschreiben (unterschiedliche Tests können sonst verloren gehen).
+3. index.html aus dem ZIP ins Website-Hauptverzeichnis kopieren.
+4. Cache hart aktualisieren und Startseite auf Desktop und Mobil prüfen.
+5. Prüfen: keine Rubrik „Noch nicht zeitgenau terminiert“, reguläre angesetzte Spiele sichtbar, Countdown und Eventseiten intakt.
+6. Funktionsbestätigung melden. Danach gesonderte produktive Freigabeprüfung mit frischer Live-Basis.
 
-Kein Live-Release vor Browser-Sichttest und fachlicher Prüfung.
+Website Release Guard auf der modifizierten Live-Kopie: OK, 0 Fehler.
+Inline-JavaScript: node --check bestanden.
