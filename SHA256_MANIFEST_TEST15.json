@@ -1,0 +1,23 @@
+{
+  "basis": "TEST14",
+  "ziel": "TEST15",
+  "dateien": {
+    "logbuch.js": {
+      "sha256_before": "5383a4784f7c732397132bc64be68ea49060540ca969a0066d2e84112526cd23",
+      "sha256_after": "c779b4c39eca809e2b967e72d52a14f25262afeaa7b579ddb09621424b169504"
+    },
+    "logbuch.html": {
+      "sha256_before": "5b793f8c92c27017b43d4967bf5625dc511f76a97744e1fa271bb5c9d2757564",
+      "sha256_after": "f52d8794394432112c303977aff16ca730245badb71a1ce03eaf5e5884cb61e9"
+    }
+  },
+  "unveraendert": {
+    "logbuch.css": "1c667f1dcfee1995666ec5929c4cc3fda85de89f1f1ef05ded8a8682e52516e6"
+  },
+  "pruefung": [
+    "Nur zwei metric-Aufrufe mit den vier angeforderten Texten ersetzt",
+    "Cache-Kennung TEST15 aktualisiert",
+    "Node-JavaScript-Syntax OK",
+    "Alle anderen Kacheltexte unverändert"
+  ]
+}
