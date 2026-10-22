@@ -254,52 +254,39 @@ function renderHighlightsWithCoco(entry){
 
 
 function formCrewCard(entry){
+ // Diese Kachel zeigt tatsächliche Leistungen, keine Änderung kumulierter Spieltagssiege.
  const matchdays=arr(spieltagpunkteDoc?.spieltage).filter(md=>md?.abgeschlossen!==false);
- const index=matchdays.findIndex(md=>md?.id===entry?.id);
- if(index<=0)return "";
-
- const current=matchdays[index];
- const previous=matchdays[index-1];
- const prevById=new Map(arr(previous?.rangliste).map(row=>[row?.teilnehmerId,row]));
-
- const rows=[];
- arr(current?.rangliste).forEach((row,currentOrder)=>{
-   const prev=prevById.get(row?.teilnehmerId);
-   if(!prev)return;
-   const before=Number(prev?.gesamtspieltagssiege);
-   const now=Number(row?.gesamtspieltagssiege);
-   if(!Number.isFinite(before)||!Number.isFinite(now))return;
-   rows.push({
-     order:currentOrder,
-     name:row?.teilnehmer||row?.teilnehmerId||"",
-     before,
-     now,
-     delta:Number((now-before).toFixed(4))
-   });
+ const current=matchdays.find(md=>md?.id===entry?.id);
+ if(!current)return "";
+ const currentIndex=matchdays.indexOf(current);
+ const previous=[...matchdays.slice(0,currentIndex)].reverse().find(md=>md?.wettbewerb===current?.wettbewerb);
+ const previousById=new Map(arr(previous?.rangliste).map(row=>[row?.teilnehmerId,row]));
+ const rows=arr(current?.rangliste).filter(row=>row?.teilnehmerId&&Number.isFinite(Number(row?.punkte))).map((row,order)=>{
+   const prev=previousById.get(row.teilnehmerId);
+   const rank=Number(row?.spieltagsplatzierung??row?.platz);
+   const previousRank=prev?Number(prev?.spieltagsplatzierung??prev?.platz):NaN;
+   return {order,name:row?.teilnehmer||row?.teilnehmerId,points:Number(row.punkte),rank,
+     rankDelta:Number.isFinite(previousRank)&&Number.isFinite(rank)?previousRank-rank:null};
  });
-
- // Bei gleichem Delta bleibt die vorhandene Kicktipp-Reihenfolge maßgeblich.
- rows.sort((a,b)=>b.delta-a.delta||a.order-b.order);
+ // Die vorhandene offizielle Reihenfolge aus dem gespeicherten Wertungsblock erhalten.
+ rows.sort((a,b)=>b.points-a.points||a.order-b.order);
  const top=rows.slice(0,5);
  if(!top.length)return "";
-
- const fmt=value=>Math.abs(value).toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:4});
- const body=top.map((row,i)=>{
-   const cls=row.delta>0?"is-up":row.delta<0?"is-down":"is-flat";
-   const symbol=row.delta>0?"▲":row.delta<0?"▼":"±";
-   const value=row.delta===0?" 0,00":` ${row.delta>0?"+":"−"}${fmt(row.delta)}`;
+ const body=top.map(row=>{
+   const trend=row.rankDelta===null?"Kein Vergleich":row.rankDelta>0?`▲ ${row.rankDelta} Plätze besser`:row.rankDelta<0?`▼ ${Math.abs(row.rankDelta)} Plätze schlechter`:"= Platz unverändert";
+   const label=Number.isFinite(row.rank)?`Platz ${row.rank}`:"Platz offen";
    return `<div class="lb-form-row">
-     <span class="lb-form-rank">${i+1}.</span>
+     <span class="lb-form-rank">${Number.isFinite(row.rank)?row.rank+".":"–"}</span>
      <strong>${esc(row.name)}</strong>
-     <span class="lb-form-course ${cls}">${symbol}${value}</span>
+     <span class="lb-form-course is-up">${row.points.toLocaleString("de-DE")} Punkte</span>
+     <small class="lb-form-trend">${esc(trend)}</small>
    </div>`;
  }).join("");
-
  return `<article class="lb-highlight lb-highlight--form">
    <h3>Form der Crew</h3>
-   <p>Wer bekam beim letzten Wertungsblock den meisten Wind in die Segel?</p>
+   <p>Die fünf punktstärksten Crewmitglieder dieses Wertungsblocks.</p>
    <div class="lb-form-list">${body}</div>
-   
+   <small class="lb-form-note">${previous?"Platzvergleich mit dem vorherigen abgeschlossenen Wertungsblock desselben Wettbewerbs. Punkte beziehen sich nur auf diesen Wertungsblock.":"Noch kein früherer abgeschlossener Wertungsblock desselben Wettbewerbs für einen Platzvergleich vorhanden."}</small>
  </article>`;
 }
 
@@ -351,7 +338,7 @@ function archive(){
    const title=String(entry?.bezeichnung||"").trim();
    if(title){
      const competition=labelType(entry?.wettbewerb||entry?.typ||"");
-     const stripped=title.replace(new RegExp(`^${competition.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}\\s*`,"i"),"").trim();
+     const stripped=title.replace(new RegExp(`^${competition.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}\s*`,"i"),"").trim();
      return keepSpieltag(stripped||title);
    }
    return "Logbucheintrag";

@@ -945,8 +945,7 @@ body{overflow-x:hidden}
 }
 #lb-current .lb-entry--pending + .lb-entry{margin-top:18px}
 
-
-/* Website 4.9.2-HF12-HF101-TEST4 – Frühere Einträge nach Wettbewerb und Spieltag/Runde */
+/* Website 4.9.2-HF12-HF102 – Frühere Einträge nach Wettbewerb und Spieltag/Runde */
 .lb-archive-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .lb-archive-field{display:flex;flex-direction:column;gap:7px;min-width:0}
 .lb-archive-field label{color:#c99b4d;font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
@@ -955,7 +954,7 @@ body{overflow-x:hidden}
 .lb-archive-empty{color:#bda783;line-height:1.5}
 @media(max-width:760px){.lb-archive-controls{grid-template-columns:1fr}}
 
-/* Website 4.9.2-HF12-HF101-TEST8 – Mobile Logbuch-Navigation ohne Seitenüberlauf */
+/* Website 4.9.2-HF12-HF104 – Mobile Logbuch-Navigation ohne Seitenüberlauf */
 @media(max-width:520px){
   .lb-toolbar .tosmc-nav-button{
     box-sizing:border-box;
@@ -963,3 +962,9 @@ body{overflow-x:hidden}
   }
 }
 
+
+/* Form der Crew TEST1: Punktwert mit separatem Rangtrend */
+.lb-highlight--form .lb-form-row{grid-template-columns:30px minmax(0,1fr) auto;row-gap:2px}
+.lb-highlight--form .lb-form-trend{grid-column:2 / 4;color:#bca689;font-size:.69rem;text-align:right}
+.lb-highlight--form .lb-form-course{white-space:nowrap;min-width:0;color:#edcf91}
+@media(max-width:760px){.lb-highlight--form .lb-form-row{grid-template-columns:26px minmax(0,1fr) auto}.lb-highlight--form .lb-form-trend{font-size:.64rem}}
