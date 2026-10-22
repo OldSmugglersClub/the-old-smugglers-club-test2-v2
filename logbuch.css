@@ -48,7 +48,7 @@
 .lb-entry-head{text-align:center;padding-bottom:16px;border-bottom:1px solid rgba(190,137,48,.24)}
 .lb-entry-head span{display:block;color:#b97f2d;text-transform:uppercase;font-size:.7rem;letter-spacing:.11em}
 .lb-entry-head h2{margin:.35rem 0 0;font-family:Georgia,"Times New Roman",serif;color:#f0d29a}
-.lb-highlight-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+.lb-highlight-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px;align-items:start}
 .lb-highlight{padding:15px;border:1px solid rgba(190,137,48,.28);border-radius:11px;background:rgba(26,14,7,.7)}
 .lb-highlight--hero{grid-column:1/-1;background:linear-gradient(135deg,rgba(77,42,14,.66),rgba(24,13,7,.78))}
 .lb-highlight h3{margin:0 0 8px;color:#d8a84e;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em}

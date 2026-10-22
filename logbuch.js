@@ -260,15 +260,17 @@ function formCrewCard(entry){
    people.forEach(r=>{
      const id=r.teilnehmerId;
      const rank=Number(r?.spieltagsplatzierung??r?.platz);
-     const row=grouped.get(id)||{id,name:r?.teilnehmer||id,total:0,ranks:[],appearances:0};
+     const tipped=(r?.nichtAbgegeben!==true)&&String(r?.tippStatus||"").toLowerCase()!=="nicht-abgegeben";
+     const row=grouped.get(id)||{id,name:r?.teilnehmer||id,total:0,ranks:[],appearances:0,tippedCount:0};
      row.name=r?.teilnehmer||row.name;
      row.total+=Number(r.punkte);
      row.ranks.push(Number.isFinite(rank)&&rank>=1?rank:null);
      row.appearances++;
+     if(tipped)row.tippedCount++;
      grouped.set(id,row);
    });
  });
- // Nur Personen mit Daten in jedem der drei betrachteten Wertungsblöcke vergleichen.
+ // Vergleichsbasis: Daten in allen betrachteten Wertungsblöcken vorhanden.
  const eligible=[...grouped.values()].filter(r=>r.appearances===blocks.length).map(r=>({
    ...r,
    avgRank:r.ranks.every(x=>x!==null)?r.ranks.reduce((a,b)=>a+b,0)/r.ranks.length:null,
@@ -276,7 +278,9 @@ function formCrewCard(entry){
  }));
  const strongest=[...eligible].sort((a,b)=>b.total-a.total||a.name.localeCompare(b.name,"de")).slice(0,5);
  const bestIds=new Set(strongest.map(r=>r.id));
- const weakest=[...eligible].filter(r=>!bestIds.has(r.id)).sort((a,b)=>a.total-b.total||a.name.localeCompare(b.name,"de")).slice(0,5);
+ // Flop 5 nur unter Tippern, die in den letzten 3 Spieltagen mindestens einmal tatsächlich abgegeben haben.
+ const weakestPool=[...eligible].filter(r=>r.tippedCount>0&&!bestIds.has(r.id));
+ const weakest=weakestPool.sort((a,b)=>a.total-b.total||a.name.localeCompare(b.name,"de")).slice(0,5);
  const group=(title,rows,kind)=>`<div class="lb-form-section lb-form-section--${kind}"><h4>${title}</h4><div class="lb-form-list">${rows.map((r,index)=>{
    const move=r.change===null?"kein Rangvergleich":r.change>0?`▲ ${r.change} Plätze`:r.change<0?`▼ ${Math.abs(r.change)} Plätze`:"= 0 Plätze";
    const place=r.avgRank===null?"Ø Platz unbekannt":`Ø Platz ${(Math.round(r.avgRank*10)/10).toLocaleString("de-DE")}`;
@@ -287,7 +291,7 @@ function formCrewCard(entry){
  <p class="lb-form-lead">${blocks.length} letzte abgeschlossene Spieltage – alle Wettbewerbe.</p>
  ${group("Beste Form – Top 5",strongest,"best")}
  ${group("Schwächste Form – Flop 5",weakest,"worst")}
- <p class="lb-form-explain">Form = Summe der Punkte aus ${blocks.length} Spieltagen. Ø Platz und ▲/▼ zeigen nur die Platzentwicklung.</p>
+ <p class="lb-form-explain">Form = Summe der Punkte aus ${blocks.length} Spieltagen. Flop 5 nur mit mindestens 1 abgegebenem Tipp. Ø Platz und ▲/▼ zeigen nur die Platzentwicklung.</p>
  <details class="lb-form-context"><summary>Gewertete Spieltage</summary><p>${labels}</p></details>
  </article>`;
 }
