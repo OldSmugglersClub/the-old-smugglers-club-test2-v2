@@ -197,17 +197,7 @@ function renderHighlight(h,entry){
    </article>`;
  }
  if(h.typ==="kursbewegung"){
-   const movementSide=(title,rows,direction)=>{
-     const people=arr(rows).slice(0,5);
-     const symbol=direction==="up"?"▲":"▼";
-     const sign=direction==="up"?"+":"−";
-     const names=people.map(row=>{
-       const value=Math.abs(Number(row?.veraenderung||0));
-       return `<span class="lb-name lb-name--movement is-${direction}"><span>${esc(row?.teilnehmer||"")}</span><strong>${symbol} ${sign}${value} Plätze</strong></span>`;
-     }).join("");
-     return `<div class="lb-movement-side is-${direction}"><h4>${title}</h4><div class="lb-names lb-movement-names">${names}</div></div>`;
-   };
-   return `<article class="lb-highlight lb-highlight--movement"><h3>Kursbewegung</h3><div class="lb-movement-grid">${movementSide("Größter Sprung",d.gewinner,"up")}${movementSide("Größter Verlust",d.verlierer,"down")}</div></article>`;
+   return courseMovementCard(entry);
  }
  if(h.typ==="zahlen-aus-der-kombuese") return `<article class="lb-highlight lb-highlight--wide lb-highlight--galley"><h3>Zahlen aus der Kombüse</h3><div class="lb-galley-grid"><div><strong>${Number(d.abgegeben||0)}</strong><span>Abgaben</span></div><div><strong>${Number(d.nichtAbgegeben||0)}</strong><span>Nichtabgaben</span></div><div><strong>${Number(d.exakt||0)}</strong><span>Exakt</span></div><div><strong>${Number(d.differenz||0)}</strong><span>Differenz</span></div><div><strong>${Number(d.tendenz||0)}</strong><span>Tendenz</span></div></div></article>`;
  return "";
@@ -253,28 +243,33 @@ function renderHighlightsWithCoco(entry){
 }
 
 
-function formCrewCard(entry){
- // Diese Kachel zeigt tatsächliche Leistungen, keine Änderung kumulierter Spieltagssiege.
- const matchdays=arr(spieltagpunkteDoc?.spieltage).filter(md=>md?.abgeschlossen!==false);
+function getSpieltagVergleich(entry){
+ // Einheitliche Rangbasis: einzelner abgeschlossener Wertungsblock gegen den
+ // vorherigen abgeschlossenen Wertungsblock desselben Wettbewerbs.
+ const matchdays=arr(spieltagpunkteDoc?.spieltage).filter(md=>md?.abgeschlossen===true);
  const current=matchdays.find(md=>md?.id===entry?.id);
- if(!current)return "";
+ if(!current)return null;
  const currentIndex=matchdays.indexOf(current);
  const previous=[...matchdays.slice(0,currentIndex)].reverse().find(md=>md?.wettbewerb===current?.wettbewerb);
  const previousById=new Map(arr(previous?.rangliste).map(row=>[row?.teilnehmerId,row]));
- const rows=arr(current?.rangliste).filter(row=>row?.teilnehmerId&&Number.isFinite(Number(row?.punkte))).map((row,order)=>{
+ const rows=arr(current.rangliste).filter(row=>row?.teilnehmerId&&Number.isFinite(Number(row?.punkte))).map((row,order)=>{
    const prev=previousById.get(row.teilnehmerId);
    const rank=Number(row?.spieltagsplatzierung??row?.platz);
    const previousRank=prev?Number(prev?.spieltagsplatzierung??prev?.platz):NaN;
-   return {order,name:row?.teilnehmer||row?.teilnehmerId,points:Number(row.punkte),rank,
-     rankDelta:Number.isFinite(previousRank)&&Number.isFinite(rank)?previousRank-rank:null};
+   return {order,id:row.teilnehmerId,name:row?.teilnehmer||row.teilnehmerId,points:Number(row.punkte),rank,
+     rankDelta:previous&&Number.isFinite(previousRank)&&Number.isFinite(rank)?previousRank-rank:null};
  });
- // Die vorhandene offizielle Reihenfolge aus dem gespeicherten Wertungsblock erhalten.
+ return {previous,rows};
+}
+function formCrewCard(entry){
+ const comparison=getSpieltagVergleich(entry);
+ if(!comparison)return "";
+ const {previous,rows}=comparison;
  rows.sort((a,b)=>b.points-a.points||a.order-b.order);
  const top=rows.slice(0,5);
  if(!top.length)return "";
  const body=top.map(row=>{
    const trend=row.rankDelta===null?"Kein Vergleich":row.rankDelta>0?`▲ ${row.rankDelta} Plätze besser`:row.rankDelta<0?`▼ ${Math.abs(row.rankDelta)} Plätze schlechter`:"= Platz unverändert";
-   const label=Number.isFinite(row.rank)?`Platz ${row.rank}`:"Platz offen";
    return `<div class="lb-form-row">
      <span class="lb-form-rank">${Number.isFinite(row.rank)?row.rank+".":"–"}</span>
      <strong>${esc(row.name)}</strong>
@@ -288,6 +283,23 @@ function formCrewCard(entry){
    <div class="lb-form-list">${body}</div>
    <small class="lb-form-note">${previous?"Platzvergleich mit dem vorherigen abgeschlossenen Wertungsblock desselben Wettbewerbs. Punkte beziehen sich nur auf diesen Wertungsblock.":"Noch kein früherer abgeschlossener Wertungsblock desselben Wettbewerbs für einen Platzvergleich vorhanden."}</small>
  </article>`;
+}
+function courseMovementCard(entry){
+ const comparison=getSpieltagVergleich(entry);
+ if(!comparison)return "";
+ const {previous,rows}=comparison;
+ const compared=rows.filter(row=>row.rankDelta!==null);
+ const rise=Math.max(0,...compared.map(row=>row.rankDelta));
+ const fall=Math.min(0,...compared.map(row=>row.rankDelta));
+ const winners=rise>0?compared.filter(row=>row.rankDelta===rise).slice(0,5):[];
+ const losers=fall<0?compared.filter(row=>row.rankDelta===fall).slice(0,5):[];
+ const side=(title,items,direction)=>{
+   const symbol=direction==="up"?"▲":"▼";
+   const sign=direction==="up"?"+":"−";
+   const names=items.map(row=>`<span class="lb-name lb-name--movement is-${direction}"><span>${esc(row.name)}</span><strong>${symbol} ${sign}${Math.abs(row.rankDelta)} Plätze</strong></span>`).join("");
+   return `<div class="lb-movement-side is-${direction}"><h4>${title}</h4><div class="lb-names lb-movement-names">${names||'<span class="lb-name">Keine Veränderung</span>'}</div></div>`;
+ };
+ return `<article class="lb-highlight lb-highlight--movement"><h3>Kursbewegung</h3>${previous?`<div class="lb-movement-grid">${side("Größter Sprung",winners,"up")}${side("Größter Verlust",losers,"down")}</div><small class="lb-form-note">Platzvergleich zum vorherigen abgeschlossenen Spieltag desselben Wettbewerbs – dieselbe Basis wie „Form der Crew“.</small>`:'<p>Kein vorheriger abgeschlossener Spieltag desselben Wettbewerbs zum Vergleich vorhanden.</p>'}</article>`;
 }
 
 function renderEntry(entry,pending){
