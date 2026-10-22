@@ -10,6 +10,7 @@ let data=null;
 let gameById=new Map();
 let teamById=new Map();
 let spieltagpunkteDoc=null;
+let tippsDoc=null;
 let ranglistenverlaufDoc=null;
 let currentPending={active:false};
 
@@ -232,7 +233,7 @@ function renderHighlightsWithCoco(entry){
    const rendered=renderHighlight(h,entry);
    if(!rendered)continue;
    if(h?.typ==="crewduell"&&stackMovement){
-     rows.push(`<div class="lb-highlight-stack">${rendered}${renderHighlight(movementHighlight,entry)}</div>`);
+     rows.push(`<div class="lb-highlight-stack">${rendered}${renderHighlight(movementHighlight,entry)}${spieltagBilanzCard(entry)}</div>`);
      rows.push(form);
    }else{
      rows.push(rendered);
@@ -248,6 +249,40 @@ function renderHighlightsWithCoco(entry){
    if(coco)rows.push(coco);
  }
  return rows.join("");
+}
+
+// TEST7: Bilanz ausschließlich aus dem eindeutig zugeordneten, abgeschlossenen Spieltag.
+// Keine aus unterschiedlichen Galley-Teilwerten abgeleiteten Teilnahmequoten.
+function spieltagBilanzCard(entry){
+ const block=arr(spieltagpunkteDoc?.spieltage).find(x=>x?.id===entry?.id&&x?.abgeschlossen===true);
+ if(!block)return "";
+ const rows=arr(block.rangliste).filter(r=>r?.teilnehmerId&&typeof r.punkte==="number"&&Number.isFinite(r.punkte));
+ const uniqueIds=new Set(rows.map(r=>String(r.teilnehmerId)));
+ if(!rows.length||uniqueIds.size!==rows.length)return "";
+ const total=rows.reduce((sum,r)=>sum+r.punkte,0);
+ const games=new Set(arr(entry?.spielIds).filter(Boolean));
+ if(!games.size)return "";
+ // Nur echte, gültige Einzel-Tippabgaben zählen. Ein Teilnehmer ohne abgegebenen Tipp
+ // bleibt im Gesamtpunktewert enthalten, darf aber nicht den Tipper-Durchschnitt senken.
+ const validTips=arr(tippsDoc?.tipps).filter(t=>games.has(t?.spielId)
+   &&t?.status==="abgegeben"
+   &&Number.isInteger(t?.heimtore)&&Number.isInteger(t?.auswaertstore)
+   &&t?.teilnehmerId);
+ const activeIds=new Set(validTips.map(t=>String(t.teilnehmerId)));
+ if(!activeIds.size)return "";
+ const average=total/activeIds.size;
+ const de=n=>Number(n).toLocaleString("de-DE");
+ const metric=(name,value,note)=>`<div class="lb-bilanz-metric"><span>${name}</span><strong>${value}</strong><small>${note}</small></div>`;
+ return `<article class="lb-highlight lb-highlight--bilanz">
+  <h3>Spieltagsbilanz</h3>
+  <p class="lb-bilanz-intro">Das Ergebnis dieses abgeschlossenen Spieltags auf einen Blick.</p>
+  <div class="lb-bilanz-grid">
+    ${metric("Spiele",de(games.size),"abgeschlossen")}
+    ${metric("Tipper",de(activeIds.size),"mit Tippabgabe")}
+    ${metric("Punkte",de(total),"insgesamt")}
+    ${metric("Ø Punkte",average.toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2}),"pro aktivem Tipper")}
+  </div>
+ </article>`;
 }
 
 function completedForEntry(entry){
@@ -323,7 +358,7 @@ function courseMovementCard(entry){
  const side=(label,rows,type)=>`<div class="lb-movement-side is-${type}"><h4>${label}</h4>${rows.length?rows.map(row=>`<div class="lb-movement-record"><strong>${esc(row.name)}</strong><b>${type==='up'?'▲ +':'▼ −'}${Math.abs(row.delta)} Plätze</b><small>${row.earned>=0?"+":""}${row.earned} Punkte · Gesamtplatz ${row.before} → ${row.now}</small></div>`).join(""):'<span>Keine Platzänderung</span>'}</div>`;
  return `<article class="lb-highlight lb-highlight--movement"><h3>Kursbewegung</h3><p class="lb-form-lead">Wie veränderte der letzte Spieltag die Gesamtwertung?</p>
  <div class="lb-movement-grid">${side("Größter Sprung",gain,"up")}${side("Größter Verlust",loss,"down")}</div>
- <p class="lb-form-explain">Gesamtrang vor und nach ${esc(current.bezeichnung||"dem letzten Spieltag")}; alle Wettbewerbe berücksichtigt.</p></article>`;
+ <p class="lb-form-explain">Vergleich der Gesamtplatzierung vor und nach diesem Spieltagsabschluss.</p></article>`;
 }
 
 function renderEntry(entry,pending){
@@ -469,11 +504,11 @@ function buildPending(view,matchdayDoc,gameDoc,logs){
 
 async function init(){
  try{
-   const [logDoc,view,matchdays,games,spieltagpunkte,teams,ranglistenverlauf]=await Promise.all([
-     fetchJson("./spieltag-logbuch.json"),fetchJson("./website-view.json"),fetchJson("./tippspieltage.json"),fetchJson("./spieldaten.json"),fetchJson("./spieltagpunkte.json"),fetchJson("./teams.json"),fetchJson("./ranglistenverlauf.json")
+   const [logDoc,view,matchdays,games,spieltagpunkte,teams,ranglistenverlauf,tipps]=await Promise.all([
+     fetchJson("./spieltag-logbuch.json"),fetchJson("./website-view.json"),fetchJson("./tippspieltage.json"),fetchJson("./spieldaten.json"),fetchJson("./spieltagpunkte.json"),fetchJson("./teams.json"),fetchJson("./ranglistenverlauf.json"),fetchJson("./tipps.json")
    ]);
    if(!logDoc)throw Error("spieltag-logbuch.json nicht erreichbar");
-   data=logDoc; spieltagpunkteDoc=spieltagpunkte; ranglistenverlaufDoc=ranglistenverlauf; gameById=new Map(flattenGames(games).map(g=>[g.id,g])); teamById=new Map(arr(teams?.teams).map(t=>[String(t?.id||""),t])); const latest=(data.logbuecher||[]).at(-1)||null;
+   data=logDoc; spieltagpunkteDoc=spieltagpunkte; ranglistenverlaufDoc=ranglistenverlauf; tippsDoc=tipps; gameById=new Map(flattenGames(games).map(g=>[g.id,g])); teamById=new Map(arr(teams?.teams).map(t=>[String(t?.id||""),t])); const latest=(data.logbuecher||[]).at(-1)||null;
    const pending=buildPending(view,matchdays,games,arr(data.logbuecher)); currentPending=pending;
    renderThirtySeconds(latest,pending); renderEntry(latest,pending); archive();
    const st=$("#lb-status"); if(st) st.remove();
