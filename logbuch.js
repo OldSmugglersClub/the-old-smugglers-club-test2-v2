@@ -10,6 +10,7 @@ let data=null;
 let gameById=new Map();
 let teamById=new Map();
 let spieltagpunkteDoc=null;
+let ranglistenverlaufDoc=null;
 let currentPending={active:false};
 
 function shown(entry){return (entry?.highlights||[]).filter(h=>h?.anzeigen===true)}
@@ -243,63 +244,76 @@ function renderHighlightsWithCoco(entry){
 }
 
 
-function getSpieltagVergleich(entry){
- // Einheitliche Rangbasis: einzelner abgeschlossener Wertungsblock gegen den
- // vorherigen abgeschlossenen Wertungsblock desselben Wettbewerbs.
- const matchdays=arr(spieltagpunkteDoc?.spieltage).filter(md=>md?.abgeschlossen===true);
- const current=matchdays.find(md=>md?.id===entry?.id);
- if(!current)return null;
- const currentIndex=matchdays.indexOf(current);
- const previous=[...matchdays.slice(0,currentIndex)].reverse().find(md=>md?.wettbewerb===current?.wettbewerb);
- const previousById=new Map(arr(previous?.rangliste).map(row=>[row?.teilnehmerId,row]));
- const rows=arr(current.rangliste).filter(row=>row?.teilnehmerId&&Number.isFinite(Number(row?.punkte))).map((row,order)=>{
-   const prev=previousById.get(row.teilnehmerId);
-   const rank=Number(row?.spieltagsplatzierung??row?.platz);
-   const previousRank=prev?Number(prev?.spieltagsplatzierung??prev?.platz):NaN;
-   return {order,id:row.teilnehmerId,name:row?.teilnehmer||row.teilnehmerId,points:Number(row.punkte),rank,
-     rankDelta:previous&&Number.isFinite(previousRank)&&Number.isFinite(rank)?previousRank-rank:null};
- });
- return {previous,rows};
+function completedForEntry(entry){
+ const completed=arr(spieltagpunkteDoc?.spieltage).filter(x=>x?.abgeschlossen===true);
+ const index=completed.findIndex(x=>x?.id===entry?.id);
+ return index<0?[]:completed.slice(Math.max(0,index-2),index+1);
 }
 function formCrewCard(entry){
- const comparison=getSpieltagVergleich(entry);
- if(!comparison)return "";
- const {previous,rows}=comparison;
- rows.sort((a,b)=>b.points-a.points||a.order-b.order);
- const top=rows.slice(0,5);
- if(!top.length)return "";
- const body=top.map(row=>{
-   const trend=row.rankDelta===null?"Kein Vergleich":row.rankDelta>0?`▲ ${row.rankDelta} Plätze besser`:row.rankDelta<0?`▼ ${Math.abs(row.rankDelta)} Plätze schlechter`:"= Platz unverändert";
-   return `<div class="lb-form-row">
-     <span class="lb-form-rank">${Number.isFinite(row.rank)?row.rank+".":"–"}</span>
-     <strong>${esc(row.name)}</strong>
-     <span class="lb-form-course is-up">${row.points.toLocaleString("de-DE")} Punkte</span>
-     <small class="lb-form-trend">${esc(trend)}</small>
-   </div>`;
- }).join("");
- return `<article class="lb-highlight lb-highlight--form">
-   <h3>Form der Crew</h3>
-   <p>Die fünf punktstärksten Crewmitglieder dieses Wertungsblocks.</p>
-   <div class="lb-form-list">${body}</div>
-   <small class="lb-form-note">${previous?"Platzvergleich mit dem vorherigen abgeschlossenen Wertungsblock desselben Wettbewerbs. Punkte beziehen sich nur auf diesen Wertungsblock.":"Noch kein früherer abgeschlossener Wertungsblock desselben Wettbewerbs für einen Platzvergleich vorhanden."}</small>
+ const blocks=completedForEntry(entry);
+ if(!blocks.length)return "";
+ // Form nach tatsächlich erzielten Punkten der letzten bis zu drei Wertungsblöcke.
+ // Rangplätze sind nur Zusatzinformation, kein Sortierkriterium.
+ const grouped=new Map();
+ blocks.forEach(block=>{
+   const people=arr(block?.rangliste).filter(r=>r?.teilnehmerId&&Number.isFinite(Number(r?.punkte)));
+   people.forEach(r=>{
+     const id=r.teilnehmerId;
+     const rank=Number(r?.spieltagsplatzierung??r?.platz);
+     const row=grouped.get(id)||{id,name:r?.teilnehmer||id,total:0,ranks:[],appearances:0};
+     row.name=r?.teilnehmer||row.name;
+     row.total+=Number(r.punkte);
+     row.ranks.push(Number.isFinite(rank)&&rank>=1?rank:null);
+     row.appearances++;
+     grouped.set(id,row);
+   });
+ });
+ // Nur Personen mit Daten in jedem der drei betrachteten Wertungsblöcke vergleichen.
+ const eligible=[...grouped.values()].filter(r=>r.appearances===blocks.length).map(r=>({
+   ...r,
+   avgRank:r.ranks.every(x=>x!==null)?r.ranks.reduce((a,b)=>a+b,0)/r.ranks.length:null,
+   change:r.ranks[0]!==null&&r.ranks[r.ranks.length-1]!==null?r.ranks[0]-r.ranks[r.ranks.length-1]:null
+ }));
+ const strongest=[...eligible].sort((a,b)=>b.total-a.total||a.name.localeCompare(b.name,"de")).slice(0,5);
+ const bestIds=new Set(strongest.map(r=>r.id));
+ const weakest=[...eligible].filter(r=>!bestIds.has(r.id)).sort((a,b)=>a.total-b.total||a.name.localeCompare(b.name,"de")).slice(0,5);
+ const group=(title,rows,kind)=>`<div class="lb-form-section lb-form-section--${kind}"><h4>${title}</h4><div class="lb-form-list">${rows.map((r,index)=>{
+   const move=r.change===null?"kein Rangvergleich":r.change>0?`▲ ${r.change} Plätze`:r.change<0?`▼ ${Math.abs(r.change)} Plätze`:"= 0 Plätze";
+   const place=r.avgRank===null?"Ø Platz unbekannt":`Ø Platz ${(Math.round(r.avgRank*10)/10).toLocaleString("de-DE")}`;
+   return `<div class="lb-form-row"><span class="lb-form-rank">${index+1}.</span><strong title="${esc(r.name)}">${esc(r.name)}</strong><span class="lb-form-stats"><b>${r.total.toLocaleString("de-DE")} Punkte</b><small>${place} · ${move}</small></span></div>`;
+ }).join("")}</div></div>`;
+ const labels=blocks.map(b=>esc(b.bezeichnung||b.runde||b.wettbewerb)).join(" · ");
+ return `<article class="lb-highlight lb-highlight--form"><h3>Form der Crew</h3>
+ <p class="lb-form-lead">${blocks.length} letzte abgeschlossene Spieltage – alle Wettbewerbe.</p>
+ ${group("Beste Form – Top 5",strongest,"best")}
+ ${group("Schwächste Form – Flop 5",weakest,"worst")}
+ <p class="lb-form-explain">Form = Summe der Punkte aus ${blocks.length} Spieltagen. Ø Platz und ▲/▼ zeigen nur die Platzentwicklung.</p>
+ <details class="lb-form-context"><summary>Gewertete Spieltage</summary><p>${labels}</p></details>
  </article>`;
 }
 function courseMovementCard(entry){
- const comparison=getSpieltagVergleich(entry);
- if(!comparison)return "";
- const {previous,rows}=comparison;
- const compared=rows.filter(row=>row.rankDelta!==null);
- const rise=Math.max(0,...compared.map(row=>row.rankDelta));
- const fall=Math.min(0,...compared.map(row=>row.rankDelta));
- const winners=rise>0?compared.filter(row=>row.rankDelta===rise).slice(0,5):[];
- const losers=fall<0?compared.filter(row=>row.rankDelta===fall).slice(0,5):[];
- const side=(title,items,direction)=>{
-   const symbol=direction==="up"?"▲":"▼";
-   const sign=direction==="up"?"+":"−";
-   const names=items.map(row=>`<span class="lb-name lb-name--movement is-${direction}"><span>${esc(row.name)}</span><strong>${symbol} ${sign}${Math.abs(row.rankDelta)} Plätze</strong></span>`).join("");
-   return `<div class="lb-movement-side is-${direction}"><h4>${title}</h4><div class="lb-names lb-movement-names">${names||'<span class="lb-name">Keine Veränderung</span>'}</div></div>`;
- };
- return `<article class="lb-highlight lb-highlight--movement"><h3>Kursbewegung</h3>${previous?`<div class="lb-movement-grid">${side("Größter Sprung",winners,"up")}${side("Größter Verlust",losers,"down")}</div><small class="lb-form-note">Platzvergleich zum vorherigen abgeschlossenen Spieltag desselben Wettbewerbs – dieselbe Basis wie „Form der Crew“.</small>`:'<p>Kein vorheriger abgeschlossener Spieltag desselben Wettbewerbs zum Vergleich vorhanden.</p>'}</article>`;
+ const logs=arr(data?.logbuecher).filter(x=>x?.abgeschlossen===true);
+ const index=logs.findIndex(x=>x?.id===entry?.id);
+ if(index<0)return "";
+ const current=logs[index],previous=index>0?logs[index-1]:null;
+ if(!previous)return `<article class="lb-highlight lb-highlight--movement"><h3>Kursbewegung</h3><p>Kein vorheriger Gesamtstand zum Vergleichen.</p></article>`;
+ const comparisons=[];
+ arr(ranglistenverlaufDoc?.verlaeufe).forEach(person=>{
+   const currentPoint=arr(person?.punkte).find(p=>p?.auftragId===current.id);
+   const previousPoint=arr(person?.punkte).find(p=>p?.auftragId===previous.id);
+   const now=Number(currentPoint?.platz),before=Number(previousPoint?.platz);
+   if(!currentPoint||!previousPoint||!Number.isFinite(now)||!Number.isFinite(before))return;
+   comparisons.push({name:person.teilnehmer||person.teilnehmerId,delta:before-now,before,now,
+     earned:Number(currentPoint.punkte)-Number(previousPoint.punkte)});
+ });
+ const maxGain=Math.max(0,...comparisons.map(x=>x.delta));
+ const maxLoss=Math.min(0,...comparisons.map(x=>x.delta));
+ const gain=maxGain>0?comparisons.filter(x=>x.delta===maxGain).slice(0,5):[];
+ const loss=maxLoss<0?comparisons.filter(x=>x.delta===maxLoss).slice(0,5):[];
+ const side=(label,rows,type)=>`<div class="lb-movement-side is-${type}"><h4>${label}</h4>${rows.length?rows.map(row=>`<div class="lb-movement-record"><strong>${esc(row.name)}</strong><b>${type==='up'?'▲ +':'▼ −'}${Math.abs(row.delta)} Plätze</b><small>${row.earned>=0?"+":""}${row.earned} Punkte · Gesamtplatz ${row.before} → ${row.now}</small></div>`).join(""):'<span>Keine Platzänderung</span>'}</div>`;
+ return `<article class="lb-highlight lb-highlight--movement"><h3>Kursbewegung</h3><p class="lb-form-lead">Wie veränderte der letzte Spieltag die Gesamtwertung?</p>
+ <div class="lb-movement-grid">${side("Größter Sprung",gain,"up")}${side("Größter Verlust",loss,"down")}</div>
+ <p class="lb-form-explain">Gesamtrang vor und nach ${esc(current.bezeichnung||"dem letzten Spieltag")}; alle Wettbewerbe berücksichtigt.</p></article>`;
 }
 
 function renderEntry(entry,pending){
@@ -445,11 +459,11 @@ function buildPending(view,matchdayDoc,gameDoc,logs){
 
 async function init(){
  try{
-   const [logDoc,view,matchdays,games,spieltagpunkte,teams]=await Promise.all([
-     fetchJson("./spieltag-logbuch.json"),fetchJson("./website-view.json"),fetchJson("./tippspieltage.json"),fetchJson("./spieldaten.json"),fetchJson("./spieltagpunkte.json"),fetchJson("./teams.json")
+   const [logDoc,view,matchdays,games,spieltagpunkte,teams,ranglistenverlauf]=await Promise.all([
+     fetchJson("./spieltag-logbuch.json"),fetchJson("./website-view.json"),fetchJson("./tippspieltage.json"),fetchJson("./spieldaten.json"),fetchJson("./spieltagpunkte.json"),fetchJson("./teams.json"),fetchJson("./ranglistenverlauf.json")
    ]);
    if(!logDoc)throw Error("spieltag-logbuch.json nicht erreichbar");
-   data=logDoc; spieltagpunkteDoc=spieltagpunkte; gameById=new Map(flattenGames(games).map(g=>[g.id,g])); teamById=new Map(arr(teams?.teams).map(t=>[String(t?.id||""),t])); const latest=(data.logbuecher||[]).at(-1)||null;
+   data=logDoc; spieltagpunkteDoc=spieltagpunkte; ranglistenverlaufDoc=ranglistenverlauf; gameById=new Map(flattenGames(games).map(g=>[g.id,g])); teamById=new Map(arr(teams?.teams).map(t=>[String(t?.id||""),t])); const latest=(data.logbuecher||[]).at(-1)||null;
    const pending=buildPending(view,matchdays,games,arr(data.logbuecher)); currentPending=pending;
    renderThirtySeconds(latest,pending); renderEntry(latest,pending); archive();
    const st=$("#lb-status"); if(st) st.remove();
