@@ -1021,3 +1021,24 @@ body{overflow-x:hidden}
     padding-top:18px;
   }
 }
+
+/* TEST11 – dynamischer Hoehenabgleich auch bei geoeffneten "Gewertete Spieltage".
+   Linker Spaltenstapel fuellt dieselbe Grid-Zeile wie Form der Crew.
+   Nur die Spieltagsbilanz waechst; ihr 2x2-Inhalt verteilt den freien Raum.
+   Kein Einfluss auf einspaltige Mobilansicht oder andere Highlight-Raster. */
+@media (min-width:761px) {
+  .lb-highlight-grid:has(> .lb-highlight-stack) > .lb-highlight-stack {
+    align-self:stretch;
+    height:100%;
+    box-sizing:border-box;
+  }
+  .lb-highlight-grid:has(> .lb-highlight-stack) > .lb-highlight-stack > .lb-highlight--bilanz {
+    flex:1 1 auto;
+    display:flex;
+    flex-direction:column;
+  }
+  .lb-highlight-grid:has(> .lb-highlight-stack) > .lb-highlight-stack > .lb-highlight--bilanz > .lb-bilanz-grid {
+    flex:1 1 auto;
+    grid-template-rows:repeat(2,minmax(89px,1fr));
+  }
+}
