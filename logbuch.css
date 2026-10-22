@@ -989,3 +989,8 @@ body{overflow-x:hidden}
 .lb-movement-record b{font-size:1.03rem;color:#e1bd73}
 .lb-movement-record small{font-size:.83rem;color:#c3ab8a}
 @media(max-width:760px){.lb-form-row{grid-template-columns:22px minmax(0,1fr) minmax(105px,auto);gap:6px;padding:7px}.lb-form-stats b{font-size:.82rem}.lb-form-stats small{font-size:.73rem}.lb-highlight--movement .lb-movement-grid{grid-template-columns:1fr}.lb-form-explain{font-size:.81rem}}
+
+/* TEST6: Crewduell und Kursbewegung in einer echten linken Spalte statt getrennten Grid-Zeilen. */
+.lb-highlight-stack{min-width:0;display:flex;flex-direction:column;gap:12px;align-self:start}
+.lb-highlight-stack>.lb-highlight{min-width:0}
+@media(max-width:760px){.lb-highlight-stack{gap:12px}}

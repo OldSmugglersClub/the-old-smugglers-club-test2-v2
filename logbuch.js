@@ -222,15 +222,22 @@ function cocoLogbookCard(entry){
 function renderHighlightsWithCoco(entry){
  const rows=[];
  let inserted=false;
- for(const h of shown(entry)){
+ const highlights=shown(entry);
+ const crewHighlight=highlights.find(h=>h?.typ==="crewduell");
+ const movementHighlight=highlights.find(h=>h?.typ==="kursbewegung");
+ const form=crewHighlight?formCrewCard(entry):"";
+ const stackMovement=Boolean(crewHighlight&&movementHighlight&&form);
+ for(const h of highlights){
+   if(stackMovement&&h?.typ==="kursbewegung")continue;
    const rendered=renderHighlight(h,entry);
-   if(rendered)rows.push(rendered);
-
-   if(h?.typ==="crewduell"){
-     const form=formCrewCard(entry);
-     if(form)rows.push(form);
+   if(!rendered)continue;
+   if(h?.typ==="crewduell"&&stackMovement){
+     rows.push(`<div class="lb-highlight-stack">${rendered}${renderHighlight(movementHighlight,entry)}</div>`);
+     rows.push(form);
+   }else{
+     rows.push(rendered);
+     if(h?.typ==="crewduell"&&form)rows.push(form);
    }
-
    if(h?.typ==="volltreffer"){
      const coco=cocoLogbookCard(entry);
      if(coco){rows.push(coco);inserted=true;}
@@ -242,7 +249,6 @@ function renderHighlightsWithCoco(entry){
  }
  return rows.join("");
 }
-
 
 function completedForEntry(entry){
  const completed=arr(spieltagpunkteDoc?.spieltage).filter(x=>x?.abgeschlossen===true);
