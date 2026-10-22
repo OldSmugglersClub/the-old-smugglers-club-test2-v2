@@ -1042,3 +1042,15 @@ body{overflow-x:hidden}
     grid-template-rows:repeat(2,minmax(89px,1fr));
   }
 }
+
+/* TEST13 – Kursbewegung: kompakte, stabile Anzeige bei Ranggleichstaenden. */
+.lb-highlight--movement .lb-movement-total{
+  color:#e1bd73;font-size:1.03rem;font-weight:900;margin-bottom:9px;white-space:normal;
+}
+.lb-highlight--movement .lb-movement-people{display:flex;flex-direction:column;gap:0;min-width:0}
+.lb-highlight--movement .lb-movement-person{min-width:0;display:flex;flex-direction:column;gap:3px;padding:7px 0;border-top:1px solid rgba(190,137,48,.18)}
+.lb-highlight--movement .lb-movement-person:first-child{border-top:0;padding-top:0}
+.lb-highlight--movement .lb-movement-person strong{font-size:.90rem;color:#ebca87;overflow-wrap:anywhere;line-height:1.25}
+.lb-highlight--movement .lb-movement-person small{font-size:.79rem;color:#c3ab8a;line-height:1.35;overflow-wrap:anywhere}
+.lb-highlight--movement .lb-movement-more{font-size:.78rem;color:#dbc399;margin:7px 0 0;line-height:1.35}
+@media(max-width:760px){.lb-highlight--movement .lb-movement-person{padding:8px 0}}

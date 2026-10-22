@@ -364,9 +364,19 @@ function courseMovementCard(entry){
  });
  const maxGain=Math.max(0,...comparisons.map(x=>x.delta));
  const maxLoss=Math.min(0,...comparisons.map(x=>x.delta));
- const gain=maxGain>0?comparisons.filter(x=>x.delta===maxGain).slice(0,5):[];
- const loss=maxLoss<0?comparisons.filter(x=>x.delta===maxLoss).slice(0,5):[];
- const side=(label,rows,type)=>`<div class="lb-movement-side is-${type}"><h4>${label}</h4>${rows.length?rows.map(row=>`<div class="lb-movement-record"><strong>${esc(row.name)}</strong><b>${type==='up'?'▲ +':'▼ −'}${Math.abs(row.delta)} Plätze</b><small>${row.earned>=0?"+":""}${row.earned} Punkte · Gesamtplatz ${row.before} → ${row.now}</small></div>`).join(""):'<span>Keine Platzänderung</span>'}</div>`;
+ // Alle tatsaechlich Gleichplatzierten ermitteln; rein visuell 3 Namen anzeigen.
+ // Die Vergleichs-/Punkteberechnung bleibt gegenueber TEST12 unveraendert.
+ const gain=maxGain>0?comparisons.filter(x=>x.delta===maxGain):[];
+ const loss=maxLoss<0?comparisons.filter(x=>x.delta===maxLoss):[];
+ const side=(label,rows,type)=>{
+   const ordered=[...rows].sort((a,b)=>a.name.localeCompare(b.name,"de"));
+   const shown=ordered.slice(0,3);
+   const remaining=ordered.length-shown.length;
+   const delta=shown.length?Math.abs(shown[0].delta):0;
+   const headline=shown.length?`<div class="lb-movement-total is-${type}">${type==="up"?"▲ +":"▼ −"}${delta} Plätze</div>`:"";
+   const items=shown.map(row=>`<div class="lb-movement-person"><strong title="${esc(row.name)}">${esc(row.name)}</strong><small>${row.earned>=0?"+":""}${row.earned} Punkte · Gesamtplatz ${row.before} → ${row.now}</small></div>`).join("");
+   return `<div class="lb-movement-side is-${type}"><h4>${label}</h4>${shown.length?`${headline}<div class="lb-movement-people">${items}</div>${remaining>0?`<p class="lb-movement-more">+ ${remaining} weitere gleichauf</p>`:""}`:'<span>Keine Platzänderung</span>'}</div>`;
+ };
  return `<article class="lb-highlight lb-highlight--movement"><h3>Kursbewegung</h3><p class="lb-form-lead">Wie veränderte der letzte Spieltag die Gesamtwertung?</p>
  <div class="lb-movement-grid">${side("Größter Sprung",gain,"up")}${side("Größter Verlust",loss,"down")}</div>
  <p class="lb-form-explain">Vergleich der Gesamtplatzierung vor und nach diesem Spieltagsabschluss.</p></article>`;
