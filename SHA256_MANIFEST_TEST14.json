@@ -1,0 +1,22 @@
+{
+  "basis": "TEST13",
+  "ziel": "TEST14",
+  "dateien": {
+    "logbuch.js": {
+      "sha256_before": "9c5b40c0f28d5f72ad6d509dbc5b325806f57f0cefee8d14185f480daaffc6df",
+      "sha256_after": "5383a4784f7c732397132bc64be68ea49060540ca969a0066d2e84112526cd23"
+    },
+    "logbuch.html": {
+      "sha256_before": "17c6714f3628f343997c5fb89d83affbb8f6f1ed774448c11cefb9671ec62818",
+      "sha256_after": "5b793f8c92c27017b43d4967bf5625dc511f76a97744e1fa271bb5c9d2757564"
+    }
+  },
+  "unveraendert": {
+    "logbuch.css": "1c667f1dcfee1995666ec5929c4cc3fda85de89f1f1ef05ded8a8682e52516e6"
+  },
+  "pruefung": [
+    "Nur Anzeigen-Texte geändert",
+    "JavaScript-Syntax OK",
+    "ZIP-Integrität OK"
+  ]
+}
