@@ -226,23 +226,29 @@ function renderHighlightsWithCoco(entry){
  const highlights=shown(entry);
  const crewHighlight=highlights.find(h=>h?.typ==="crewduell");
  const movementHighlight=highlights.find(h=>h?.typ==="kursbewegung");
- const form=crewHighlight?formCrewCard(entry):"";
- const stackMovement=Boolean(crewHighlight&&movementHighlight&&form);
+ const form=formCrewCard(entry);
+ const bilanz=spieltagBilanzCard(entry);
+ const stackMovement=Boolean(crewHighlight&&form);
  for(const h of highlights){
    if(stackMovement&&h?.typ==="kursbewegung")continue;
    const rendered=renderHighlight(h,entry);
    if(!rendered)continue;
    if(h?.typ==="crewduell"&&stackMovement){
-     rows.push(`<div class="lb-highlight-stack">${rendered}${renderHighlight(movementHighlight,entry)}${spieltagBilanzCard(entry)}</div>`);
+     const movement=movementHighlight?renderHighlight(movementHighlight,entry):"";
+     rows.push(`<div class="lb-highlight-stack">${rendered}${movement}${bilanz}</div>`);
      rows.push(form);
    }else{
      rows.push(rendered);
-     if(h?.typ==="crewduell"&&form)rows.push(form);
    }
    if(h?.typ==="volltreffer"){
      const coco=cocoLogbookCard(entry);
      if(coco){rows.push(coco);inserted=true;}
    }
+ }
+ // Auch bei künftigen Eventtypen ohne Crewduell/ohne Kursbewegung: Form und Bilanz anzeigen.
+ if(!stackMovement){
+   if(form)rows.push(form);
+   if(bilanz)rows.push(bilanz);
  }
  if(!inserted){
    const coco=cocoLogbookCard(entry);
@@ -292,16 +298,21 @@ function completedForEntry(entry){
 }
 function formCrewCard(entry){
  const blocks=completedForEntry(entry);
- if(!blocks.length)return "";
+ if(!blocks.length||!tippsDoc||!Array.isArray(tippsDoc.tipps))return "";
  // Form nach tatsächlich erzielten Punkten der letzten bis zu drei Wertungsblöcke.
  // Rangplätze sind nur Zusatzinformation, kein Sortierkriterium.
  const grouped=new Map();
  blocks.forEach(block=>{
+   const relatedLog=arr(data?.logbuecher).find(x=>x?.id===block.id&&x?.abgeschlossen===true);
+   const gameIds=new Set(arr(relatedLog?.spielIds).filter(Boolean));
+   const tippedIds=new Set(arr(tippsDoc?.tipps).filter(t=>gameIds.has(t?.spielId)
+     &&t?.status==="abgegeben"&&Number.isInteger(t?.heimtore)&&Number.isInteger(t?.auswaertstore)
+     &&t?.teilnehmerId).map(t=>String(t.teilnehmerId)));
    const people=arr(block?.rangliste).filter(r=>r?.teilnehmerId&&Number.isFinite(Number(r?.punkte)));
    people.forEach(r=>{
      const id=r.teilnehmerId;
      const rank=Number(r?.spieltagsplatzierung??r?.platz);
-     const tipped=(r?.nichtAbgegeben!==true)&&String(r?.tippStatus||"").toLowerCase()!=="nicht-abgegeben";
+     const tipped=tippedIds.has(String(id));
      const row=grouped.get(id)||{id,name:r?.teilnehmer||id,total:0,ranks:[],appearances:0,tippedCount:0};
      row.name=r?.teilnehmer||row.name;
      row.total+=Number(r.punkte);
