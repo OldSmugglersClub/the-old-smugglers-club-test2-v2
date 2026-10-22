@@ -994,3 +994,13 @@ body{overflow-x:hidden}
 .lb-highlight-stack{min-width:0;display:flex;flex-direction:column;gap:12px;align-self:start}
 .lb-highlight-stack>.lb-highlight{min-width:0}
 @media(max-width:760px){.lb-highlight-stack{gap:12px}}
+
+/* TEST7 – Spieltagsbilanz in der linken Spalte; 2×2, lesbare Werte. */
+.lb-highlight--bilanz{min-width:0;background:linear-gradient(145deg,rgba(42,24,10,.90),rgba(18,10,6,.94))}
+.lb-bilanz-intro{font-size:.88rem;line-height:1.45;margin:0 0 12px!important;color:#e3c99c!important}
+.lb-bilanz-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.lb-bilanz-metric{min-width:0;min-height:89px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:10px 6px;border:1px solid rgba(190,137,48,.30);border-radius:9px;background:rgba(10,6,4,.36);text-align:center}
+.lb-bilanz-metric span{color:#d6ad65;font-size:.79rem;font-weight:800}
+.lb-bilanz-metric strong{color:#f1cd7b;font-size:1.35rem;line-height:1.15;overflow-wrap:anywhere}
+.lb-bilanz-metric small{color:#c5ab83;font-size:.77rem;line-height:1.25}
+@media(max-width:420px){.lb-bilanz-metric{min-height:76px}.lb-bilanz-metric strong{font-size:1.19rem}}
