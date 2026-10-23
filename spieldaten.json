@@ -3642,14 +3642,38 @@
           "datumAnzeige": "23.10.2026",
           "anstoss": "20:30",
           "terminBestaetigt": true,
-          "heimtore": null,
-          "auswaertstore": null,
-          "status": "terminiert",
+          "heimtore": 2,
+          "auswaertstore": 3,
+          "status": "beendet",
           "sonderwertungen": [],
           "notiz": "Die genaue Ansetzung innerhalb des angegebenen Spieltagszeitraums ist noch offen.",
           "quelleStand": "2026-09-10",
           "heimTeamId": "stuttgart",
-          "auswaertsTeamId": "moenchengladbach"
+          "auswaertsTeamId": "moenchengladbach",
+          "ergebnisNach90MinutenBestaetigt": true,
+          "tippverteilung": {
+            "schemaVersion": 1,
+            "quelle": "Kicktipp – Tipps aller Tipper",
+            "stand": "2026-10-23T21:26:01.245Z",
+            "abgegeben": 70,
+            "nichtAbgegeben": 30,
+            "verborgen": 0,
+            "tendenzen": {
+              "1": {
+                "anzahl": 63,
+                "prozent": 90
+              },
+              "2": {
+                "anzahl": 2,
+                "prozent": 2.9
+              },
+              "X": {
+                "anzahl": 5,
+                "prozent": 7.1
+              }
+            }
+          },
+          "aktualisiertAm": "2026-10-23T21:26:01.245Z"
         },
         {
           "id": "bl-2026-27-07-058",
@@ -11496,7 +11520,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-22T03:01:43.622Z",
+            "stand": "2026-10-22T03:13:53.365Z",
             "abgegeben": 63,
             "nichtAbgegeben": 37,
             "verborgen": 0,
@@ -11515,7 +11539,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-22T03:01:43.622Z"
+          "aktualisiertAm": "2026-10-22T03:13:53.365Z"
         },
         {
           "id": "ucl-2026-27-3-spieltag-87425",
@@ -11543,7 +11567,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-22T03:01:43.622Z",
+            "stand": "2026-10-22T03:13:53.365Z",
             "abgegeben": 63,
             "nichtAbgegeben": 37,
             "verborgen": 0,
@@ -11562,7 +11586,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-22T03:01:43.622Z"
+          "aktualisiertAm": "2026-10-22T03:13:53.365Z"
         },
         {
           "id": "ucl-2026-27-3-spieltag-87426",
@@ -11590,7 +11614,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-22T03:01:43.622Z",
+            "stand": "2026-10-22T03:13:53.365Z",
             "abgegeben": 66,
             "nichtAbgegeben": 34,
             "verborgen": 0,
@@ -11609,7 +11633,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-22T03:01:43.622Z"
+          "aktualisiertAm": "2026-10-22T03:13:53.365Z"
         },
         {
           "id": "ucl-2026-27-3-spieltag-87427",
@@ -11637,7 +11661,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-22T03:01:43.622Z",
+            "stand": "2026-10-22T03:13:53.365Z",
             "abgegeben": 66,
             "nichtAbgegeben": 34,
             "verborgen": 0,
@@ -11656,7 +11680,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-22T03:01:43.622Z"
+          "aktualisiertAm": "2026-10-22T03:13:53.365Z"
         },
         {
           "id": "ucl-2026-27-3-spieltag-87428",
@@ -11684,7 +11708,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-22T03:01:43.622Z",
+            "stand": "2026-10-22T03:13:53.365Z",
             "abgegeben": 66,
             "nichtAbgegeben": 34,
             "verborgen": 0,
@@ -11703,7 +11727,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-22T03:01:43.622Z"
+          "aktualisiertAm": "2026-10-22T03:13:53.365Z"
         },
         {
           "id": "ucl-2026-27-3-spieltag-87429",
@@ -11731,7 +11755,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-22T03:01:43.622Z",
+            "stand": "2026-10-22T03:13:53.365Z",
             "abgegeben": 66,
             "nichtAbgegeben": 34,
             "verborgen": 0,
@@ -11750,7 +11774,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-22T03:01:43.622Z"
+          "aktualisiertAm": "2026-10-22T03:13:53.365Z"
         },
         {
           "id": "ucl-2026-27-3-spieltag-87430",
@@ -11778,7 +11802,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-22T03:01:43.622Z",
+            "stand": "2026-10-22T03:13:53.365Z",
             "abgegeben": 66,
             "nichtAbgegeben": 34,
             "verborgen": 0,
@@ -11797,7 +11821,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-22T03:01:43.622Z"
+          "aktualisiertAm": "2026-10-22T03:13:53.365Z"
         },
         {
           "id": "ucl-2026-27-3-spieltag-87431",
@@ -11825,7 +11849,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-22T03:01:43.622Z",
+            "stand": "2026-10-22T03:13:53.365Z",
             "abgegeben": 66,
             "nichtAbgegeben": 34,
             "verborgen": 0,
@@ -11844,7 +11868,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-22T03:01:43.622Z"
+          "aktualisiertAm": "2026-10-22T03:13:53.365Z"
         },
         {
           "id": "ucl-2026-27-3-spieltag-87432",
@@ -11872,7 +11896,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-22T03:01:43.622Z",
+            "stand": "2026-10-22T03:13:53.365Z",
             "abgegeben": 66,
             "nichtAbgegeben": 34,
             "verborgen": 0,
@@ -11891,7 +11915,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-22T03:01:43.622Z"
+          "aktualisiertAm": "2026-10-22T03:13:53.365Z"
         },
         {
           "id": "ucl-2026-27-3-spieltag-87433",
@@ -11919,7 +11943,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-22T03:01:43.622Z",
+            "stand": "2026-10-22T03:13:53.365Z",
             "abgegeben": 66,
             "nichtAbgegeben": 34,
             "verborgen": 0,
@@ -11938,7 +11962,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-22T03:01:43.622Z"
+          "aktualisiertAm": "2026-10-22T03:13:53.365Z"
         },
         {
           "id": "ucl-2026-27-3-spieltag-87434",
@@ -11966,7 +11990,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-22T03:01:43.622Z",
+            "stand": "2026-10-22T03:13:53.365Z",
             "abgegeben": 66,
             "nichtAbgegeben": 34,
             "verborgen": 0,
@@ -11985,7 +12009,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-22T03:01:43.622Z"
+          "aktualisiertAm": "2026-10-22T03:13:53.365Z"
         },
         {
           "id": "ucl-2026-27-3-spieltag-87435",
@@ -12013,7 +12037,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-22T03:01:43.622Z",
+            "stand": "2026-10-22T03:13:53.365Z",
             "abgegeben": 66,
             "nichtAbgegeben": 34,
             "verborgen": 0,
@@ -12032,7 +12056,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-22T03:01:43.622Z"
+          "aktualisiertAm": "2026-10-22T03:13:53.365Z"
         },
         {
           "id": "ucl-2026-27-3-spieltag-87436",
@@ -12060,7 +12084,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-22T03:01:43.622Z",
+            "stand": "2026-10-22T03:13:53.365Z",
             "abgegeben": 66,
             "nichtAbgegeben": 34,
             "verborgen": 0,
@@ -12079,7 +12103,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-22T03:01:43.622Z"
+          "aktualisiertAm": "2026-10-22T03:13:53.365Z"
         },
         {
           "id": "ucl-2026-27-3-spieltag-87437",
@@ -12107,7 +12131,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-22T03:01:43.622Z",
+            "stand": "2026-10-22T03:13:53.365Z",
             "abgegeben": 65,
             "nichtAbgegeben": 35,
             "verborgen": 0,
@@ -12126,7 +12150,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-22T03:01:43.622Z"
+          "aktualisiertAm": "2026-10-22T03:13:53.365Z"
         },
         {
           "id": "ucl-2026-27-3-spieltag-87438",
@@ -12154,7 +12178,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-22T03:01:43.622Z",
+            "stand": "2026-10-22T03:13:53.365Z",
             "abgegeben": 66,
             "nichtAbgegeben": 34,
             "verborgen": 0,
@@ -12173,7 +12197,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-22T03:01:43.622Z"
+          "aktualisiertAm": "2026-10-22T03:13:53.365Z"
         },
         {
           "id": "ucl-2026-27-3-spieltag-87439",
@@ -12201,7 +12225,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-22T03:01:43.622Z",
+            "stand": "2026-10-22T03:13:53.365Z",
             "abgegeben": 66,
             "nichtAbgegeben": 34,
             "verborgen": 0,
@@ -12220,7 +12244,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-22T03:01:43.622Z"
+          "aktualisiertAm": "2026-10-22T03:13:53.365Z"
         },
         {
           "id": "ucl-2026-27-3-spieltag-87440",
@@ -12248,7 +12272,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-22T03:01:43.622Z",
+            "stand": "2026-10-22T03:13:53.365Z",
             "abgegeben": 66,
             "nichtAbgegeben": 34,
             "verborgen": 0,
@@ -12267,7 +12291,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-22T03:01:43.622Z"
+          "aktualisiertAm": "2026-10-22T03:13:53.365Z"
         },
         {
           "id": "ucl-2026-27-3-spieltag-87441",
@@ -12295,7 +12319,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-22T03:01:43.622Z",
+            "stand": "2026-10-22T03:13:53.365Z",
             "abgegeben": 66,
             "nichtAbgegeben": 34,
             "verborgen": 0,
@@ -12314,7 +12338,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-22T03:01:43.622Z"
+          "aktualisiertAm": "2026-10-22T03:13:53.365Z"
         },
         {
           "id": "ucl-2026-27-4-spieltag-87442",
@@ -14479,6 +14503,6 @@
       ]
     }
   ],
-  "datenVersion": 74,
-  "aktualisiert": "2026-10-22"
+  "datenVersion": 75,
+  "aktualisiert": "2026-10-23"
 }
