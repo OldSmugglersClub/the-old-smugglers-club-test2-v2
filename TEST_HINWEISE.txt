@@ -1,0 +1,1 @@
+Nur TEST2v2. Drei Dateien ersetzen: logbuch.js, logbuch.css, logbuch.html. Keine Werte oder Datenquellen geaendert. Abgaben/Nichtabgaben weiterhin Einzelspiel-Maximum, explizit benannt. Einspielung LIVE nur nach Testbestaetigung und Abgleich mit aktuellem LIVE-Stand.

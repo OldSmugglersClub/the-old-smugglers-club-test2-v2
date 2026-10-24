@@ -153,6 +153,10 @@ body{overflow-x:hidden}
   letter-spacing:.04em;
 }
 
+.lb-galley-grid small{display:block;margin-top:6px;color:#d8c6a5;font-size:.7rem;font-weight:400;line-height:1.35;letter-spacing:0;text-transform:none;}
+.lb-galley-explainer{margin:11px 1px 0;color:#d5bd91;font-size:.79rem;line-height:1.55;}
+.lb-galley-grid div{min-width:0;}
+
 .lb-highlight--crew .lb-crewline{
   display:grid;
   grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
