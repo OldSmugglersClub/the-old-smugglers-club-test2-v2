@@ -201,7 +201,7 @@ function renderHighlight(h,entry){
  if(h.typ==="kursbewegung"){
    return courseMovementCard(entry);
  }
- if(h.typ==="zahlen-aus-der-kombuese") return `<article class="lb-highlight lb-highlight--wide lb-highlight--galley"><h3>Zahlen aus der Kombüse</h3><div class="lb-galley-grid"><div><strong>${Number(d.abgegeben||0)}</strong><span>Abgaben</span><small>Höchstwert je Spiel</small></div><div><strong>${Number(d.nichtAbgegeben||0)}</strong><span>Nichtabgaben</span><small>Höchstwert je Spiel</small></div><div><strong>${Number(d.exakt||0)}</strong><span>Volltreffer</span><small>Ergebnis exakt · z. B. 2:1 = 2:1</small></div><div><strong>${Number(d.differenz||0)}</strong><span>Tordifferenz</span><small>Abstand richtig · z. B. 3:1 statt 2:0</small></div><div><strong>${Number(d.tendenz||0)}</strong><span>Spielausgang</span><small>Sieger/Remis richtig</small></div></div><p class="lb-galley-explainer">Volltreffer, Tordifferenz und Spielausgang sind getrennte Trefferarten. Gezählt werden jeweils alle Einzeltipps des Spieltags; jeder Tipp zählt höchstens einmal. Abgaben und Nichtabgaben zeigen derzeit dagegen den Höchstwert eines Einzelspiels.</p></article>`;
+ if(h.typ==="zahlen-aus-der-kombuese") return `<article class="lb-highlight lb-highlight--wide lb-highlight--galley"><h3>Zahlen aus der Kombüse</h3><div class="lb-galley-grid"><div><strong>${Number(d.abgegeben||0)}</strong><span>Abgaben</span></div><div><strong>${Number(d.nichtAbgegeben||0)}</strong><span>Nichtabgaben</span></div><div><strong>${Number(d.exakt||0)}</strong><span>Volltreffer</span></div><div><strong>${Number(d.differenz||0)}</strong><span>Tordifferenz</span></div><div><strong>${Number(d.tendenz||0)}</strong><span>Tendenz</span></div></div></article>`;
  return "";
 }
 
