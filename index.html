@@ -2493,12 +2493,17 @@
         var(--shadow);
     }
 
-    /* TEST2: Desktop – eingebetteten GEPLANT-Schriftzug vollständig verdecken.
-       Deckender Kern statt halbtransparenter TEST1-Maske; sanfter Übergang.
-       Nur Hintergründe, keine Maße, Inhalte oder Interaktionen ändern. */
+    /* Desktop-Fix 25.10.2026: unteren Hintergrund im Button-Bereich deckend
+       abschwaerzen. HF118-Deckung oben bleibt erhalten. Keine Aenderungen
+       an Inhalt, Groessen, Interaktion oder mobiler Darstellung. */
     @media (min-width: 821px) {
       #aktueller-spieltag.matchday-panel.sm-schedule {
         background-image:
+          linear-gradient(to bottom,
+            rgba(12,8,5,0) 0%,
+            rgba(12,8,5,0) calc(100% - 140px),
+            #0c0805 calc(100% - 95px),
+            #0c0805 100%),
           radial-gradient(ellipse 560px 175px at 77% 5%,
             #0c0805 0 70%, rgba(12,8,5,.99) 80%, rgba(12,8,5,0) 100%),
           linear-gradient(rgba(7,5,3,.20), rgba(5,3,2,.46)),
@@ -5716,7 +5721,7 @@
 
   </style>
   <link rel="stylesheet" href="./highscore.css?v=4.0.1">
-  <link rel="stylesheet" href="./logbuch.css?v=4.9.2-HF12-HF73">
+  <link rel="stylesheet" href="./logbuch.css?v=4.9.2-HF12-HF120">
   <link rel="stylesheet" href="./accessibility-v33.css">
   <style id="welcome-cleanup-v434">
     /* Version 4.4.14: Startzentrale vollständig deckend halten und alle alten Dekore abschalten.
@@ -7296,7 +7301,7 @@
   </script>
 
   <script src="./highscore-teaser.js?v=4.9.2-HF9" defer></script>
-  <script src="./logbuch.js?v=4.9.2-HF12-HF73" defer></script>
+  <script src="./logbuch.js?v=4.9.2-HF12-HF120" defer></script>
   <script src="performance-v247.js" defer></script>
   <script src="./accessibility-v33.js" defer></script>
   <script>
