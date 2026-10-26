@@ -141,11 +141,21 @@ function weekendCardsHtml(entries){
  const cards=uniq.map(entry=>{
   const story=storyFromEntry(entry);
   const stats=[startStat(entry,"kapitaene"),startStat(entry,"gegen-den-strom"),startStat(entry,"volltreffer")].filter(Boolean);
-  const details=highlight(entry,"gegen-den-strom")?.daten?.richtigeTendenz?.tipper;
-  const names=story?.kicker==="Überraschung des Spieltags"&&arr(details).length&&arr(details).length<=8
-   ?`<p class="logbook-weekend-names"><strong>Richtig getippt:</strong> ${arr(details).map(t=>esc(t.teilnehmer)).filter(Boolean).join(', ')}</p>`:"";
+  const against=highlight(entry,"gegen-den-strom");
+  const details=arr(against?.daten?.richtigeTendenz?.tipper).map(t=>t?.teilnehmer).filter(Boolean);
+  // Nur aussergewoehnliche Kernaussagen auf der Startseite; komplette Geschichte im Logbuch.
+  // Namen werden bei bis zu drei Treffern direkt gezeigt, sonst sind sie im Rueckblick einsehbar.
+  const names=against&&details.length>0&&details.length<=3
+   ?`<div class="logbook-weekend-names">Richtig: <strong>${details.map(esc).join(', ')}</strong></div>`:"";
+  const mainStats=stats.slice(0,3);
+  const compactFacts=against ? (()=>{
+    const d=against.daten||{},submitted=Number(d.abgegeben||0),majority=Number(d.meistGetippt?.anzahl||0),right=Number(d.richtigeTendenz?.anzahl||0),exact=Number(d.exakt||0);
+    return `<div class="logbook-weekend-facts"><strong>${majority}${submitted?`/${submitted}`:""}</strong> tippten anders <span aria-hidden="true">·</span> <strong>${right}</strong> richtig <span aria-hidden="true">·</span> <strong>${exact}</strong> exakt</div>`;
+  })() : "";
+  const title=story?.title||"Spieltagsrueckblick";
+  const kicker=story?.kicker||"Der Spieltag ist abgeschlossen";
   const link=`./logbuch.html?logbuchId=${encodeURIComponent(entry.id)}`;
-  return `<article class="logbook-weekend-card"><span class="logbook-kicker">${esc(keepSpieltag(entry.bezeichnung||entry.runde))}</span>${story?`<div class="logbook-weekend-story"><span>${esc(story.kicker||"Die Geschichte des Spieltags")}</span><h4>${esc(story.title)}</h4><p>${esc(story.text)}</p>${names}</div>`:`<p class="logbook-weekend-neutral">Der Spieltag ist abgeschlossen. Der vollständige Rückblick ist verfügbar.</p>`}${stats.length?`<div class="logbook-weekend-stats">${stats.map(st=>`<span>${esc(st.label)} <strong>${Number(st.value).toLocaleString('de-DE')}</strong></span>`).join('')}</div>`:""}<a class="logbook-weekend-link" href="${link}">Diesen Spieltag entdecken</a></article>`;
+  return `<article class="logbook-weekend-card"><span class="logbook-kicker">${esc(keepSpieltag(entry.bezeichnung||entry.runde))}</span><div class="logbook-weekend-story"><span>${esc(kicker)}</span><h4>${esc(title)}</h4>${compactFacts}${names}</div>${mainStats.length?`<div class="logbook-weekend-stats">${mainStats.map(st=>`<span><strong>${Number(st.value).toLocaleString('de-DE')}</strong> ${esc(st.label)}</span>`).join('')}</div>`:""}<a class="logbook-weekend-link" href="${link}">Rückblick ansehen</a></article>`;
  }).join("");
  return `<div class="logbook-weekend-title">${esc(title)}</div><div class="logbook-weekend-grid">${cards}</div>`;
 }

@@ -1099,3 +1099,19 @@ body{overflow-x:hidden}
 .logbook-weekend-stats strong{color:#ffd992;margin-left:4px}
 .logbook-weekend-link{display:block;align-self:flex-start;margin-top:auto;color:#f5d28b!important;text-decoration:underline;text-underline-offset:4px;font-weight:700;font-size:.85rem}
 @media(max-width:720px){.logbook-weekend-grid{grid-template-columns:1fr}.logbook-weekend-card{padding:13px}.logbook-weekend-card>.logbook-kicker{min-height:0}}
+
+/* HF122-TEST2: Startseiten-Karten reduzieren Text; die Geschichte bleibt verlinkt. */
+.logbook-weekend-card{gap:8px;padding:13px 14px}
+.logbook-weekend-card>.logbook-kicker{min-height:0;font-size:.74rem;line-height:1.3}
+.logbook-weekend-story>span{font-size:.72rem;color:#f4c366;font-weight:900}
+.logbook-weekend-story h4{margin:.32rem 0 .45rem;font-size:clamp(1.13rem,1.5vw,1.35rem);line-height:1.25;color:#ffe2a1}
+.logbook-weekend-facts{font-size:.81rem;line-height:1.4;color:#d6b98a}
+.logbook-weekend-facts strong{color:#ffdc8d;font-size:1.03em}
+.logbook-weekend-names{font-size:.76rem;line-height:1.3;color:#d1b586;margin-top:5px;overflow-wrap:anywhere}
+.logbook-weekend-names strong{color:#f5d28b}
+.logbook-weekend-stats{margin-top:auto;gap:5px}
+.logbook-weekend-stats>span{font-size:.72rem;padding:4px 6px}
+.logbook-weekend-stats strong{font-size:1.08em;margin:0 2px 0 0}
+.logbook-weekend-link{font-size:.78rem;margin-top:3px}
+/* Auswahl steht nun am Seitenanfang unter dem Logbuch-Kopf. */
+.lb-archive{margin-bottom:18px}
