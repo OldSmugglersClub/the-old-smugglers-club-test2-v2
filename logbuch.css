@@ -1082,3 +1082,20 @@ body{overflow-x:hidden}
 @media(max-width:760px){
   .lb-highlight--captains .lb-name{flex:1 1 140px;}
 }
+
+
+/* HF122 TEST: Wochenende statt letztem Upload, jeder Wettbewerb mit eigener Geschichte. */
+.logbook-weekend-title{color:#d7a64d;font-size:.84rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:7px 0 11px}
+.logbook-weekend-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,285px),1fr));gap:12px;align-items:stretch}
+.logbook-weekend-card{min-width:0;padding:15px;border:1px solid rgba(198,142,47,.42);border-radius:10px;background:linear-gradient(160deg,rgba(35,18,9,.93),rgba(13,8,5,.83));display:flex;flex-direction:column;gap:12px}
+.logbook-weekend-card>.logbook-kicker{display:block;min-height:2.3em;color:#e1b45d;font-size:.78rem;line-height:1.3;font-weight:800;letter-spacing:.035em;text-transform:uppercase}
+.logbook-weekend-story{flex:1;min-width:0}
+.logbook-weekend-story>span{display:block;color:#cfa052;font-size:.70rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+.logbook-weekend-story h4{margin:.4rem 0;color:#f1d39a;font:700 1.12rem/1.3 Georgia,'Times New Roman',serif}
+.logbook-weekend-story p,.logbook-weekend-neutral{color:#d5bd99;font-size:.88rem;line-height:1.5;margin:.4rem 0}
+.logbook-weekend-names{border-top:1px solid rgba(198,142,47,.22);padding-top:8px;overflow-wrap:anywhere}
+.logbook-weekend-stats{display:flex;flex-wrap:wrap;gap:6px}
+.logbook-weekend-stats>span{color:#e4c895;border:1px solid rgba(198,142,47,.28);background:rgba(11,6,4,.65);border-radius:7px;padding:6px 8px;font-size:.74rem}
+.logbook-weekend-stats strong{color:#ffd992;margin-left:4px}
+.logbook-weekend-link{display:block;align-self:flex-start;margin-top:auto;color:#f5d28b!important;text-decoration:underline;text-underline-offset:4px;font-weight:700;font-size:.85rem}
+@media(max-width:720px){.logbook-weekend-grid{grid-template-columns:1fr}.logbook-weekend-card{padding:13px}.logbook-weekend-card>.logbook-kicker{min-height:0}}
