@@ -131,31 +131,42 @@ function weekendCardsHtml(entries){
  if(!completed.length)return null;
  const lastWeekend=completed.reduce((max,x)=>x.weekend>max?x.weekend:max,"");
  const chosen=completed.filter(x=>x.weekend===lastWeekend);
- // Eindeutige Abschluss-ID; ein erneuter Export erzeugt keine Doppelkarte.
  const uniq=[...new Map(chosen.map(x=>[x.entry.id,x.entry])).values()];
  uniq.sort((a,b)=>String(a.wettbewerb).localeCompare(String(b.wettbewerb),'de')||String(a.runde).localeCompare(String(b.runde),'de'));
  const toDay=iso=>`${iso.slice(8,10)}.${iso.slice(5,7)}.${iso.slice(0,4)}`;
  const start=new Date(`${lastWeekend}T12:00:00Z`),finish=new Date(start);finish.setUTCDate(finish.getUTCDate()+2);
- const finishStr=finish.toISOString().slice(0,10);
- const title=`Wochenend-Rueckblick · ${toDay(lastWeekend)}–${toDay(finishStr)}`;
+ const title=`Wochenend-Rückblick · ${toDay(lastWeekend)}–${toDay(finish.toISOString().slice(0,10))}`;
  const cards=uniq.map(entry=>{
   const story=storyFromEntry(entry);
   const stats=[startStat(entry,"kapitaene"),startStat(entry,"gegen-den-strom"),startStat(entry,"volltreffer")].filter(Boolean);
   const against=highlight(entry,"gegen-den-strom");
-  const details=arr(against?.daten?.richtigeTendenz?.tipper).map(t=>t?.teilnehmer).filter(Boolean);
-  // Nur aussergewoehnliche Kernaussagen auf der Startseite; komplette Geschichte im Logbuch.
-  // Namen werden bei bis zu drei Treffern direkt gezeigt, sonst sind sie im Rueckblick einsehbar.
-  const names=against&&details.length>0&&details.length<=3
-   ?`<div class="logbook-weekend-names">Richtig: <strong>${details.map(esc).join(', ')}</strong></div>`:"";
-  const mainStats=stats.slice(0,3);
-  const compactFacts=against ? (()=>{
-    const d=against.daten||{},submitted=Number(d.abgegeben||0),majority=Number(d.meistGetippt?.anzahl||0),right=Number(d.richtigeTendenz?.anzahl||0),exact=Number(d.exakt||0);
-    return `<div class="logbook-weekend-facts"><strong>${majority}${submitted?`/${submitted}`:""}</strong> tippten anders <span aria-hidden="true">·</span> <strong>${right}</strong> richtig <span aria-hidden="true">·</span> <strong>${exact}</strong> exakt</div>`;
-  })() : "";
-  const title=story?.title||"Spieltagsrueckblick";
-  const kicker=story?.kicker||"Der Spieltag ist abgeschlossen";
+  const captains=highlight(entry,"kapitaene");
   const link=`./logbuch.html?logbuchId=${encodeURIComponent(entry.id)}`;
-  return `<article class="logbook-weekend-card"><span class="logbook-kicker">${esc(keepSpieltag(entry.bezeichnung||entry.runde))}</span><div class="logbook-weekend-story"><span>${esc(kicker)}</span><h4>${esc(title)}</h4>${compactFacts}${names}</div>${mainStats.length?`<div class="logbook-weekend-stats">${mainStats.map(st=>`<span><strong>${Number(st.value).toLocaleString('de-DE')}</strong> ${esc(st.label)}</span>`).join('')}</div>`:""}<a class="logbook-weekend-link" href="${link}">Rückblick ansehen</a></article>`;
+  let hero="",headline="",detail="",theme="captains";
+  if(against){
+   const d=against.daten||{},game=gameById.get(d.spielId)||{};
+   const goals=String(d.ergebnis||((Number.isFinite(game.heimtore)&&Number.isFinite(game.auswaertstore))?`${game.heimtore}:${game.auswaertstore}`:""));
+   const count=Number(d.meistGetippt?.anzahl||0),submitted=Number(d.abgegeben||0),correct=Number(d.richtigeTendenz?.anzahl||0),exact=Number(d.exakt||0);
+   hero=goals?esc(goals.replace(':',' : ')):`${correct}`;
+   headline="Überraschung!";
+   const home=teamDisplayName(d.heimTeam||game.heimTeamId),away=teamDisplayName(d.auswaertsTeam||game.auswaertsTeamId);
+   detail=`<div class="logbook-poster-match">${esc(home)} <span>gegen</span> ${esc(away)}</div><div class="logbook-poster-proof"><strong>${count}${submitted?` von ${submitted}`:""}</strong> tippten anders <span aria-hidden="true">·</span> <strong>${correct}</strong> richtig <span aria-hidden="true">·</span> <strong>${exact}</strong> exakt</div>`;
+   theme="sensation";
+  }else if(captains){
+   const d=captains.daten||{},count=Number(d.anzahl||arr(d.tipper).length||0);
+   hero=String(count);headline=count===1?"Kapitän des Spieltags":"Kapitäne teilen die Beute";
+   detail=`<div class="logbook-poster-proof"><strong>${Number(d.punkte||0)}</strong> Punkte · beste Spieltagsleistung</div>`;
+  }else if(story){
+   hero="★";headline=esc(story.title||"Spieltag im Fokus");
+   detail=story.text?`<div class="logbook-poster-proof">${esc(story.text)}</div>`:"";
+   theme="story";
+  }else{
+   const stat=stats[0];hero=stat?String(stat.value):"✓";headline=stat?esc(stat.label):"Spieltagsrückblick";
+   detail=stat?`<div class="logbook-poster-proof">${esc(stat.copy)}</div>`:"";
+  }
+  // Lange Wettbewerbsnamen als ganze Woerter erhalten: nie willkuerlich mitten in "El Clasico" trennen.
+  const competition=esc(keepSpieltag(entry.bezeichnung||entry.runde||entry.wettbewerb||"Spieltag"));
+  return `<article class="logbook-weekend-card logbook-weekend-card--${theme}"><div class="logbook-poster-top"><span class="logbook-poster-competition">${competition}</span><span class="logbook-poster-symbol" aria-hidden="true">✦</span></div><div class="logbook-poster-center"><span class="logbook-poster-headline">${headline}</span><strong class="logbook-poster-hero">${hero}</strong>${detail}</div><a class="logbook-weekend-link" href="${link}" aria-label="Rückblick öffnen: ${competition}">Geschichte entdecken <span aria-hidden="true">›</span></a></article>`;
  }).join("");
  return `<div class="logbook-weekend-title">${esc(title)}</div><div class="logbook-weekend-grid">${cards}</div>`;
 }
@@ -297,6 +308,7 @@ function renderHighlightsWithCoco(entry){
  const rows=[];
  let inserted=false;
  const highlights=shown(entry);
+ highlights.sort((a,b)=>Number(b?.typ==="zahlen-aus-der-kombuese")-Number(a?.typ==="zahlen-aus-der-kombuese"));
  const crewHighlight=highlights.find(h=>h?.typ==="crewduell");
  const movementHighlight=highlights.find(h=>h?.typ==="kursbewegung");
  const form=formCrewCard(entry);
