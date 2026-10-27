@@ -25,6 +25,54 @@ export function parseStructuredFixtures(html){
  for(const [,body] of blocks){try{scan(JSON.parse(body));}catch{/* untrusted invalid markup */}}
  return fixtures;
 }
+
+// Supplemental official-page adapters. Inspect hydrated JSON only; never infer fixture dates
+// from free text, news articles or a pair of unassociated club names.
+export function parseEmbeddedFixtures(html){
+ const results=[];const jsonScripts=[...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)];
+ const accept=(home,away,date)=>{
+  const h=typeof home==='string'?home:home?.name||home?.shortName||home?.displayName||home?.teamName;
+  const a=typeof away==='string'?away:away?.name||away?.shortName||away?.displayName||away?.teamName;
+  if(typeof h!=='string'||typeof a!=='string'||!h.trim()||!a.trim()||typeof date!=='string')return;
+  // Must carry an explicit timezone; local naive times are unsafe at DST boundaries.
+  if(!/^\d{4}-\d\d-\d\dT\d\d:\d\d(?::\d\d(?:\.\d+)?)?(?:Z|[+-]\d\d:\d\d)$/.test(date))return;
+  const t=local(date);if(t)results.push({heim:h,gast:a,...t,startDate:date});
+ };
+ let visited=0;
+ function walk(node,depth=0){
+  if(!node||typeof node!=='object'||depth>24||++visited>150000)return;
+  if(Array.isArray(node)){for(const v of node.slice(0,20000))walk(v,depth+1);return;}
+  const home=node.homeTeam??node.home_team??node.home??node.teamHome;
+  const away=node.awayTeam??node.away_team??node.away??node.teamAway;
+  const date=node.startDate??node.kickoffTime??node.kickoff??node.utcDate??node.matchDateTimeUTC??node.dateTime;
+  if(home&&away&&date)accept(home,away,date);
+  // Explicitly prevent processing arbitrary article/news arrays as match evidence.
+  for(const [k,v] of Object.entries(node))if(v&&typeof v==='object'&&!/^(?:news|articles|stories|posts)$/i.test(k))walk(v,depth+1);
+ }
+ for(const [,attrs,body] of jsonScripts){
+  if(!/(?:type\s*=\s*["'](?:application\/json|application\/ld\+json)["']|id\s*=\s*["']__NEXT_DATA__["'])/i.test(attrs))continue;
+  if(body.length>3_000_000)continue;
+  try{walk(JSON.parse(body));}catch{/*not JSON*/}
+ }
+ const seen=new Set();return results.filter(x=>{const key=canon(x.heim)+'|'+canon(x.gast)+'|'+x.startDate;if(seen.has(key))return false;seen.add(key);return true;});
+}
+export async function fetchOfficial(url,fetchFn,options={}){
+ const attempts=[];const allowed=options.allowed||[];
+ let current=url;
+ for(let attempt=0;attempt<3;attempt++){
+  try{
+   const resp=await fetchFn(current,{headers:{Accept:'text/html,application/xhtml+xml', 'User-Agent':'Mozilla/5.0 (compatible; TOSMC-Fixture-Check/1.0)'},signal:AbortSignal.timeout(18000),redirect:'manual'});
+   if([301,302,303,307,308].includes(resp.status)){
+    const target=new URL(resp.headers?.get?.('location')||'',current);
+    if(target.protocol!=='https:'||!allowed.some(d=>target.hostname===d||target.hostname.endsWith('.'+d)))throw Error('UMLEITUNG_NICHT_FREIGEGEBEN');
+    current=target.href;attempts.push({attempt:attempt+1,status:resp.status,redirect:target.origin});continue;
+   }
+   if(!resp.ok)throw Error('HTTP '+resp.status);
+   return {resp,attempts,finalUrl:current};
+  }catch(e){attempts.push({attempt:attempt+1,fehler:e.message});if(attempt===2)throw Object.assign(new Error(e.message),{versuche:attempts});}
+ }
+ throw Object.assign(new Error('ZU_VIELE_UMLEITUNGEN'),{versuche:attempts});
+}
 export function compare(game,fixtures,aliases={}){
  const names=id=>[id,...arr(aliases[id])].filter(Boolean).map(canon);
  const h=names(game.heimTeamId),a=names(game.auswaertsTeamId);
@@ -54,18 +102,17 @@ export async function run({root=ROOT,out=OUT,fetchFn=fetch,configPath=process.en
   const allowed=DOMAINS[src.verband]||[];
   let url;try{url=new URL(src.url);if(url.protocol!=='https:'||!allowed.some(d=>url.hostname===d||url.hostname.endsWith('.'+d)))throw Error('Domain nicht freigegeben');}catch(e){report.quellen.push({name:src.name,status:'QUELLE_ABGELEHNT',grund:String(e.message)});continue;}
   try{
-   const resp=await fetchFn(url.href,{headers:{Accept:'text/html'},signal:AbortSignal.timeout(12000),redirect:'error'});
-   if(!resp.ok)throw Error('HTTP '+resp.status);
+   const fetched=await fetchOfficial(url.href,fetchFn,{allowed});const resp=fetched.resp;
    const html=await resp.text();if(html.length>4_000_000)throw Error('Antwort zu gross');const diagnose=pageDiagnostic(html,resp);
-   const fixtures=parseStructuredFixtures(html);
-   report.quellen.push({name:src.name,url:url.href,status:fixtures.length?'STRUKTURIERTE_SPIELE_GELESEN':'KEINE_STRUKTURIERTEN_SPIELE',anzahl:fixtures.length,diagnose});
+   const fixtureMap=new Map();for(const x of [...parseStructuredFixtures(html),...parseEmbeddedFixtures(html)])fixtureMap.set(canon(x.heim)+"|"+canon(x.gast)+"|"+x.startDate,x);const fixtures=[...fixtureMap.values()];
+   report.quellen.push({name:src.name,url:url.href,status:fixtures.length?'STRUKTURIERTE_SPIELE_GELESEN':'KEINE_STRUKTURIERTEN_SPIELE',anzahl:fixtures.length,diagnose,abrufversuche:fetched.attempts,endUrl:fetched.finalUrl});
    if(!fixtures.length){for(const id of arr(src.spielIds))report.befunde.push({spielId:id,status:'QUELLE_NICHT_AUSWERTBAR',quelle:url.href});continue;}
    for(const id of arr(src.spielIds)){
     const g=games.find(g=>g.id===id);if(!g){report.befunde.push({spielId:id,status:'SPIEL_NICHT_VORHANDEN'});continue;}
     if(g.status==='beendet'||Number.isInteger(g.heimtore)&&Number.isInteger(g.auswaertstore))continue;
     report.befunde.push({spielId:id,wettbewerb:g.wettbewerb,quelle:url.href,...compare(g,fixtures,conf.teamAliase||{})});
    }
-  }catch(e){report.quellen.push({name:src.name,url:url.href,status:'ABRUF_FEHLER',grund:String(e.message),fehlerTyp:e?.name||'Error'});for(const id of arr(src.spielIds))report.befunde.push({spielId:id,status:'ABRUF_FEHLER',quelle:url.href});}
+  }catch(e){report.quellen.push({name:src.name,url:url.href,status:'ABRUF_FEHLER',grund:String(e.message),fehlerTyp:e?.name||'Error',abrufversuche:e?.versuche||[]});for(const id of arr(src.spielIds))report.befunde.push({spielId:id,status:'ABRUF_FEHLER',quelle:url.href});}
  }
  report.abdeckung.verifizierteSpiele=report.befunde.filter(x=>['IDENTISCH','ABWEICHUNG'].includes(x.status)).length;
  report.abdeckung.unbekannteSpiele=report.befunde.filter(x=>!['IDENTISCH','ABWEICHUNG'].includes(x.status)).length;
