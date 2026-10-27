@@ -1,0 +1,20 @@
+TOSMC TEST15 – Direkter Austausch (nur TEST2v2)
+
+1. Das ZIP entpacken.
+2. Den enthaltenen Ordner "terminwaechter" in den lokalen Ordner
+   "the-old-smugglers-club-test2-v2" kopieren.
+3. Ueberschreiben von "terminwaechter/offizielle-quellen.json" bestaetigen.
+4. GitHub Desktop: Genau diese EINE Dateiaenderung pruefen, committen, Push origin.
+5. In GitHub Actions den vorhandenen Diagnose-Workflow auf "main" starten.
+
+Es wird NUR der zweite Nottingham-Forest-Alias von
+  Nottingham Forest
+auf
+  Nott'm Forest
+geaendert. Keine Termine, keine LIVE-Daten, keine Code-Dateien.
+
+Sicherheitsbedingung: Ausgangsdatei muss dem bestaetigten TEST14
+Git-Blob-SHA 0cd0b5a54c6ab600591893e63ec032c26c79c482 entsprechen.
+Bei unerwarteten anderen lokalen Aenderungen NICHT ueberschreiben.
+
+Neuer Git-Blob-SHA: 999c4a6fa6fd7dacdf0048eeaf003b707335eab7
