@@ -62,7 +62,10 @@
   "teamAliase": {
     "ac-mailand": [
       "AC Mailand",
-      "AC Mailand"
+      "AC Milan",
+      "Milan",
+      "Milan AC",
+      "AC Milan 1899"
     ],
     "aek-athen": [
       "AEK Athen",
@@ -146,7 +149,10 @@
     ],
     "fc-bologna": [
       "FC Bologna",
-      "FC Bologna"
+      "Bologna",
+      "Bologna FC",
+      "Bologna FC 1909",
+      "Bologna 1909"
     ],
     "fc-liverpool": [
       "FC Liverpool",
@@ -206,11 +212,17 @@
     ],
     "inter-mailand": [
       "Inter Mailand",
-      "Inter Mailand"
+      "Inter",
+      "Internazionale",
+      "FC Internazionale Milano",
+      "Internazionale Milano",
+      "Inter Milan"
     ],
     "juventus-turin": [
       "Juventus Turin",
-      "Juventus Turin"
+      "Juventus",
+      "Juventus FC",
+      "Juventus Football Club"
     ],
     "kaiserslautern": [
       "1. FC Kaiserslautern",

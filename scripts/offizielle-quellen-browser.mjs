@@ -38,7 +38,9 @@ export async function run({browserFactory,config,siteGames,timeout=25000}={}){
    endpoints.push({host:new URL(u).hostname,pfad:new URL(u).pathname.slice(0,180),http:r.status()});
    pending.push((async()=>{try{if(r.status()!==200)return;const body=await r.body();if(body.length>2_000_000)return;const obj=JSON.parse(body.toString('utf8'));const provider=providerForUrl(u);if(provider){const decoded=decodeOfficial(provider,obj);fixtures.push(...decoded.fixtures);schemaBefunde.push({pfad:new URL(u).pathname.slice(0,180),...decoded.diagnosis});}else{fixtures.push(...fixturesFromJson(obj));}}catch{}})());});
   try{await page.goto(src.url,{waitUntil:'domcontentloaded',timeout});await page.waitForTimeout(4500);const html=await page.content();fixtures.push(...parseStructuredFixtures(html),...parseEmbeddedFixtures(html));await Promise.allSettled(pending);const clean=dedupe(fixtures);
-   report.quellen.push({name:src.name,status:clean.length?'SPIELE_EXTRAHIERT':'KEINE_SPIELE_EXTRAHIERT',anzahl:clean.length,antworten:endpoints,schemaBefunde,seite:page.url()});
+   // Limited fixture evidence for the three Italian TOSMC matches; read-only, no whole-season dump.
+   const italienBelege=src.verband==='italien'?clean.filter(f=>/milan|mailand|internaz|inter|juvent|bologna/i.test(f.heim+' '+f.gast)).slice(0,100).map(f=>({heim:f.heim,gast:f.gast,datum:f.datum,anstoss:f.anstoss})):[];
+   report.quellen.push({name:src.name,status:clean.length?'SPIELE_EXTRAHIERT':'KEINE_SPIELE_EXTRAHIERT',anzahl:clean.length,antworten:endpoints,schemaBefunde,italienBelege,seite:page.url()});
    for(const id of src.spielIds){const g=byId.get(id);if(!g){report.befunde.push({spielId:id,status:'SPIEL_FEHLT'});continue;}if(g.status==='beendet')continue;
     report.befunde.push({spielId:id,quelle:src.url,...compare(g,clean,cfg.teamAliase||{})});}
   }catch(e){report.quellen.push({name:src.name,status:'BROWSER_FEHLER',fehler:String(e.message).slice(0,220),antworten:endpoints,schemaBefunde});for(const id of src.spielIds)report.befunde.push({spielId:id,status:'BROWSER_FEHLER'});}
