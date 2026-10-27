@@ -25,6 +25,16 @@ export function fixturesFromJson(json){const out=[],seen=new Set();let count=0;
 }
 export function trustResponse(pageUrl,responseUrl,allowed){try{const u=new URL(responseUrl),p=new URL(pageUrl);return u.protocol==='https:' && allowed.some(d=>u.hostname===d||u.hostname.endsWith('.'+d)) && (u.hostname===p.hostname||allowed.some(d=>p.hostname===d||p.hostname.endsWith('.'+d)));}catch{return false;}}
 export function dedupe(fixtures){const map=new Map();for(const f of fixtures)map.set(norm(f.heim)+'|'+norm(f.gast)+'|'+f.startDate,f);return [...map.values()];}
+// Evidence-only diagnosis: do not substitute a reverse fixture for the desired pairing.
+export function diagnoseMissingPair(game,fixtures,aliases={}){
+ const alias=id=>[id,...arr(aliases[id])].map(norm).filter(Boolean);
+ const h=alias(game.heimTeamId),a=alias(game.auswaertsTeamId);
+ const matches=fixtures.filter(f=>h.includes(norm(f.heim))||h.includes(norm(f.gast))||a.includes(norm(f.heim))||a.includes(norm(f.gast)));
+ const exact=matches.filter(f=>h.includes(norm(f.heim))&&a.includes(norm(f.gast)));
+ const reverse=matches.filter(f=>a.includes(norm(f.heim))&&h.includes(norm(f.gast)));
+ const focus=[...new Map([...exact,...reverse].map(f=>[norm(f.heim)+'|'+norm(f.gast)+'|'+f.startDate,f])).values()];
+ return {gefundenExakt:exact.length,gefundenRueckspiel:reverse.length,begegnungen:focus.slice(0,4).map(f=>({heim:f.heim,gast:f.gast,datum:f.datum,anstoss:f.anstoss,provider:f.provider||null})),teamSpiele:matches.length,hinweis:exact.length?'EXAKTE_BEGEGNUNG_GEFUNDEN':'NICHT_VON_OFFIZIELLEM_SPIELPLAN_BESTAETIGT'};
+}
 export async function run({browserFactory,config,siteGames,timeout=25000}={}){
  const cfg=config||JSON.parse(fs.readFileSync(path.join(root,'terminwaechter/offizielle-quellen.json'),'utf8'));
  const data=siteGames||JSON.parse(fs.readFileSync(path.join(root,'spieldaten.json'),'utf8'));
@@ -34,18 +44,25 @@ export async function run({browserFactory,config,siteGames,timeout=25000}={}){
  const browser=await factory();const report={zeit:new Date().toISOString(),datenVersion:data.datenVersion,modus:'BROWSER_READ_ONLY',quellen:[],befunde:[],automatischeAenderung:false};
  try{for(const src of cfg.quellen){if(!arr(src.spielIds).length){report.quellen.push({name:src.name,status:'NOCH_KEINE_TOSMC_EINZELSPIELE'});continue;}
   const allowed=DOMAINS[src.verband]||[];if(!trustResponse(src.url,src.url,allowed)){report.quellen.push({name:src.name,status:'DOMAIN_NICHT_FREIGEGEBEN'});continue;}
-  const context=await browser.newContext({serviceWorkers:'block',acceptDownloads:false});const page=await context.newPage();const fixtures=[];const endpoints=[];const schemaBefunde=[];let pending=[];let offizielleFpl=null;let relevanteAntworten=0;
+  const context=await browser.newContext({serviceWorkers:'block',acceptDownloads:false});const page=await context.newPage();const fixtures=[];const endpoints=[];const schemaBefunde=[];const antwortDiagnose=[];let pending=[];let offizielleFpl=null;let relevanteAntworten=0;
   page.on('response',r=>{const u=r.url();if(!trustResponse(src.url,u,allowed))return;const ct=r.headers()['content-type']||'';if(!/json/i.test(ct))return;const provider=providerForUrl(u);const relevant=Boolean(provider)||/\/(?:fixtures|calendar|matches|events|rounds)(?:\/|$)/i.test(new URL(u).pathname);if(relevant?relevanteAntworten++>=25:endpoints.length-relevanteAntworten>=45)return;
    endpoints.push({host:new URL(u).hostname,pfad:new URL(u).pathname.slice(0,180),http:r.status()});
-   pending.push((async()=>{try{if(r.status()!==200)return;const body=await r.body();if(body.length>2_000_000)return;const obj=JSON.parse(body.toString('utf8'));if(provider){const decoded=decodeOfficial(provider,obj);fixtures.push(...decoded.fixtures);schemaBefunde.push({pfad:new URL(u).pathname.slice(0,180),...decoded.diagnosis});}else{fixtures.push(...fixturesFromJson(obj));}}catch{}})());});
+   pending.push((async()=>{const pfad=new URL(u).pathname.slice(0,180);const isMatch=/\/api\/v1\/competition\/matches(?:\/|$)/i.test(pfad);
+    try{if(r.status()!==200){if(isMatch)antwortDiagnose.push({pfad,status:'HTTP_'+r.status()});return;}
+     const body=await r.body();if(body.length>2_000_000){if(isMatch)antwortDiagnose.push({pfad,status:'ANTWORT_ZU_GROSS',bytes:body.length});return;}
+     let obj;try{obj=JSON.parse(body.toString('utf8'));}catch(e){if(isMatch)antwortDiagnose.push({pfad,status:'KEIN_GUELTIGES_JSON',bytes:body.length,fehler:String(e.message).slice(0,100)});return;}
+     if(isMatch)antwortDiagnose.push({pfad,status:'JSON_GELESEN',bytes:body.length,typ:Array.isArray(obj)?'array':typeof obj,obersteFelder:obj&&typeof obj==='object'&&!Array.isArray(obj)?Object.keys(obj).slice(0,25):[],arrayLaenge:Array.isArray(obj)?obj.length:null});
+     if(provider){const decoded=decodeOfficial(provider,obj);fixtures.push(...decoded.fixtures);schemaBefunde.push({pfad,...decoded.diagnosis});}else{fixtures.push(...fixturesFromJson(obj));}
+    }catch(e){if(isMatch)antwortDiagnose.push({pfad,status:'ANTWORT_FEHLER',fehler:String(e.message).slice(0,120)});}})());});
   try{await page.goto(src.url,{waitUntil:'domcontentloaded',timeout});await page.waitForTimeout(4500);const html=await page.content();fixtures.push(...parseStructuredFixtures(html),...parseEmbeddedFixtures(html));await Promise.allSettled(pending);
    if(src.verband==='england'){try{const fpl=await fetchFplFixtures();fixtures.push(...fpl);offizielleFpl={status:'OK',anzahl:fpl.length,quelle:'https://fantasy.premierleague.com/api/fixtures/'};}catch(e){offizielleFpl={status:'FEHLER',grund:String(e?.message||e).slice(0,180)};}}
    const clean=dedupe(fixtures);
    // Limited fixture evidence for the three Italian TOSMC matches; read-only, no whole-season dump.
    const italienBelege=src.verband==='italien'?clean.filter(f=>/milan|mailand|internaz|inter|juvent|bologna/i.test(f.heim+' '+f.gast)).slice(0,100).map(f=>({heim:f.heim,gast:f.gast,datum:f.datum,anstoss:f.anstoss})):[];
-   report.quellen.push({name:src.name,status:clean.length?'SPIELE_EXTRAHIERT':'KEINE_SPIELE_EXTRAHIERT',anzahl:clean.length,antworten:endpoints,schemaBefunde,italienBelege,offizielleFpl,seite:page.url()});
+   report.quellen.push({name:src.name,status:clean.length?'SPIELE_EXTRAHIERT':'KEINE_SPIELE_EXTRAHIERT',anzahl:clean.length,antworten:endpoints,schemaBefunde,antwortDiagnose,italienBelege,offizielleFpl,seite:page.url()});
    for(const id of src.spielIds){const g=byId.get(id);if(!g){report.befunde.push({spielId:id,status:'SPIEL_FEHLT'});continue;}if(g.status==='beendet')continue;
-    report.befunde.push({spielId:id,quelle:src.url,...compare(g,clean,cfg.teamAliase||{})});}
+    const decision=compare(g,clean,cfg.teamAliase||{});
+    report.befunde.push({spielId:id,quelle:src.url,...decision,...(decision.status==='KEIN_EINDEUTIGES_SPIEL'&&src.verband==='england'?{paarungsDiagnose:diagnoseMissingPair(g,clean,cfg.teamAliase||{})}:{})});}
   }catch(e){report.quellen.push({name:src.name,status:'BROWSER_FEHLER',fehler:String(e.message).slice(0,220),antworten:endpoints,schemaBefunde});for(const id of src.spielIds)report.befunde.push({spielId:id,status:'BROWSER_FEHLER'});}
   finally{await context.close();}
  }}finally{await browser.close();}
