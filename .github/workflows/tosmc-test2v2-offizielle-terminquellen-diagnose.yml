@@ -1,0 +1,38 @@
+name: TOSMC TEST2v2 – Offizielle Terminquellen (nur Diagnose)
+run-name: Manuelle Terminquellen-Diagnose
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  terminquellen-diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Bestehenden TEST2v2 Stand auschecken
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Parser- und Schutztests
+        run: |
+          node scripts/TEST_offizielle_quellen.mjs
+          node scripts/TEST_offizielle_quellen_TEST4.mjs
+          node scripts/TEST_offizielle_quellen_TEST5.mjs
+      - name: Aktuellen TEST2v2-Datenstand auf Vorhandensein prüfen
+        run: |
+          test -f spieldaten.json
+          test -f terminwaechter/offizielle-quellen.json
+      - name: Offizielle Seiten abfragen und Bericht erstellen
+        run: node scripts/offizielle-quellen.mjs
+      - name: Diagnoseberichte auch nach Abbruch bereitstellen
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tosmc-test2v2-offizielle-quellen-diagnose
+          path: terminwaechter-bericht/
+          if-no-files-found: warn
+          retention-days: 14
