@@ -1,5 +1,5 @@
 {
-  "hinweis": "TEST3: Quellkonfiguration auf den hochgeladenen LIVE-Snapshot vom 26.10.2026 (spieldaten datenVersion 82) bezogen. Nur elf noch offene Sonderwettbewerbsspiele; Bundesliga, CL, Dynamo unberuehrt. Kein offizieller Online-Abruf nachgewiesen.",
+  "hinweis": "TEST11 – offizieller Premier-League-Fantasy-Spielplan, Portugal-JSON-Priorisierung, französische Kalenderseite; read-only, kein automatisches Update.",
   "quellen": [
     {
       "name": "UEFA Europa League",
@@ -39,7 +39,7 @@
     {
       "name": "Frankreich offiziell",
       "verband": "frankreich",
-      "url": "https://ligue1.com/",
+      "url": "https://ligue1.com/en/calendar/ligue1",
       "spielIds": [
         "pk-2026-27-05-le-classique"
       ]
@@ -156,7 +156,8 @@
     ],
     "fc-liverpool": [
       "FC Liverpool",
-      "FC Liverpool"
+      "Liverpool",
+      "Liverpool FC"
     ],
     "fc-porto": [
       "FC Porto",
@@ -254,7 +255,7 @@
     ],
     "manchester-city": [
       "Manchester City",
-      "Manchester City"
+      "Man City"
     ],
     "manchester-united": [
       "Manchester United",
@@ -350,7 +351,7 @@
     ],
     "tottenham-hotspur": [
       "Tottenham Hotspur",
-      "Tottenham Hotspur"
+      "Spurs"
     ],
     "union-berlin": [
       "1. FC Union Berlin",

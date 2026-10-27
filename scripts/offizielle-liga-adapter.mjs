@@ -26,7 +26,7 @@ function berlin(iso){const d=new Date(iso);const parts=Object.fromEntries(new In
 export function providerForUrl(url){try{const h=new URL(url).hostname;const p=new URL(url).pathname;
  if(h==='api-sdp.legaseriea.it'&&/\/matches(?:\/|$)/.test(p))return 'seriea';
  if(h==='api.premierleague.com'&&/\/(?:broadcasting\/match-events|football\/fixtures|fixtures|matches)(?:\/|$)/.test(p))return 'premierleague';
- if(h.endsWith('.ligaportugal.pt')&&/\/api\/v1\/competition\/matches(?:\/|$)/.test(p))return 'portugal';
+ if((h==='ligaportugal.pt'||h.endsWith('.ligaportugal.pt'))&&/\/api\/v1\/competition\/matches(?:\/|$)/.test(p))return 'portugal';
  }catch{}return null;}
 export function decodeOfficial(provider,data){if(!paths[provider])return {fixtures:[],diagnosis:{reason:'NICHT_UNTERSTUETZT'}};
  const objects=nodes(data), fixtures=[], seen=new Set(), encountered={};let candidates=0;
