@@ -22,6 +22,7 @@ jobs:
           node scripts/TEST_offizielle_quellen.mjs
           node scripts/TEST_offizielle_quellen_TEST4.mjs
           node scripts/TEST_offizielle_quellen_TEST5.mjs
+          node scripts/TEST_offizielle_sonderquellen_TEST16.mjs
       - name: Aktuellen TEST2v2-Datenstand auf Vorhandensein prüfen
         run: |
           test -f spieldaten.json
@@ -39,6 +40,9 @@ jobs:
           node scripts/TEST_offizielle_quellen_TEST7.mjs
           node scripts/TEST_offizielle_quellen_TEST8.mjs
           node scripts/offizielle-quellen-browser.mjs
+      - name: Offizielle Sonderquellen zusätzlich prüfen (read-only)
+        if: success() || failure()
+        run: node scripts/offizielle-sonderquellen-test16.mjs
       - name: Diagnoseberichte auch nach Abbruch bereitstellen
         if: always()
         uses: actions/upload-artifact@v4
