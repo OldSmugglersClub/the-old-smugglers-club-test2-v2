@@ -49,7 +49,7 @@ export async function run({browserFactory,config,siteGames,timeout=25000}={}){
    endpoints.push({host:new URL(u).hostname,pfad:new URL(u).pathname.slice(0,180),http:r.status()});
    pending.push((async()=>{const pfad=new URL(u).pathname.slice(0,180);const isMatch=/\/api\/v1\/competition\/matches(?:\/|$)/i.test(pfad);
     try{if(r.status()!==200){if(isMatch)antwortDiagnose.push({pfad,status:'HTTP_'+r.status()});return;}
-     const body=await r.body();if(body.length>2_000_000){if(isMatch)antwortDiagnose.push({pfad,status:'ANTWORT_ZU_GROSS',bytes:body.length});return;}
+     const body=await r.body();if(body.length>(provider==='portugal'&&isMatch?6_000_000:2_000_000)){if(isMatch)antwortDiagnose.push({pfad,status:'ANTWORT_ZU_GROSS',bytes:body.length});return;}
      let obj;try{obj=JSON.parse(body.toString('utf8'));}catch(e){if(isMatch)antwortDiagnose.push({pfad,status:'KEIN_GUELTIGES_JSON',bytes:body.length,fehler:String(e.message).slice(0,100)});return;}
      if(isMatch)antwortDiagnose.push({pfad,status:'JSON_GELESEN',bytes:body.length,typ:Array.isArray(obj)?'array':typeof obj,obersteFelder:obj&&typeof obj==='object'&&!Array.isArray(obj)?Object.keys(obj).slice(0,25):[],arrayLaenge:Array.isArray(obj)?obj.length:null});
      if(provider){const decoded=decodeOfficial(provider,obj);fixtures.push(...decoded.fixtures);schemaBefunde.push({pfad,...decoded.diagnosis});}else{fixtures.push(...fixturesFromJson(obj));}
