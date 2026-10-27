@@ -1,9 +1,16 @@
 name: TOSMC TEST2v2 – Offizielle Terminquellen (nur Diagnose)
-run-name: Manuelle Terminquellen-Diagnose
+run-name: Terminquellen-Diagnose (manuell oder täglich, READ-ONLY)
 on:
   workflow_dispatch:
+  schedule:
+    # Einmal täglich um 07:17 UTC; in Deutschland 08:17 MEZ / 09:17 MESZ.
+    # Kein GitHub-Schreibzugriff, keine Website-Veröffentlichung.
+    - cron: '17 7 * * *'
 permissions:
   contents: read
+concurrency:
+  group: tosmc-test2v2-offizielle-terminquellen
+  cancel-in-progress: false
 jobs:
   terminquellen-diagnose:
     runs-on: ubuntu-latest
