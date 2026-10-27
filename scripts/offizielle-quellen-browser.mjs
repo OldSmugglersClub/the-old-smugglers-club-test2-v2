@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {parseStructuredFixtures,parseEmbeddedFixtures,DOMAINS,compare} from './offizielle-quellen.mjs';
+import {providerForUrl,decodeOfficial} from './offizielle-liga-adapter.mjs';
 const root=path.resolve(process.env.TOSMC_ROOT||'.');
 const out=path.resolve(process.env.TOSMC_OFFICIAL_OUT||'terminwaechter-bericht');
 const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
@@ -32,15 +33,15 @@ export async function run({browserFactory,config,siteGames,timeout=25000}={}){
  const browser=await factory();const report={zeit:new Date().toISOString(),datenVersion:data.datenVersion,modus:'BROWSER_READ_ONLY',quellen:[],befunde:[],automatischeAenderung:false};
  try{for(const src of cfg.quellen){if(!arr(src.spielIds).length){report.quellen.push({name:src.name,status:'NOCH_KEINE_TOSMC_EINZELSPIELE'});continue;}
   const allowed=DOMAINS[src.verband]||[];if(!trustResponse(src.url,src.url,allowed)){report.quellen.push({name:src.name,status:'DOMAIN_NICHT_FREIGEGEBEN'});continue;}
-  const context=await browser.newContext({serviceWorkers:'block',acceptDownloads:false});const page=await context.newPage();const fixtures=[];const endpoints=[];let pending=[];
+  const context=await browser.newContext({serviceWorkers:'block',acceptDownloads:false});const page=await context.newPage();const fixtures=[];const endpoints=[];const schemaBefunde=[];let pending=[];
   page.on('response',r=>{const u=r.url();if(!trustResponse(src.url,u,allowed))return;const ct=r.headers()['content-type']||'';if(!/json/i.test(ct)||endpoints.length>=70)return;
    endpoints.push({host:new URL(u).hostname,pfad:new URL(u).pathname.slice(0,180),http:r.status()});
-   pending.push((async()=>{try{if(r.status()!==200)return;const body=await r.body();if(body.length>2_000_000)return;fixtures.push(...fixturesFromJson(JSON.parse(body.toString('utf8'))));}catch{}})());});
+   pending.push((async()=>{try{if(r.status()!==200)return;const body=await r.body();if(body.length>2_000_000)return;const obj=JSON.parse(body.toString('utf8'));const provider=providerForUrl(u);if(provider){const decoded=decodeOfficial(provider,obj);fixtures.push(...decoded.fixtures);schemaBefunde.push({pfad:new URL(u).pathname.slice(0,180),...decoded.diagnosis});}else{fixtures.push(...fixturesFromJson(obj));}}catch{}})());});
   try{await page.goto(src.url,{waitUntil:'domcontentloaded',timeout});await page.waitForTimeout(4500);const html=await page.content();fixtures.push(...parseStructuredFixtures(html),...parseEmbeddedFixtures(html));await Promise.allSettled(pending);const clean=dedupe(fixtures);
-   report.quellen.push({name:src.name,status:clean.length?'SPIELE_EXTRAHIERT':'KEINE_SPIELE_EXTRAHIERT',anzahl:clean.length,antworten:endpoints,seite:page.url()});
+   report.quellen.push({name:src.name,status:clean.length?'SPIELE_EXTRAHIERT':'KEINE_SPIELE_EXTRAHIERT',anzahl:clean.length,antworten:endpoints,schemaBefunde,seite:page.url()});
    for(const id of src.spielIds){const g=byId.get(id);if(!g){report.befunde.push({spielId:id,status:'SPIEL_FEHLT'});continue;}if(g.status==='beendet')continue;
     report.befunde.push({spielId:id,quelle:src.url,...compare(g,clean,cfg.teamAliase||{})});}
-  }catch(e){report.quellen.push({name:src.name,status:'BROWSER_FEHLER',fehler:String(e.message).slice(0,220),antworten:endpoints});for(const id of src.spielIds)report.befunde.push({spielId:id,status:'BROWSER_FEHLER'});}
+  }catch(e){report.quellen.push({name:src.name,status:'BROWSER_FEHLER',fehler:String(e.message).slice(0,220),antworten:endpoints,schemaBefunde});for(const id of src.spielIds)report.befunde.push({spielId:id,status:'BROWSER_FEHLER'});}
   finally{await context.close();}
  }}finally{await browser.close();}
  report.verifiziert=report.befunde.filter(x=>['IDENTISCH','ABWEICHUNG'].includes(x.status)).length;

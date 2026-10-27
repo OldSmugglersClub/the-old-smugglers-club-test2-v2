@@ -37,6 +37,7 @@ jobs:
         if: success() || failure()
         run: |
           node scripts/TEST_offizielle_quellen_TEST7.mjs
+          node scripts/TEST_offizielle_quellen_TEST8.mjs
           node scripts/offizielle-quellen-browser.mjs
       - name: Diagnoseberichte auch nach Abbruch bereitstellen
         if: always()
