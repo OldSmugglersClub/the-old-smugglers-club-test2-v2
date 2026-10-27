@@ -28,6 +28,16 @@ jobs:
           test -f terminwaechter/offizielle-quellen.json
       - name: Offizielle Seiten abfragen und Bericht erstellen
         run: node scripts/offizielle-quellen.mjs
+      - name: Browser für offizielle Spielplanseiten installieren
+        if: success() || failure()
+        run: |
+          npm install --no-save --ignore-scripts playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Offizielle Spielplandaten im Browser prüfen
+        if: success() || failure()
+        run: |
+          node scripts/TEST_offizielle_quellen_TEST7.mjs
+          node scripts/offizielle-quellen-browser.mjs
       - name: Diagnoseberichte auch nach Abbruch bereitstellen
         if: always()
         uses: actions/upload-artifact@v4
