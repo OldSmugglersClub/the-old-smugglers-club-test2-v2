@@ -11,7 +11,7 @@ const timestamp=x=>{
  return null;
 };
 const paths={
- seriea:{home:['homeTeam','home_team','home','homeSquad','homeClub','teamHome','teams.home','participants.home','home_team_name'],away:['awayTeam','away_team','away','awaySquad','awayClub','teamAway','teams.away','participants.away','away_team_name'],date:['matchDateTimeUTC','kickoffTime','kickOffTime','kickoff','kickOff','startDate','startTime','scheduledStart','dateTime','dateUTC','matchDate','date']},
+ seriea:{home:['homeTeam','home_team','home','homeSquad','homeClub','teamHome','teams.home','participants.home','home_team_name'],away:['awayTeam','away_team','away','awaySquad','awayClub','teamAway','teams.away','participants.away','away_team_name'],date:['matchDateUtc','matchDateTimeUTC','kickoffTime','kickOffTime','kickoff','kickOff','startDate','startTime','scheduledStart','dateTime','dateUTC','matchDate','date']},
  premierleague:{home:['homeTeam','home','homeTeamName','homeTeamDisplayName','teamHome','teams.home','participants.home','participants.0.team'],away:['awayTeam','away','awayTeamName','awayTeamDisplayName','teamAway','teams.away','participants.away','participants.1.team'],date:['kickoffTime','kickoff','kickOffTime','kickOff','startDate','startTime','dateTime','eventDate','matchDateTimeUTC','date','utcDate']},
  portugal:{home:['homeTeam','home','home_team','homeClub','homeTeamName','home_team_name','teamHome','homeTeamInfo','teams.home'],away:['awayTeam','away','away_team','awayClub','awayTeamName','away_team_name','teamAway','awayTeamInfo','teams.away'],date:['dateUTC','matchDateTimeUTC','matchDate','matchDatetime','match_date','kickoffTime','kickOff','startDate','dateTime','startTime','date']}
 };
