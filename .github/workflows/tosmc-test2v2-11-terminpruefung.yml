@@ -1,0 +1,54 @@
+name: TOSMC TEST2v2 – 11 Anstosszeitpunkte pruefen (nur Vorschau)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: tosmc-test2v2-11-terminpruefung
+  cancel-in-progress: false
+jobs:
+  pruefung:
+    if: github.repository == 'OldSmugglersClub/the-old-smugglers-club-test2-v2' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: TEST2v2 unveraendert auschecken
+        uses: actions/checkout@v4
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Schutztests fuer feste elf Spiele
+        run: |
+          node scripts/TEST_offizielle_quellen.mjs
+          node scripts/TEST_offizielle_quellen_TEST4.mjs
+          node scripts/TEST_offizielle_quellen_TEST5.mjs
+          node scripts/TEST_offizielle_quellen_TEST6.mjs
+          node scripts/TEST_offizielle_quellen_TEST7.mjs
+          node scripts/TEST_offizielle_quellen_TEST8.mjs
+          node scripts/TEST_offizielle_quellen_TEST9.mjs
+          node scripts/TEST_offizielle_quellen_TEST10.mjs
+          node scripts/TEST_offizielle_quellen_TEST11_FPL.mjs
+          node scripts/TEST_terminwaechter_auto.mjs
+      - name: Browser installieren
+        run: |
+          npm install --no-save --ignore-scripts playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Nur offizielle Anstosszeitpunkte pruefen
+        run: node scripts/tosmc-test2v2-11-terminpruefung.mjs
+      - name: Schreibschutz durch Git pruefen
+        shell: bash
+        run: |
+          if [ -n "$(git status --porcelain -- spieldaten.json schedule-terminstand.json)" ]; then
+            echo 'SCHUTZVERLETZUNG: Spieldaten wurden veraendert.'
+            exit 1
+          fi
+          echo 'Schreibschutz bestanden: spieldaten.json und schedule-terminstand.json unveraendert.'
+      - name: Bericht zur Kontrolle bereitstellen
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: TOSMC-TEST2V2-11-ANSTOSSZEITPUNKTE
+          path: terminwaechter-bericht/
+          if-no-files-found: warn
+          retention-days: 14
