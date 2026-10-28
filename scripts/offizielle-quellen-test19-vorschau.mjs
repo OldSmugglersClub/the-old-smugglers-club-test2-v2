@@ -10,7 +10,8 @@ const DATE = /^\d{4}-\d{2}-\d{2}$/;
 const TIME = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
 const FIELDS = ['datum','datumVon','datumBis','datumAnzeige','anstoss'];
 const ALLOWED = new Set(['piratenkodex','weihnachtsregatta','europa-league','dfb-pokal']);
-const ALLOWED_HOSTS = ['legaseriea.it','premierleague.com'];
+// Domains are necessary, not sufficient: TEST25 verifies the official browser tuple before this step.
+const ALLOWED_HOSTS = ['legaseriea.it','premierleague.com','ligue1.com','ligaportugal.pt'];
 function ensure(condition,reason){if(!condition)throw Error(reason);}
 function validDate(s){return typeof s==='string'&&DATE.test(s)&&new Date(s+'T12:00:00Z').toISOString().slice(0,10)===s;}
 function validTime(s){return typeof s==='string'&&TIME.test(s);}

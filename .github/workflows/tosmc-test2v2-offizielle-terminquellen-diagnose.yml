@@ -47,6 +47,7 @@ jobs:
           node scripts/TEST_offizielle_quellen_TEST23.mjs
           node scripts/TEST_offizielle_quellen_TEST24.mjs
           node scripts/TEST_offizielle_quellen_TEST25.mjs
+          node scripts/TEST_offizielle_quellen_TEST26.mjs
       - name: Aktuellen TEST2v2-Datenstand auf Vorhandensein prüfen
         run: |
           test -f spieldaten.json
@@ -110,6 +111,9 @@ jobs:
       - name: TEST25 – Offizielle Quellen und Korrekturbestand abgleichen (read-only)
         if: always()
         run: node scripts/offizielle-quellen-test25-freigabebruecke.mjs
+      - name: TEST26 – Künstliche Terminverschiebungen isoliert simulieren (READ-ONLY)
+        if: always()
+        run: node scripts/TEST_offizielle_quellen_TEST26.mjs --report
       - name: TEST19 – Nur nach TEST25-Sicherheitsgate geschützte Vorschau erzeugen
         if: always()
         run: |
