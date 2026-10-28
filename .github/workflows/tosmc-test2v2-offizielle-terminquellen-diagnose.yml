@@ -3,8 +3,7 @@ run-name: Terminquellen-Diagnose (manuell oder täglich, READ-ONLY)
 on:
   workflow_dispatch:
   schedule:
-    # Einmal täglich um 07:17 UTC; in Deutschland 08:17 MEZ / 09:17 MESZ.
-    # Kein GitHub-Schreibzugriff, keine Website-Veröffentlichung.
+    # 07:17 UTC täglich: 08:17 MEZ / 09:17 MESZ; tatsächlichen GitHub-Start separat überwachen.
     - cron: '17 7 * * *'
 permissions:
   contents: read
@@ -30,6 +29,7 @@ jobs:
           node scripts/TEST_offizielle_quellen_TEST4.mjs
           node scripts/TEST_offizielle_quellen_TEST5.mjs
           node scripts/TEST_offizielle_sonderquellen_TEST16.mjs
+          node scripts/TEST_offizielle_quellen_TEST18.mjs
       - name: Aktuellen TEST2v2-Datenstand auf Vorhandensein prüfen
         run: |
           test -f spieldaten.json
@@ -46,10 +46,23 @@ jobs:
         run: |
           node scripts/TEST_offizielle_quellen_TEST7.mjs
           node scripts/TEST_offizielle_quellen_TEST8.mjs
-          node scripts/offizielle-quellen-browser.mjs
+          if node scripts/offizielle-quellen-browser.mjs; then
+            echo "Browserdiagnose vollständig."
+          else
+            code=$?
+            if [ "$code" -eq 2 ]; then
+              echo "FACHLICH_UNVOLLSTAENDIG: Browserdiagnose liefert Exit 2. TEST18 bewertet die Berichte separat."
+            else
+              echo "TECHNISCHER_FEHLER im Browserdiagnoseprogramm: Exit $code" >&2
+              exit "$code"
+            fi
+          fi
       - name: Offizielle Sonderquellen zusätzlich prüfen (read-only)
         if: success() || failure()
         run: node scripts/offizielle-sonderquellen-test16.mjs
+      - name: TEST18 – Technischen Status und Korrekturvorschläge erstellen
+        if: always()
+        run: node scripts/offizielle-quellen-test18-auswertung.mjs
       - name: Diagnoseberichte auch nach Abbruch bereitstellen
         if: always()
         uses: actions/upload-artifact@v4
