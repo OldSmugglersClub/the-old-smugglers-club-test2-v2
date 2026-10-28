@@ -2,6 +2,17 @@ name: TOSMC TEST2v2 – Offizielle Terminquellen (nur Diagnose)
 run-name: Terminquellen-Diagnose (manuell oder täglich, READ-ONLY)
 on:
   workflow_dispatch:
+    inputs:
+      test20_freigabe:
+        description: 'Nur fuer TEST2v2: TEST2V2_FREIGABE eingeben (sonst nur Diagnose)'
+        required: false
+        default: ''
+        type: string
+      test20_bestands_sha256:
+        description: 'Quelle-SHA256 aus frischem TEST19_MANIFEST.json eingeben'
+        required: false
+        default: ''
+        type: string
   schedule:
     # 07:17 UTC täglich: 08:17 MEZ / 09:17 MESZ; tatsächlichen GitHub-Start separat überwachen.
     - cron: '17 7 * * *'
@@ -31,6 +42,7 @@ jobs:
           node scripts/TEST_offizielle_sonderquellen_TEST16.mjs
           node scripts/TEST_offizielle_quellen_TEST18.mjs
           node scripts/TEST_offizielle_quellen_TEST19.mjs
+          node scripts/TEST_offizielle_quellen_TEST20.mjs
       - name: Aktuellen TEST2v2-Datenstand auf Vorhandensein prüfen
         run: |
           test -f spieldaten.json
@@ -85,6 +97,12 @@ jobs:
       - name: TEST19 – Geschützte Korrekturvorschau erzeugen (kein Einspielen)
         if: always()
         run: node scripts/offizielle-quellen-test19-vorschau.mjs
+      - name: TEST20 – Freigabe pruefen und ggf. Austauschdatei nur als Artefakt vorbereiten
+        if: always()
+        env:
+          TEST20_APPROVAL: ${{ github.event.inputs.test20_freigabe || '' }}
+          TEST20_SOURCE_SHA: ${{ github.event.inputs.test20_bestands_sha256 || '' }}
+        run: node scripts/offizielle-quellen-test20-freigabe.mjs
       - name: Diagnoseberichte auch nach Abbruch bereitstellen
         if: always()
         uses: actions/upload-artifact@v4
