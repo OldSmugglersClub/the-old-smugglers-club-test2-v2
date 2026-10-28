@@ -1,0 +1,39 @@
+name: TOSMC – Terminwaechter einmalig bereinigen (nur TEST2v2)
+run-name: TOSMC verworfenen Terminwaechter bereinigen – ${{ inputs.modus }}
+on:
+  workflow_dispatch:
+    inputs:
+      modus:
+        description: 'Erst TROCKENLAUF, danach ENTFERNEN'
+        type: choice
+        required: true
+        default: TROCKENLAUF
+        options:
+          - TROCKENLAUF
+          - ENTFERNEN
+      freigabetext:
+        description: 'Nur beim Entfernen exakt TERMINWAECHTER_VERWORFEN_TEST2V2 eingeben'
+        required: false
+        default: ''
+        type: string
+permissions:
+  contents: write
+concurrency:
+  group: tosmc-test2v2-einmalige-terminwaechter-bereinigung
+  cancel-in-progress: false
+jobs:
+  cleanup:
+    if: github.repository == 'OldSmugglersClub/the-old-smugglers-club-test2-v2' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: TEST2v2-main unveraendert auschecken
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Schutzpruefung und optional eine atomare Bereinigung
+        env:
+          TOSMC_CLEANUP_MODE: ${{ inputs.modus }}
+          TOSMC_CLEANUP_APPROVAL: ${{ inputs.freigabetext }}
+        run: python3 scripts/tosmc-terminwaechter-bereinigung-einmalig.py
