@@ -1,0 +1,89 @@
+name: TOSMC TEST2v2 – 11 Anstosszeitpunkte kontrolliert uebernehmen
+run-name: TOSMC TEST2v2 – 11 Termine – ${{ inputs.modus }}
+on:
+  workflow_dispatch:
+    inputs:
+      modus:
+        description: 'Zuerst VORSCHAU; erst nach Pruefung UEBERNEHMEN'
+        type: choice
+        required: true
+        default: VORSCHAU
+        options:
+          - VORSCHAU
+          - UEBERNEHMEN
+      freigabetext:
+        description: 'Nur bei UEBERNEHMEN: TEST2V2_NUR_11_ANSTOSSZEITPUNKTE'
+        type: string
+        required: false
+        default: ''
+permissions:
+  contents: write
+concurrency:
+  # Identisch mit den vorhandenen Bundesliga-/Dynamo-Importern: keine parallelen
+  # Schreiblaeufe auf spieldaten.json im TEST2v2-Repository.
+  group: osc-bundesliga-ergebnisimport
+  cancel-in-progress: false
+jobs:
+  termine:
+    if: github.repository == 'OldSmugglersClub/the-old-smugglers-club-test2-v2' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Nur TEST2v2/main auschecken
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Node.js 22 bereitstellen
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Vorhandene elf-Spiele-Schutztests
+        run: node scripts/TEST_terminwaechter_auto.mjs
+      - name: Neuer Freigabe- und Schreibschutztest
+        run: node scripts/TEST_tosmc_test2v2_terminuebernahme.mjs
+      - name: Browser installieren
+        run: |
+          npm install --no-save --ignore-scripts playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Frische offizielle Termine pruefen und ggf. TEST2v2 aktualisieren
+        env:
+          TOSMC_MODE: ${{ inputs.modus }}
+          TOSMC_FREIGABE: ${{ inputs.freigabetext }}
+        run: node scripts/tosmc-test2v2-11-terminuebernahme.mjs
+      - name: Aenderungsumfang hart begrenzen und ggf. einmalig committen
+        env:
+          TOSMC_MODE: ${{ inputs.modus }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --name-only > /tmp/tosmc-changed.txt
+          if grep -Ev '^(spieldaten\.json|schedule-terminstand\.json)$' /tmp/tosmc-changed.txt | grep -q .; then
+            echo 'SCHUTZSTOPP: Fremde Dateien veraendert'; exit 1
+          fi
+          if [[ "$TOSMC_MODE" == 'VORSCHAU' ]]; then
+            if [[ -s /tmp/tosmc-changed.txt ]]; then
+              echo 'SCHUTZSTOPP: Vorschau hat Dateien veraendert'; exit 1
+            fi
+            echo 'VORSCHAU: keine Daten geaendert'; exit 0
+          fi
+          if [[ ! -s /tmp/tosmc-changed.txt ]]; then
+            echo 'Keine amtlich bestaetigte Aenderung im 56-Tage-Fenster.'; exit 0
+          fi
+          if [[ "$(git ls-remote origin refs/heads/main | cut -f1)" != "$(git rev-parse HEAD)" ]]; then
+            echo 'SCHUTZSTOPP: Repository waehrend der Pruefung veraendert'; exit 1
+          fi
+          git add -- spieldaten.json schedule-terminstand.json
+          git diff --cached --name-only | grep -Ev '^(spieldaten\.json|schedule-terminstand\.json)$' && { echo 'SCHUTZSTOPP: Falsche Aenderungen'; exit 1; } || true
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'TEST2v2: amtlich bestaetigte Anstosszeitpunkte der 11 Sonder-Spiele'
+          git push origin HEAD:refs/heads/main
+      - name: Terminbericht speichern
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: TOSMC-TEST2V2-11-TERMINUEBERNAHME
+          path: terminwaechter-bericht/
+          retention-days: 14
+          if-no-files-found: warn
