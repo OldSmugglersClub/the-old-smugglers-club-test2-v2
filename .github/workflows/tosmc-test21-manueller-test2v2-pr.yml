@@ -1,0 +1,53 @@
+name: TOSMC TEST21 – Manueller TEST2v2-Korrekturvorschlag (Draft-PR)
+run-name: TEST21 – Nur Entwurf, niemals LIVE oder direkter main-Push
+on:
+  workflow_dispatch:
+    inputs:
+      quelllauf_id:
+        description: 'Run-ID des erfolgreich manuell freigegebenen TEST20-Laufs'
+        type: string
+        required: true
+      bestands_sha256:
+        description: 'Exakte Quelle-SHA256 aus TEST19_MANIFEST des Quelllaufs'
+        type: string
+        required: true
+      pr_freigabe:
+        description: 'Zum Erstellen TEST2V2_PR_ERSTELLEN eingeben'
+        type: string
+        required: true
+permissions:
+  contents: read
+jobs:
+  test21-draft-pr:
+    if: github.repository == 'OldSmugglersClub/the-old-smugglers-club-test2-v2' && github.ref == 'refs/heads/main' && inputs.pr_freigabe == 'TEST2V2_PR_ERSTELLEN'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: TEST2v2 aktuellen main auschecken (ohne gespeicherte Zugangsdaten)
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: TEST21 Schutztests
+        run: node scripts/TEST_offizielle_quellen_TEST21.mjs
+      - name: Manuell freigegebenes TEST20-Artefakt herunterladen
+        env:
+          GH_TOKEN: ${{ github.token }}
+          QUELLLAUF: ${{ inputs.quelllauf_id }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/test21-artifact"
+          gh run download "$QUELLLAUF" --repo "$GITHUB_REPOSITORY" --name tosmc-test2v2-offizielle-quellen-diagnose --dir "$RUNNER_TEMP/test21-artifact"
+      - name: Nur TEST2v2 Draft-PR nach kompletter Prüfung erzeugen
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          TEST21_ARTIFACT_DIR: ${{ runner.temp }}/test21-artifact
+          TEST21_SOURCE_RUN: ${{ inputs.quelllauf_id }}
+          TEST21_SOURCE_SHA: ${{ inputs.bestands_sha256 }}
+          TEST21_APPROVAL: ${{ inputs.pr_freigabe }}
+        run: node scripts/offizielle-quellen-test21-pr.mjs

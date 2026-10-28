@@ -43,7 +43,7 @@ export function buildCandidate(dataRaw, proposalsRaw, statusRaw){
  ensure(status.datenVersion===data.datenVersion,'DATENVERSION_ABWEICHEND');
  ensure(proposalDoc.schema==='TEST18'&&proposalDoc.automatischeAenderung===false&&proposalDoc.modus==='VORSCHLAEGE_NUR_ZUR_SICHTUNG','TEST18_VORSCHLAEGE_NICHT_VERTRAUENSWUERDIG');
  const proposals=proposalDoc.vorschlaege;
- ensure(Array.isArray(proposals)&&proposals.length>0&&proposals.length<=25,'VORSCHLAEGE_ANZAHL_NICHT_ERLAUBT');
+ ensure(Array.isArray(proposals)&&proposals.length>=0&&proposals.length<=25,'VORSCHLAEGE_ANZAHL_NICHT_ERLAUBT');
  ensure(status.anzahl?.abweichungen===proposals.length,'VORSCHLAGSZAHL_WIDERSPRUCH');
  const games=(data.saisons||[]).flatMap(s=>s.spiele||[]);
  const byId=new Map(games.map(g=>[g.id,g]));
@@ -86,8 +86,9 @@ export function run({root='.',reportDir='terminwaechter-bericht'}={}){
  const status=fs.readFileSync(path.join(reportDir,'TEST18_STATUS.json'),'utf8');
  const {candidate,manifest}=buildCandidate(source,proposals,status);
  // Candidate lives in a deliberately non-deployable subdirectory within the artifact.
- const folder=path.join(reportDir,'TEST19_NICHT_EINSPIELEN');fs.mkdirSync(folder,{recursive:true});
- fs.writeFileSync(path.join(folder,'spieldaten.json'),candidate);
+ const folder=path.join(reportDir,'TEST19_NICHT_EINSPIELEN');
+ if(manifest.anzahlAenderungen>0){fs.mkdirSync(folder,{recursive:true});fs.writeFileSync(path.join(folder,'spieldaten.json'),candidate);}
+ else fs.rmSync(folder,{recursive:true,force:true});
  fs.writeFileSync(path.join(reportDir,'TEST19_MANIFEST.json'),JSON.stringify(manifest,null,2)+'\n');
  const lines=['# TEST19 – Korrekturvorschau, NICHT EINSPIELEN','',
  `Datenversion: ${manifest.datenVersion}`,`Bestands-SHA256: ${manifest.quelleHashSHA256}`,`Vorschau-SHA256: ${manifest.kandidatHashSHA256}`,

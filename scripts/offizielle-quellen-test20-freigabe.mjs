@@ -15,7 +15,7 @@ export function prepare({source,manifest,proposal,status,approval='',expectedHas
  check(sha(built.candidate)===m.kandidatHashSHA256&&built.manifest.quelleHashSHA256===m.quelleHashSHA256,'KANDIDAT_WIDERSPRUCH');
  check(JSON.stringify(built.manifest.aenderungen)===JSON.stringify(m.aenderungen),'AENDERUNGSLISTE_WIDERSPRUCH');
  check(m.anzahlAenderungen===built.manifest.anzahlAenderungen&&m.datenVersion===src.datenVersion,'MANIFEST_UMFANG_WIDERSPRUCH');
- const allowed=(event==='workflow_dispatch'&&approval==='TEST2V2_FREIGABE'&&expectedHash===m.quelleHashSHA256);
+ const allowed=(event==='workflow_dispatch'&&approval==='TEST2V2_FREIGABE'&&expectedHash===m.quelleHashSHA256&&m.anzahlAenderungen>0);
  const result={schema:'TEST20',modus:'NUR_TEST2V2_MANUELLE_FREIGABE',freigabe:allowed?'MANUELL_FUER_TEST2V2_FREIGEGEBEN':'NICHT_FREIGEGEBEN',auslieferung:allowed?'DATEI_FUER_MANUELLES_TEST2V2_EINSPIELEN':'KEINE_DATEI',event,quelleHashSHA256:m.quelleHashSHA256,kandidatHashSHA256:m.kandidatHashSHA256,anzahlAenderungen:m.anzahlAenderungen,automatischeGitAenderung:false,automatischeWebsiteAenderung:false,liveFreigabe:false};
  return {result,candidate:allowed?built.candidate:null};
 }
