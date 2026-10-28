@@ -45,6 +45,7 @@ jobs:
           node scripts/TEST_offizielle_quellen_TEST20.mjs
           node scripts/TEST_offizielle_quellen_TEST22.mjs
           node scripts/TEST_offizielle_quellen_TEST23.mjs
+          node scripts/TEST_offizielle_quellen_TEST24.mjs
       - name: Aktuellen TEST2v2-Datenstand auf Vorhandensein prüfen
         run: |
           test -f spieldaten.json
@@ -102,6 +103,9 @@ jobs:
       - name: TEST23 – Offiziellen Detailstatus Frankreich/Portugal erneut abfragen (read-only)
         if: always()
         run: node scripts/offizielle-quellen-test23-quellenstatus.mjs
+      - name: TEST24 – Offiziellen Quellenabgleich Frankreich/Portugal protokollieren (read-only)
+        if: always()
+        run: node scripts/offizielle-quellen-test24-pruefung.mjs
       - name: TEST19 – Geschützte Korrekturvorschau erzeugen (kein Einspielen)
         if: always()
         run: node scripts/offizielle-quellen-test19-vorschau.mjs
