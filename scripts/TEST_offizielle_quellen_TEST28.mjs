@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {validateContext,changesAreSafe,draft,REPO,TEST_PATH} from './test28-isolierter-draft-pr.mjs';
+const h='a'.repeat(40),t='b'.repeat(40);const input={repository:REPO,event:'workflow_dispatch',ref:'refs/heads/main',approval:'TEST28_NUR_TESTDATEI_PR',runId:'40726450722',headSha:h,baseSha:h};
+assert.equal(validateContext(input),true);
+for(const [key,value] of [['repository','OldSmugglersClub/the-old-smugglers-club'],['event','schedule'],['ref','refs/heads/test'],['approval',''],['baseSha',t]])assert.throws(()=>validateContext({...input,[key]:value}),/TEST28_BLOCKIERT/);
+assert.equal(changesAreSafe([TEST_PATH]),true);
+for(const files of [[],['spieldaten.json'],[TEST_PATH,'spieldaten.json']])assert.throws(()=>changesAreSafe(files),/UNZULAESSIGE_DATEIEN/);
+let calls=[];const api=async(method,payload,body)=>{calls.push({method,payload,body});if(payload==='/git/ref/heads/main')return {object:{sha:h}};if(payload.startsWith('/git/ref/heads/')){let e=new Error('not found');e.status=404;throw e;}if(payload.startsWith('/git/commits/'))return {tree:{sha:t}};if(payload==='/git/blobs'){const crypto=await import('node:crypto');const marker=Buffer.from(body.content,'base64');return {sha:crypto.createHash('sha1').update(`blob ${marker.length}\0`).update(marker).digest('hex')}}if(payload==='/git/trees')return {sha:t};if(payload==='/git/commits')return {sha:t};if(payload==='/git/refs')return {};if(payload==='/pulls')return {draft:true,html_url:'https://github.com/test/pr/1',number:1};throw Error('UNEXPECTED_ENDPOINT')};
+const result=await draft({api,...input,runUrl:'https://github.com/test/actions/1'});
+assert.equal(result.path,TEST_PATH);assert.equal(calls.filter(x=>x.method==='POST').length,5);
+const treeCall=calls.find(x=>x.payload==='/git/trees');assert.deepEqual(treeCall.body.tree.map(x=>x.path),[TEST_PATH]);
+assert.equal(calls.find(x=>x.payload==='/pulls').body.draft,true);
+let rejected=[];const deny=async(method,payload)=>{rejected.push(method);if(payload==='/git/ref/heads/main')return {object:{sha:t}};throw Error('UNEXPECTED')};
+await assert.rejects(draft({api:deny,...input}),/MAIN_SEIT_CHECKOUT_VERAENDERT/);assert.deepEqual(rejected,['GET']);
+console.log('TEST28: 15 Assertions erfolgreich. GitHub nur simuliert, kein Repo-Zugriff.');
