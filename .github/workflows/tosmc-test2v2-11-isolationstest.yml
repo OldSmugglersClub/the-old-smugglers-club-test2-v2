@@ -1,0 +1,40 @@
+name: TOSMC TEST2v2 – Isolierter Terminwechsel-Schutztest
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: tosmc-test2v2-11-isolationstest
+  cancel-in-progress: false
+jobs:
+  isolationstest:
+    if: github.repository == 'OldSmugglersClub/the-old-smugglers-club-test2-v2' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: TEST2v2 unveraendert auschecken
+        uses: actions/checkout@v4
+      - name: Node.js 22 bereitstellen
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Synthetischen Terminwechsel im Arbeitsspeicher testen
+        run: node scripts/TEST_tosmc_11_isolierter_terminwechsel.mjs
+      - name: Pruefen dass nur Berichtdateien erstellt wurden
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -n "$(git status --porcelain --untracked-files=all | grep -vE '^\?\? terminwaechter-isolationstest-bericht/' || true)" ]]; then
+            echo 'SCHUTZSTOPP: Repository-Dateien veraendert oder unerwartete Dateien erstellt'
+            git status --short
+            exit 1
+          fi
+          echo 'PASS: Alle versionierten Repository-Dateien unveraendert.'
+      - name: Isolationsbericht speichern
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: TOSMC-TEST2V2-11-ISOLATIONSTEST
+          path: terminwaechter-isolationstest-bericht/
+          retention-days: 14
+          if-no-files-found: warn
