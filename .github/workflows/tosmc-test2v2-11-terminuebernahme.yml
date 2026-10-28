@@ -1,6 +1,9 @@
 name: TOSMC TEST2v2 – 11 Anstosszeitpunkte kontrolliert uebernehmen
-run-name: TOSMC TEST2v2 – 11 Termine – ${{ inputs.modus }}
+run-name: TOSMC TEST2v2 – 11 Termine – ${{ github.event_name == 'schedule' && 'TAEGLICH' || inputs.modus }}
 on:
+  # Einmal taeglich: 05:17 UTC; nur TEST2v2; GitHub kann Cron-Laeufe verzoegern.
+  schedule:
+    - cron: '17 5 * * *'
   workflow_dispatch:
     inputs:
       modus:
@@ -41,19 +44,21 @@ jobs:
       - name: Vorhandene elf-Spiele-Schutztests
         run: node scripts/TEST_terminwaechter_auto.mjs
       - name: Neuer Freigabe- und Schreibschutztest
-        run: node scripts/TEST_tosmc_test2v2_terminuebernahme.mjs
+        run: |
+          node scripts/TEST_tosmc_test2v2_terminuebernahme.mjs
+          node scripts/TEST_tosmc_test2v2_taeglich_nach_abschluss.mjs
       - name: Browser installieren
         run: |
           npm install --no-save --ignore-scripts playwright@1.56.1
           npx playwright install --with-deps chromium
       - name: Frische offizielle Termine pruefen und ggf. TEST2v2 aktualisieren
         env:
-          TOSMC_MODE: ${{ inputs.modus }}
-          TOSMC_FREIGABE: ${{ inputs.freigabetext }}
+          TOSMC_MODE: ${{ github.event_name == 'schedule' && 'UEBERNEHMEN' || inputs.modus }}
+          TOSMC_FREIGABE: ${{ github.event_name == 'schedule' && 'TEST2V2_NUR_11_ANSTOSSZEITPUNKTE' || inputs.freigabetext }}
         run: node scripts/tosmc-test2v2-11-terminuebernahme.mjs
       - name: Aenderungsumfang hart begrenzen und ggf. einmalig committen
         env:
-          TOSMC_MODE: ${{ inputs.modus }}
+          TOSMC_MODE: ${{ github.event_name == 'schedule' && 'UEBERNEHMEN' || inputs.modus }}
         shell: bash
         run: |
           set -euo pipefail

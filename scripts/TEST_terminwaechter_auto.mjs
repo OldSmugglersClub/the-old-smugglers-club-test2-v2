@@ -12,7 +12,7 @@ const next=applyOfficialChanges(base,plan,{allowedIds});const g=next.saisons[0].
 assert.equal(next.datenVersion,83);assert.equal(next.aktualisiert,'alt');assert.equal(g.status,'terminiert');assert.equal(g.quelleStand,'alt');assert.deepEqual(next.saisons[0].spiele.slice(1),base.saisons[0].spiele.slice(1));assert.equal(next.hallOfFame,base.hallOfFame);
 assert.deepEqual(base.saisons[0].spiele[0].datum,'2026-11-01');
 const outside={...report,befunde:[{...report.befunde[0],spielId:'bl-any'}]};assert.throws(()=>planOfficialChanges(base,outside,{allowedIds,now:new Date('2026-10-28T12:00:00Z')}),/FREMDE_ABWEICHUNG/);
-const ended=structuredClone(base);ended.saisons[0].spiele[0].status='beendet';ended.saisons[0].spiele[0].heimtore=1;assert.throws(()=>validateTargetConfig(ended,config),/NICHT_FREIGEGEBEN/);
+const ended=structuredClone(base);ended.saisons[0].spiele[0].status='beendet';ended.saisons[0].spiele[0].heimtore=1;assert.equal(validateTargetConfig(ended,config).size,11);assert.throws(()=>planOfficialChanges(ended,report,{allowedIds:validateTargetConfig(ended,config),now:new Date('2026-10-28T12:00:00Z')}),/GESCHUETZTES_SPIEL/);
 const duplicate={quellen:[{name:'a',spielIds:pids},{name:'b',spielIds:[...wids,pids[0]]}]};assert.throws(()=>validateTargetConfig(base,duplicate),/DOPPELTE/);
 const bad={...report,quellen:[{name:'Italien',status:'BROWSER_FEHLER'}]};assert.throws(()=>planOfficialChanges(base,bad,{allowedIds,now:new Date('2026-10-28T12:00:00Z')}),/QUELLE_UNSICHER/);
 const future={...report,befunde:[{...report.befunde[0],amtlich:{datum:'2027-03-20',anstoss:'16:00'}}]};assert.equal(planOfficialChanges(base,future,{allowedIds,now:new Date('2026-10-28T12:00:00Z')}).planned.length,0);

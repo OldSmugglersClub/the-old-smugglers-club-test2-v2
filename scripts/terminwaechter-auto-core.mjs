@@ -13,12 +13,23 @@ const games = data => (data.saisons||[]).flatMap(s=>Array.isArray(s.spiele)?s.sp
 
 export function validateTargetConfig(data,config){
   if(!data||!Array.isArray(data.saisons)||!config||!Array.isArray(config.quellen)) throw Error('UNGUELTIGE_EINGABE');
-  const active=games(data).filter(g=>COMPETITIONS.has(g.wettbewerb)&&g.status!=='beendet'&&!Number.isInteger(g.heimtore)&&!Number.isInteger(g.auswaertstore));
+  // Die elf festen IDs bleiben auch nach einzelnen Vollabschluessen in der
+  // Whitelist. Ein beendetes Spiel darf nie erneut geaendert werden.
+  const all=games(data).filter(g=>COMPETITIONS.has(g.wettbewerb));
+  const byId=new Map();
+  for(const g of all){
+    if(byId.has(g.id))throw Error('DOPPELTE_SPIEL_ID_IM_BESTAND:'+g.id);
+    byId.set(g.id,g);
+  }
   const targets=config.quellen.flatMap(q=>(q.spielIds||[]).map(id=>({id,source:q.name})));
-  const seen=new Set(), ids=new Set(active.map(g=>g.id));
-  for(const t of targets){if(seen.has(t.id))throw Error('DOPPELTE_ZIELSPIEL_ID:'+t.id);seen.add(t.id);if(!ids.has(t.id))throw Error('NICHT_FREIGEGEBENES_ZIELSPIEL:'+t.id);}
-  if(targets.length!==11||ids.size!==11||targets.length!==ids.size)throw Error(`ZIELBESTAND_NICHT_EXAKT_11:${targets.length}/${ids.size}`);
-  for(const id of ids)if(!seen.has(id))throw Error('ZIELSPIEL_FEHLT:'+id);
+  const seen=new Set();
+  for(const t of targets){
+    if(seen.has(t.id))throw Error('DOPPELTE_ZIELSPIEL_ID:'+t.id);
+    seen.add(t.id);
+    if(!byId.has(t.id))throw Error('NICHT_FREIGEGEBENES_ZIELSPIEL:'+t.id);
+  }
+  if(targets.length!==11||seen.size!==11)throw Error(`ZIELBESTAND_NICHT_EXAKT_11:${targets.length}/${seen.size}`);
+  const ids=seen;
   return ids;
 }
 
