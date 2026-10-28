@@ -43,6 +43,7 @@ jobs:
           node scripts/TEST_offizielle_quellen_TEST18.mjs
           node scripts/TEST_offizielle_quellen_TEST19.mjs
           node scripts/TEST_offizielle_quellen_TEST20.mjs
+          node scripts/TEST_offizielle_quellen_TEST22.mjs
       - name: Aktuellen TEST2v2-Datenstand auf Vorhandensein prüfen
         run: |
           test -f spieldaten.json
@@ -94,6 +95,9 @@ jobs:
       - name: TEST18 – Technischen Status und Korrekturvorschläge erstellen
         if: always()
         run: node scripts/offizielle-quellen-test18-auswertung.mjs
+      - name: TEST22 – Alle relevanten Partien ohne Datenänderung überwachen
+        if: always()
+        run: node scripts/offizielle-quellen-test22-ueberwachung.mjs
       - name: TEST19 – Geschützte Korrekturvorschau erzeugen (kein Einspielen)
         if: always()
         run: node scripts/offizielle-quellen-test19-vorschau.mjs
