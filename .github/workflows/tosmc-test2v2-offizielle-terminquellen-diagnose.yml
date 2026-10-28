@@ -46,6 +46,7 @@ jobs:
           node scripts/TEST_offizielle_quellen_TEST22.mjs
           node scripts/TEST_offizielle_quellen_TEST23.mjs
           node scripts/TEST_offizielle_quellen_TEST24.mjs
+          node scripts/TEST_offizielle_quellen_TEST25.mjs
       - name: Aktuellen TEST2v2-Datenstand auf Vorhandensein prüfen
         run: |
           test -f spieldaten.json
@@ -106,15 +107,22 @@ jobs:
       - name: TEST24 – Offiziellen Quellenabgleich Frankreich/Portugal protokollieren (read-only)
         if: always()
         run: node scripts/offizielle-quellen-test24-pruefung.mjs
-      - name: TEST19 – Geschützte Korrekturvorschau erzeugen (kein Einspielen)
+      - name: TEST25 – Offizielle Quellen und Korrekturbestand abgleichen (read-only)
         if: always()
-        run: node scripts/offizielle-quellen-test19-vorschau.mjs
-      - name: TEST20 – Freigabe pruefen und ggf. Austauschdatei nur als Artefakt vorbereiten
+        run: node scripts/offizielle-quellen-test25-freigabebruecke.mjs
+      - name: TEST19 – Nur nach TEST25-Sicherheitsgate geschützte Vorschau erzeugen
+        if: always()
+        run: |
+          node scripts/offizielle-quellen-test25-gate.mjs
+          node scripts/offizielle-quellen-test19-vorschau.mjs
+      - name: TEST20 – Nur nach TEST25-Sicherheitsgate Freigabe prüfen
         if: always()
         env:
           TEST20_APPROVAL: ${{ github.event.inputs.test20_freigabe || '' }}
           TEST20_SOURCE_SHA: ${{ github.event.inputs.test20_bestands_sha256 || '' }}
-        run: node scripts/offizielle-quellen-test20-freigabe.mjs
+        run: |
+          node scripts/offizielle-quellen-test25-gate.mjs
+          node scripts/offizielle-quellen-test20-freigabe.mjs
       - name: Diagnoseberichte auch nach Abbruch bereitstellen
         if: always()
         uses: actions/upload-artifact@v4
