@@ -35,7 +35,25 @@ jobs:
           test -f spieldaten.json
           test -f terminwaechter/offizielle-quellen.json
       - name: Offizielle Seiten abfragen und Bericht erstellen
-        run: node scripts/offizielle-quellen.mjs
+        run: |
+          if node scripts/offizielle-quellen.mjs; then
+            echo "HTML-Quellendiagnose vollständig."
+          else
+            code=$?
+            if [ "$code" -eq 2 ] && node -e '
+              const fs=require("node:fs");
+              const p="terminwaechter-bericht/OFFIZIELLE_QUELLEN_BERICHT.json";
+              if (!fs.existsSync(p)) process.exit(1);
+              const x=JSON.parse(fs.readFileSync(p,"utf8"));
+              if (x.status!=="UNVOLLSTAENDIG" || x.automatischeAenderung!==false ||
+                  !Array.isArray(x.befunde) || !Array.isArray(x.quellen)) process.exit(1);
+            '; then
+              echo "::warning::FACHLICH_UNVOLLSTAENDIG: HTML-Quellendiagnose Exit 2, gültiger READ-ONLY-Bericht vorhanden."
+            else
+              echo "::error::TECHNISCHER_FEHLER: HTML-Diagnose Exit $code oder Bericht unvollständig/ungültig." >&2
+              exit 1
+            fi
+          fi
       - name: Browser für offizielle Spielplanseiten installieren
         if: success() || failure()
         run: |
