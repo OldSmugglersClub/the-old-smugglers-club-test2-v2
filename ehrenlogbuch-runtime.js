@@ -16,7 +16,41 @@ function renderRecords(){const target=$("recordGrid");target.replaceChildren();i
 const season=()=>arr(data.saisons).find(x=>x.id===$("seasonSelect").value)||arr(data.saisons)[0]||null;
 function renderSeason(){const target=$("seasonContent"),item=season();target.replaceChildren();if(!item)return target.appendChild(empty("Noch keine abgeschlossene Saison archiviert."));if(item.status!=="abgeschlossen")add(target,"p","archive-open","Laufende Saison: nur bereits abgeschlossene und bestätigte Wettbewerbe. Gesamtchampion und Saisonbestwerte werden erst nach Saisonabschluss archiviert.");const banner=el("div","season-banner");for(const block of [{label:"Gesamtchampion",entry:item.gesamtChampion},{label:"Gesamt-Team-Sieger",entry:item.gesamtTeamSieger}]){const card=el("article","summary-card");add(card,"h3","",block.label);add(card,"strong","",item.status!=="abgeschlossen"?"Saison läuft":block.entry?.name||"Nicht vergeben / nicht erfasst");add(card,"p","",item.status!=="abgeschlossen"?item.label:block.entry?.punkte!==undefined?`${block.entry.punkte} Punkte`:item.label);banner.appendChild(card)}target.appendChild(banner);add(target,"h3","subhead","Wettbewerbssieger");const winners=add(target,"div","list");for(const winner of arr(item.wettbewerbssieger))winners.appendChild(row(winner.wettbewerb,winner.name));if(!winners.children.length)winners.appendChild(empty("Keine Wettbewerbssieger erfasst."));add(target,"h3","subhead","Saisonbestwerte");const best=add(target,"div","list");if(item.status==="abgeschlossen")for(const record of arr(item.saisonbestwerte))best.appendChild(row(record.label,`${value(record)} · ${bestNames(record)}`));if(!best.children.length)best.appendChild(empty(item.status==="abgeschlossen"?"Keine Saisonbestwerte erfasst.":"Erst nach Saisonabschluss verfügbar."))}
 function competitions(){const map=new Map(availableCompetitions);for(const s of arr(data.saisons))for(const w of arr(s.wettbewerbssieger)){const id=txt(w.wettbewerbId)||norm(w.wettbewerb);if(id&&!map.has(id))map.set(id,w.wettbewerb)}return [...map].map(([value,label])=>({value,label})).sort((a,b)=>a.label.localeCompare(b.label,"de"))}
-function renderTitles(){const target=$("titleRows"),filter=$("competitionSelect").value,items=[];target.replaceChildren();for(const s of arr(data.saisons))for(const w of arr(s.wettbewerbssieger)){const id=txt(w.wettbewerbId)||norm(w.wettbewerb);if(!filter||id===filter)items.push({saison:s.label,wettbewerb:w.wettbewerb,name:w.name,punkte:w.punkte})}items.sort((a,b)=>b.saison.localeCompare(a.saison,"de"));if(!items.length){const tr=el("tr"),td=el("td","","Keine passenden Titel vorhanden.");td.colSpan=4;tr.appendChild(td);return target.appendChild(tr)}for(const item of items){const tr=el("tr");add(tr,"td","",item.saison);add(tr,"td","",item.wettbewerb);const cell=add(tr,"td");add(cell,"strong","",item.name);add(tr,"td","",item.punkte!==undefined?`${item.punkte} Punkte`:"–");target.appendChild(tr)}}
+// Titelhistorie und offene Wettbewerbe gemeinsam zeigen. "Noch offen" ist keine Ehrung.
+// Bereits bestätigte Titel haben Vorrang; niemals einen laufenden Tabellenführer als Sieger ausgeben.
+function titleRowsForDisplay(archive,available,filter=""){
+ const items=[],history=new Set();
+ for(const s of arr(archive?.saisons))for(const w of arr(s.wettbewerbssieger)){
+  const id=txt(w.wettbewerbId)||norm(w.wettbewerb);
+  if(!id||(filter&&id!==filter))continue;
+  items.push({saison:s.label,wettbewerb:w.wettbewerb,name:w.name,punkte:w.punkte,offen:false});
+  history.add(`${s.id}|${id}`);
+ }
+ // Nur fuer die laufende Saison auflisten. Historische Saisons niemals mit
+ // nachtraeglich erfundenen "offenen" Wettbewerben auffuellen.
+ for(const s of arr(archive?.saisons).filter(x=>x.status==="laufend")){
+  for(const [id,label] of available){
+   if((filter&&id!==filter)||history.has(`${s.id}|${id}`))continue;
+   items.push({saison:s.label,wettbewerb:label,name:"Noch offen",offen:true});
+  }
+ }
+ items.sort((a,b)=>b.saison.localeCompare(a.saison,"de")||a.wettbewerb.localeCompare(b.wettbewerb,"de")||Number(a.offen)-Number(b.offen));
+ return items;
+}
+function renderTitles(){
+ const target=$("titleRows"),filter=$("competitionSelect").value;
+ const items=titleRowsForDisplay(data,availableCompetitions,filter);
+ target.replaceChildren();
+ if(!items.length){const tr=el("tr"),td=el("td","","Keine passenden Wettbewerbe vorhanden.");td.colSpan=4;tr.appendChild(td);return target.appendChild(tr)}
+ for(const item of items){
+  const tr=el("tr");if(item.offen)tr.className="title-row--open";
+  add(tr,"td","",item.saison);add(tr,"td","",item.wettbewerb);
+  const cell=add(tr,"td");
+  if(item.offen)add(cell,"span","",item.name);else add(cell,"strong","",item.name);
+  add(tr,"td","",item.offen?"–":item.punkte!==undefined?`${item.punkte} Punkte`:"–");
+  target.appendChild(tr);
+ }
+}
 function people(){const map=new Map(),put=p=>{if(!txt(p?.name))return;const key=pkey(p);if(!map.has(key))map.set(key,{value:key,label:p.name})};participants.forEach(put);for(const s of arr(data.saisons)){put(s.gesamtChampion);arr(s.platzierungen).forEach(put);arr(s.wettbewerbssieger).forEach(put);for(const best of arr(s.saisonbestwerte)){if(arr(best.halter).length)best.halter.forEach(put);else put(best)}}for(const r of arr(data.ewigeRekorde))arr(r.halter).forEach(put);arr(data.ehrenchampions).forEach(put);return [...map.values()].sort((a,b)=>a.label.localeCompare(b.label,"de"))}
 function renderPerson(){const target=$("personContent"),key=$("personSelect").value,items=[],placements=[];target.replaceChildren();if(!key)return target.appendChild(empty("Tipper auswählen, um seine archivierten Platzierungen und Erfolge anzuzeigen."));for(const s of arr(data.saisons)){for(const place of arr(s.platzierungen))if(pkey(place)===key)placements.push({...place,saison:s.label});if(pkey(s.gesamtChampion)===key)items.push([s.label,"Gesamtchampion"]);for(const w of arr(s.wettbewerbssieger))if(pkey(w)===key)items.push([s.label,`Sieger ${w.wettbewerb}${w.punkte!==undefined?` · ${w.punkte} Punkte`:""}`]);for(const b of arr(s.saisonbestwerte)){const holders=arr(b.halter).length?b.halter:[b];if(holders.some(h=>pkey(h)===key))items.push([s.label,`${b.label}: ${value(b)}`])}}for(const h of arr(data.ehrenchampions))if(pkey(h)===key)items.push([h.saison||h.jahr,h.titel]);for(const r of arr(data.ewigeRekorde))for(const h of arr(r.halter))if(pkey(h)===key)items.push([h.saison||"Alle Saisons",`Absoluter Rekord: ${r.label} (${value(r)})`]);placements.sort((a,b)=>Number(a.platz)-Number(b.platz)||txt(b.saison).localeCompare(txt(a.saison),"de"));const summary=el("article","summary-card personal-best");add(summary,"h3","","Beste archivierte Saison-Gesamtplatzierung");if(placements.length){const best=placements[0],ties=placements.filter(x=>Number(x.platz)===Number(best.platz));add(summary,"strong","",`${best.platz}. Platz`);add(summary,"p","",ties.map(x=>`${x.saison}${x.punkte!==undefined?` · ${x.punkte} Punkte`:""}`).join(" / "))}else{add(summary,"strong","","Noch keine Platzierung verfügbar");add(summary,"p","","Die vollständige Rangliste 2025/2026 liegt im vorhandenen Datenbestand nicht vor. Saison-Gesamtplatzierungen werden erst nach abgeschlossener Archivierung angezeigt.")}target.appendChild(summary);if(placements.length>1){add(target,"h3","subhead","Alle archivierten Saisonplatzierungen");const placementList=add(target,"div","list");for(const place of placements)placementList.appendChild(row(place.saison,`${place.platz}. Platz${place.punkte!==undefined?` · ${place.punkte} Punkte`:""}`))}add(target,"h3","subhead","Titel, Bestwerte und Ehrungen");const list=add(target,"div","list");for(const item of items)list.appendChild(row(item[0],item[1]));if(!items.length)list.appendChild(empty("Noch keine bestätigten Titel, Bestwerte oder Ehrungen vorhanden."))}
 // Nur eindeutige Sieger der bestehenden Wettbewerbs-Highscore, niemals einen Tabellenfuehrer
