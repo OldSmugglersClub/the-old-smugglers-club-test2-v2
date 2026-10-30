@@ -74,11 +74,18 @@ export async function fetchOfficial(url,fetchFn,options={}){
  throw Object.assign(new Error('ZU_VIELE_UMLEITUNGEN'),{versuche:attempts});
 }
 export function compare(game,fixtures,aliases={}){
- const names=id=>[id,...arr(aliases[id])].filter(Boolean).map(canon);
+ // TEST2v2: minimale offizielle Alias-Ergaenzung, ohne das bestehende
+ // Wettbewerbs- oder Quellenregister zu ersetzen.
+ const extra={
+  'benfica-lissabon':['SL Benfica'],
+  'sporting-lissabon':['Sporting CP'],
+  'olympique-marseille':['Olympique de Marseille']
+ };
+ const names=id=>[id,...arr(aliases[id]),...arr(extra[id])].filter(Boolean).map(canon);
  const h=names(game.heimTeamId),a=names(game.auswaertsTeamId);
  const found=fixtures.filter(f=>h.includes(canon(f.heim))&&a.includes(canon(f.gast)));
  if(found.length!==1)return {status:found.length?'MEHRDEUTIG':'KEIN_EINDEUTIGES_SPIEL',count:found.length};
- const x=found[0];return game.datum===x.datum&&game.anstoss===x.anstoss?{status:'IDENTISCH',amtlich:x}:{status:'ABWEICHUNG',bisher:{datum:game.datum,anstoss:game.anstoss},amtlich:x};
+ const x=found[0];if(x.terminBestaetigt===false)return {status:'PAARUNG_GEFUNDEN_TERMIN_OFFEN',paarung:{heim:x.heim,gast:x.gast,provider:x.provider},terminBestaetigt:false};return game.datum===x.datum&&game.anstoss===x.anstoss?{status:'IDENTISCH',amtlich:x}:{status:'ABWEICHUNG',bisher:{datum:game.datum,anstoss:game.anstoss},amtlich:x};
 }
 export async function run({root=ROOT,out=OUT,fetchFn=fetch,configPath=process.env.TOSMC_OFFICIAL_CONFIG||'terminwaechter/offizielle-quellen.json'}={}){
  const conf=JSON.parse(fs.readFileSync(path.resolve(root,configPath),'utf8'));
