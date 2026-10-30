@@ -1,0 +1,77 @@
+name: TOSMC TEST2v2 – 11 Termine – Remote-Schreibnachweis
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: osc-bundesliga-ergebnisimport
+  cancel-in-progress: false
+jobs:
+  remote-writeproof:
+    if: github.repository == 'OldSmugglersClub/the-old-smugglers-club-test2-v2' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: TEST2v2 main unveraendert auschecken
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Vorherigen Bestandsschutztest ausfuehren
+        run: |
+          node scripts/TEST_terminwaechter_auto.mjs
+          node scripts/TEST_tosmc_test2v2_terminuebernahme.mjs
+          node scripts/TEST_tosmc_11_isolierter_terminwechsel.mjs
+      - name: Kuenstliche Aenderung auf kurzlebigem GitHub-Testbranch pushen und zuruecklesen
+        shell: bash
+        env:
+          TOSMC_TEMP_BRANCH_TEST: JA
+        run: |
+          set -euo pipefail
+          MAIN_SHA="$(git rev-parse HEAD)"
+          BRANCH="tosmc-writeproof-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          WORKDIR="$(mktemp -d)"
+          REPORT="$RUNNER_TEMP/tosmc-remote-writeproof"
+          mkdir -p "$REPORT"
+          echo "Branch: $BRANCH" >> "$REPORT/REMOTE_STATUS.txt"
+          cleanup() {
+            set +e
+            cd "$GITHUB_WORKSPACE"
+            git worktree remove --force "$WORKDIR" >/dev/null 2>&1
+            git branch -D "$BRANCH" >/dev/null 2>&1
+            if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+              git push origin --delete "$BRANCH" >> "$REPORT/REMOTE_STATUS.txt" 2>&1 || echo 'ACHTUNG: Testbranch konnte nicht geloescht werden' >> "$REPORT/REMOTE_STATUS.txt"
+            fi
+            rm -rf "$WORKDIR"
+          }
+          trap cleanup EXIT
+          git worktree add -b "$BRANCH" "$WORKDIR" "$MAIN_SHA"
+          cd "$WORKDIR"
+          TOSMC_REPORT_DIR="$REPORT" node scripts/TEST_tosmc_11_remote_writeproof.mjs
+          CHANGED="$(git diff --name-only)"
+          if [[ "$CHANGED" != 'spieldaten.json' ]]; then echo "SCHUTZSTOPP unerlaubte Dateien: $CHANGED"; exit 1; fi
+          git add -- spieldaten.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'TEST NUR TEMP BRANCH: synthetischer Terminwechsel'
+          TEST_SHA="$(git rev-parse HEAD)"
+          git push origin "HEAD:refs/heads/$BRANCH"
+          REMOTE_SHA="$(git ls-remote origin "refs/heads/$BRANCH" | cut -f1)"
+          if [[ "$REMOTE_SHA" != "$TEST_SHA" ]]; then echo 'SCHUTZSTOPP: Remote Commit nicht identisch'; exit 1; fi
+          REMOTE_FILE="$(git show "$REMOTE_SHA:spieldaten.json" | sha256sum | cut -d' ' -f1)"
+          LOCAL_FILE="$(sha256sum spieldaten.json | cut -d' ' -f1)"
+          if [[ "$REMOTE_FILE" != "$LOCAL_FILE" ]]; then echo 'SCHUTZSTOPP: Remote Inhalt stimmt nicht'; exit 1; fi
+          if [[ "$(git ls-remote origin refs/heads/main | cut -f1)" != "$MAIN_SHA" ]]; then echo 'main waehrend Test veraendert; nicht als stabil nachgewiesen'; exit 1; fi
+          printf '%s\n' 'REMOTE_PUSH_UND_RUECKLESEN: BESTANDEN' "TEST_BRANCH_SHA: $TEST_SHA" "MAIN_SHA: $MAIN_SHA" 'NUR TEMPORAERER BRANCH GEANDERT' >> "$REPORT/REMOTE_STATUS.txt"
+      - name: Testprotokoll sichern
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: TOSMC-11-REMOTE-SCHREIBNACHWEIS
+          path: ${{ runner.temp }}/tosmc-remote-writeproof/
+          retention-days: 14
+          if-no-files-found: warn
