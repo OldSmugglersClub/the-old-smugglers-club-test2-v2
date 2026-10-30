@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "datenVersion": 38,
-  "aktualisiert": "2026-10-25",
+  "datenVersion": 39,
+  "aktualisiert": "2026-10-30",
   "saison": "2026/2027",
   "quelle": "OpenLigaDB getgoalgetters/bl1/2026",
   "status": "bereit",
@@ -39,6 +39,10 @@
       "tore": 4
     },
     {
+      "name": "M. Krattenmacher",
+      "tore": 4
+    },
+    {
       "name": "C. Nkunku",
       "tore": 4
     },
@@ -59,10 +63,6 @@
       "tore": 3
     },
     {
-      "name": "M. Krattenmacher",
-      "tore": 3
-    },
-    {
       "name": "J. Scally",
       "tore": 3
     },
@@ -79,11 +79,11 @@
       "tore": 3
     },
     {
-      "name": "Romulo",
+      "name": "T. Gomis",
       "tore": 3
     },
     {
-      "name": "T. Gomis",
+      "name": "Romulo",
       "tore": 3
     },
     {
@@ -91,15 +91,15 @@
       "tore": 3
     },
     {
-      "name": "Aleksandar Pavlovic",
-      "tore": 2
-    },
-    {
       "name": "D. Upamecano",
       "tore": 2
     },
     {
       "name": "J. Vagnoman",
+      "tore": 2
+    },
+    {
+      "name": "Aleksandar Pavlovic",
       "tore": 2
     },
     {
@@ -111,6 +111,10 @@
       "tore": 2
     },
     {
+      "name": "S. El Mala",
+      "tore": 2
+    },
+    {
       "name": "A. Daghim",
       "tore": 2
     },
@@ -119,11 +123,11 @@
       "tore": 2
     },
     {
-      "name": "S. El Mala",
+      "name": "C. Kofane",
       "tore": 2
     },
     {
-      "name": "C. Kofane",
+      "name": "Cole Campbell",
       "tore": 2
     },
     {
@@ -148,6 +152,10 @@
     },
     {
       "name": "H. Bolin",
+      "tore": 2
+    },
+    {
+      "name": "F. Keidel",
       "tore": 2
     },
     {
@@ -219,11 +227,15 @@
       "tore": 2
     },
     {
-      "name": "A. Prass",
+      "name": "B. Hollerbach",
       "tore": 2
     },
     {
       "name": "W. Mohya",
+      "tore": 2
+    },
+    {
+      "name": "A. Prass",
       "tore": 2
     },
     {
@@ -240,10 +252,6 @@
     },
     {
       "name": "O. Kabak",
-      "tore": 1
-    },
-    {
-      "name": "Cole Campbell",
       "tore": 1
     },
     {
@@ -287,10 +295,6 @@
       "tore": 1
     },
     {
-      "name": "F. Keidel",
-      "tore": 1
-    },
-    {
       "name": "D. Mokwa",
       "tore": 1
     },
@@ -307,11 +311,11 @@
       "tore": 1
     },
     {
-      "name": "Alexis Claude-Maurice",
+      "name": "A. Ibrahimovic",
       "tore": 1
     },
     {
-      "name": "A. Ibrahimovic",
+      "name": "Alexis Claude-Maurice",
       "tore": 1
     },
     {
@@ -363,11 +367,11 @@
       "tore": 1
     },
     {
-      "name": "R. Ache",
+      "name": "N. Capaldo",
       "tore": 1
     },
     {
-      "name": "N. Capaldo",
+      "name": "R. Ache",
       "tore": 1
     },
     {
@@ -403,15 +407,11 @@
       "tore": 1
     },
     {
-      "name": "J. Quansah",
-      "tore": 1
-    },
-    {
-      "name": "B. Hollerbach",
-      "tore": 1
-    },
-    {
       "name": "M. Diaby",
+      "tore": 1
+    },
+    {
+      "name": "J. Quansah",
       "tore": 1
     },
     {
@@ -455,11 +455,11 @@
       "tore": 1
     },
     {
-      "name": "Maximilian Rohr",
+      "name": "Mert Kömür",
       "tore": 1
     },
     {
-      "name": "Mert Kömür",
+      "name": "Maximilian Rohr",
       "tore": 1
     },
     {
@@ -471,11 +471,11 @@
       "tore": 1
     },
     {
-      "name": "J. Haberer",
+      "name": "Han-Noah Massengo",
       "tore": 1
     },
     {
-      "name": "Han-Noah Massengo",
+      "name": "J. Haberer",
       "tore": 1
     },
     {
@@ -496,6 +496,10 @@
     },
     {
       "name": "S. Gnabry",
+      "tore": 1
+    },
+    {
+      "name": "Francis Onyeka",
       "tore": 1
     }
   ]
