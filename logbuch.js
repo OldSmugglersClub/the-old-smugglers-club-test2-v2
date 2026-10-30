@@ -477,7 +477,7 @@ function renderEntry(entry,pending){
   if(pending?.active)document.title="Auswertung läuft | The Old Smugglers Club";
   return;
  }
- const completedHtml=`<section class="lb-entry"><header class="lb-entry-head"><span>${pending?.active?"Zuletzt abgeschlossen · ":""}${esc(entry.wettbewerb||"Spieltag")}</span><h2>${esc(keepSpieltag(entry.bezeichnung||entry.runde||"Logbuch"))}</h2></header><div class="lb-highlight-grid">${renderHighlightsWithCoco(entry)}</div></section>`;
+ const completedHtml=`<section class="lb-entry"><header class="lb-entry-head"><span>${pending?.active?"Zuletzt abgeschlossen · ":""}${esc(entry.wettbewerb||"Spieltag")}</span><h2>${esc(keepSpieltag(String(entry.bezeichnung||entry.runde||"Logbuch").replace(/^(Piratenkodex)\s+\1(?=\s|$)/i,"$1")))}</h2></header><div class="lb-highlight-grid">${renderHighlightsWithCoco(entry)}</div></section>`;
  host.innerHTML=`${pendingHtml}${completedHtml}`;
  document.title=pending?.active?"Auswertung läuft | The Old Smugglers Club":`${entry.bezeichnung||"Logbuch"} | The Old Smugglers Club`;
 }
