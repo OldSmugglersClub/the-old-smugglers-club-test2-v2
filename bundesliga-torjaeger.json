@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "datenVersion": 40,
+  "datenVersion": 41,
   "aktualisiert": "2026-10-31",
   "saison": "2026/2027",
   "quelle": "OpenLigaDB getgoalgetters/bl1/2026",
@@ -8,7 +8,7 @@
   "torjaeger": [
     {
       "name": "N. Füllkrug",
-      "tore": 8
+      "tore": 9
     },
     {
       "name": "P. Schick",
@@ -24,6 +24,10 @@
     },
     {
       "name": "M. Gregoritsch",
+      "tore": 5
+    },
+    {
+      "name": "E. Demirovic",
       "tore": 5
     },
     {
@@ -43,7 +47,7 @@
       "tore": 4
     },
     {
-      "name": "E. Demirovic",
+      "name": "I. Matanovic",
       "tore": 4
     },
     {
@@ -55,11 +59,23 @@
       "tore": 4
     },
     {
+      "name": "Romulo",
+      "tore": 4
+    },
+    {
       "name": "H. Kane",
       "tore": 4
     },
     {
-      "name": "I. Matanovic",
+      "name": "D. Upamecano",
+      "tore": 3
+    },
+    {
+      "name": "S. Guirassy",
+      "tore": 3
+    },
+    {
+      "name": "Fabio Silva",
       "tore": 3
     },
     {
@@ -83,19 +99,11 @@
       "tore": 3
     },
     {
-      "name": "Romulo",
-      "tore": 3
-    },
-    {
       "name": "A. Caci",
       "tore": 3
     },
     {
       "name": "Aleksandar Pavlovic",
-      "tore": 2
-    },
-    {
-      "name": "D. Upamecano",
       "tore": 2
     },
     {
@@ -127,15 +135,11 @@
       "tore": 2
     },
     {
-      "name": "C. Kofane",
-      "tore": 2
-    },
-    {
       "name": "Cole Campbell",
       "tore": 2
     },
     {
-      "name": "S. Guirassy",
+      "name": "C. Kofane",
       "tore": 2
     },
     {
@@ -143,7 +147,7 @@
       "tore": 2
     },
     {
-      "name": "Fabio Silva",
+      "name": "B. El Khannouss",
       "tore": 2
     },
     {
@@ -156,6 +160,10 @@
     },
     {
       "name": "H. Bolin",
+      "tore": 2
+    },
+    {
+      "name": "E. Dinkçi",
       "tore": 2
     },
     {
@@ -243,11 +251,11 @@
       "tore": 1
     },
     {
-      "name": "Emmanuel Latte Lath",
+      "name": "L. Querfeld",
       "tore": 1
     },
     {
-      "name": "L. Querfeld",
+      "name": "Emmanuel Latte Lath",
       "tore": 1
     },
     {
@@ -275,10 +283,6 @@
       "tore": 1
     },
     {
-      "name": "B. El Khannouss",
-      "tore": 1
-    },
-    {
       "name": "T. Lemperle",
       "tore": 1
     },
@@ -299,10 +303,6 @@
       "tore": 1
     },
     {
-      "name": "E. Dinkçi",
-      "tore": 1
-    },
-    {
       "name": "P. Mwene",
       "tore": 1
     },
@@ -319,15 +319,15 @@
       "tore": 1
     },
     {
+      "name": "A. Aouchiche",
+      "tore": 1
+    },
+    {
       "name": "R. Gosens",
       "tore": 1
     },
     {
       "name": "M. Wöber",
-      "tore": 1
-    },
-    {
-      "name": "A. Aouchiche",
       "tore": 1
     },
     {
@@ -351,10 +351,6 @@
       "tore": 1
     },
     {
-      "name": "F. Neuhaus",
-      "tore": 1
-    },
-    {
       "name": "Isac Lidberg",
       "tore": 1
     },
@@ -367,7 +363,7 @@
       "tore": 1
     },
     {
-      "name": "R. Ache",
+      "name": "F. Neuhaus",
       "tore": 1
     },
     {
@@ -375,11 +371,15 @@
       "tore": 1
     },
     {
-      "name": "M. Weiser",
+      "name": "R. Ache",
       "tore": 1
     },
     {
       "name": "Calvin Brackelmann",
+      "tore": 1
+    },
+    {
+      "name": "M. Weiser",
       "tore": 1
     },
     {
@@ -391,11 +391,11 @@
       "tore": 1
     },
     {
-      "name": "N. Schlotterbeck",
+      "name": "Daniel Svensson",
       "tore": 1
     },
     {
-      "name": "Daniel Svensson",
+      "name": "N. Schlotterbeck",
       "tore": 1
     },
     {
@@ -407,11 +407,11 @@
       "tore": 1
     },
     {
-      "name": "M. Diaby",
+      "name": "R. Andrich",
       "tore": 1
     },
     {
-      "name": "R. Andrich",
+      "name": "M. Diaby",
       "tore": 1
     },
     {
@@ -447,11 +447,7 @@
       "tore": 1
     },
     {
-      "name": "Frederik Schmahl",
-      "tore": 1
-    },
-    {
-      "name": "Mert Kömür",
+      "name": "Maximilian Rohr",
       "tore": 1
     },
     {
@@ -459,7 +455,11 @@
       "tore": 1
     },
     {
-      "name": "Maximilian Rohr",
+      "name": "Mert Kömür",
+      "tore": 1
+    },
+    {
+      "name": "Frederik Schmahl",
       "tore": 1
     },
     {
@@ -471,11 +471,11 @@
       "tore": 1
     },
     {
-      "name": "J. Haberer",
+      "name": "Han-Noah Massengo",
       "tore": 1
     },
     {
-      "name": "Han-Noah Massengo",
+      "name": "J. Haberer",
       "tore": 1
     },
     {
@@ -504,6 +504,18 @@
     },
     {
       "name": "J. Leweling",
+      "tore": 1
+    },
+    {
+      "name": "I. Maza",
+      "tore": 1
+    },
+    {
+      "name": "C. Irie",
+      "tore": 1
+    },
+    {
+      "name": "K. Laimer",
       "tore": 1
     }
   ]
