@@ -4055,7 +4055,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-31T20:32:43.339Z",
+            "stand": "2026-10-31T20:59:07.125Z",
             "abgegeben": 70,
             "nichtAbgegeben": 30,
             "verborgen": 0,
@@ -4074,7 +4074,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-31T20:32:43.339Z"
+          "aktualisiertAm": "2026-10-31T20:59:07.125Z"
         },
         {
           "id": "bl-2026-27-08-065",
@@ -4102,7 +4102,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-31T20:32:43.339Z",
+            "stand": "2026-10-31T20:59:07.125Z",
             "abgegeben": 70,
             "nichtAbgegeben": 30,
             "verborgen": 0,
@@ -4121,7 +4121,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-31T20:32:43.339Z"
+          "aktualisiertAm": "2026-10-31T20:59:07.125Z"
         },
         {
           "id": "bl-2026-27-08-066",
@@ -4172,7 +4172,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-31T20:32:43.339Z",
+            "stand": "2026-10-31T20:59:07.125Z",
             "abgegeben": 70,
             "nichtAbgegeben": 30,
             "verborgen": 0,
@@ -4191,7 +4191,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-31T20:32:43.339Z"
+          "aktualisiertAm": "2026-10-31T20:59:07.125Z"
         },
         {
           "id": "bl-2026-27-08-068",
@@ -4242,7 +4242,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-31T20:32:43.339Z",
+            "stand": "2026-10-31T20:59:07.125Z",
             "abgegeben": 70,
             "nichtAbgegeben": 30,
             "verborgen": 0,
@@ -4261,7 +4261,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-31T20:32:43.339Z"
+          "aktualisiertAm": "2026-10-31T20:59:07.125Z"
         },
         {
           "id": "bl-2026-27-08-070",
@@ -4289,7 +4289,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-31T20:32:43.339Z",
+            "stand": "2026-10-31T20:59:07.125Z",
             "abgegeben": 70,
             "nichtAbgegeben": 30,
             "verborgen": 0,
@@ -4308,7 +4308,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-31T20:32:43.339Z"
+          "aktualisiertAm": "2026-10-31T20:59:07.125Z"
         },
         {
           "id": "bl-2026-27-08-071",
@@ -4336,7 +4336,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-31T20:32:43.339Z",
+            "stand": "2026-10-31T20:59:07.125Z",
             "abgegeben": 70,
             "nichtAbgegeben": 30,
             "verborgen": 0,
@@ -4355,7 +4355,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-31T20:32:43.339Z"
+          "aktualisiertAm": "2026-10-31T20:59:07.125Z"
         },
         {
           "id": "bl-2026-27-08-072",
@@ -4383,7 +4383,7 @@
           "tippverteilung": {
             "schemaVersion": 1,
             "quelle": "Kicktipp – Tipps aller Tipper",
-            "stand": "2026-10-31T20:32:43.339Z",
+            "stand": "2026-10-31T20:59:07.125Z",
             "abgegeben": 68,
             "nichtAbgegeben": 32,
             "verborgen": 0,
@@ -4402,7 +4402,7 @@
               }
             }
           },
-          "aktualisiertAm": "2026-10-31T20:32:43.339Z"
+          "aktualisiertAm": "2026-10-31T20:59:07.125Z"
         },
         {
           "id": "bl-2026-27-09-073",
@@ -9849,16 +9849,40 @@
           "datumAnzeige": "31.10.2026",
           "anstoss": "20:45",
           "terminBestaetigt": true,
-          "heimtore": null,
-          "auswaertstore": null,
-          "status": "terminiert",
+          "heimtore": 3,
+          "auswaertstore": 1,
+          "status": "beendet",
           "sonderwertungen": [
             "piratenkodex"
           ],
           "notiz": "Piratenkodex II – Madonnina",
           "quelleStand": "2026-07-30",
           "heimTeamId": "ac-mailand",
-          "auswaertsTeamId": "inter-mailand"
+          "auswaertsTeamId": "inter-mailand",
+          "ergebnisNach90MinutenBestaetigt": true,
+          "tippverteilung": {
+            "schemaVersion": 1,
+            "quelle": "Kicktipp – Tipps aller Tipper",
+            "stand": "2026-10-31T22:33:29.331Z",
+            "abgegeben": 71,
+            "nichtAbgegeben": 29,
+            "verborgen": 0,
+            "tendenzen": {
+              "1": {
+                "anzahl": 12,
+                "prozent": 16.9
+              },
+              "2": {
+                "anzahl": 40,
+                "prozent": 56.3
+              },
+              "X": {
+                "anzahl": 19,
+                "prozent": 26.8
+              }
+            }
+          },
+          "aktualisiertAm": "2026-10-31T22:33:29.331Z"
         },
         {
           "id": "pk-2026-27-03-nw-derby",
@@ -14911,6 +14935,6 @@
       ]
     }
   ],
-  "datenVersion": 85,
+  "datenVersion": 86,
   "aktualisiert": "2026-10-31"
 }
