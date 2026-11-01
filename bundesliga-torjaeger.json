@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "datenVersion": 41,
-  "aktualisiert": "2026-10-31",
+  "datenVersion": 42,
+  "aktualisiert": "2026-11-01",
   "saison": "2026/2027",
   "quelle": "OpenLigaDB getgoalgetters/bl1/2026",
   "status": "bereit",
@@ -227,11 +227,11 @@
       "tore": 2
     },
     {
-      "name": "B. Conté",
+      "name": "M. Muheim",
       "tore": 2
     },
     {
-      "name": "M. Muheim",
+      "name": "B. Conté",
       "tore": 2
     },
     {
@@ -244,6 +244,10 @@
     },
     {
       "name": "W. Mohya",
+      "tore": 2
+    },
+    {
+      "name": "J. Haberer",
       "tore": 2
     },
     {
@@ -351,6 +355,14 @@
       "tore": 1
     },
     {
+      "name": "F. Neuhaus",
+      "tore": 1
+    },
+    {
+      "name": "E. Martel",
+      "tore": 1
+    },
+    {
       "name": "Isac Lidberg",
       "tore": 1
     },
@@ -359,11 +371,7 @@
       "tore": 1
     },
     {
-      "name": "E. Martel",
-      "tore": 1
-    },
-    {
-      "name": "F. Neuhaus",
+      "name": "R. Ache",
       "tore": 1
     },
     {
@@ -371,15 +379,11 @@
       "tore": 1
     },
     {
-      "name": "R. Ache",
+      "name": "M. Weiser",
       "tore": 1
     },
     {
       "name": "Calvin Brackelmann",
-      "tore": 1
-    },
-    {
-      "name": "M. Weiser",
       "tore": 1
     },
     {
@@ -439,19 +443,11 @@
       "tore": 1
     },
     {
-      "name": "K. Goto",
-      "tore": 1
-    },
-    {
       "name": "K. Karaman",
       "tore": 1
     },
     {
-      "name": "Maximilian Rohr",
-      "tore": 1
-    },
-    {
-      "name": "Lasse Günther",
+      "name": "K. Goto",
       "tore": 1
     },
     {
@@ -460,6 +456,14 @@
     },
     {
       "name": "Frederik Schmahl",
+      "tore": 1
+    },
+    {
+      "name": "Lasse Günther",
+      "tore": 1
+    },
+    {
+      "name": "Maximilian Rohr",
       "tore": 1
     },
     {
@@ -472,10 +476,6 @@
     },
     {
       "name": "Han-Noah Massengo",
-      "tore": 1
-    },
-    {
-      "name": "J. Haberer",
       "tore": 1
     },
     {
@@ -516,6 +516,10 @@
     },
     {
       "name": "K. Laimer",
+      "tore": 1
+    },
+    {
+      "name": "Malek El Mala",
       "tore": 1
     }
   ]
