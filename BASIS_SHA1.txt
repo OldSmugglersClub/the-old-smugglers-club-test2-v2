@@ -1,0 +1,2 @@
+8b44a9d119c5b555f78745042d6977fedb2d982b  ranglistenverlauf.json
+2e474ffd838fa502de40742ca9e9e97acd2038d3  spieltag-logbuch.json
