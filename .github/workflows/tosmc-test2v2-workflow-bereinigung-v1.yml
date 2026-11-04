@@ -45,7 +45,7 @@ jobs:
             'tosmc-test2v2-11-isolationstest.yml': 'f76c80731de20250a527737eceec61fa3727c258',
           }
           src = pathlib.Path('.github/workflows')
-          dest = pathlib.Path('docs/workflow-archiv/2026-11-04-test2v2')
+          dest = pathlib.Path('.github/workflow-archiv/2026-11-04-test2v2')
           missing = []
           changed = []
           for name, expected in candidates.items():
@@ -82,7 +82,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- .github/workflows docs/workflow-archiv/2026-11-04-test2v2
+          git add -- .github/workflows .github/workflow-archiv/2026-11-04-test2v2
           git diff --cached --check
           git diff --cached --name-status
           git commit -m "TEST2v2 Workflow-Bereinigung V1: vier historische Tests archivieren"
