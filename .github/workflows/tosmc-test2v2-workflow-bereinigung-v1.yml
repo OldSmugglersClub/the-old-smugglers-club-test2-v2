@@ -1,24 +1,21 @@
-name: TOSMC TEST2v2 – Workflow-Bereinigung V1
-run-name: Workflow-Bereinigung – ${{ inputs.modus }}
+name: TOSMC TEST2v2 – Workflow-Bereinigung V2
+run-name: Workflow-Bereinigung V2 – ${{ inputs.modus }}
 on:
   workflow_dispatch:
     inputs:
       modus:
-        description: "VORSCHAU oder UEBERNEHMEN (archiviert nur vier historische Test-Workflows)"
+        description: "VORSCHAU oder UEBERNEHMEN – nur nach Abschluss aller 11 Zielspiele"
         required: true
         type: choice
         default: VORSCHAU
         options:
           - VORSCHAU
           - UEBERNEHMEN
-
 permissions:
   contents: write
-
 concurrency:
-  group: tosmc-test2v2-workflow-bereinigung-v1
+  group: tosmc-test2v2-workflow-bereinigung-v2
   cancel-in-progress: false
-
 jobs:
   archivieren:
     if: github.repository == 'OldSmugglersClub/the-old-smugglers-club-test2-v2' && github.ref == 'refs/heads/main'
@@ -30,64 +27,64 @@ jobs:
         with:
           persist-credentials: true
           fetch-depth: 1
-      - name: Dateien und unveraenderten Quellstand pruefen
-        id: pruefung
+      - name: Elf Zielspiele und Quellstand pruefen
         env:
           MODUS: ${{ inputs.modus }}
         run: |
           python3 - <<'PY'
-          import os, pathlib, subprocess, sys
-          # Diese Blob-SHAs wurden vor Erstellung am 04.11.2026 aus TEST2v2/main gelesen.
-          candidates = {
-            'hf16-live-bereinigung.yml': '7154f9cc4588c85016c4f5f033f806ec70ccb660',
-            'tosmc-test2v2-11-remote-writeproof.yml': '93d23c0893a92be3d4dddde63e9843284cf22027',
-            'tosmc-test2v2-11-terminpruefung.yml': '5d446653a601537447b933110ece2b9ffae1138d',
-            'tosmc-test2v2-11-isolationstest.yml': 'f76c80731de20250a527737eceec61fa3727c258',
-          }
+          import json, os, pathlib, subprocess, sys
           src = pathlib.Path('.github/workflows')
-          dest = pathlib.Path('.github/workflow-archiv/2026-11-04-test2v2')
-          missing = []
-          changed = []
+          archive = pathlib.Path('.github/workflow-archiv/2026-11-04-test2v2-phase2')
+          candidates = {
+            'tosmc-test2v2-11-terminuebernahme.yml': 'b94c82974804a0fbbb249a2d38cf8dbb4059b3be',
+          }
+          self_name = 'tosmc-test2v2-workflow-bereinigung-v1.yml'
           for name, expected in candidates.items():
-              path = src/name
-              if not path.is_file():
-                  missing.append(name)
-                  continue
-              actual = subprocess.check_output(['git','hash-object',str(path)], text=True).strip()
-              if actual != expected:
-                  changed.append((name, actual))
-          print('Modus:', os.environ['MODUS'])
-          print('Archivkandidaten:', *candidates, sep='\n - ')
-          print('Fehlend:', missing)
-          print('Seit Vorpruefung geaendert:', changed)
-          if changed:
-              sys.exit('ABBRUCH: mindestens eine Quelldatei wurde geaendert. Erneute Fachpruefung erforderlich.')
-          if missing:
-              sys.exit('ABBRUCH: Kandidaten fehlen; kein unvollstaendiger Archivlauf.')
-          if os.environ['MODUS'] == 'VORSCHAU':
-              print('VORSCHAU: Keine Dateien geaendert.')
+              p = src/name
+              if not p.is_file() or subprocess.check_output(['git','hash-object',str(p)],text=True).strip()!=expected:
+                  sys.exit('SCHUTZSTOPP: Terminworkflow fehlt oder wurde seit Pruefung veraendert.')
+          own = src/self_name
+          if not own.is_file():
+              sys.exit('SCHUTZSTOPP: Bereinigungsworkflow fehlt.')
+          if subprocess.check_output(['git','status','--porcelain'],text=True).strip():
+              sys.exit('SCHUTZSTOPP: Arbeitsverzeichnis nicht sauber.')
+          cfg=json.loads(pathlib.Path('terminwaechter/offizielle-quellen.json').read_text())
+          ids=[i for q in cfg['quellen'] for i in q.get('spielIds',[])]
+          if len(ids)!=11 or len(set(ids))!=11:
+              sys.exit('SCHUTZSTOPP: Zielkonfiguration enthaelt nicht exakt 11 eindeutige Spiele.')
+          data=json.loads(pathlib.Path('spieldaten.json').read_text())
+          games=[g for season in data['saisons'] for g in season['spiele']]
+          by_id={}
+          for g in games:
+              if g.get('id') in ids:
+                  by_id.setdefault(g['id'],[]).append(g)
+          open_ids=[i for i in ids if len(by_id.get(i,[]))!=1 or by_id[i][0].get('status')!='beendet']
+          print('Modus:',os.environ['MODUS'])
+          print('Zielspiele:',len(ids),'Beendet:',len(ids)-len(open_ids),'Offen/unklar:',len(open_ids))
+          for i in open_ids: print('NICHT_ABGESCHLOSSEN:',i)
+          if os.environ['MODUS']=='VORSCHAU':
+              print('VORSCHAU: Keine Dateien geaendert. Archivierung erst bei 11/11 beendeten Spielen.')
               sys.exit(0)
-          if os.environ['MODUS'] != 'UEBERNEHMEN':
+          if os.environ['MODUS']!='UEBERNEHMEN':
               sys.exit('Unbekannter Modus')
-          dest.mkdir(parents=True, exist_ok=True)
-          for name in candidates:
-              if (dest/name).exists():
-                  sys.exit('ABBRUCH: Archivziel existiert bereits: '+name)
-          for name in candidates:
-              (src/name).rename(dest/name)
-          print('Vier Alt-Workflows lokal archiviert. Commit folgt.')
+          if open_ids:
+              sys.exit('SCHUTZSTOPP: Archivierung nicht erlaubt, solange Zielspiele offen sind.')
+          if archive.exists():
+              sys.exit('SCHUTZSTOPP: Archivziel existiert bereits.')
+          archive.mkdir(parents=True)
+          for name in [*candidates,self_name]:
+              (src/name).rename(archive/name)
+          print('Zwei Workflows archiviert. Commit folgt.')
           PY
       - name: Archivierung committen und pushen
         if: inputs.modus == 'UEBERNEHMEN'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- .github/workflows .github/workflow-archiv/2026-11-04-test2v2
+          git add -- .github/workflows .github/workflow-archiv/2026-11-04-test2v2-phase2
           git diff --cached --check
           git diff --cached --name-status
-          git commit -m "TEST2v2 Workflow-Bereinigung V1: vier historische Tests archivieren"
+          git commit -m "TEST2v2 Workflow-Bereinigung V2: Terminworkflow nach 11 Abschluessen archivieren"
           git push origin HEAD:main
       - name: Ergebnis
-        run: |
-          echo "Modus: ${{ inputs.modus }}"
-          echo "Dauer-Workflows und taegliche 11-Termine-Uebernahme wurden nicht angefasst."
+        run: echo "V2 prueft vor Archivierung alle elf Zielspiele; LIVE und vNext unberuehrt."
