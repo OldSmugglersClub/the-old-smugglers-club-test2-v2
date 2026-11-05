@@ -1,0 +1,25 @@
+TOSMC - TEST2v2 Startseite: Terminliste 7-Tage-Fix 1 (05.11.2026)
+
+Befund:
+Die LIVE-index.html hatte eine Cluster-Grenze um das zeitlich naechste Spiel.
+Am 05.11.2026 endet der Smugglerauftrag-Cluster am Fr 06.11. um 20:30,
+obwohl Bundesliga ST9 am 07./08.11. noch acht weitere Spiele hat.
+Die Startseite zeigte darum nur zwei Freitagspartien.
+
+Aenderung:
+Nur index.html: verwendet das bereits vorhandene Timeline-Verfahren
+windowEvents(exact, now, anzeigeTage) fuer kuenftige Anstosszeiten.
+Konfiguriert sind derzeit 7 Tage (spieltag.json). Die Anzeige umfasst
+alle exakt terminierten anstehenden Partien in diesem Zeitraum.
+Keine Aenderung an Spielplan, Daten, Terminwaechter oder Admin6.
+
+TEST2v2:
+1) index.html im TEST2v2-Repo ersetzen; keine andere Datei.
+2) Bei Testdatum 05.11.2026 pruefen: 10 anstehende Partien Fr-So
+   (1 Smugglerauftrag und 9 Bundesliga) statt nur zwei Freitagsspiele.
+3) Anzahl, Datumgruppierung, Badge und mobile Darstellung testen.
+4) LIVE erst nach Nutzerbestaetigung und erneutem Basisabgleich.
+
+Achtung: '7 Tage' ist ein gleitendes Zeitfenster (7*24h), kein
+festes Wochenende; weitere Wettbewerbe in diesem Zeitraum werden
+eben dem Bundesliga-Wochenende ebenfalls gezeigt.
