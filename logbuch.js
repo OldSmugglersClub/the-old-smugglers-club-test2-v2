@@ -109,7 +109,7 @@ function thirtySecondsCompletedHtml(entry,withPreviousLabel=false){
  const previous=withPreviousLabel?'<div class="logbook-30s-previous-label"><span class="logbook-kicker">Zuletzt abgeschlossen</span></div>':'';
  return `${previous}<div class="logbook-30s-head"><span class="logbook-kicker">${formatThirtySecondsKicker(entry.bezeichnung||entry.runde||"Letzter Spieltag")}</span></div>${stats.length?`<div class="logbook-30s-stats">${stats.map(stat=>`<article class="logbook-30s-stat"><span>${esc(stat.label)}</span><strong>${Number(stat.value).toLocaleString("de-DE")}</strong><small>${esc(stat.copy)}</small></article>`).join("")}</div>`:""}${story?`<article class="logbook-30s-story"><span>${esc(story.kicker||"Die Geschichte des Spieltags")}</span><strong>${esc(story.title)}</strong><p>${esc(story.text)}</p></article>`:""}`;
 }
-// Startseite: alle abgeschlossenen Wettbewerbsrueckblicke des juengsten Spielwochenendes.
+// TEST2v2-STARTLOGBUCH-WEEKDAY-HF1 (2026-11-05): Auch Wochentagsabschluesse anzeigen.
 // Datum kommt ausschliesslich von den zugeordneten Spielen, niemals vom Upload-Zeitpunkt.
 function weekendFriday(dateStr){
  if(!/^\d{4}-\d{2}-\d{2}$/.test(String(dateStr||"")))return null;
@@ -120,22 +120,30 @@ function weekendFriday(dateStr){
  date.setUTCDate(date.getUTCDate()-(day===0?2:day-5));
  return date.toISOString().slice(0,10);
 }
-function eventWeekend(entry){
+function eventLastDate(entry){
  const days=arr(entry?.spielIds).map(id=>gameById.get(id)).filter(Boolean)
-  .map(g=>String(g.datum||g.datumVon||"").slice(0,10));
- const weekends=days.map(weekendFriday).filter(Boolean).sort();
- return weekends.at(-1)||null;
+  .map(g=>String(g.datum||g.datumVon||"").slice(0,10))
+  .filter(d=>/^\d{4}-\d{2}-\d{2}$/.test(d)).sort();
+ return days.at(-1)||null;
 }
 function weekendCardsHtml(entries){
- const completed=arr(entries).filter(e=>e?.abgeschlossen===true).map(e=>({entry:e,weekend:eventWeekend(e)})).filter(x=>x.weekend);
+ const completed=arr(entries).filter(e=>e?.abgeschlossen===true).map(e=>({entry:e,lastDate:eventLastDate(e)})).filter(x=>x.lastDate);
  if(!completed.length)return null;
- const lastWeekend=completed.reduce((max,x)=>x.weekend>max?x.weekend:max,"");
- const chosen=completed.filter(x=>x.weekend===lastWeekend);
+ const lastDate=completed.reduce((max,x)=>x.lastDate>max?x.lastDate:max,"");
+ const lastWeekend=weekendFriday(lastDate);
+ // Wochenend-Rueckblick bleibt gruppiert; werktags zaehlt der juengste Spieltag.
+ const chosen=completed.filter(x=>lastWeekend
+  ? weekendFriday(x.lastDate)===lastWeekend
+  : x.lastDate===lastDate);
  const uniq=[...new Map(chosen.map(x=>[x.entry.id,x.entry])).values()];
  uniq.sort((a,b)=>String(a.wettbewerb).localeCompare(String(b.wettbewerb),'de')||String(a.runde).localeCompare(String(b.runde),'de'));
  const toDay=iso=>`${iso.slice(8,10)}.${iso.slice(5,7)}.${iso.slice(0,4)}`;
- const start=new Date(`${lastWeekend}T12:00:00Z`),finish=new Date(start);finish.setUTCDate(finish.getUTCDate()+2);
- const title=`Wochenend-Rückblick · ${toDay(lastWeekend)}–${toDay(finish.toISOString().slice(0,10))}`;
+ const start=lastWeekend?new Date(`${lastWeekend}T12:00:00Z`):null;
+ const finish=start?new Date(start):null;
+ if(finish)finish.setUTCDate(finish.getUTCDate()+2);
+ const title=lastWeekend
+  ? `Wochenend-Rückblick · ${toDay(lastWeekend)}–${toDay(finish.toISOString().slice(0,10))}`
+  : `Spieltags-Rückblick · ${toDay(lastDate)}`;
  const cards=uniq.map(entry=>{
   const story=storyFromEntry(entry);
   const stats=[startStat(entry,"kapitaene"),startStat(entry,"gegen-den-strom"),startStat(entry,"volltreffer")].filter(Boolean);
