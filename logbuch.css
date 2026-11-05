@@ -1117,7 +1117,7 @@ body{overflow-x:hidden}
 .lb-archive{margin-bottom:18px}
 
 
-/* HF122-TEST3: Plakative Wochenend-Poster statt Textkacheln; Titel ohne Binnenworttrennung. */
+/* HF122-FINAL: Plakative Wochenend-Poster statt Textkacheln; Titel ohne Binnenworttrennung. */
 .logbook-weekend-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
 .logbook-weekend-card{position:relative;isolation:isolate;overflow:hidden;min-width:0;min-height:270px;padding:0;gap:0;border:1px solid rgba(226,161,57,.52);border-radius:13px;background:radial-gradient(ellipse at 85% 8%,rgba(174,98,23,.22),transparent 53%),linear-gradient(160deg,#311906 0%,#120a06 78%);box-shadow:inset 0 0 0 1px rgba(255,203,105,.05),0 10px 22px rgba(0,0,0,.14)}
 .logbook-weekend-card::before{content:"";position:absolute;top:-40px;right:-38px;width:130px;height:130px;border-radius:50%;border:1px solid rgba(251,190,77,.13);box-shadow:0 0 0 18px rgba(251,190,77,.025),0 0 0 40px rgba(251,190,77,.018);z-index:-1}
@@ -1138,3 +1138,19 @@ body{overflow-x:hidden}
 .logbook-weekend-link:hover,.logbook-weekend-link:focus-visible{background:rgba(222,151,43,.23)}
 @media(max-width:900px){.logbook-weekend-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.logbook-weekend-grid{grid-template-columns:1fr}.logbook-weekend-card{min-height:230px}.logbook-poster-hero{font-size:3.2rem}}
+
+/* TEST2v2 BLOCK-20261105: kompakte Mehrfachkarten und mobile horizontale Navigation.
+   Keine Aenderung des Logbuchs selbst oder seiner Abschlussdaten. */
+.logbook-weekend-grid--single{grid-template-columns:minmax(0,720px);justify-content:center}
+.logbook-block-swipe-hint{display:none;color:#d1b587;font-size:.75rem;text-align:center;margin:8px 0 0}
+@media(max-width:600px){
+ .logbook-weekend-grid:not(.logbook-weekend-grid--single){
+  display:grid;grid-auto-flow:column;grid-auto-columns:minmax(82%,1fr);
+  grid-template-columns:none;overflow-x:auto;overscroll-behavior-inline:contain;
+  scroll-snap-type:x mandatory;scroll-padding-inline:2px;
+  padding:0 1px 9px;gap:12px;-webkit-overflow-scrolling:touch;
+ }
+ .logbook-weekend-grid:not(.logbook-weekend-grid--single)>.logbook-weekend-card{scroll-snap-align:start}
+ .logbook-weekend-grid--single{grid-template-columns:minmax(0,1fr)}
+ .logbook-block-swipe-hint{display:block}
+}
