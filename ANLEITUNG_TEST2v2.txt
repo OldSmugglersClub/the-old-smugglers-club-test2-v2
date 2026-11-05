@@ -1,0 +1,23 @@
+TOSMC – TEST2v2 Logbuch Kapitaene Text FIX1 – 05.11.2026
+
+AUSGANGSBASIS: the-old-smugglers-club-main(20261105-215122).zip
+Geltungsbereich: Nur Website-Darstellungslogik, KEIN Admin-Update, KEINE Abschlussdaten.
+
+Einzige Website-Datei: logbuch.js im Repository-Hauptverzeichnis.
+Original SHA-256: 4a51fac982ef7c8e8e35ba9591481336381a2433f3c25a5e881ab6a7e7b1c2f9
+Neue SHA-256:     32e3e5c32a8b14c6bcde46b14b14996abfda093e8224d9b8037cf243f130b427
+
+Korrektur: Anzahl angezeigter Kapitaene nicht mehr mit Anzahl punktgleicher Sieger verwechseln.
+Der Siegertext verwendet die tatsaechlich hoechste Punktzahl und echte Punktgleichheit;
+Startseiten-Kurztexte zum Kapitaen-Thema ebenfalls korrigiert.
+Die bestehende Top-4-/Gleichstands-Auswahl bleibt unveraendert.
+
+GETESTET: Quelldatei in der eingereichten ZIP gefunden; ZIP-CRC OK; Node-JS-Syntax OK;
+3 fokussierte Texttests fuer CL ST4 / 2 Sieger / 4 Sieger OK.
+NICHT TESTBAR HIER: Browser-/Websiteansicht auf TEST2v2, andere Laufzeitpfade;
+keine LIVE-Freigabe.
+
+INSTALLATION: Nur in TEST2v2 logbuch.js im Hauptverzeichnis ersetzen,
+anschliessend Cache hart neu laden und CL ST4 Logbuch sowie Startseiten-Logbuch pruefen.
+LIVE unveraendert lassen. Nach Nutzerbestaetigung wird separat ein LIVE-Paket
+mit frischer LIVE-Basis erstellt und freigegeben.
