@@ -109,7 +109,7 @@ function thirtySecondsCompletedHtml(entry,withPreviousLabel=false){
  const previous=withPreviousLabel?'<div class="logbook-30s-previous-label"><span class="logbook-kicker">Zuletzt abgeschlossen</span></div>':'';
  return `${previous}<div class="logbook-30s-head"><span class="logbook-kicker">${formatThirtySecondsKicker(entry.bezeichnung||entry.runde||"Letzter Spieltag")}</span></div>${stats.length?`<div class="logbook-30s-stats">${stats.map(stat=>`<article class="logbook-30s-stat"><span>${esc(stat.label)}</span><strong>${Number(stat.value).toLocaleString("de-DE")}</strong><small>${esc(stat.copy)}</small></article>`).join("")}</div>`:""}${story?`<article class="logbook-30s-story"><span>${esc(story.kicker||"Die Geschichte des Spieltags")}</span><strong>${esc(story.title)}</strong><p>${esc(story.text)}</p></article>`:""}`;
 }
-// TEST2v2-STARTLOGBUCH-WEEKDAY-HF2 (2026-11-05): Dynamischer Titel und zentrierte Einzelkarte.
+// TEST2v2-STARTLOGBUCH-WEEKDAY-HF3 (2026-11-05): Ereignisbezogene dynamische Ueberschrift; HF2-Layout bleibt.
 // Datum kommt ausschliesslich von den zugeordneten Spielen, niemals vom Upload-Zeitpunkt.
 function weekendFriday(dateStr){
  if(!/^\d{4}-\d{2}-\d{2}$/.test(String(dateStr||"")))return null;
@@ -178,7 +178,7 @@ function weekendCardsHtml(entries){
   const competition=esc(rawCompetition.replace(/^(Piratenkodex)\s+\1(?=\s|$)/i,"$1"));
   return `<article class="logbook-weekend-card logbook-weekend-card--${theme}"><div class="logbook-poster-top"><span class="logbook-poster-competition">${competition}</span><span class="logbook-poster-symbol" aria-hidden="true">✦</span></div><div class="logbook-poster-center"><span class="logbook-poster-headline">${headline}</span><strong class="logbook-poster-hero">${hero}</strong>${detail}</div><a class="logbook-weekend-link" href="${link}" aria-label="Rückblick öffnen: ${competition}">Geschichte entdecken <span aria-hidden="true">›</span></a></article>`;
  }).join("");
- return `<div class="logbook-weekend-title">${esc(title)}</div><div class="logbook-weekend-grid"${uniq.length===1?' style="grid-template-columns:minmax(0,720px);justify-content:center"':""}>${cards}</div>`;
+ return {html:`<div class="logbook-weekend-title">${esc(title)}</div><div class="logbook-weekend-grid"${uniq.length===1?' style="grid-template-columns:minmax(0,720px);justify-content:center"':""}>${cards}</div>`,isWeekend:Boolean(lastWeekend)};
 }
 function renderThirtySeconds(entry,pending){
  const host=$("#logbook-30s"); if(!host) return;
@@ -187,8 +187,8 @@ function renderThirtySeconds(entry,pending){
   const weekend=weekendCardsHtml(data?.logbuecher);
   if(weekend){
    const heading=document.getElementById("logbook-30s-title");
-   if(heading)heading.textContent="Die Geschichten des Spieltags";
-   host.innerHTML=weekend;return;
+   if(heading)heading.textContent=weekend.isWeekend?"Die Geschichten des Wochenendes":"Die Geschichten des Spieltags";
+   host.innerHTML=weekend.html;return;
   }
  }
  const completed=thirtySecondsCompletedHtml(entry,Boolean(pending?.active&&entry));
