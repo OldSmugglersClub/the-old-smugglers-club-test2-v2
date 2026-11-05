@@ -145,7 +145,7 @@ function weekendCardsHtml(entries){
  const toDay=iso=>`${iso.slice(8,10)}.${iso.slice(5,7)}.${iso.slice(0,4)}`;
  const title=activeBlock.isWeekend
   ? `Wochenend-Rueckblick · ${toDay(activeBlock.from)}–${toDay(activeBlock.to)}`
-  : `Europawochen-Rueckblick · ${toDay(activeBlock.from)}–${toDay(activeBlock.to)}`;
+  : `Spieltags-Rückblick · ${toDay(activeBlock.from)}–${toDay(activeBlock.to)}`;
  const cards=uniq.map(entry=>{
   const story=storyFromEntry(entry);
   const stats=[startStat(entry,"kapitaene"),startStat(entry,"gegen-den-strom"),startStat(entry,"volltreffer")].filter(Boolean);
@@ -191,7 +191,7 @@ function renderThirtySeconds(entry,pending){
   const weekend=weekendCardsHtml(data?.logbuecher);
   if(weekend){
    const heading=document.getElementById("logbook-30s-title");
-   if(heading)heading.textContent=weekend.isWeekend?"Die Geschichten des Wochenendes":"Die Geschichten der Europawoche";
+   if(heading)heading.textContent=weekend.isWeekend?"Die Geschichten des Wochenendes":"Die Geschichten zur Europapokal-Woche";
    host.innerHTML=weekend.html;return;
   }
  }
