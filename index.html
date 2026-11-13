@@ -5195,22 +5195,31 @@
       overflow-wrap: normal;
       word-break: normal;
     }
-    /* Hoher Schmugglerrat: Name und Punkte gehoeren sichtbar in EINE Zeile. */
+    /* Hoher Schmugglerrat: Name und Punkte, bei engen Kacheln ohne Abschneiden. */
     .welcome-status-item .welcome-leader-line {
       display: flex;
       align-items: baseline;
-      gap: .85rem;
+      flex-wrap: wrap;
+      column-gap: .85rem;
+      row-gap: .22rem;
       min-width: 0;
-      white-space: nowrap;
+      max-width: 100%;
+      white-space: normal;
     }
     .welcome-status-item #welcome-champion {
       flex: 0 1 auto;
-      min-width: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      min-width: min(100%, 12ch);
+      max-width: 100%;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: clip;
+      overflow-wrap: anywhere;
+      word-break: normal;
     }
     .welcome-status-item .welcome-leader-points {
       flex: 0 0 auto;
+      max-width: 100%;
+      white-space: nowrap;
       margin-top: 0;
       color: #d3b582;
       font-size: clamp(.58rem, .82vw, .70rem);
