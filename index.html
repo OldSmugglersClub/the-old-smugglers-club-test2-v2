@@ -542,24 +542,12 @@
       border: 1px solid rgba(242,210,126,.65);
       border-radius: 12px;
       background:
-        linear-gradient(180deg, rgba(48,29,12,.96) 0%, rgba(22,13,7,.98) 49%, rgba(10,7,4,.99) 51%, rgba(28,17,9,.98) 100%);
+        linear-gradient(180deg, rgba(48,29,12,.96) 0%, rgba(22,13,7,.98) 55%, rgba(28,17,9,.98) 100%);
       box-shadow:
         inset 0 1px 0 rgba(255,255,255,.08),
         inset 0 -1px 0 rgba(0,0,0,.75),
         0 10px 24px rgba(0,0,0,.34);
       transform-style: preserve-3d;
-    }
-
-    .flip-card::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 50%;
-      height: 1px;
-      background: rgba(0,0,0,.82);
-      box-shadow: 0 1px 0 rgba(255,255,255,.05);
-      z-index: 2;
     }
 
     .flip-card::after {
@@ -5871,85 +5859,7 @@
       }
     }
 
-
-    /* TEST2v2: echte zweigeteilte Countdown-Klappziffern; restliche Website unveraendert. */
-    .countdown-panel .flip-card::before { content: none; }
-    .countdown-panel .flip-card.is-flipping { animation: none; }
-    .countdown-panel .flip-value {
-      position: absolute;
-      width: 1px; height: 1px; padding: 0; margin: -1px;
-      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap;
-      border: 0;
-    }
-    .countdown-panel .split-flap {
-      position: relative;
-      width: min(100%, 4.8rem);
-      height: clamp(2.9rem, 4.5vw, 3.6rem);
-      flex: 0 0 auto;
-      perspective: 400px;
-      isolation: isolate;
-    }
-    .countdown-panel .split-half {
-      position: absolute; left: 0; width: 100%; height: 50%;
-      overflow: hidden; backface-visibility: hidden;
-      background: linear-gradient(180deg, #34200f, #201208);
-      color: #d9aa54;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.035);
-    }
-    .countdown-panel .split-half--top {
-      top: 0; transform-origin: center bottom;
-      border-radius: 5px 5px 0 0;
-    }
-    .countdown-panel .split-half--bottom {
-      bottom: 0; transform-origin: center top;
-      border-radius: 0 0 5px 5px;
-      background: linear-gradient(180deg, #1b1007, #28180c);
-    }
-    .countdown-panel .split-half span {
-      position: absolute; left: 0; width: 100%; height: 200%;
-      display: flex; align-items: center; justify-content: center;
-      font-family: inherit;
-      font-size: clamp(1.95rem,3.2vw,2.75rem);
-      font-weight: 900; letter-spacing: .01em;
-      line-height: 1; font-variant-numeric: tabular-nums;
-      text-shadow: 0 1px 0 #2d1906, 0 3px 7px rgba(0,0,0,.82);
-    }
-    .countdown-panel .split-half--top span { top: 0; }
-    .countdown-panel .split-half--bottom span { top: -100%; }
-    .countdown-panel .split-static-top,
-    .countdown-panel .split-static-bottom { z-index: 1; }
-    .countdown-panel .split-animated-top { z-index: 3; }
-    .countdown-panel .split-animated-bottom { z-index: 4; }
-    .countdown-panel .split-flap:not(.is-split-flipping) .split-animated-top,
-    .countdown-panel .split-flap:not(.is-split-flipping) .split-animated-bottom { display: none; }
-    .countdown-panel .split-flap.is-split-flipping .split-animated-top {
-      animation: tosmc-split-top .48s ease-in forwards;
-    }
-    .countdown-panel .split-flap.is-split-flipping .split-animated-bottom {
-      animation: tosmc-split-bottom .48s ease-out forwards;
-    }
-    .countdown-panel .split-flap::after {
-      content: ""; position: absolute; left: 0; right: 0; top: 50%;
-      height: 2px; transform: translateY(-1px); z-index: 5;
-      background: #080502;
-      box-shadow: 0 1px 0 rgba(243,186,85,.13), 0 -1px 0 rgba(0,0,0,.75);
-      pointer-events: none;
-    }
-    @keyframes tosmc-split-top {
-      0%, 2% { transform: rotateX(0deg); visibility: visible; }
-      49%, 100% { transform: rotateX(-90deg); visibility: hidden; }
-    }
-    @keyframes tosmc-split-bottom {
-      0%, 49% { transform: rotateX(90deg); visibility: hidden; }
-      50% { transform: rotateX(90deg); visibility: visible; }
-      100% { transform: rotateX(0deg); visibility: visible; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .countdown-panel .split-flap.is-split-flipping .split-animated-top,
-      .countdown-panel .split-flap.is-split-flipping .split-animated-bottom { animation: none; }
-    }
-
-  </style>
+</style>
   <link rel="stylesheet" href="./legal.css">
   <script src="./hall-of-fame-runtime.js?v=4.9.2-HF12-HF105"></script>
   <script src="./highscore-data-adapter.js"></script>
@@ -6164,12 +6074,6 @@
             <div class="flip-card" data-unit="days">
               <span class="chronometer-rivet rivet-left" aria-hidden="true"></span>
               <span class="chronometer-rivet rivet-right" aria-hidden="true"></span>
-              <div class="split-flap" aria-hidden="true">
-                <div class="split-half split-half--top split-static-top"><span>--</span></div>
-                <div class="split-half split-half--bottom split-static-bottom"><span>--</span></div>
-                <div class="split-half split-half--top split-animated-top"><span>--</span></div>
-                <div class="split-half split-half--bottom split-animated-bottom"><span>--</span></div>
-              </div>
               <strong class="flip-value" id="days">--</strong>
               <span class="flip-label">Tage</span>
             </div>
@@ -6179,12 +6083,6 @@
             <div class="flip-card" data-unit="hours">
               <span class="chronometer-rivet rivet-left" aria-hidden="true"></span>
               <span class="chronometer-rivet rivet-right" aria-hidden="true"></span>
-              <div class="split-flap" aria-hidden="true">
-                <div class="split-half split-half--top split-static-top"><span>--</span></div>
-                <div class="split-half split-half--bottom split-static-bottom"><span>--</span></div>
-                <div class="split-half split-half--top split-animated-top"><span>--</span></div>
-                <div class="split-half split-half--bottom split-animated-bottom"><span>--</span></div>
-              </div>
               <strong class="flip-value" id="hours">--</strong>
               <span class="flip-label">Stunden</span>
             </div>
@@ -6194,12 +6092,6 @@
             <div class="flip-card" data-unit="minutes">
               <span class="chronometer-rivet rivet-left" aria-hidden="true"></span>
               <span class="chronometer-rivet rivet-right" aria-hidden="true"></span>
-              <div class="split-flap" aria-hidden="true">
-                <div class="split-half split-half--top split-static-top"><span>--</span></div>
-                <div class="split-half split-half--bottom split-static-bottom"><span>--</span></div>
-                <div class="split-half split-half--top split-animated-top"><span>--</span></div>
-                <div class="split-half split-half--bottom split-animated-bottom"><span>--</span></div>
-              </div>
               <strong class="flip-value" id="minutes">--</strong>
               <span class="flip-label">Minuten</span>
             </div>
@@ -6209,12 +6101,6 @@
             <div class="flip-card" data-unit="seconds">
               <span class="chronometer-rivet rivet-left" aria-hidden="true"></span>
               <span class="chronometer-rivet rivet-right" aria-hidden="true"></span>
-              <div class="split-flap" aria-hidden="true">
-                <div class="split-half split-half--top split-static-top"><span>--</span></div>
-                <div class="split-half split-half--bottom split-static-bottom"><span>--</span></div>
-                <div class="split-half split-half--top split-animated-top"><span>--</span></div>
-                <div class="split-half split-half--bottom split-animated-bottom"><span>--</span></div>
-              </div>
               <strong class="flip-value" id="seconds">--</strong>
               <span class="flip-label">Sekunden</span>
             </div>
@@ -6668,37 +6554,14 @@
       const element = document.getElementById(id);
       if (!element) return;
       const card = element.closest(".flip-card");
-      const flap = card?.querySelector(".split-flap");
       const formatted = String(Math.max(0, value)).padStart(2, "0");
-      if (!flap) { element.textContent = formatted; return; }
-      const upper = flap.querySelector(".split-static-top span");
-      const lower = flap.querySelector(".split-static-bottom span");
-      const falling = flap.querySelector(".split-animated-top span");
-      const rising = flap.querySelector(".split-animated-bottom span");
-      const previous = flap.dataset.shownValue || "--";
-      if (previous === formatted) return;
-      // Initialisierung und reduzierte Bewegung: ohne Animation aktualisieren.
-      if (previous === "--" || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
-        flap.classList.remove("is-split-flipping");
-        upper.textContent = lower.textContent = formatted;
-        flap.dataset.shownValue = element.textContent = formatted;
-        return;
+      if (element.textContent === formatted) return;
+      if (card) {
+        card.classList.remove("is-flipping");
+        void card.offsetWidth;
+        card.classList.add("is-flipping");
       }
-      // Falls eine Animation noch laeuft, auf den letzten dargestellten Wert aufsetzen.
-      if (flap._flipTimeout) window.clearTimeout(flap._flipTimeout);
-      flap.classList.remove("is-split-flipping");
-      upper.textContent = formatted;
-      lower.textContent = previous;
-      falling.textContent = previous;
-      rising.textContent = formatted;
-      void flap.offsetWidth;
-      flap.classList.add("is-split-flipping");
-      flap.dataset.shownValue = element.textContent = formatted;
-      flap._flipTimeout = window.setTimeout(() => {
-        lower.textContent = formatted;
-        flap.classList.remove("is-split-flipping");
-        flap._flipTimeout = null;
-      }, 490);
+      window.setTimeout(() => { element.textContent = formatted; }, 210);
     }
 
     function countdownClockNow() {
