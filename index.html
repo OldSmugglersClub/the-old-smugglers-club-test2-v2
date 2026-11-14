@@ -6067,6 +6067,45 @@
     flex:0 0 auto;margin:0 !important;color:#ffdda0 !important;font-size:clamp(.75rem,1.17vw,.99rem) !important;
     white-space:nowrap;
   }
+  .smuggler-command-bottom .welcome-status-item--overall-leader > .welcome-leader-layout {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    align-items:center;
+    column-gap:clamp(12px,1.5vw,22px);
+    width:100%;
+  }
+  .smuggler-command-bottom .welcome-status-item--overall-leader .welcome-leader-main {
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:2px;
+  }
+  .smuggler-command-bottom .welcome-status-item--overall-leader .welcome-leader-line {
+    display:flex;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:3px 12px;
+    min-width:0;
+  }
+  .smuggler-command-bottom .welcome-status-item--overall-leader .welcome-leader-side {
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:flex-end;
+    text-align:right;
+    gap:2px;
+  }
+  .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-margin-label {
+    white-space:nowrap;
+  }
+  .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-margin {
+    color:#ffde92 !important;
+    font-size:clamp(.95rem,1.45vw,1.18rem) !important;
+    line-height:1.15;
+    white-space:nowrap;
+  }
   .smuggler-command-bottom .welcome-command-actions {
     display:grid !important;gap:8px;width:100% !important;max-width:100% !important;
     margin:0 !important;padding:0 !important;
@@ -6121,14 +6160,26 @@
     .smuggler-command-bottom .welcome-status-item:not(.welcome-status-item--mission) > span {
       min-width: 0;
     }
-    .smuggler-command-bottom .welcome-status-item--overall-leader > span {
+    .smuggler-command-bottom .welcome-status-item--overall-leader > .welcome-leader-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      row-gap: 3px;
+      align-items: center;
+      width: 100%;
+    }
+    .smuggler-command-bottom .welcome-status-item--overall-leader .welcome-leader-main {
+      min-width: 0;
+    }
+    .smuggler-command-bottom .welcome-status-item--overall-leader .welcome-leader-line {
       display: flex;
       flex-wrap: wrap;
       gap: 2px 10px;
       align-items: baseline;
     }
-    .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-label {
-      flex: 0 0 100%;
+    .smuggler-command-bottom .welcome-status-item--overall-leader .welcome-leader-side {
+      align-items: flex-start;
+      text-align: left;
+      gap: 1px;
     }
   }
 
@@ -6742,7 +6793,7 @@
 </div>
 <div class="welcome-status-item welcome-status-item--overall-leader">
 <svg aria-hidden="true"><use href="#icon-trophy"></use></svg>
-<span><small id="welcome-leader-label">Platz 1 Gesamteinzelwertung</small><strong id="welcome-champion">Wird geladen</strong><small class="welcome-leader-points" id="welcome-leader-points"></small></span>
+<span class="welcome-leader-layout"><span class="welcome-leader-main"><small id="welcome-leader-label">Platz 1 Gesamteinzelwertung</small><span class="welcome-leader-line"><strong id="welcome-champion">Wird geladen</strong><small class="welcome-leader-points" id="welcome-leader-points"></small></span></span><span class="welcome-leader-side"><small id="welcome-leader-margin-label">Vorsprung auf Platz 2</small><strong id="welcome-leader-margin">–</strong></span></span>
 </div>
 </div>
             <div class="welcome-command-actions">
@@ -7799,17 +7850,25 @@
     async function loadCurrentOverallLeader() {
       const label = document.getElementById("welcome-champion");
       const pointsLabel = document.getElementById("welcome-leader-points");
-      if (!label || !pointsLabel) return;
+      const marginLabel = document.getElementById("welcome-leader-margin-label");
+      const marginValue = document.getElementById("welcome-leader-margin");
+      if (!label || !pointsLabel || !marginLabel || !marginValue) return;
       try {
         const data = await window.OSCHighscoreDataAdapter.loadHighscore();
         const individuals = data?.overall?.individual;
         if (!Array.isArray(individuals) || !individuals.length) {
           label.textContent = "Noch offen";
           pointsLabel.textContent = "Noch keine Gesamtwertung";
+          marginLabel.textContent = "Vorsprung auf Platz 2";
+          marginValue.textContent = "–";
           return;
         }
-        const leaders = individuals.filter(entry => Number(entry?.rank) === 1 &&
-          typeof entry?.name === "string" && entry.name.trim());
+        const entries = individuals.filter(entry =>
+          typeof entry?.name === "string" && entry.name.trim() &&
+          entry?.totalPoints !== null && entry?.totalPoints !== undefined && entry?.totalPoints !== "" &&
+          Number.isFinite(Number(entry.totalPoints))
+        );
+        const leaders = entries.filter(entry => Number(entry?.rank) === 1);
         label.textContent = leaders.length
           ? leaders.map(entry => entry.name.trim()).join(" · ")
           : "Noch offen";
@@ -7819,10 +7878,30 @@
         pointsLabel.textContent = validPoints
           ? `${Number(points).toLocaleString("de-DE")} Punkte`
           : "Punktestand nicht verfügbar";
+        const leaderPoints = validPoints ? Number(points) : null;
+        const secondPlace = entries.find(entry => Number(entry?.rank) === 2);
+        if (leaders.length > 1) {
+          marginLabel.textContent = "Führungsstatus";
+          marginValue.textContent = "Punktgleich";
+        } else if (leaderPoints !== null && secondPlace && Number.isFinite(Number(secondPlace.totalPoints))) {
+          const gap = leaderPoints - Number(secondPlace.totalPoints);
+          if (gap > 0) {
+            marginLabel.textContent = "Vorsprung auf Platz 2";
+            marginValue.textContent = `+${gap.toLocaleString("de-DE")} ${gap === 1 ? "Punkt" : "Punkte"}`;
+          } else {
+            marginLabel.textContent = "Führungsstatus";
+            marginValue.textContent = "Punktgleich";
+          }
+        } else {
+          marginLabel.textContent = "Vorsprung auf Platz 2";
+          marginValue.textContent = "–";
+        }
         label.title = leaders.length ? "Platz 1 Gesamteinzelwertung" : "Keine bestätigte Führung verfügbar";
       } catch (error) {
         label.textContent = "Nicht verfügbar";
         pointsLabel.textContent = "Punktestand nicht verfügbar";
+        marginLabel.textContent = "Vorsprung auf Platz 2";
+        marginValue.textContent = "–";
         console.warn("Führende Gesamteinzelwertung konnte nicht geladen werden:", error);
       }
     }
