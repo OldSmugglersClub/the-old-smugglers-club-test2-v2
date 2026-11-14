@@ -6139,52 +6139,142 @@
     .smuggler-command-bottom .welcome-status {
       display: flex !important;
       flex-direction: column !important;
-      gap: 6px !important;
+      gap: 8px !important;
     }
-    /* Missionsname steht bereits direkt oberhalb des Countdowns. */
     .smuggler-command-bottom .welcome-status-item--mission {
       display: none !important;
     }
     .smuggler-command-bottom .welcome-status-item:not(.welcome-status-item--mission) {
-      min-height: 0 !important;
-      padding: 5px 6px !important;
-      border: 0 !important;
-      border-radius: 0 !important;
-      background: none !important;
-      box-shadow: none !important;
+      min-height: 72px !important;
+      padding: 9px 10px !important;
+      border: 2px solid #ab762e !important;
+      border-radius: 9px !important;
+      background: linear-gradient(180deg,#3d230ff0,#160a04f3) !important;
+      box-shadow: inset 0 0 0 1px #e9a94b24 !important;
+      display: grid !important;
+      grid-template-columns: 28px minmax(0,1fr);
       align-items: center;
       gap: 10px;
     }
     .smuggler-command-bottom .welcome-status-item:not(.welcome-status-item--mission) svg {
-      width: 25px !important;
-      height: 25px !important;
-      flex: 0 0 25px;
+      width: 24px !important;
+      height: 24px !important;
+      flex: 0 0 24px;
     }
-    .smuggler-command-bottom .welcome-status-item:not(.welcome-status-item--mission) > span {
+    .smuggler-command-bottom .welcome-status-item:not(.welcome-status-item--mission) > span,
+    .smuggler-command-bottom .welcome-status-item:not(.welcome-status-item--mission) > .welcome-leader-layout {
       min-width: 0;
+      width: 100%;
+    }
+    .smuggler-command-bottom .welcome-status-item:has(.welcome-season-progress-content) > svg {
+      transform: none !important;
+      align-self: center;
+    }
+    .smuggler-command-bottom .welcome-season-progress-content {
+      display: grid !important;
+      grid-template-columns: minmax(0,1fr) minmax(0,1fr) auto;
+      grid-template-rows: auto auto;
+      column-gap: 10px;
+      row-gap: 2px;
+      align-items: center;
+      align-content: center;
+      width: 100%;
+      max-width: 100%;
+    }
+    .smuggler-command-bottom .welcome-season-progress-content > small:first-child {
+      grid-column: 1;
+      grid-row: 1;
+      white-space: nowrap;
+      font-size: .68rem !important;
+      line-height: 1.1;
+      margin: 0;
+    }
+    .smuggler-command-bottom .welcome-season-progress-content > #welcome-season {
+      grid-column: 1;
+      grid-row: 2;
+      font-size: 1rem !important;
+      line-height: 1.12;
+      margin: 0;
+    }
+    .smuggler-command-bottom .season-progress-block,
+    .smuggler-command-bottom .season-progress-summary,
+    .smuggler-command-bottom .season-progress-caption--full {
+      display: contents !important;
+    }
+    .smuggler-command-bottom .season-progress-caption--full > small {
+      grid-column: 2;
+      grid-row: 1;
+      white-space: nowrap;
+      font-size: .68rem !important;
+      line-height: 1.1;
+      margin: 0;
+    }
+    .smuggler-command-bottom .season-progress-caption--full > strong {
+      grid-column: 2;
+      grid-row: 2;
+      font-size: 1rem !important;
+      line-height: 1.12;
+      margin: 0;
+    }
+    .smuggler-command-bottom .season-progress-percent {
+      grid-column: 3;
+      grid-row: 1 / span 2;
+      justify-self: end;
+      align-self: center;
+      min-width: 58px;
+      padding: 3px 8px;
+      font-size: .88rem !important;
+      line-height: 1.1;
+      text-align: center;
+      margin: 0;
     }
     .smuggler-command-bottom .welcome-status-item--overall-leader > .welcome-leader-layout {
-      display: grid;
-      grid-template-columns: 1fr;
-      row-gap: 3px;
+      display: grid !important;
+      grid-template-columns: minmax(0,1fr) auto;
       align-items: center;
+      column-gap: 12px;
       width: 100%;
     }
     .smuggler-command-bottom .welcome-status-item--overall-leader .welcome-leader-main {
       min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       align-items: flex-start;
       text-align: left;
+      gap: 2px;
+    }
+    .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-label,
+    .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-margin-label {
+      font-size: .68rem !important;
+      line-height: 1.1;
+      white-space: nowrap;
+      margin: 0;
     }
     .smuggler-command-bottom .welcome-status-item--overall-leader .welcome-leader-line {
       display: flex;
       flex-wrap: wrap;
-      gap: 2px 10px;
+      gap: 2px 8px;
       align-items: baseline;
+      justify-content: flex-start;
+    }
+    .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-champion,
+    .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-margin {
+      font-size: 1rem !important;
+      line-height: 1.12;
+    }
+    .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-points {
+      font-size: .82rem !important;
+      line-height: 1.1;
     }
     .smuggler-command-bottom .welcome-status-item--overall-leader .welcome-leader-side {
-      align-items: flex-start;
-      text-align: left;
-      gap: 1px;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+      text-align: right;
+      gap: 2px;
     }
   }
 
