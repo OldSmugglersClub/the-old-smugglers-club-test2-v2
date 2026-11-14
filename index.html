@@ -6330,8 +6330,7 @@
     .smuggler-command-bottom .season-progress-caption small {
       font-size: clamp(.73rem, 1.0vw, .84rem) !important;
     }
-    /* Zahl und Prozent oben; Beschriftung darunter ueber die volle Statistikbreite.
-       Damit bleibt der Text einzeilig, ohne kleinere Schrift oder mehr Kachelhoehe. */
+    /* TEST2v2: Beschriftung gekuerzt. Zeile 1 nur Titel, Zeile 2 Zahl links und Prozent rechts. */
     .smuggler-command-bottom .season-progress-summary {
       display: grid;
       grid-template-columns: minmax(0,1fr) auto;
@@ -6343,24 +6342,24 @@
     .smuggler-command-bottom .season-progress-caption--full {
       display: contents !important;
     }
-    .smuggler-command-bottom .season-progress-caption--full > strong {
-      grid-column: 1;
-      grid-row: 1;
-      font-size: clamp(.98rem, 1.52vw, 1.22rem);
-      margin: 0;
-    }
     .smuggler-command-bottom .season-progress-caption--full > small {
       grid-column: 1 / -1;
-      grid-row: 2;
+      grid-row: 1;
       white-space: nowrap;
       overflow-wrap: normal;
       font-size: clamp(.84rem, 1.15vw, .92rem) !important;
       line-height: 1.12;
       margin: 0;
     }
+    .smuggler-command-bottom .season-progress-caption--full > strong {
+      grid-column: 1;
+      grid-row: 2;
+      font-size: clamp(.98rem, 1.52vw, 1.22rem);
+      margin: 0;
+    }
     .smuggler-command-bottom .season-progress-percent {
       grid-column: 2;
-      grid-row: 1;
+      grid-row: 2;
       font-size: clamp(1.05rem, 1.45vw, 1.20rem);
       line-height: 1.12;
       padding: 4px 11px;
@@ -6674,7 +6673,7 @@
           <div class="smuggler-command-bottom"><div aria-label="Aktueller Saisonstatus" class="welcome-status">
 <div class="welcome-status-item">
 <svg aria-hidden="true"><use href="#icon-map"></use></svg>
-<span class="welcome-season-progress-content"><small>Aktuelle Saison</small><strong id="welcome-season">Noch offen</strong><span class="season-progress-block" id="season-progress-block" role="group" aria-label="Abgeschlossene Tippspieltage der Saison"><span class="season-progress-summary"><span id="season-progress-caption" class="season-progress-caption season-progress-caption--full"><strong id="season-progress-count">– / –</strong><small>Tippspieltage abgeschlossen</small></span><span id="season-progress-percent" class="season-progress-percent" aria-label="Saisonfortschritt in Prozent">–</span></span><span class="season-progress-track" role="progressbar" aria-label="Saisonfortschritt der Tippspieltage" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="season-progress-track"><span class="season-progress-fill" id="season-progress-fill"></span></span></span></span>
+<span class="welcome-season-progress-content"><small>Aktuelle Saison</small><strong id="welcome-season">Noch offen</strong><span class="season-progress-block" id="season-progress-block" role="group" aria-label="Abgeschlossene Tippspieltage der Saison"><span class="season-progress-summary"><span id="season-progress-caption" class="season-progress-caption season-progress-caption--full"><strong id="season-progress-count">– / –</strong><small>Tippspieltage</small></span><span id="season-progress-percent" class="season-progress-percent" aria-label="Saisonfortschritt in Prozent">–</span></span><span class="season-progress-track" role="progressbar" aria-label="Saisonfortschritt der Tippspieltage" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="season-progress-track"><span class="season-progress-fill" id="season-progress-fill"></span></span></span></span>
 </div>
 <div class="welcome-status-item welcome-status-item--mission">
 <svg aria-hidden="true"><use href="#icon-anchor"></use></svg>
