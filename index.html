@@ -6499,11 +6499,17 @@
       align-self: center;
       margin: 0;
     }
+    /* Fortschrittsbalken ueber die volle nutzbare Kachelbreite; Dreispalten unveraendert. */
+    .smuggler-command-bottom .welcome-status-item:has(.welcome-season-progress-content) {
+      position: relative;
+    }
     .smuggler-command-bottom .season-progress-track {
-      grid-column: 2 / 4;
-      grid-row: 3;
-      align-self: center;
-      width: 100%;
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 7px;
+      width: auto;
+      margin: 0;
     }
   }
 </style>
