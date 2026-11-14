@@ -6524,8 +6524,9 @@
      Nur die vorhandenen Kachel-Inhalte werden positioniert; Typografie/Logik bleiben gleich. */
   @media (min-width: 601px) {
     .smuggler-command-bottom .welcome-season-progress-content {
-      grid-template-columns: minmax(0,1fr) minmax(0,1fr) auto;
+      grid-template-columns: max-content max-content max-content;
       grid-template-rows: auto auto;
+      justify-content: space-between;
       column-gap: clamp(7px,.9vw,12px);
       row-gap: 2px;
       align-items: center;
