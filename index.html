@@ -6006,34 +6006,33 @@
     font-size:clamp(.91rem,1.6vw,1.18rem) !important;line-height:1.34;
     overflow-wrap:anywhere;text-shadow:0 1px 3px #000;
   }
-  /* Hauptquartier: Originalwappen aus dem zentralen Team-Register neben der Begegnung. */
+  /* TOSMC TEST2v2: vergroesserte Originalwappen innerhalb der bestehenden Ereigniskachel. */
   .smuggler-event-area .countdown-message .smuggler-match-row {
-    display:grid;grid-template-columns:minmax(0,max-content) auto minmax(0,max-content);
-    justify-content:center;align-items:center;gap:clamp(4px,.8vw,11px);
+    display:grid;grid-template-columns:clamp(42px,5.4vw,66px) minmax(0,1fr) auto minmax(0,1fr) clamp(42px,5.4vw,66px);
+    align-items:center;justify-content:stretch;column-gap:clamp(4px,.8vw,12px);
     width:100%;min-width:0;margin:5px 0 0;
   }
-  .smuggler-event-area .countdown-message .smuggler-match-team {
-    display:flex;align-items:center;gap:clamp(4px,.55vw,9px);min-width:0;
-  }
-  .smuggler-event-area .countdown-message .smuggler-match-team--home {justify-content:flex-end;}
-  .smuggler-event-area .countdown-message .smuggler-match-team--away {justify-content:flex-start;}
+  .smuggler-event-area .countdown-message .smuggler-match-team {display:contents;}
+  .smuggler-event-area .countdown-message .smuggler-match-team--home .smuggler-match-seal {grid-column:1;grid-row:1;}
+  .smuggler-event-area .countdown-message .smuggler-match-team--home .smuggler-match-name {grid-column:2;grid-row:1;text-align:right;}
+  .smuggler-event-area .countdown-message .smuggler-match-separator {grid-column:3;grid-row:1;display:block;margin:0;white-space:nowrap;font-size:clamp(.85rem,1.5vw,1.17rem);}
+  .smuggler-event-area .countdown-message .smuggler-match-team--away .smuggler-match-name {grid-column:4;grid-row:1;text-align:left;}
+  .smuggler-event-area .countdown-message .smuggler-match-team--away .smuggler-match-seal {grid-column:5;grid-row:1;}
   .smuggler-event-area .countdown-message .smuggler-match-name {
     display:block;min-width:0;margin:0;font-size:clamp(.79rem,1.5vw,1.18rem) !important;
-    line-height:1.3;text-align:left;overflow-wrap:anywhere;
+    line-height:1.2;overflow-wrap:anywhere;
   }
-  .smuggler-event-area .countdown-message .smuggler-match-team--home .smuggler-match-name {text-align:right;}
   .smuggler-event-area .countdown-message .smuggler-match-seal {
-    display:block;flex:0 0 clamp(26px,3.15vw,40px);width:clamp(26px,3.15vw,40px);
-    height:clamp(26px,3.15vw,40px);margin:0;line-height:1;
-  }
-  .smuggler-event-area .countdown-message .smuggler-match-separator {
-    display:block;margin:0;font-size:clamp(.85rem,1.5vw,1.17rem);white-space:nowrap;
+    display:block;box-sizing:border-box;width:100%;height:clamp(42px,5.4vw,66px);
+    min-width:0;min-height:0;margin:0;line-height:1;
   }
   @media(max-width:440px) {
-    .smuggler-event-area .countdown-message .smuggler-match-row {gap:4px;}
-    .smuggler-event-area .countdown-message .smuggler-match-team {gap:4px;}
-    .smuggler-event-area .countdown-message .smuggler-match-seal {flex-basis:26px;width:26px;height:26px;}
-    .smuggler-event-area .countdown-message .smuggler-match-name {font-size:.79rem !important;}
+    .smuggler-event-area .countdown-message .smuggler-match-row {
+      grid-template-columns:clamp(29px,9vw,38px) minmax(0,1fr) auto minmax(0,1fr) clamp(29px,9vw,38px);
+      column-gap:3px;
+    }
+    .smuggler-event-area .countdown-message .smuggler-match-seal {height:clamp(29px,9vw,38px);}
+    .smuggler-event-area .countdown-message .smuggler-match-name {font-size:.76rem !important;}
   }
   .smuggler-countdown-state {display:none !important;}
   .smuggler-command-bottom {display:flex;flex-direction:column;gap:18px;
@@ -6178,6 +6177,41 @@
   }
   @media(prefers-reduced-motion:reduce) {
     .smuggler-command-bottom .season-progress-fill {transition:none;}
+  }
+  /* TEST2v2: visuell kompakter Saisonfortschritt, keine vergroesserte Statuskachel. */
+  .smuggler-command-bottom .welcome-season-progress-content {
+    grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);
+    column-gap:clamp(8px,1.2vw,16px);
+  }
+  .smuggler-command-bottom .season-progress-block {gap:4px;}
+  .smuggler-command-bottom .season-progress-summary {display:flex;align-items:center;justify-content:space-between;gap:6px;min-width:0;}
+  .smuggler-command-bottom .season-progress-caption--full {display:flex !important;flex-direction:column;gap:1px;min-width:0;}
+  .smuggler-command-bottom .season-progress-caption strong {
+    display:block;color:#ffe0a0;font:800 clamp(.9rem,1.55vw,1.28rem)/1.1 Georgia,serif;
+    white-space:nowrap;font-variant-numeric:tabular-nums;
+  }
+  .smuggler-command-bottom .season-progress-caption small {
+    display:block;color:#e8c587;font-size:clamp(.55rem,.75vw,.67rem) !important;
+    line-height:1.1;overflow-wrap:anywhere;
+  }
+  .smuggler-command-bottom .season-progress-percent {
+    display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;
+    border:1px solid #b58232;border-radius:999px;padding:2px 6px;
+    color:#ffdda0;font:700 clamp(.66rem,.9vw,.82rem)/1.2 Georgia,serif;
+    white-space:nowrap;font-variant-numeric:tabular-nums;
+  }
+  @media(max-width:600px) {
+    .smuggler-command-bottom .welcome-season-progress-content {grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);column-gap:5px;}
+    .smuggler-command-bottom .season-progress-block {gap:3px;}
+    .smuggler-command-bottom .season-progress-caption--full {display:flex !important;}
+    .smuggler-command-bottom .season-progress-caption small {font-size:.52rem !important;}
+    .smuggler-command-bottom .season-progress-caption strong {font-size:clamp(.72rem,3.25vw,.95rem);}
+    .smuggler-command-bottom .season-progress-percent {font-size:.62rem;padding:2px 4px;}
+    .smuggler-command-bottom .season-progress-track {display:block !important;height:4px;}
+  }
+  @media(max-width:350px) {
+    .smuggler-command-bottom .season-progress-caption small {display:none !important;}
+    .smuggler-command-bottom .season-progress-percent {font-size:.56rem;padding:1px 3px;}
   }
 </style>
 </head>
@@ -6397,7 +6431,7 @@
           <div class="smuggler-command-bottom"><div aria-label="Aktueller Saisonstatus" class="welcome-status">
 <div class="welcome-status-item">
 <svg aria-hidden="true"><use href="#icon-map"></use></svg>
-<span class="welcome-season-progress-content"><small>Aktuelle Saison</small><strong id="welcome-season">Noch offen</strong><span class="season-progress-block" id="season-progress-block" role="group" aria-label="Abgeschlossene Tippspieltage der Saison"><small id="season-progress-caption" class="season-progress-caption season-progress-caption--full">Saisonfortschritt wird geladen</small><small id="season-progress-caption-compact" class="season-progress-caption season-progress-caption--compact" aria-hidden="true">–</small><span class="season-progress-track" role="progressbar" aria-label="Saisonfortschritt der Tippspieltage" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="season-progress-track"><span class="season-progress-fill" id="season-progress-fill"></span></span></span></span>
+<span class="welcome-season-progress-content"><small>Aktuelle Saison</small><strong id="welcome-season">Noch offen</strong><span class="season-progress-block" id="season-progress-block" role="group" aria-label="Abgeschlossene Tippspieltage der Saison"><span class="season-progress-summary"><span id="season-progress-caption" class="season-progress-caption season-progress-caption--full"><strong id="season-progress-count">– / –</strong><small>Tippspieltage abgeschlossen</small></span><span id="season-progress-percent" class="season-progress-percent" aria-label="Saisonfortschritt in Prozent">–</span></span><span class="season-progress-track" role="progressbar" aria-label="Saisonfortschritt der Tippspieltage" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="season-progress-track"><span class="season-progress-fill" id="season-progress-fill"></span></span></span></span>
 </div>
 <div class="welcome-status-item welcome-status-item--mission">
 <svg aria-hidden="true"><use href="#icon-anchor"></use></svg>
@@ -7405,10 +7439,11 @@
     async function loadSeasonProgress() {
       if (seasonProgressInFlight) return seasonProgressInFlight;
       const label = document.getElementById("season-progress-caption");
-      const compactLabel = document.getElementById("season-progress-caption-compact");
+      const countLabel = document.getElementById("season-progress-count");
+      const percentLabel = document.getElementById("season-progress-percent");
       const track = document.getElementById("season-progress-track");
       const fill = document.getElementById("season-progress-fill");
-      if (!label || !track || !fill) return;
+      if (!label || !countLabel || !percentLabel || !track || !fill) return;
       seasonProgressInFlight = (async () => {
         try {
           const read = async path => {
@@ -7432,14 +7467,15 @@
           const completed = completedIds.size;
           if (total < 1 || completed > total) throw new Error("Abschlusszaehlung widerspricht Saisonplanung");
           const percent = Math.round(completed / total * 100);
-          label.textContent = `${completed} von ${total} Tippspieltagen abgeschlossen · ${percent} %`;
-          if (compactLabel) compactLabel.textContent = `${completed}/${total} · ${percent} %`;
+          countLabel.textContent = `${completed} / ${total}`;
+          percentLabel.textContent = `${percent} %`;
           track.setAttribute("aria-valuenow", String(percent));
           track.setAttribute("aria-valuetext", `${completed} von ${total} Tippspieltagen abgeschlossen`);
           fill.style.width = `${percent}%`;
         } catch (error) {
-          label.textContent = "Saisonfortschritt derzeit nicht verfügbar";
-          if (compactLabel) compactLabel.textContent = "–";
+          countLabel.textContent = "– / –";
+          percentLabel.textContent = "–";
+          label.title = "Saisonfortschritt derzeit nicht verfügbar";
           track.removeAttribute("aria-valuenow");
           track.removeAttribute("aria-valuetext");
           fill.style.width = "0%";
