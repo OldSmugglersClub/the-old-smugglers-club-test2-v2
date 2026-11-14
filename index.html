@@ -6585,6 +6585,26 @@
       margin: 0;
     }
   }
+
+  /* TEST2v2: Fuehrungskachel – die drei Gruppen mit gleich grossen Zwischenraeumen.
+     Nur Desktop; Mobilregeln, Hoehe, Typografie und Berechnung bleiben unveraendert. */
+  @media (min-width: 601px) {
+    .smuggler-command-bottom .welcome-status-item--overall-leader {
+      display: grid;
+      grid-template-columns: max-content max-content max-content;
+      justify-content: space-between;
+      align-items: center;
+      column-gap: 0;
+    }
+    .smuggler-command-bottom .welcome-status-item--overall-leader > .welcome-leader-layout {
+      display: contents;
+    }
+    .smuggler-command-bottom .welcome-status-item--overall-leader .welcome-leader-main,
+    .smuggler-command-bottom .welcome-status-item--overall-leader .welcome-leader-side {
+      width: max-content;
+      max-width: 100%;
+    }
+  }
 </style>
 </head>
 
