@@ -6213,6 +6213,88 @@
     .smuggler-command-bottom .season-progress-caption small {display:none !important;}
     .smuggler-command-bottom .season-progress-percent {font-size:.56rem;padding:1px 3px;}
   }
+
+  /* TEST2v2 2026-11-14: Saisonfortschritt nutzt Breite, ohne Kachelgroesse zu erhoehen. */
+  .smuggler-command-bottom .welcome-season-progress-content {
+    grid-template-columns: minmax(0,.83fr) minmax(0,1.57fr);
+    column-gap: clamp(9px,1.25vw,18px);
+  }
+  .smuggler-command-bottom .season-progress-block {gap:4px;}
+  .smuggler-command-bottom .season-progress-summary {
+    display:grid;grid-template-columns:minmax(0,1fr) auto;
+    align-items:center;column-gap:clamp(8px,1.2vw,16px);
+  }
+  .smuggler-command-bottom .season-progress-caption--full {min-width:0;}
+  .smuggler-command-bottom .season-progress-caption strong {
+    font-size:clamp(1.0rem,1.65vw,1.34rem);
+  }
+  .smuggler-command-bottom .season-progress-caption small {
+    font-size:clamp(.62rem,.84vw,.77rem) !important;
+    line-height:1.1;
+  }
+  .smuggler-command-bottom .season-progress-track {width:100%;}
+  .smuggler-command-bottom .season-progress-percent {padding:3px 9px;}
+
+  /* Wappen jeweils zentriert im freien Raum links/rechts neben den Teamnamen. */
+  .smuggler-event-area .countdown-message .smuggler-match-row {
+    grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+    column-gap:clamp(4px,.7vw,10px);
+  }
+  .smuggler-event-area .countdown-message .smuggler-match-team {
+    display:grid;grid-row:1;align-items:center;min-width:0;
+  }
+  .smuggler-event-area .countdown-message .smuggler-match-team--home {
+    grid-column:1;grid-template-columns:minmax(0,1fr) minmax(0,auto);
+  }
+  .smuggler-event-area .countdown-message .smuggler-match-team--away {
+    grid-column:3;grid-template-columns:minmax(0,auto) minmax(0,1fr);
+  }
+  .smuggler-event-area .countdown-message .smuggler-match-team--home .smuggler-match-seal {
+    grid-column:1;grid-row:1;justify-self:center;
+  }
+  .smuggler-event-area .countdown-message .smuggler-match-team--home .smuggler-match-name {
+    grid-column:2;grid-row:1;justify-self:end;text-align:right;
+  }
+  .smuggler-event-area .countdown-message .smuggler-match-separator {
+    grid-column:2;grid-row:1;
+  }
+  .smuggler-event-area .countdown-message .smuggler-match-team--away .smuggler-match-name {
+    grid-column:1;grid-row:1;justify-self:start;text-align:left;
+  }
+  .smuggler-event-area .countdown-message .smuggler-match-team--away .smuggler-match-seal {
+    grid-column:2;grid-row:1;justify-self:center;
+  }
+  .smuggler-event-area .countdown-message .smuggler-match-seal {
+    width:clamp(42px,5.4vw,66px);height:clamp(42px,5.4vw,66px);
+    max-width:100%;
+  }
+  @media(max-width:600px) {
+    .smuggler-command-bottom .welcome-season-progress-content {
+      grid-template-columns:minmax(0,.85fr) minmax(0,1.45fr);
+      column-gap:6px;
+    }
+    .smuggler-command-bottom .season-progress-summary {column-gap:4px;}
+    .smuggler-command-bottom .season-progress-block {gap:2px;}
+    .smuggler-command-bottom .season-progress-caption small {font-size:.52rem !important;}
+    .smuggler-command-bottom .season-progress-percent {padding:2px 5px;font-size:.62rem;}
+    .smuggler-event-area .countdown-message .smuggler-match-row {column-gap:3px;}
+  }
+  @media(max-width:440px) {
+    .smuggler-event-area .countdown-message .smuggler-match-row {
+      grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+    }
+    .smuggler-event-area .countdown-message .smuggler-match-team--home {grid-template-columns:minmax(29px,1fr) minmax(0,auto);}
+    .smuggler-event-area .countdown-message .smuggler-match-team--away {grid-template-columns:minmax(0,auto) minmax(29px,1fr);}
+    .smuggler-event-area .countdown-message .smuggler-match-seal {
+      width:clamp(29px,9vw,38px);height:clamp(29px,9vw,38px);
+    }
+  }
+  @media(max-width:350px) {
+    .smuggler-command-bottom .welcome-season-progress-content {
+      grid-template-columns:minmax(0,.84fr) minmax(0,1.4fr);
+    }
+    .smuggler-command-bottom .season-progress-caption small {display:none !important;}
+  }
 </style>
 </head>
 
