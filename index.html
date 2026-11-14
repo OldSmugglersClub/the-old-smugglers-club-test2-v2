@@ -6352,6 +6352,12 @@
     .smuggler-command-bottom .season-progress-caption small {display:none !important;}
   }
 
+  /* TEST2v2: nur die visuelle Fortschrittsleiste der Saisonkachel ausblenden.
+     DOM und Datenberechnung bleiben fuer Zaehlung und Prozentwert erhalten. */
+  .smuggler-command-bottom .welcome-status-item:has(.welcome-season-progress-content) .season-progress-track {
+    display: none !important;
+  }
+
   /* TEST2v2: korrigierte Zentrierung, bestehende Kachelgroessen bewahren. */
   .smuggler-command-bottom .welcome-status-item:has(.welcome-season-progress-content) {
     min-height:76px;
@@ -6519,10 +6525,11 @@
   @media (min-width: 601px) {
     .smuggler-command-bottom .welcome-season-progress-content {
       grid-template-columns: minmax(0,1fr) minmax(0,1fr) auto;
-      grid-template-rows: auto auto 7px;
+      grid-template-rows: auto auto;
       column-gap: clamp(7px,.9vw,12px);
       row-gap: 2px;
       align-items: center;
+      align-content: center;
     }
     .smuggler-command-bottom .welcome-season-progress-content > small:first-child {
       grid-column: 1;
@@ -6555,9 +6562,9 @@
       align-self: center;
       margin: 0;
     }
-    /* Zettel-Icon optisch zwischen oberem Kachelrand und Fortschrittsbalken zentrieren. */
+    /* Ohne Fortschrittsleiste: Zettel-Icon wieder mittig zur gesamten Kachel. */
     .smuggler-command-bottom .welcome-status-item:has(.welcome-season-progress-content) > svg {
-      transform: translateY(-9px);
+      transform: none;
     }
     /* Fortschrittsbalken ueber die volle nutzbare Kachelbreite; Dreispalten unveraendert. */
     .smuggler-command-bottom .welcome-status-item:has(.welcome-season-progress-content) {
