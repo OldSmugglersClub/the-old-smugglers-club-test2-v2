@@ -6330,9 +6330,41 @@
     .smuggler-command-bottom .season-progress-caption small {
       font-size: clamp(.73rem, 1.0vw, .84rem) !important;
     }
+    /* Zahl und Prozent oben; Beschriftung darunter ueber die volle Statistikbreite.
+       Damit bleibt der Text einzeilig, ohne kleinere Schrift oder mehr Kachelhoehe. */
+    .smuggler-command-bottom .season-progress-summary {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) auto;
+      grid-template-rows: auto auto;
+      column-gap: 6px;
+      row-gap: 2px;
+      align-items: center;
+    }
+    .smuggler-command-bottom .season-progress-caption--full {
+      display: contents !important;
+    }
+    .smuggler-command-bottom .season-progress-caption--full > strong {
+      grid-column: 1;
+      grid-row: 1;
+      font-size: clamp(.98rem, 1.52vw, 1.22rem);
+      margin: 0;
+    }
+    .smuggler-command-bottom .season-progress-caption--full > small {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      white-space: nowrap;
+      overflow-wrap: normal;
+      font-size: clamp(.84rem, 1.15vw, .92rem) !important;
+      line-height: 1.12;
+      margin: 0;
+    }
     .smuggler-command-bottom .season-progress-percent {
-      font-size: clamp(.79rem, 1.12vw, .95rem);
-      padding: 3px 9px;
+      grid-column: 2;
+      grid-row: 1;
+      font-size: clamp(1.05rem, 1.45vw, 1.20rem);
+      line-height: 1.12;
+      padding: 4px 11px;
+      margin: 0;
     }
   }
 
