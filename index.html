@@ -6457,6 +6457,55 @@
     }
     .smuggler-event-area .countdown-message .smuggler-match-names {min-width:0;}
   }
+
+  /* TEST2v2: Drei optisch gleichmaessig verteilte Inhaltsgruppen.
+     Nur die vorhandenen Kachel-Inhalte werden positioniert; Typografie/Logik bleiben gleich. */
+  @media (min-width: 601px) {
+    .smuggler-command-bottom .welcome-season-progress-content {
+      grid-template-columns: minmax(0,1fr) minmax(0,1fr) auto;
+      grid-template-rows: auto auto 7px;
+      column-gap: clamp(7px,.9vw,12px);
+      row-gap: 2px;
+      align-items: center;
+    }
+    .smuggler-command-bottom .welcome-season-progress-content > small:first-child {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .smuggler-command-bottom .welcome-season-progress-content > #welcome-season {
+      grid-column: 1;
+      grid-row: 2;
+    }
+    .smuggler-command-bottom .season-progress-block,
+    .smuggler-command-bottom .season-progress-summary,
+    .smuggler-command-bottom .season-progress-caption--full {
+      display: contents !important;
+    }
+    .smuggler-command-bottom .season-progress-caption--full > small {
+      grid-column: 2;
+      grid-row: 1;
+      white-space: nowrap;
+      margin: 0;
+    }
+    .smuggler-command-bottom .season-progress-caption--full > strong {
+      grid-column: 2;
+      grid-row: 2;
+      margin: 0;
+    }
+    .smuggler-command-bottom .season-progress-percent {
+      grid-column: 3;
+      grid-row: 1 / 3;
+      justify-self: center;
+      align-self: center;
+      margin: 0;
+    }
+    .smuggler-command-bottom .season-progress-track {
+      grid-column: 2 / 4;
+      grid-row: 3;
+      align-self: center;
+      width: 100%;
+    }
+  }
 </style>
 </head>
 
