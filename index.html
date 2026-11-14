@@ -6322,6 +6322,20 @@
     height:7px;
   }
 
+  /* TEST2v2: Saisonstatus-Typografie ausgewogen, ohne Aenderung der Kachelhoehe. */
+  @media (min-width: 601px) {
+    .smuggler-command-bottom .season-progress-caption strong {
+      font-size: clamp(1.03rem, 1.6vw, 1.28rem);
+    }
+    .smuggler-command-bottom .season-progress-caption small {
+      font-size: clamp(.73rem, 1.0vw, .84rem) !important;
+    }
+    .smuggler-command-bottom .season-progress-percent {
+      font-size: clamp(.79rem, 1.12vw, .95rem);
+      padding: 3px 9px;
+    }
+  }
+
   /* Drei unabhaengige Spalten: nur die Textgruppe bestimmt die echte Mitte. */
   .smuggler-event-area .countdown-message .smuggler-match-row {
     display:grid;
