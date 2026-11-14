@@ -6696,6 +6696,120 @@
     }
   }
 </style>
+<style>
+  /* TEST2v2 2026-11-15: mobile Endansicht – zwei lesbare Informationskacheln.
+     Nur <=600 px; Desktop, Saison-/Highscore-Datenlogik und andere Seiten unveraendert. */
+  @media (max-width:600px) {
+    .smuggler-command-bottom .welcome-status {gap:10px !important;}
+    .smuggler-command-bottom .welcome-status-item:not(.welcome-status-item--mission) {
+      display:grid !important;
+      grid-template-columns:30px minmax(0,1fr) !important;
+      gap:12px !important;
+      align-items:center !important;
+      min-height:112px !important;
+      padding:12px 13px !important;
+      border:2px solid #ab762e !important;
+      border-radius:9px !important;
+      background:linear-gradient(180deg,#3d230ff0,#160a04f3) !important;
+      box-shadow:inset 0 0 0 1px #e9a94b24 !important;
+    }
+    .smuggler-command-bottom .welcome-status-item:not(.welcome-status-item--mission) > svg {
+      width:28px !important;height:28px !important;align-self:center !important;
+      transform:none !important;
+    }
+    .smuggler-command-bottom .welcome-status-item:not(.welcome-status-item--mission) small {
+      color:#e8c587 !important;font-size:clamp(.75rem,3.2vw,.86rem) !important;
+      line-height:1.2 !important;overflow-wrap:normal;
+    }
+    .smuggler-command-bottom .welcome-status-item:not(.welcome-status-item--mission) strong {
+      color:#ffde92 !important;font-size:clamp(1.05rem,4.7vw,1.24rem) !important;
+      line-height:1.18 !important;
+    }
+    /* Saison: zwei volle lesbare Textspalten oben, Prozent gut sichtbar darunter. */
+    .smuggler-command-bottom .welcome-season-progress-content {
+      display:grid !important;
+      grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+      grid-template-rows:auto auto auto !important;
+      align-items:center !important;
+      align-content:center !important;
+      column-gap:10px !important;row-gap:3px !important;
+      width:100%;min-width:0;
+    }
+    .smuggler-command-bottom .welcome-season-progress-content > small:first-child {
+      grid-column:1 !important;grid-row:1 !important;align-self:end !important;
+      white-space:nowrap;font-size:clamp(.75rem,3.2vw,.86rem) !important;
+    }
+    .smuggler-command-bottom .welcome-season-progress-content > #welcome-season {
+      grid-column:1 !important;grid-row:2 !important;
+      font-size:clamp(1.05rem,4.7vw,1.24rem) !important;
+      white-space:nowrap;margin:0 !important;
+    }
+    .smuggler-command-bottom .season-progress-block,
+    .smuggler-command-bottom .season-progress-summary,
+    .smuggler-command-bottom .season-progress-caption--full {
+      display:contents !important;
+    }
+    .smuggler-command-bottom .season-progress-caption--full > small {
+      display:block !important;grid-column:2 !important;grid-row:1 !important;
+      white-space:nowrap !important;
+      font-size:clamp(.75rem,3.2vw,.86rem) !important;
+    }
+    .smuggler-command-bottom .season-progress-caption--full > strong {
+      grid-column:2 !important;grid-row:2 !important;
+      white-space:nowrap;font-size:clamp(1.05rem,4.7vw,1.24rem) !important;
+    }
+    .smuggler-command-bottom .season-progress-percent {
+      display:inline-flex !important;grid-column:1 / -1 !important;grid-row:3 !important;
+      justify-self:center !important;align-self:center !important;
+      min-width:80px !important;padding:4px 12px !important;margin-top:6px !important;
+      font-size:clamp(1.05rem,4.5vw,1.23rem) !important;line-height:1.12 !important;
+      text-align:center !important;
+    }
+    .smuggler-command-bottom .season-progress-track {display:none !important;}
+    /* Gesamtfuehrung: zwei klar getrennte, volle Textzeilen statt enger Nebenspalten. */
+    .smuggler-command-bottom .welcome-status-item--overall-leader > .welcome-leader-layout {
+      display:grid !important;
+      grid-template-columns:minmax(0,1fr) !important;
+      align-items:start !important;row-gap:8px !important;column-gap:0 !important;
+      width:100%;min-width:0;
+    }
+    .smuggler-command-bottom .welcome-status-item--overall-leader .welcome-leader-main,
+    .smuggler-command-bottom .welcome-status-item--overall-leader .welcome-leader-side {
+      width:100% !important;min-width:0 !important;max-width:100% !important;
+      display:flex !important;flex-direction:column !important;
+      justify-content:center !important;align-items:flex-start !important;
+      gap:2px !important;text-align:left !important;
+    }
+    .smuggler-command-bottom .welcome-status-item--overall-leader .welcome-leader-line {
+      display:flex !important;align-items:baseline !important;
+      justify-content:flex-start !important;flex-wrap:wrap !important;
+      gap:2px 8px !important;min-width:0 !important;
+    }
+    .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-label,
+    .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-margin-label {
+      white-space:normal !important;
+      font-size:clamp(.75rem,3.2vw,.86rem) !important;
+    }
+    .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-points {
+      font-size:clamp(.83rem,3.4vw,.98rem) !important;
+      white-space:nowrap !important;
+    }
+    .smuggler-command-bottom .welcome-status-item--overall-leader .welcome-leader-side {
+      border-top:1px solid rgba(213,161,59,.28) !important;
+      padding-top:8px !important;
+    }
+  }
+  @media (max-width:350px) {
+    .smuggler-command-bottom .welcome-status-item:not(.welcome-status-item--mission) {
+      grid-template-columns:24px minmax(0,1fr) !important;
+      gap:9px !important;padding:10px 9px !important;
+    }
+    .smuggler-command-bottom .welcome-status-item:not(.welcome-status-item--mission) > svg {
+      width:23px !important;height:23px !important;
+    }
+    .smuggler-command-bottom .welcome-season-progress-content {column-gap:6px !important;}
+  }
+</style>
 </head>
 
 <body>
