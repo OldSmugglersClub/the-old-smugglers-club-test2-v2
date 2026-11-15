@@ -6890,6 +6890,56 @@
   }
 }
 </style>
+
+<style>
+/* TEST2v2 – ausschließlich mobile Feinausrichtung der beiden Statuskacheln.
+   Die Desktop-Beschriftung und sämtliche dynamischen Werte bleiben erhalten. */
+.leader-label-mobile { display:none; }
+@media (max-width:600px) {
+  .smuggler-command-bottom .welcome-season-progress-content {
+    grid-template-columns: max-content max-content !important;
+    justify-content: center !important;
+    column-gap: clamp(18px,6vw,34px) !important;
+  }
+  .smuggler-command-bottom .season-progress-percent {
+    grid-column: 2 !important;
+    justify-self: center !important;
+  }
+  .smuggler-command-bottom .welcome-status-item--overall-leader > .welcome-leader-layout {
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr) !important;
+    column-gap: 12px !important;
+  }
+  .smuggler-command-bottom #welcome-leader-label .leader-label-desktop { display:none; }
+  .smuggler-command-bottom #welcome-leader-label .leader-label-mobile { display:inline; }
+  .smuggler-command-bottom .welcome-status-item--overall-leader .welcome-leader-main,
+  .smuggler-command-bottom .welcome-status-item--overall-leader .welcome-leader-side {
+    justify-content: center !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+  }
+  .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-label,
+  .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-margin-label {
+    white-space: nowrap !important;
+    font-size: clamp(.67rem,2.65vw,.75rem) !important;
+  }
+}
+@media (max-width:350px) {
+  .smuggler-command-bottom .welcome-season-progress-content {
+    column-gap: 12px !important;
+  }
+  .smuggler-command-bottom .season-progress-caption--full > small {
+    display: block !important;
+    font-size: .68rem !important;
+  }
+  .smuggler-command-bottom .welcome-status-item--overall-leader > .welcome-leader-layout {
+    column-gap: 6px !important;
+  }
+  .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-label,
+  .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-margin-label {
+    font-size: .65rem !important;
+  }
+}
+</style>
 </head>
 
 <body>
@@ -7115,7 +7165,7 @@
 </div>
 <div class="welcome-status-item welcome-status-item--overall-leader">
 <svg aria-hidden="true"><use href="#icon-trophy"></use></svg>
-<span class="welcome-leader-layout"><span class="welcome-leader-main"><small id="welcome-leader-label">Platz 1 Gesamteinzelwertung</small><span class="welcome-leader-line"><strong id="welcome-champion">Wird geladen</strong><small class="welcome-leader-points" id="welcome-leader-points"></small></span></span><span class="welcome-leader-side"><small id="welcome-leader-margin-label">Vorsprung auf Platz 2</small><strong id="welcome-leader-margin">–</strong></span></span>
+<span class="welcome-leader-layout"><span class="welcome-leader-main"><small id="welcome-leader-label"><span class="leader-label-desktop">Platz 1 Gesamteinzelwertung</span><span class="leader-label-mobile">Platz 1 Gesamtwertung</span></small><span class="welcome-leader-line"><strong id="welcome-champion">Wird geladen</strong><small class="welcome-leader-points" id="welcome-leader-points"></small></span></span><span class="welcome-leader-side"><small id="welcome-leader-margin-label">Vorsprung auf Platz 2</small><strong id="welcome-leader-margin">–</strong></span></span>
 </div>
 </div>
             <div class="welcome-command-actions">
