@@ -7153,6 +7153,23 @@
 }
 </style>
 
+
+<style>
+/* TEST2v2 2026-11-15: Nur mobile Feinkorrektur der rechten Event-Tafel.
+   Mehr Innenabstand rechts, damit der Zierknopf nicht in den Schriftzug ragt. */
+@media (max-width:760px) {
+  #aktueller-spieltag .sm-schedule__header .matchday-status {
+    min-width: 104px !important;
+    padding: 8px 21px !important;
+  }
+  #aktueller-spieltag .sm-schedule__header .matchday-status::before {
+    left: 5px !important;
+  }
+  #aktueller-spieltag .sm-schedule__header .matchday-status::after {
+    right: 5px !important;
+  }
+}
+</style>
 </head>
 
 <body>
@@ -7825,8 +7842,8 @@
 
     function renderScheduleHeading(titleElement, sourceTitle) {
       if (!titleElement) return;
-      const full = String(sourceTitle || "").trim().replace(/\\s+/g, " ");
-      const headingText = full.replace(/\\u00a0/g, " ");
+      const full = String(sourceTitle || "").trim().replace(/\s+/g, " ");
+      const headingText = full.replace(/\u00a0/g, " ");
       titleElement.dataset.fullTitle = full;
       titleElement.setAttribute("aria-label", full);
 
@@ -7854,6 +7871,7 @@
         const desired = parseFloat(css.fontSize);
         const preferred = Number.isFinite(desired) ? desired : 22;
         const minimum = 16; // unter 16px nicht zur Einzeiligkeit zwingen
+        const oneLineMinimum = Math.max(18, preferred * .85);
         const measure = (str, size) => {
           ctx.font = `${weight} ${size}px ${family}`;
           return ctx.measureText(str).width;
@@ -7867,7 +7885,7 @@
 
         // Eine Zeile bevorzugen, sofern sie mindestens 16px gross sein kann.
         let lines = [headingText];
-        let size = fit(lines, preferred, minimum);
+        let size = fit(lines, preferred, oneLineMinimum);
         if (size === null) {
           const words = headingText.split(" ");
           const variants = [];
@@ -7875,7 +7893,7 @@
             const first = words.slice(0, i).join(" ");
             const second = words.slice(i).join(" ");
             // Sinnvolle Grenze vor Spieltag/Runde/Finale bevorzugen.
-            const semantic = /^(?:\\d{1,2}\\.\\s*(?:Spieltag|Runde)|Achtelfinale|Viertelfinale|Halbfinale|Finale)/i.test(second);
+            const semantic = /^(?:\d{1,2}\.\s*(?:Spieltag|Runde)|Achtelfinale|Viertelfinale|Halbfinale|Finale)/i.test(second);
             variants.push({ lines: [first, second], score: Math.max(measure(first,preferred),measure(second,preferred)) - (semantic ? 30 : 0) });
           }
           variants.sort((a,b) => a.score - b.score);
@@ -7896,7 +7914,7 @@
         lines.forEach(line => {
           const span = document.createElement("span");
           span.className = "sm-schedule-title-line";
-          span.textContent = line.replace(/(\\d{1,2}\\.)\\s+(Spieltag|Runde)/gi, "$1\\u00a0$2");
+          span.textContent = line.replace(/(\d{1,2}\.)\s+(Spieltag|Runde)/gi, "$1\u00a0$2");
           titleElement.appendChild(span);
         });
         titleElement.style.fontSize = `${size || minimum}px`;
