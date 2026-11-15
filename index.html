@@ -6280,6 +6280,38 @@
     #aktueller-spieltag .sm-schedule__heading h2::after { opacity: .12; }
   }
 
+
+  /* TOSMC 4.9.10: Ausschließlich Desktop – Messingtafeln etwas voller ausführen.
+     Die dynamischen Beschriftungen, Layoutzeilen und mobilen Regeln bleiben unberührt. */
+  @media (min-width: 761px) {
+    #aktueller-spieltag .sm-schedule__heading .eyebrow {
+      box-sizing: border-box;
+      min-width: clamp(270px, 26vw, 325px);
+      min-height: 41px;
+      padding: 8px 35px;
+      text-align: center;
+      justify-content: center;
+      box-shadow:
+        inset 0 1px rgba(255,255,255,.38),
+        inset 0 -2px rgba(42,23,5,.43),
+        0 5px 15px rgba(0,0,0,.34),
+        0 0 12px rgba(208,147,62,.09);
+    }
+    #aktueller-spieltag .sm-schedule__header .matchday-status {
+      box-sizing: border-box;
+      min-width: clamp(145px, 14vw, 178px);
+      min-height: 41px;
+      padding: 8px 30px;
+      text-align: center;
+      justify-content: center;
+      box-shadow:
+        inset 0 1px rgba(255,255,255,.38),
+        inset 0 -2px rgba(42,23,5,.43),
+        0 5px 15px rgba(0,0,0,.37),
+        0 0 12px rgba(208,147,62,.09);
+    }
+  }
+
 </style>
   <link rel="stylesheet" href="./highscore.css?v=4.0.1">
   <link rel="stylesheet" href="./logbuch.css?v=2026-11-08-dynamic-weekend">
