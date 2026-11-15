@@ -6036,6 +6036,75 @@
   }
 
 
+  /* TEST2v2 4.9.7 – nur Kopf-Akzent, Faktenzeile und beide Fußaktionen. */
+  #aktueller-spieltag .sm-schedule__header {
+    background: radial-gradient(ellipse 45% 70% at 50% 82%, rgba(169,106,30,.11), transparent 100%);
+    border-radius: 9px;
+  }
+  #aktueller-spieltag .sm-schedule__heading h2 {
+    text-shadow: 0 2px 1px rgba(32,15,3,.75), 0 0 17px rgba(209,144,50,.16);
+  }
+  #aktueller-spieltag .sm-schedule__subline {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: .045em;
+    margin-top: 11px;
+    margin-bottom: 15px;
+  }
+  #aktueller-spieltag .sm-schedule__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: clamp(10px, 2.5vw, 22px);
+  }
+  #aktueller-spieltag .sm-schedule__back-top {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    min-height: 40px;
+    padding: 9px 20px;
+    box-sizing: border-box;
+    text-decoration: none;
+    position: relative;
+    top: 0;
+    z-index: 2;
+  }
+  #aktueller-spieltag .sm-schedule__back-top:focus-visible {
+    outline: 2px solid #f2d084;
+    outline-offset: 3px;
+  }
+  @media (min-width: 761px) {
+    #aktueller-spieltag .sm-schedule__header {
+      row-gap: clamp(7px, 1vw, 12px);
+      padding-top: 9px;
+      padding-bottom: 13px;
+    }
+  }
+  @media (max-width: 760px) {
+    #aktueller-spieltag .sm-schedule__subline {
+      font-size: clamp(.55rem, 2.55vw, .75rem);
+      letter-spacing: 0;
+      padding-inline: 0;
+      margin-top: 16px;
+      margin-bottom: 13px;
+    }
+    #aktueller-spieltag .sm-schedule__actions {
+      flex-wrap: nowrap;
+      gap: 8px;
+    }
+    #aktueller-spieltag .sm-schedule__actions #sm-kicktipp-link,
+    #aktueller-spieltag .sm-schedule__back-top {
+      min-width: 0;
+      max-width: 100%;
+      text-align: center;
+      font-size: clamp(.7rem, 2.6vw, .9rem);
+    }
+    #aktueller-spieltag .sm-schedule__back-top {padding: 9px 10px;}
+  }
+
   /* TEST2v2 4.9.6 – ruhiger Spieltags-Feinschliff ohne bevorzugte Partie. */
   @media (min-width: 761px) {
     #aktueller-spieltag .sm-schedule__header {
@@ -7712,6 +7781,8 @@
         <a class="button button-primary sm-kicktipp-live-action" id="sm-kicktipp-link"
            href="./kicktipp.html?path=tippuebersicht&br_p=%2Fthe-old-smugglers-club%2Ftippuebersicht"
            aria-label="Kicktipp Live Action öffnen">Kicktipp Live Action</a>
+        <a class="tosmc-nav-button tosmc-nav-button--top sm-schedule__back-top"
+           href="#start" aria-label="Zurück zum Anfang der Website">Nach oben</a>
       </footer>
     </section>
 
@@ -8686,10 +8757,17 @@
           const visibleExact=upcoming;
           const subline=document.getElementById("sm-schedule-subline");
           if (subline) {
-            const dayCount=new Set(visibleExact.map(game=>String(game.datum||""))).size;
             const count=visibleExact.length;
+            // Exakt die angezeigten Spiele, nicht alle Spielplan-Wettbewerbe zählen.
+            // Smugglerauftrag ist eine eigene Veranstaltungsart, falls als solche markiert.
+            const competitions=new Set(visibleExact.map(game=>{
+              const type=String(game.matchdayType||"").trim().toLowerCase();
+              if (type==="smugglerauftrag") return `special:${type}`;
+              return String(game.wettbewerb||game.wettbewerbAnzeige||game.matchdayType||"unbekannt").trim().toLowerCase();
+            }));
+            const spanLabel=`${previewDays} ${previewDays===1?"Tag":"Tage"} Vorschau`;
             subline.hidden=count===0;
-            subline.textContent=count===0?"":`${count} ${count===1?"Begegnung":"Begegnungen"} · ${dayCount} ${dayCount===1?"Tag":"Tage"} an Deck`;
+            subline.textContent=count===0?"":`${count} ${count===1?"Begegnung":"Begegnungen"} ✦ ${spanLabel} ✦ ${competitions.size} ${competitions.size===1?"Wettbewerb":"Wettbewerbe"}`;
           }
           elements.list.classList.add(visibleExact.length===1?"is-single":visibleExact.length===2?"is-double":"is-multiple");
           const groups=new Map();
