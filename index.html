@@ -6940,6 +6940,159 @@
   }
 }
 </style>
+
+<style>
+/* TEST2v2 2026-11-15: mobile Statuskacheln im Desktop-Spaltenprinzip.
+   Nur Mobil <=600 px; Desktop und Datenlogik unveraendert. */
+@media (max-width:600px) {
+  .smuggler-command-bottom .welcome-status-item:not(.welcome-status-item--mission) {
+    min-height: 84px !important;
+    padding: 10px 11px !important;
+  }
+  .smuggler-command-bottom .welcome-status-item:not(.welcome-status-item--mission) > svg {
+    width: 26px !important;
+    height: 26px !important;
+  }
+  .smuggler-command-bottom .welcome-season-progress-content {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+    grid-template-rows: auto auto !important;
+    align-items: center !important;
+    justify-items: center !important;
+    justify-content: stretch !important;
+    column-gap: 8px !important;
+    row-gap: 2px !important;
+    width: 100% !important;
+  }
+  .smuggler-command-bottom .welcome-season-progress-content > small:first-child {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    font-size: clamp(.64rem,2.55vw,.72rem) !important;
+    line-height: 1.08 !important;
+    margin: 0 !important;
+  }
+  .smuggler-command-bottom .welcome-season-progress-content > #welcome-season {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    justify-self: center !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    font-size: clamp(.94rem,3.85vw,1.06rem) !important;
+    line-height: 1.1 !important;
+    margin: 0 !important;
+  }
+  .smuggler-command-bottom .season-progress-block,
+  .smuggler-command-bottom .season-progress-summary,
+  .smuggler-command-bottom .season-progress-caption--full {
+    display: contents !important;
+  }
+  .smuggler-command-bottom .season-progress-caption--full > small {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    font-size: clamp(.64rem,2.55vw,.72rem) !important;
+    line-height: 1.08 !important;
+    margin: 0 !important;
+  }
+  .smuggler-command-bottom .season-progress-caption--full > strong {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    justify-self: center !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    font-size: clamp(.94rem,3.85vw,1.06rem) !important;
+    line-height: 1.1 !important;
+    margin: 0 !important;
+  }
+  .smuggler-command-bottom .season-progress-percent {
+    display: inline-flex !important;
+    grid-column: 3 !important;
+    grid-row: 1 / span 2 !important;
+    justify-self: center !important;
+    align-self: center !important;
+    min-width: 60px !important;
+    padding: 4px 9px !important;
+    text-align: center !important;
+    font-size: clamp(.92rem,3.7vw,1.02rem) !important;
+    line-height: 1.08 !important;
+    margin: 0 !important;
+  }
+  .smuggler-command-bottom .welcome-status-item--overall-leader > .welcome-leader-layout {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+    align-items: center !important;
+    justify-items: center !important;
+    column-gap: 8px !important;
+    width: 100% !important;
+  }
+  .smuggler-command-bottom #welcome-leader-label .leader-label-desktop { display:none !important; }
+  .smuggler-command-bottom #welcome-leader-label .leader-label-mobile { display:inline !important; }
+  .smuggler-command-bottom .welcome-status-item--overall-leader .welcome-leader-main,
+  .smuggler-command-bottom .welcome-status-item--overall-leader .welcome-leader-side {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    gap: 3px !important;
+  }
+  .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-label,
+  .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-margin-label {
+    text-align: center !important;
+    font-size: clamp(.63rem,2.45vw,.71rem) !important;
+    line-height: 1.08 !important;
+    white-space: normal !important;
+    overflow-wrap: normal !important;
+    margin: 0 !important;
+  }
+  .smuggler-command-bottom .welcome-status-item--overall-leader .welcome-leader-line {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: baseline !important;
+    gap: 2px 7px !important;
+    width: 100% !important;
+  }
+  .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-champion {
+    font-size: clamp(.96rem,3.95vw,1.08rem) !important;
+    line-height: 1.1 !important;
+    white-space: nowrap !important;
+  }
+  .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-points {
+    font-size: clamp(.74rem,2.95vw,.82rem) !important;
+    line-height: 1.08 !important;
+    white-space: nowrap !important;
+    margin: 0 !important;
+  }
+  .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-margin {
+    font-size: clamp(.92rem,3.7vw,1.02rem) !important;
+    line-height: 1.1 !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+  }
+}
+@media (max-width:350px) {
+  .smuggler-command-bottom .welcome-status-item:not(.welcome-status-item--mission) {
+    padding: 9px 9px !important;
+  }
+  .smuggler-command-bottom .welcome-season-progress-content,
+  .smuggler-command-bottom .welcome-status-item--overall-leader > .welcome-leader-layout {
+    column-gap: 6px !important;
+  }
+  .smuggler-command-bottom .welcome-season-progress-content > small:first-child,
+  .smuggler-command-bottom .season-progress-caption--full > small,
+  .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-label,
+  .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-margin-label {
+    font-size: .62rem !important;
+  }
+}
+</style>
+
 </head>
 
 <body>
