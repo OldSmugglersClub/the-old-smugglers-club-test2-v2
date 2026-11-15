@@ -5727,7 +5727,10 @@
       }
     }
 
-  </style>
+  
+
+
+</style>
   <link rel="stylesheet" href="./highscore.css?v=4.0.1">
   <link rel="stylesheet" href="./logbuch.css?v=2026-11-08-dynamic-weekend">
   <link rel="stylesheet" href="./accessibility-v33.css">
@@ -6847,6 +6850,43 @@
   }
   .smuggler-command-bottom .season-progress-percent {
     min-width:60px !important;padding:3px 6px !important;
+  }
+}
+/* TEST2v2 2026-11-15: Mobile Feinausrichtung – nur Kachelabstaende und Label-Lesbarkeit. */
+@media (max-width: 600px) {
+  .smuggler-command-bottom .welcome-season-progress-content {
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr) auto;
+    column-gap: 6px;
+  }
+  .smuggler-command-bottom .welcome-season-progress-content > small:first-child,
+  .smuggler-command-bottom .season-progress-caption--full > small {
+    font-size: .75rem !important;
+  }
+  .smuggler-command-bottom .season-progress-percent {
+    min-width: 58px;
+    justify-self: center;
+  }
+  .smuggler-command-bottom .welcome-status-item--overall-leader > .welcome-leader-layout {
+    grid-template-columns: minmax(0,1.05fr) minmax(0,.95fr);
+    column-gap: 8px;
+  }
+  .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-label,
+  .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-margin-label {
+    font-size: .75rem !important;
+    white-space: normal;
+    overflow-wrap: normal;
+  }
+  .smuggler-command-bottom .welcome-status-item--overall-leader .welcome-leader-side {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+@media (max-width: 350px) {
+  .smuggler-command-bottom .welcome-season-progress-content > small:first-child,
+  .smuggler-command-bottom .season-progress-caption--full > small,
+  .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-label,
+  .smuggler-command-bottom .welcome-status-item--overall-leader #welcome-leader-margin-label {
+    font-size: .70rem !important;
   }
 }
 </style>
