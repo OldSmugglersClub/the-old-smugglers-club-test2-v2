@@ -5831,7 +5831,7 @@
   }
   #aktueller-spieltag .sm-event-row {
     position: relative;
-    grid-template-columns: 76px minmax(145px, .78fr) minmax(0, 1.8fr) minmax(102px, auto);
+    grid-template-columns: 76px minmax(110px, 160px) minmax(0, 1fr) minmax(102px, auto);
   }
   #aktueller-spieltag .sm-event-row__main-link {
     position: absolute;
@@ -5982,19 +5982,6 @@
     font-size: .79em;
     vertical-align: 1px;
   }
-  /* Die zeitlich nächste in dieser Liste vorhandene Begegnung. Kein erfundenes Topspiel. */
-  #aktueller-spieltag .sm-event-row--next {
-    background: linear-gradient(90deg, rgba(139,84,28,.29), rgba(99,59,22,.12) 35%, rgba(139,84,28,.07));
-    box-shadow: inset 3px 0 0 #d4a650, inset 0 1px rgba(229,173,78,.08);
-  }
-  #aktueller-spieltag .sm-event-row--next .sm-event-row__match {
-    color: #ffe4a2;
-    text-shadow: 0 0 8px rgba(193,134,44,.19);
-  }
-  #aktueller-spieltag .sm-event-row--next .sm-event-row__seal {
-    transform: scale(1.08);
-    transform-origin: center;
-  }
   /* Orakel-Taste: Messingfassung, keine neue Funktion. */
   #aktueller-spieltag .sm-event-row__coco {
     border-color: #c18b35;
@@ -6038,7 +6025,6 @@
       letter-spacing: .045em;
     }
     #aktueller-spieltag .sm-day__title::before { margin-right: 6px; }
-    #aktueller-spieltag .sm-event-row--next .sm-event-row__seal { transform: scale(1.045); }
     #aktueller-spieltag .sm-event-row__coco {
       gap: 3px;
       padding-inline: clamp(5px,1.6vw,8px);
@@ -6046,6 +6032,42 @@
     #aktueller-spieltag .sm-schedule__actions {
       padding: 10px;
       margin-top: 12px;
+    }
+  }
+
+
+  /* TEST2v2 4.9.6 – ruhiger Spieltags-Feinschliff ohne bevorzugte Partie. */
+  @media (min-width: 761px) {
+    #aktueller-spieltag .sm-schedule__header {
+      row-gap: clamp(10px, 1.4vw, 17px);
+      padding-top: 12px;
+      padding-bottom: 15px;
+    }
+    #aktueller-spieltag .sm-event-row__competition {
+      justify-self: start;
+      width: 100%;
+      box-sizing: border-box;
+      max-width: 160px;
+    }
+  }
+  #aktueller-spieltag .sm-schedule__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 9px 12px;
+    min-height: 0;
+  }
+  #aktueller-spieltag #sm-kicktipp-link {
+    margin: 0;
+  }
+  @media (max-width: 760px) {
+    #aktueller-spieltag .sm-event-row__competition {
+      justify-self: stretch;
+      max-width: 100%;
+    }
+    #aktueller-spieltag .sm-schedule__actions {
+      padding: 9px 10px;
     }
   }
 
@@ -8686,7 +8708,6 @@
               // Coco is an independent action. Avoid nesting interactive elements.
               const row=document.createElement("div");
               row.className="sm-event-row"; row.dataset.competition=game.matchdayType||game.wettbewerb||"";
-              if (visibleExact.length && game.id === visibleExact[0].id) row.classList.add("sm-event-row--next");
               if(game.ereignisLink){
                 const mainLink=document.createElement("a");
                 mainLink.className="sm-event-row__main-link";
