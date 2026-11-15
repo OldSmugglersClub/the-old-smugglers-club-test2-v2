@@ -5731,49 +5731,59 @@
 
 
 
-  /* TEST2v2: Nur mobil – beide Messingschilder oben, Ereignistitel darunter. */
+  /* TEST2v2: Mobile Ereignis-Kopfzeile mit Luft und dynamischem Ein-/Zweizeilentitel. */
   @media (max-width: 760px) {
     #aktueller-spieltag .sm-schedule__header {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
       grid-template-rows: auto auto;
       align-items: start;
-      gap: 12px 8px;
+      column-gap: clamp(12px, 3.2vw, 20px);
+      row-gap: clamp(20px, 5vw, 28px);
+      padding: clamp(10px, 3vw, 16px) clamp(9px, 2.6vw, 16px) clamp(17px, 4vw, 24px);
+      box-sizing: border-box;
     }
     #aktueller-spieltag .sm-schedule__heading { display: contents; }
     #aktueller-spieltag .sm-schedule__heading .eyebrow {
       grid-column: 1; grid-row: 1;
       display: flex; justify-content: center; align-items: center;
-      width: 100%; min-height: 42px;
-      padding: 7px 12px;
-      font-size: clamp(.62rem, 2.3vw, .73rem);
-      line-height: 1.18; letter-spacing: .045em;
+      box-sizing: border-box;
+      width: 100%; min-width: 0; min-height: 45px;
+      padding: 8px 12px;
+      font-size: clamp(.61rem, 2.25vw, .73rem);
+      line-height: 1.18; letter-spacing: .035em;
       text-align: center;
       white-space: normal;
     }
     #aktueller-spieltag .sm-schedule__header .matchday-status {
       grid-column: 2; grid-row: 1;
+      box-sizing: border-box;
       align-self: stretch;
-      min-width: 94px; max-width: none; min-height: 42px;
-      padding: 7px 15px;
-      font-size: clamp(.64rem, 2.35vw, .76rem);
+      min-width: 88px; max-width: none; min-height: 45px;
+      padding: 8px 12px;
+      font-size: clamp(.61rem, 2.25vw, .73rem);
       text-align: center;
+      white-space: nowrap;
     }
     #aktueller-spieltag .sm-schedule__heading h2 {
       grid-column: 1 / -1; grid-row: 2;
-      margin: 0; padding: 0 2px;
+      margin: 0;
+      padding: 0;
       width: 100%; min-width: 0;
       color: #eac270;
-      font-size: clamp(1.48rem, 6.1vw, 2.12rem);
-      line-height: 1.14;
+      font-size: clamp(1.2rem, 6vw, 1.65rem);
+      line-height: 1.2;
       text-align: center;
       white-space: normal;
       overflow-wrap: normal;
       word-break: normal;
       hyphens: none;
     }
-    #aktueller-spieltag .sm-schedule-title-line { display: block; white-space: nowrap; }
-    #aktueller-spieltag .sm-schedule-title-line + .sm-schedule-title-line { margin-top: 2px; }
+    #aktueller-spieltag .sm-schedule-title-line {
+      display: block;
+      white-space: nowrap;
+    }
+    #aktueller-spieltag .sm-schedule-title-line + .sm-schedule-title-line { margin-top: 3px; }
   }
 
   @media (min-width: 761px) {
@@ -7815,57 +7825,89 @@
 
     function renderScheduleHeading(titleElement, sourceTitle) {
       if (!titleElement) return;
-      const full = String(sourceTitle || "").trim().replace(/\s+/g, " ");
-      titleElement.replaceChildren();
-      titleElement.setAttribute("aria-label", full);
-      const title = full.replace(/\u00a0/g, " ");
-      let lines;
-      const match = title.match(/^(.*?)\s+((?:\d{1,2}\.\s*Spieltag)|(?:\d{1,2}\.\s*Runde)|(?:Achtelfinale|Viertelfinale|Halbfinale|Finale)|(?:Gruppenphase.*))$/i);
-      if (match && match[1]) {
-        lines = [match[1], match[2].replace(/(\d+\.)\s+(Spieltag|Runde)/i, "$1\u00a0$2")];
-      } else {
-        const words = title.split(" ");
-        if (words.length <= 2) lines = [title];
-        else {
-          const total = title.length, candidates = [];
-          for (let i = 1; i < words.length; i++) {
-            const a = words.slice(0, i).join(" "), b = words.slice(i).join(" ");
-            candidates.push({ a, b, score: Math.max(a.length, b.length) + Math.abs(a.length - b.length) * .2 });
-          }
-          candidates.sort((a,b) => a.score - b.score);
-          lines = [candidates[0].a, candidates[0].b];
-        }
-      }
+      const full = String(sourceTitle || "").trim().replace(/\\s+/g, " ");
+      const headingText = full.replace(/\\u00a0/g, " ");
       titleElement.dataset.fullTitle = full;
-      const two = lines.length > 1;
-      titleElement.classList.toggle("sm-schedule-title-split", two);
-      lines.forEach((line, i) => {
-        const span = document.createElement("span");
-        span.className = "sm-schedule-title-line";
-        span.textContent = line;
-        titleElement.append(span);
-        if (i === 0 && two) titleElement.append(document.createTextNode(" "));
-      });
-      // Fit text per line to mobile content width, without clipping words.
-      const fit = () => {
+      titleElement.setAttribute("aria-label", full);
+
+      const draw = () => {
+        // Desktop: original data and native typography, without mobile spans or font overrides.
+        titleElement.style.removeProperty("font-size");
         if (!window.matchMedia("(max-width: 760px)").matches) {
-          titleElement.style.removeProperty("font-size");
+          titleElement.textContent = full;
           return;
         }
-        titleElement.style.removeProperty("font-size");
-        const width = titleElement.clientWidth;
-        if (!width) return;
-        const spans = titleElement.querySelectorAll(".sm-schedule-title-line");
-        const style = getComputedStyle(titleElement);
-        let size = parseFloat(style.fontSize);
-        if (!Number.isFinite(size)) return;
-        const maxLine = () => Math.max(0, ...Array.from(spans, el => el.scrollWidth));
-        while (size > 13 && maxLine() > width) {
-          size -= 1;
-          titleElement.style.fontSize = `${size}px`;
+        const css = getComputedStyle(titleElement);
+        const available = titleElement.clientWidth;
+        if (!available) {
+          titleElement.textContent = full;
+          return;
         }
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        if (!ctx) {
+          titleElement.textContent = full;
+          return;
+        }
+        const family = css.fontFamily;
+        const weight = css.fontWeight;
+        const desired = parseFloat(css.fontSize);
+        const preferred = Number.isFinite(desired) ? desired : 22;
+        const minimum = 16; // unter 16px nicht zur Einzeiligkeit zwingen
+        const measure = (str, size) => {
+          ctx.font = `${weight} ${size}px ${family}`;
+          return ctx.measureText(str).width;
+        };
+        const fit = (lines, startSize, minSize) => {
+          for (let size = startSize; size >= minSize; size -= .5) {
+            if (lines.every(line => measure(line, size) <= available - 2)) return size;
+          }
+          return null;
+        };
+
+        // Eine Zeile bevorzugen, sofern sie mindestens 16px gross sein kann.
+        let lines = [headingText];
+        let size = fit(lines, preferred, minimum);
+        if (size === null) {
+          const words = headingText.split(" ");
+          const variants = [];
+          for (let i = 1; i < words.length; i++) {
+            const first = words.slice(0, i).join(" ");
+            const second = words.slice(i).join(" ");
+            // Sinnvolle Grenze vor Spieltag/Runde/Finale bevorzugen.
+            const semantic = /^(?:\\d{1,2}\\.\\s*(?:Spieltag|Runde)|Achtelfinale|Viertelfinale|Halbfinale|Finale)/i.test(second);
+            variants.push({ lines: [first, second], score: Math.max(measure(first,preferred),measure(second,preferred)) - (semantic ? 30 : 0) });
+          }
+          variants.sort((a,b) => a.score - b.score);
+          for (const option of variants) {
+            const candidate = fit(option.lines, preferred, minimum);
+            if (candidate !== null) {
+              lines = option.lines;
+              size = candidate;
+              break;
+            }
+          }
+          if (size === null && variants.length) {
+            lines = variants[0].lines;
+            size = minimum;
+          }
+        }
+        titleElement.replaceChildren();
+        lines.forEach(line => {
+          const span = document.createElement("span");
+          span.className = "sm-schedule-title-line";
+          span.textContent = line.replace(/(\\d{1,2}\\.)\\s+(Spieltag|Runde)/gi, "$1\\u00a0$2");
+          titleElement.appendChild(span);
+        });
+        titleElement.style.fontSize = `${size || minimum}px`;
       };
-      requestAnimationFrame(fit);
+      draw();
+      if (!titleElement.dataset.headingResizeBound) {
+        titleElement.dataset.headingResizeBound = "1";
+        window.addEventListener("resize", () => {
+          if (titleElement.dataset.fullTitle) renderScheduleHeading(titleElement, titleElement.dataset.fullTitle);
+        }, { passive: true });
+      }
     }
 
     function formatEventMatchdayLabel(event, fallback = "Nächstes Event") {
