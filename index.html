@@ -5790,6 +5790,139 @@
     #aktueller-spieltag .sm-schedule-title-line { display: inline; }
   }
 
+
+  /* TEST2v2 4.9.4 – nur Spieltags-Kachel: bestehender Piratenstil, bessere Ordnung. */
+  @media (min-width: 761px) {
+    #aktueller-spieltag .sm-schedule__header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-rows: auto auto;
+      align-items: center;
+      column-gap: 24px;
+      row-gap: clamp(20px, 2.4vw, 32px);
+      padding: 14px clamp(8px, 1.8vw, 22px) 18px;
+    }
+    #aktueller-spieltag .sm-schedule__heading { display: contents; }
+    #aktueller-spieltag .sm-schedule__heading .eyebrow {
+      grid-column: 1;
+      grid-row: 1;
+      justify-self: start;
+      margin: 0;
+    }
+    #aktueller-spieltag .sm-schedule__header .matchday-status {
+      grid-column: 2;
+      grid-row: 1;
+      justify-self: end;
+      margin: 0;
+    }
+    #aktueller-spieltag .sm-schedule__heading h2 {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      justify-self: center;
+      margin: 0;
+      width: 100%;
+      font-size: clamp(2rem, 3.7vw, 3.15rem);
+      line-height: 1.12;
+      text-align: center;
+      overflow-wrap: normal;
+      word-break: normal;
+      hyphens: none;
+    }
+  }
+  #aktueller-spieltag .sm-event-row {
+    position: relative;
+    grid-template-columns: 76px minmax(145px, .78fr) minmax(0, 1.8fr) minmax(102px, auto);
+  }
+  #aktueller-spieltag .sm-event-row__main-link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: 3px;
+  }
+  #aktueller-spieltag .sm-event-row:has(.sm-event-row__main-link):hover,
+  #aktueller-spieltag .sm-event-row:has(.sm-event-row__main-link):focus-within {
+    background: rgba(102, 60, 20, .24);
+  }
+  #aktueller-spieltag .sm-event-row__main-link:focus-visible {
+    outline: 2px solid #eac270;
+    outline-offset: -3px;
+  }
+  #aktueller-spieltag .sm-event-row__coco {
+    position: relative;
+    z-index: 2;
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 11px;
+    min-height: 30px;
+    box-sizing: border-box;
+    border: 1px solid rgba(212, 156, 54, .72);
+    border-radius: 7px;
+    background: linear-gradient(180deg, #724416, #342009);
+    color: #f6db92;
+    font-size: .76rem;
+    font-weight: 800;
+    letter-spacing: .025em;
+    line-height: 1.1;
+    white-space: nowrap;
+    text-decoration: none;
+    box-shadow: inset 0 1px rgba(255, 230, 153, .20), 0 2px 5px rgba(0,0,0,.3);
+  }
+  #aktueller-spieltag .sm-event-row__coco:hover,
+  #aktueller-spieltag .sm-event-row__coco:focus-visible {
+    color: #fff1c1;
+    border-color: #efc477;
+    background: linear-gradient(180deg, #916025, #47290d);
+    outline: 1px solid #efc477;
+    outline-offset: 2px;
+  }
+  #aktueller-spieltag .sm-event-row__status {
+    position: relative;
+    z-index: 2;
+    justify-self: end;
+  }
+  @media (max-width: 760px) {
+    #aktueller-spieltag .sm-event-row {
+      grid-template-columns: minmax(45px, 54px) minmax(0, 1fr) auto;
+      grid-template-rows: auto auto;
+      column-gap: clamp(6px, 2vw, 11px);
+      row-gap: 9px;
+      padding: 11px clamp(8px, 3vw, 13px);
+      align-items: center;
+    }
+    #aktueller-spieltag .sm-event-row__time { grid-column: 1; grid-row: 1; }
+    #aktueller-spieltag .sm-event-row__competition {
+      grid-column: 2; grid-row: 1;
+      min-width: 0;
+      max-width: 100%;
+      padding-inline: 5px;
+      font-size: clamp(.58rem, 2.5vw, .72rem);
+      line-height: 1.12;
+      overflow-wrap: normal;
+      word-break: normal;
+    }
+    #aktueller-spieltag .sm-event-row__match {
+      grid-column: 1 / -1; grid-row: 2;
+      min-width: 0;
+      margin: 0;
+    }
+    #aktueller-spieltag .sm-event-row__coco,
+    #aktueller-spieltag .sm-event-row__status {
+      grid-column: 3; grid-row: 1;
+      justify-self: end;
+      width: auto;
+      white-space: nowrap;
+      margin: 0;
+    }
+    #aktueller-spieltag .sm-event-row__coco {
+      padding: 7px clamp(6px, 2vw, 10px);
+      min-height: 31px;
+      font-size: clamp(.68rem, 2.65vw, .75rem);
+    }
+    #aktueller-spieltag .sm-event-row__status { font-size: .65rem; }
+  }
+
 </style>
   <link rel="stylesheet" href="./highscore.css?v=4.0.1">
   <link rel="stylesheet" href="./logbuch.css?v=2026-11-08-dynamic-weekend">
@@ -8414,9 +8547,17 @@
             dayTitle.textContent=new Intl.DateTimeFormat(locale,{weekday:"long",day:"2-digit",month:"long"}).format(eventsForDay[0]._start);
             day.appendChild(dayTitle);
             eventsForDay.forEach(game=>{
-              const row=document.createElement(game.ereignisLink?"a":"div");
+              // Separated, accessible links: match area keeps its original event link,
+              // Coco is an independent action. Avoid nesting interactive elements.
+              const row=document.createElement("div");
               row.className="sm-event-row"; row.dataset.competition=game.matchdayType||game.wettbewerb||"";
-              if(game.ereignisLink)row.href=game.ereignisLink;
+              if(game.ereignisLink){
+                const mainLink=document.createElement("a");
+                mainLink.className="sm-event-row__main-link";
+                mainLink.href=game.ereignisLink;
+                mainLink.setAttribute("aria-label",`Ereignis öffnen: ${game.heim||"Heimteam"} gegen ${game.auswaerts||"Auswärtsteam"}`);
+                row.appendChild(mainLink);
+              }
               const time=document.createElement("span"); time.className="sm-event-row__time"; time.textContent=game.anstoss;
               const competition=document.createElement("span"); competition.className="sm-event-row__competition";
               competition.textContent=String(game.matchdayType||"").trim().toLowerCase()==="smugglerauftrag"?(game.matchdayName||"Smugglerauftrag"):(game.wettbewerbAnzeige||game.wettbewerb||"Ereignis");
@@ -8438,9 +8579,24 @@
               renderTeamSeal(homeSeal,game.heimTeamId,game.heim);
               renderTeamSeal(awaySeal,game.auswaertsTeamId,game.auswaerts);
 
-              const rowStatus=document.createElement("span"); rowStatus.className="sm-event-row__status";
-              rowStatus.textContent=game.status||"TERMINIERT";
-              row.append(time,competition,match,rowStatus); day.appendChild(row);
+              const statusValue=String(game.status||"").trim();
+              const ordinaryStatus=!statusValue || /^(terminiert|geplant|angesetzt)$/i.test(statusValue);
+              const canAskCoco=Boolean(game.id && game.heimTeamId && game.auswaertsTeamId && ordinaryStatus);
+              let lastCell;
+              if(canAskCoco){
+                const coco=document.createElement("a");
+                coco.className="sm-event-row__coco";
+                coco.href=`./coco/?game=${encodeURIComponent(String(game.id))}`;
+                coco.textContent="Coco’s Tipp";
+                coco.setAttribute("aria-label",`Coco’s Tipp für ${game.heim} gegen ${game.auswaerts} öffnen`);
+                lastCell=coco;
+              }else{
+                const rowStatus=document.createElement("span");
+                rowStatus.className="sm-event-row__status";
+                rowStatus.textContent=statusValue || "Tipp nicht verfügbar";
+                lastCell=rowStatus;
+              }
+              row.append(time,competition,match,lastCell); day.appendChild(row);
             });
             elements.list.appendChild(day);
           });
