@@ -6437,9 +6437,9 @@
   }
 
 
-  /* TEST2v2 4.9.20 – Smugglerauftrag nicht innerhalb des Wortes umbrechen.
+  /* TEST2v2 4.9.21 – Smugglerauftrag unabhaengig von der Schreibweise des matchdayType.
      Nur dieses Label; Zeit, Wettbewerbsspalte und sonstiges Raster bleiben gleich. */
-  #aktueller-spieltag .sm-event-row[data-competition="Smugglerauftrag"] .sm-event-row__competition {
+  #aktueller-spieltag .sm-event-row__competition--smugglerauftrag {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6451,13 +6451,13 @@
     word-break: normal;
     hyphens: none;
   }
-  #aktueller-spieltag .sm-event-row[data-competition="Smugglerauftrag"] .sm-competition-word {
+  #aktueller-spieltag .sm-event-row__competition--smugglerauftrag .sm-competition-word {
     display: block;
     white-space: nowrap;
     font-size: inherit;
     line-height: 1.15;
   }
-  #aktueller-spieltag .sm-event-row[data-competition="Smugglerauftrag"] .sm-competition-subtitle {
+  #aktueller-spieltag .sm-event-row__competition--smugglerauftrag .sm-competition-subtitle {
     display: block;
     white-space: normal;
     font-size: inherit;
@@ -9123,6 +9123,7 @@
               const time=document.createElement("span"); time.className="sm-event-row__time"; time.textContent=game.anstoss;
               const competition=document.createElement("span"); competition.className="sm-event-row__competition";
               if (String(game.matchdayType||"").trim().toLowerCase()==="smugglerauftrag") {
+                competition.classList.add("sm-event-row__competition--smugglerauftrag");
                 const name=String(game.matchdayName||"Smugglerauftrag").trim();
                 const parts=/^(Smugglerauftrag)(?:\s+(.+))?$/i.exec(name);
                 if (parts) {
