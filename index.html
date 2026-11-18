@@ -6340,13 +6340,14 @@
 #aktueller-spieltag details.sm-day[open] > summary.sm-day__title { border-bottom:1px solid rgba(190,128,39,.48); }
 
 
-  /* TEST2v2 4.9.17: zentrale Wappen, Mannschaftsnamen nach aussen.
+  /* TEST2v2 4.9.18: zentrale Wappen, Mannschaftsnamen nach aussen.
      Heimname | Heimwappen | Trennstrich | Gastwappen | Gastname.
      Gilt nur in der 7-Tage-Kachel. Tagesgruppen, Links, Daten unveraendert. */
   #aktueller-spieltag .sm-event-row__match {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 32px 1.2rem 32px minmax(0, 1fr);
     align-items: center;
+    grid-auto-rows: auto;
     gap: clamp(.28rem, .8vw, .65rem);
     min-width: 0;
     width: 100%;
@@ -6363,13 +6364,16 @@
   }
   #aktueller-spieltag .sm-event-row__team--home > .sm-event-row__seal {
     grid-column: 2;
+    grid-row: 1;
   }
   #aktueller-spieltag .sm-event-row__team--home > .sm-event-row__team-name {
     grid-column: 1;
+    grid-row: 1;
   }
   #aktueller-spieltag .sm-event-row__separator {
     display: block;
     grid-column: 3;
+    grid-row: 1;
     width: auto;
     justify-self: center;
     text-align: center;
@@ -6377,15 +6381,18 @@
   }
   #aktueller-spieltag .sm-event-row__team--away > .sm-event-row__team-name {
     grid-column: 5;
+    grid-row: 1;
     text-align: left;
   }
   #aktueller-spieltag .sm-event-row__team--away > .sm-event-row__seal {
     grid-column: 4;
+    grid-row: 1;
   }
   #aktueller-spieltag .sm-event-row__team-name {
     min-width: 0;
     width: auto;
     white-space: normal;
+    overflow-wrap: break-word;
     overflow-wrap: normal;
     word-break: normal;
     hyphens: none;
