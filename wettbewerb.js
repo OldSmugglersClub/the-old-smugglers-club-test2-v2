@@ -1549,38 +1549,41 @@
     return wrap;
   }
 
-  function renderChampionsLeagueTable(openLigaDbMatches, root) {
+  function renderChampionsLeagueTable(centralGameData, root) {
     if (slug !== "champions-league") return;
 
-    const leaguePhaseMatches = championsLeaguePhaseMatches(openLigaDbMatches);
-
+    // TEST2v2 4.9.28: Die CL-Tabelle wird ausschliesslich aus den zentralen
+    // TOSMC-Spielen gebildet. Ein fehlerhafter/externer Teilnehmername darf
+    // niemals die vollstaendige 36er-Anzeige verhindern oder Punkte verschieben.
+    const leaguePhaseMatches = centralGamesForCompetition(centralGameData, "champions-league")
+      .filter(match => match?.heimTeamId && match?.auswaertsTeamId &&
+        Number.isInteger(match?.spieltagNummer) && match.spieltagNummer >= 1 && match.spieltagNummer <= 8);
+    const teamLookup = createTeamLookup(currentTeamData);
     const teams = new Map();
 
-    function ensureTeam(team) {
-      const id = String(team?.teamId ?? team?.teamID ?? team?.TeamId ?? team?.TeamID ?? "");
-      const name = openLigaDbTeamName(team);
-      const key = id || bracketTeamKey(name);
-      if (!teams.has(key)) {
-        teams.set(key, { id, name, sourceTeam: team, played: 0, wins: 0, draws: 0, losses: 0, goalsFor: 0, goalsAgainst: 0, points: 0 });
+    function ensureTeam(teamId, fallbackName) {
+      const id = String(teamId || "");
+      if (!id) return null;
+      if (!teams.has(id)) {
+        const name = teamName(teamLookup, id, fallbackName);
+        teams.set(id, {
+          id, name, sourceTeam: { teamId: id, teamName: name },
+          played: 0, wins: 0, draws: 0, losses: 0, goalsFor: 0, goalsAgainst: 0, points: 0
+        });
       }
-      return teams.get(key);
+      return teams.get(id);
     }
 
     leaguePhaseMatches.forEach(match => {
-      const home = ensureTeam(match?.team1);
-      const away = ensureTeam(match?.team2);
-      const results = safeArray(match?.matchResults);
-      const finalResult = results.find(result => Number(result?.resultTypeID ?? result?.resultTypeId ?? result?.ResultTypeID ?? -1) === 2)
-        || results.find(result => {
-          const name = String(result?.resultName ?? result?.resultTypeName ?? "").toLocaleLowerCase("de");
-          return name.includes("end") || name.includes("final");
-        })
-        || results.at(-1);
-      if (!finalResult) return;
-      const homeGoals = Number(finalResult?.pointsTeam1 ?? finalResult?.PointsTeam1);
-      const awayGoals = Number(finalResult?.pointsTeam2 ?? finalResult?.PointsTeam2);
-      if (!Number.isFinite(homeGoals) || !Number.isFinite(awayGoals)) return;
-
+      const home = ensureTeam(match.heimTeamId, match.heim);
+      const away = ensureTeam(match.auswaertsTeamId, match.auswaerts);
+      if (!home || !away) return;
+      // Nur bereits freigegebene TOSMC-Endergebnisse zaehlen.
+      if (match.status !== "beendet" || match.ergebnisNach90MinutenBestaetigt !== true ||
+          !Number.isInteger(match.heimtore) || !Number.isInteger(match.auswaertstore) ||
+          match.heimtore < 0 || match.auswaertstore < 0) return;
+      const homeGoals = match.heimtore;
+      const awayGoals = match.auswaertstore;
       home.played += 1; away.played += 1;
       home.goalsFor += homeGoals; home.goalsAgainst += awayGoals;
       away.goalsFor += awayGoals; away.goalsAgainst += homeGoals;
@@ -1617,13 +1620,11 @@
       section.appendChild(note); root.appendChild(section); return;
     }
 
-    // Keine scheinbar vollständige CL-Tabelle anzeigen, solange OpenLigaDB
-    // noch nicht alle 36 Teilnehmer über die Ligaphasen-Paarungen geliefert hat.
-    // Die Prüfung läuft bei jedem Laden erneut; ab 36 Teams erscheint die Tabelle automatisch.
-    if (rows.length < 36) {
+    // Bei unvollstaendiger zentraler Saisonbasis keine Vollstaendigkeit vortaeuschen.
+    if (rows.length !== 36) {
       const note = document.createElement("p");
       note.className = "data-note";
-      note.textContent = `OpenLigaDB hat derzeit ${rows.length} von 36 Teilnehmern in den erfassten Ligaphasen-Paarungen geliefert. Die vollständige Tabelle wird automatisch eingeblendet, sobald alle 36 Vereine vorhanden sind.`;
+      note.textContent = `TOSMC-Spielplan: ${rows.length} von 36 CL-Teilnehmern nachgewiesen. Tabelle bis zur vollstaendigen Datenbasis zurueckgestellt.`;
       section.appendChild(note);
       root.appendChild(section);
       return;
@@ -1848,12 +1849,19 @@
       return true;
     }
 
+    // Wie bei der CL: naechsten Spieltag mit mindestens einem Spiel heute
+    // oder in der Zukunft oeffnen. Nach Saisonende den letzten Spieltag.
+    const today = new Date();
+    const todayIso = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+    let openIndex = clusters.findIndex(cluster => safeArray(cluster.dates).some(date => date >= todayIso));
+    if (openIndex < 0) openIndex = Math.max(clusters.length - 1, 0);
+
     const accordion = document.createElement("div");
     accordion.className = "matchday-accordion";
     clusters.forEach((cluster, index) => {
       const details = document.createElement("details");
       details.className = "matchday-group";
-      details.open = index === 0;
+      details.open = index === openIndex;
 
       const summary = document.createElement("summary");
       summary.className = "matchday-summary";
@@ -3943,7 +3951,7 @@ function normalizeGoalGetterEntries(goalGetterData) {
 
       championsLeaguePhaseOverviewRendered = renderStandardGamesSlot(coreSections, buttons, root, { championsLeague: true, openLigaDbMatches: openLigaDbClTable, gameData, title: "Spiele der Champions League" });
       renderMidNavigation(buttons, root);
-      renderChampionsLeagueTable(openLigaDbClTable, root);
+      renderChampionsLeagueTable(gameData, root);
       renderMidNavigation(buttons, root);
       renderChampionsLeagueFormTable(openLigaDbClTable, root);
 
