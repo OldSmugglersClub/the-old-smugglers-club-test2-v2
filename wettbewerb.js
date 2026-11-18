@@ -872,6 +872,8 @@
     "ac sparta praha": "sparta-praha",
     "sparta praha": "sparta-praha",
     "sparta prag": "sparta-praha",
+    "sk puntigamer sturm graz": "sturm-graz",
+    "puntigamer sturm graz": "sturm-graz",
     "sk sturm graz": "sturm-graz",
     "sturm graz": "sturm-graz",
     "sunderland afc": "sunderland",
@@ -1112,7 +1114,11 @@
 
     const result = document.createElement("strong");
     result.className = "ko-match__result";
-    result.textContent = openLigaDbFinalResult(match) || "–";
+    const finalScore = openLigaDbFinalResult(match);
+    // DFB: Offene Begegnungen zeigen nur den Termin, keinen Ergebnis-Platzhalter.
+    // Abschlussergebnisse und andere Wettbewerbe bleiben unveraendert.
+    result.textContent = finalScore || (slug === "dfb-pokal" ? "" : "–");
+    if (slug === "dfb-pokal" && !finalScore) result.hidden = true;
 
     const date = document.createElement("span");
     date.className = "ko-match__date";
