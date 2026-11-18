@@ -963,6 +963,97 @@
     return String(team?.teamName ?? team?.TeamName ?? "Team offen").trim() || "Team offen";
   }
 
+  // TEST2v2 4.9.27: Gemeinsame Plausibilitaetspruefung vor der Nutzung von
+  // OpenLigaDB-Spieldaten (CL, EL, DFB-Pokal, Dynamo/2. BL).
+  // Ohne zentralen Referenzdatensatz ist eine externe Paarung NICHT inhaltlich
+  // bestaetigt; moeglich sind dann nur strukturelle Konfliktpruefungen.
+  // Die Pruefung laeuft bei jeder neuen API-Antwort erneut, ohne Ausnahmelisten.
+  function guardOpenLigaDbMatches(matches, competition, centralGames = []) {
+    const rejected = [];
+    const input = safeArray(matches);
+    const reference = new Map();
+    safeArray(centralGames).filter(game => game && game.wettbewerb === competition).forEach(game => {
+      const key = String(game.apiMatchId ?? game.spielNummer ?? "").trim();
+      if (key) reference.set(key, game);
+    });
+    const eligible = [];
+    const seenIds = new Map();
+    const badIds = new Set();
+    input.forEach((match, index) => {
+      const id = String(match?.matchID ?? match?.matchId ?? match?.MatchID ?? "").trim();
+      const h = match?.team1, a = match?.team2;
+      const home = openLigaDbTeamName(h), away = openLigaDbTeamName(a);
+      const homeId = String(h?.teamId ?? h?.teamID ?? h?.TeamId ?? h?.TeamID ?? "").trim();
+      const awayId = String(a?.teamId ?? a?.teamID ?? a?.TeamId ?? a?.TeamID ?? "").trim();
+      const dateTime = String(match?.matchDateTime ?? match?.MatchDateTime ?? "").trim();
+      const kickoff = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/.test(dateTime) ? dateTime.slice(0, 16) : "";
+      const invalid = !id || !homeId || !awayId || !home || !away ||
+        home === "Team offen" || away === "Team offen" || homeId === awayId ||
+        bracketTeamKey(home) === bracketTeamKey(away) ||
+        (dateTime && !kickoff);
+      if (invalid) {
+        rejected.push({ reason: "unvollstaendige-oder-unplausible-paarung", id, index });
+        return;
+      }
+      const central = reference.get(id);
+      if (central) {
+        const homeLocal = championsLeagueLocalBadgeId(home);
+        const awayLocal = championsLeagueLocalBadgeId(away);
+        const centralDate = String(central.datum || central.datumVon || "");
+        const centralTime = String(central.anstoss || "");
+        const dateMismatch = kickoff && centralDate && kickoff.slice(0, 10) !== centralDate;
+        const timeMismatch = kickoff && centralTime && kickoff.slice(11, 16) !== centralTime;
+        if (!homeLocal || !awayLocal || homeLocal !== central.heimTeamId ||
+            awayLocal !== central.auswaertsTeamId || dateMismatch || timeMismatch) {
+          rejected.push({ reason: "konflikt-mit-tosmc-referenz", id, index });
+          return;
+        }
+        const centralFinished = central.status === "beendet" || central.ergebnisNach90MinutenBestaetigt === true;
+        if (centralFinished && Number.isFinite(central.heimtore) && Number.isFinite(central.auswaertstore)) {
+          const externalScore = openLigaDbFinalResult(match);
+          const centralScore = `${central.heimtore}:${central.auswaertstore}`;
+          if (externalScore && externalScore !== centralScore) {
+            rejected.push({ reason: "ergebniskonflikt-mit-tosmc", id, index });
+            return;
+          }
+        }
+      }
+      // Die API kann auch Zwischenstaende in matchResults liefern.
+      // Ergebnisse nur fuer als beendet gekennzeichnete Spiele verwenden.
+      const safeMatch = match.matchIsFinished === true &&
+        (!central || (central.status === "beendet" && central.ergebnisNach90MinutenBestaetigt === true))
+        ? match : { ...match, matchResults: [] };
+      const signature = [homeId, awayId, bracketTeamKey(home), bracketTeamKey(away), kickoff, openLigaDbFinalResult(safeMatch)].join("|");
+      if (seenIds.has(id)) {
+        const previous = seenIds.get(id);
+        if (previous.signature !== signature) badIds.add(id);
+        rejected.push({ reason: previous.signature === signature ? "duplikat" : "widerspruechliche-match-id", id, index });
+        return;
+      }
+      seenIds.set(id, { signature });
+      eligible.push({ match: safeMatch, id, kickoff, homeId, awayId });
+    });
+    const kickoffTeams = new Map();
+    const conflictingIds = new Set(badIds);
+    eligible.forEach(row => {
+      if (!row.kickoff) return;
+      for (const teamId of [row.homeId, row.awayId]) {
+        const key = `${row.kickoff}|${teamId}`;
+        if (kickoffTeams.has(key) && kickoffTeams.get(key) !== row.id) {
+          conflictingIds.add(row.id);
+          conflictingIds.add(kickoffTeams.get(key));
+        } else kickoffTeams.set(key, row.id);
+      }
+    });
+    const accepted = eligible.filter(row => {
+      if (!conflictingIds.has(row.id)) return true;
+      rejected.push({ reason: "mehrfachansetzung-oder-id-konflikt", id: row.id });
+      return false;
+    }).map(row => row.match);
+    if (rejected.length) console.warn(`OpenLigaDB ${competition}: ${rejected.length} Datensaetze/Zuordnungen ausgeschlossen`, rejected);
+    return { matches: accepted, rejected };
+  }
+
   function bracketTeamKey(value) {
     return String(value || "")
       .toLocaleLowerCase("de")
@@ -4008,6 +4099,14 @@ function normalizeGoalGetterEntries(goalGetterData) {
       text("title", data.titel);
       text("description", data.beschreibung);
 
+      // Ein zentraler Schutz fuer saemtliche OpenLigaDB-Spiel-Datenwege.
+      // Die CL-Ligaphase wird weiterhin autoritativ aus TOSMC dargestellt.
+      const centralGames = allCentralGames(centralGameData);
+      const verifiedDfbMatches = guardOpenLigaDbMatches(openLigaDbDfbMatches, "dfb-pokal", centralGames).matches;
+      const verifiedClMatches = guardOpenLigaDbMatches(openLigaDbClTable, "champions-league", centralGames).matches;
+      const verifiedElMatches = guardOpenLigaDbMatches(openLigaDbElMatches, "europa-league", centralGames).matches;
+      const verifiedDynamoMatches = guardOpenLigaDbMatches(dynamoMatchData, "bundesliga-2", centralGames).matches;
+
       const preparedCards = slug === "bundesliga"
         ? bundesligaInfoCards(data.karten, bundesligaGoalGetterData)
         : slug === "dfb-pokal"
@@ -4017,7 +4116,7 @@ function normalizeGoalGetterEntries(goalGetterData) {
             : slug === "europa-league"
               ? europaLeagueInfoCards(data.karten, europaLeagueGoalGetterData)
             : slug === "dynamo-dresden"
-              ? dynamoDresdenInfoCards(data.karten, dynamoMatchData)
+              ? dynamoDresdenInfoCards(data.karten, verifiedDynamoMatches)
               : slug === "relegation"
                 ? relegationInfoCards(data.karten, centralGameData)
                 : slug === "piratenkodex"
@@ -4039,7 +4138,7 @@ function normalizeGoalGetterEntries(goalGetterData) {
             : [centralSection, ...editorialSections])
         : editorialSections;
 
-      renderSections(sections, data.buttons, centralGameData, teamData, bundesligaTableData, openLigaDbDfbMatches, openLigaDbClTable, openLigaDbElMatches, europaLeagueFallback, dynamoMatchData);
+      renderSections(sections, data.buttons, centralGameData, teamData, bundesligaTableData, verifiedDfbMatches, verifiedClMatches, verifiedElMatches, europaLeagueFallback, verifiedDynamoMatches);
       renderButtons(data.buttons);
       text("footer-text", data.fusszeile);
       await loadFooterVersion();
