@@ -6339,6 +6339,84 @@
 #aktueller-spieltag details.sm-day:not([open]) > summary.sm-day__title { border-bottom:0; }
 #aktueller-spieltag details.sm-day[open] > summary.sm-day__title { border-bottom:1px solid rgba(190,128,39,.48); }
 
+
+  /* TEST2v2 4.9.14 – Mannschaftsbild wie in den Wettbewerbskacheln.
+     Beide Wappen stehen vor dem Namen; Trennstrich auf stabiler Mittelachse.
+     Nur 7-Tage-Kachel, keine Daten-, Link- oder Tagesgruppenänderung. */
+  #aktueller-spieltag .sm-event-row__match {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 1.2rem minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(.3rem, 1vw, .7rem);
+    min-width: 0;
+    width: 100%;
+    text-align: left;
+  }
+  #aktueller-spieltag .sm-event-row__team,
+  #aktueller-spieltag .sm-event-row__team--home,
+  #aktueller-spieltag .sm-event-row__team--away {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr);
+    align-items: center;
+    justify-content: start;
+    gap: .45rem;
+    min-width: 0;
+    width: 100%;
+    text-align: left;
+    flex-direction: row;
+  }
+  #aktueller-spieltag .sm-event-row__team-name {
+    min-width: 0;
+    width: auto;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+    text-align: left;
+  }
+  #aktueller-spieltag .sm-event-row__separator {
+    display: block;
+    width: 1.2rem;
+    text-align: center;
+    justify-self: center;
+    flex: none;
+  }
+  #aktueller-spieltag .sm-event-row__team .sm-event-row__seal {
+    width: 32px;
+    height: 32px;
+    flex: none;
+  }
+  @media (max-width: 760px) {
+    #aktueller-spieltag .sm-event-row__match {
+      grid-template-columns: minmax(0, 1fr) 1rem minmax(0, 1fr);
+      gap: clamp(.22rem, 1.3vw, .5rem);
+    }
+    #aktueller-spieltag .sm-event-row__team,
+    #aktueller-spieltag .sm-event-row__team--home,
+    #aktueller-spieltag .sm-event-row__team--away {
+      grid-template-columns: 28px minmax(0, 1fr);
+      gap: clamp(.22rem, 1.2vw, .45rem);
+    }
+    #aktueller-spieltag .sm-event-row__team .sm-event-row__seal {
+      width: 28px;
+      height: 28px;
+    }
+    #aktueller-spieltag .sm-event-row__separator {width: 1rem;}
+    #aktueller-spieltag .sm-event-row__team-name {font-size: clamp(.7rem, 2.8vw, 1rem);}
+  }
+  @media (max-width: 380px) {
+    #aktueller-spieltag .sm-event-row__team,
+    #aktueller-spieltag .sm-event-row__team--home,
+    #aktueller-spieltag .sm-event-row__team--away {
+      grid-template-columns: 24px minmax(0, 1fr);
+      gap: .2rem;
+    }
+    #aktueller-spieltag .sm-event-row__team .sm-event-row__seal {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
 </style>
   <link rel="stylesheet" href="./highscore.css?v=4.0.1">
   <link rel="stylesheet" href="./logbuch.css?v=2026-11-08-dynamic-weekend">
@@ -9011,7 +9089,7 @@
               const awayWrap=document.createElement("span"); awayWrap.className="sm-event-row__team sm-event-row__team--away";
               const awayName=document.createElement("span"); awayName.className="sm-event-row__team-name"; awayName.textContent=game.auswaerts;
               const awaySeal=document.createElement("span"); awaySeal.className="sm-event-row__seal";
-              awayWrap.append(awayName,awaySeal);
+              awayWrap.append(awaySeal,awayName);
 
               match.append(homeWrap,separator,awayWrap);
               renderTeamSeal(homeSeal,game.heimTeamId,game.heim);
