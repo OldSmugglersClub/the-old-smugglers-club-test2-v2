@@ -6340,7 +6340,7 @@
 #aktueller-spieltag details.sm-day[open] > summary.sm-day__title { border-bottom:1px solid rgba(190,128,39,.48); }
 
 
-  /* TEST2v2 4.9.15: echte feste 5-Spalten-Begegnungsachse.
+  /* TEST2v2 4.9.16: kompakte symmetrische 5-Spalten-Begegnungsachse.
      Heimwappen | Heimname | Trennstrich | Gastname | Gastwappen.
      Gilt nur in der 7-Tage-Kachel. Tagesgruppen, Links, Daten unveraendert. */
   #aktueller-spieltag .sm-event-row__match {
@@ -6350,6 +6350,9 @@
     gap: clamp(.28rem, .8vw, .65rem);
     min-width: 0;
     width: 100%;
+    max-width: 620px;
+    margin-inline: auto;
+    justify-self: center;
     text-align: left;
   }
   /* Eltern der direkten Rasterelemente aufloesen; DOM/Links bleiben bestehen. */
@@ -6374,6 +6377,7 @@
   }
   #aktueller-spieltag .sm-event-row__team--away > .sm-event-row__team-name {
     grid-column: 4;
+    text-align: right;
   }
   #aktueller-spieltag .sm-event-row__team--away > .sm-event-row__seal {
     grid-column: 5;
@@ -6386,6 +6390,10 @@
     word-break: normal;
     hyphens: none;
     text-align: left;
+  }
+  /* Gastname schliesst direkt an das rechte Wappen an. */
+  #aktueller-spieltag .sm-event-row__team--away > .sm-event-row__team-name {
+    text-align: right;
   }
   #aktueller-spieltag .sm-event-row__seal {
     width: 32px;
