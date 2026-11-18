@@ -6340,12 +6340,12 @@
 #aktueller-spieltag details.sm-day[open] > summary.sm-day__title { border-bottom:1px solid rgba(190,128,39,.48); }
 
 
-  /* TEST2v2 4.9.16: kompakte symmetrische 5-Spalten-Begegnungsachse.
-     Heimwappen | Heimname | Trennstrich | Gastname | Gastwappen.
+  /* TEST2v2 4.9.17: zentrale Wappen, Mannschaftsnamen nach aussen.
+     Heimname | Heimwappen | Trennstrich | Gastwappen | Gastname.
      Gilt nur in der 7-Tage-Kachel. Tagesgruppen, Links, Daten unveraendert. */
   #aktueller-spieltag .sm-event-row__match {
     display: grid;
-    grid-template-columns: 32px minmax(0, 1fr) 1.2rem minmax(0, 1fr) 32px;
+    grid-template-columns: minmax(0, 1fr) 32px 1.2rem 32px minmax(0, 1fr);
     align-items: center;
     gap: clamp(.28rem, .8vw, .65rem);
     min-width: 0;
@@ -6362,10 +6362,10 @@
     display: contents;
   }
   #aktueller-spieltag .sm-event-row__team--home > .sm-event-row__seal {
-    grid-column: 1;
+    grid-column: 2;
   }
   #aktueller-spieltag .sm-event-row__team--home > .sm-event-row__team-name {
-    grid-column: 2;
+    grid-column: 1;
   }
   #aktueller-spieltag .sm-event-row__separator {
     display: block;
@@ -6376,11 +6376,11 @@
     flex: none;
   }
   #aktueller-spieltag .sm-event-row__team--away > .sm-event-row__team-name {
-    grid-column: 4;
-    text-align: right;
+    grid-column: 5;
+    text-align: left;
   }
   #aktueller-spieltag .sm-event-row__team--away > .sm-event-row__seal {
-    grid-column: 5;
+    grid-column: 4;
   }
   #aktueller-spieltag .sm-event-row__team-name {
     min-width: 0;
@@ -6391,9 +6391,12 @@
     hyphens: none;
     text-align: left;
   }
-  /* Gastname schliesst direkt an das rechte Wappen an. */
-  #aktueller-spieltag .sm-event-row__team--away > .sm-event-row__team-name {
+  /* Namen neben den Wappen; Wappen zentral unmittelbar am Trennstrich. */
+  #aktueller-spieltag .sm-event-row__team--home > .sm-event-row__team-name {
     text-align: right;
+  }
+  #aktueller-spieltag .sm-event-row__team--away > .sm-event-row__team-name {
+    text-align: left;
   }
   #aktueller-spieltag .sm-event-row__seal {
     width: 32px;
@@ -6404,7 +6407,7 @@
   }
   @media (max-width: 760px) {
     #aktueller-spieltag .sm-event-row__match {
-      grid-template-columns: 27px minmax(0, 1fr) .85rem minmax(0, 1fr) 27px;
+      grid-template-columns: minmax(0, 1fr) 27px .85rem 27px minmax(0, 1fr);
       gap: clamp(.18rem, 1vw, .45rem);
     }
     #aktueller-spieltag .sm-event-row__seal {
@@ -6417,7 +6420,7 @@
   }
   @media (max-width: 380px) {
     #aktueller-spieltag .sm-event-row__match {
-      grid-template-columns: 23px minmax(0, 1fr) .7rem minmax(0, 1fr) 23px;
+      grid-template-columns: minmax(0, 1fr) 23px .7rem 23px minmax(0, 1fr);
       gap: .18rem;
     }
     #aktueller-spieltag .sm-event-row__seal {
