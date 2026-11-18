@@ -1063,6 +1063,29 @@
       .trim();
   }
 
+  // TEST2v2 4.9.29: Nur fuer das offiziell terminierte DFB-Achtelfinale
+  // 2026/27. Anzeige-Fallback bei API-Platzhalterzeit, keine Datenpersistenz.
+  // Quelle: DFB Datencenter, Achtelfinale 01./02.12.2026 (04.11.2026).
+  // Ein aktualisierter gueltiger API-Termin hat Vorrang; unbekannte Partien
+  // erhalten KEINE erfundene Anstosszeit.
+  const DFB_2026_VERIFIED_ROUND16 = Object.freeze([
+    ["stuttgart", "dynamo-dresden", "2026-12-01", "18:00"],
+    ["holstein-kiel", "koeln", "2026-12-01", "18:00"],
+    ["bayern-muenchen", "hertha-bsc", "2026-12-01", "20:45"],
+    ["moenchengladbach", "darmstadt-98", "2026-12-01", "20:45"],
+    ["leverkusen", "rb-leipzig", "2026-12-02", "18:00"],
+    ["kaiserslautern", "freiburg", "2026-12-02", "18:00"],
+    ["frankfurt", "dortmund", "2026-12-02", "20:45"],
+    ["bochum", "augsburg", "2026-12-02", "20:45"]
+  ]);
+  function dfbVerifiedRound16Kickoff(match) {
+    if (slug !== "dfb-pokal" || openLigaDbRoundKey(match) !== "achtelfinale") return null;
+    const home = championsLeagueLocalBadgeId(openLigaDbTeamName(match?.team1));
+    const away = championsLeagueLocalBadgeId(openLigaDbTeamName(match?.team2));
+    const entry = DFB_2026_VERIFIED_ROUND16.find(row => row[0] === home && row[1] === away);
+    return entry ? { date: entry[2], time: entry[3] } : null;
+  }
+
   function createBracketMatch(match) {
     const card = document.createElement("article");
     card.className = "ko-match";
@@ -1094,9 +1117,20 @@
     const date = document.createElement("span");
     date.className = "ko-match__date";
     const rawDate = String(match?.matchDateTime ?? match?.MatchDateTime ?? "");
-    date.textContent = rawDate && /^\d{4}-\d{2}-\d{2}/.test(rawDate)
-      ? formatDate(rawDate.slice(0, 10))
+    const apiDate = rawDate.match(/^(\d{4}-\d{2}-\d{2})/)?.[1] || "";
+    const apiTime = rawDate.match(/T(\d{2}:\d{2})/)?.[1] || "";
+    // OpenLigaDB kann fuer feststehende Paarungen 00:00 als Platzhalter liefern.
+    const hasRealApiTime = Boolean(apiDate && apiTime && apiTime !== "00:00");
+    const official = dfbVerifiedRound16Kickoff(match);
+    const shownDate = (!hasRealApiTime && official?.date) || apiDate || official?.date || "";
+    const shownTime = slug === "dfb-pokal" && openLigaDbRoundKey(match) === "achtelfinale"
+      ? (hasRealApiTime ? apiTime : official?.time || "") : "";
+    // Kurze Datumszeile fuer den bestehenden schmalen KO-Kartenbereich.
+    // Vollstaendiger Termin bleibt im Tooltip erhalten.
+    date.textContent = shownDate
+      ? (shownTime ? `${shownDate.slice(8, 10)}.${shownDate.slice(5, 7)}. · ${shownTime}` : formatDate(shownDate))
       : "Termin offen";
+    if (shownDate && shownTime) date.title = `${formatDate(shownDate)} · ${shownTime} Uhr`;
 
     meta.append(result, date);
     card.append(teams, meta);
@@ -2444,7 +2478,8 @@
     let openIndex = visibleRounds.findIndex(([key]) =>
       (groups.get(key) || []).some(match => openLigaDbMatchDate(match) >= todayIso)
     );
-    if (openIndex < 0) openIndex = Math.max(visibleRounds.length - 1, 0);
+    // Alle bereits beendeten 1./2. Hauptrunden bleiben standardmaessig zu.
+    // Ab Achtelfinale ist der Turnierbaum die relevante naechste Runde.
 
     const accordion = document.createElement("div");
     accordion.className = "matchday-accordion";
@@ -2874,7 +2909,7 @@ function normalizeGoalGetterEntries(goalGetterData) {
     if (slug !== "dfb-pokal") return result;
 
     const entries = normalizeGoalGetterEntries(goalGetterData);
-    const leader = entries[0] || null;
+    const leader = entries.find(entry => entry.tore > 0) || null;
 
     result[0] = leader
       ? {
