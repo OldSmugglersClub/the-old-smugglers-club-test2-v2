@@ -6436,6 +6436,17 @@
     }
   }
 
+
+  /* TEST2v2 4.9.19 – Sonderauftragslabel nur an Wortgrenzen umbrechen.
+     Keine Trennung innerhalb von SMUGGLERAUFTRAG, Startseitenraster unveraendert. */
+  #aktueller-spieltag .sm-event-row[data-competition="Smugglerauftrag"] .sm-event-row__competition {
+    font-size: .62rem;
+    letter-spacing: 0;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: keep-all;
+    hyphens: none;
+  }
 </style>
   <link rel="stylesheet" href="./highscore.css?v=4.0.1">
   <link rel="stylesheet" href="./logbuch.css?v=2026-11-08-dynamic-weekend">
