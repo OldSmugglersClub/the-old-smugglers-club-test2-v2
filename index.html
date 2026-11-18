@@ -6312,6 +6312,33 @@
     }
   }
 
+
+/* TOSMC TEST2v2 Tagesgruppen – einheitlich Desktop/Mobil */
+#aktueller-spieltag .sm-event-list,
+#aktueller-spieltag .sm-event-list.is-multiple,
+#aktueller-spieltag .sm-event-list.is-single,
+#aktueller-spieltag .sm-event-list.is-double {
+  height:auto !important; min-height:0 !important; max-height:none !important;
+  overflow:visible !important; overscroll-behavior:auto !important;
+  scrollbar-gutter:auto !important; flex:0 0 auto !important;
+}
+#aktueller-spieltag details.sm-day > summary.sm-day__title {
+  display:flex; align-items:center; justify-content:space-between;
+  gap:.7rem; position:relative; top:auto; cursor:pointer;
+  list-style:none; user-select:none; touch-action:manipulation;
+}
+#aktueller-spieltag details.sm-day > summary.sm-day__title::-webkit-details-marker { display:none; }
+#aktueller-spieltag details.sm-day > summary.sm-day__title::after {
+  content:'+'; flex:0 0 auto; font-size:1.25rem; line-height:1;
+  color:#ebc873; font-weight:900;
+}
+#aktueller-spieltag details.sm-day[open] > summary.sm-day__title::after { content:'−'; }
+#aktueller-spieltag details.sm-day > summary.sm-day__title:focus-visible {
+  outline:2px solid #ebc873; outline-offset:-3px;
+}
+#aktueller-spieltag details.sm-day:not([open]) > summary.sm-day__title { border-bottom:0; }
+#aktueller-spieltag details.sm-day[open] > summary.sm-day__title { border-bottom:1px solid rgba(190,128,39,.48); }
+
 </style>
   <link rel="stylesheet" href="./highscore.css?v=4.0.1">
   <link rel="stylesheet" href="./logbuch.css?v=2026-11-08-dynamic-weekend">
@@ -8948,8 +8975,10 @@
             groups.get(key).push(game);
           });
           groups.forEach(eventsForDay=>{
-            const day=document.createElement("section"); day.className="sm-day";
-            const dayTitle=document.createElement("h3"); dayTitle.className="sm-day__title";
+            const day=document.createElement("details"); day.className="sm-day";
+            // Genau die erste Gruppe mit künftigen Begegnungen initial öffnen.
+            if (elements.list.children.length === 0) day.open=true;
+            const dayTitle=document.createElement("summary"); dayTitle.className="sm-day__title";
             dayTitle.textContent=new Intl.DateTimeFormat(locale,{weekday:"long",day:"2-digit",month:"long"}).format(eventsForDay[0]._start);
             day.appendChild(dayTitle);
             eventsForDay.forEach(game=>{
