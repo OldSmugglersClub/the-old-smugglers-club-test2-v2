@@ -6437,15 +6437,31 @@
   }
 
 
-  /* TEST2v2 4.9.19 – Sonderauftragslabel nur an Wortgrenzen umbrechen.
-     Keine Trennung innerhalb von SMUGGLERAUFTRAG, Startseitenraster unveraendert. */
+  /* TEST2v2 4.9.20 – Smugglerauftrag nicht innerhalb des Wortes umbrechen.
+     Nur dieses Label; Zeit, Wettbewerbsspalte und sonstiges Raster bleiben gleich. */
   #aktueller-spieltag .sm-event-row[data-competition="Smugglerauftrag"] .sm-event-row__competition {
-    font-size: .62rem;
-    letter-spacing: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: .59rem;
+    letter-spacing: -.012em;
     white-space: normal;
     overflow-wrap: normal;
-    word-break: keep-all;
+    word-break: normal;
     hyphens: none;
+  }
+  #aktueller-spieltag .sm-event-row[data-competition="Smugglerauftrag"] .sm-competition-word {
+    display: block;
+    white-space: nowrap;
+    font-size: inherit;
+    line-height: 1.15;
+  }
+  #aktueller-spieltag .sm-event-row[data-competition="Smugglerauftrag"] .sm-competition-subtitle {
+    display: block;
+    white-space: normal;
+    font-size: inherit;
+    line-height: 1.15;
   }
 </style>
   <link rel="stylesheet" href="./highscore.css?v=4.0.1">
@@ -9106,7 +9122,26 @@
               }
               const time=document.createElement("span"); time.className="sm-event-row__time"; time.textContent=game.anstoss;
               const competition=document.createElement("span"); competition.className="sm-event-row__competition";
-              competition.textContent=String(game.matchdayType||"").trim().toLowerCase()==="smugglerauftrag"?(game.matchdayName||"Smugglerauftrag"):(game.wettbewerbAnzeige||game.wettbewerb||"Ereignis");
+              if (String(game.matchdayType||"").trim().toLowerCase()==="smugglerauftrag") {
+                const name=String(game.matchdayName||"Smugglerauftrag").trim();
+                const parts=/^(Smugglerauftrag)(?:\s+(.+))?$/i.exec(name);
+                if (parts) {
+                  const first=document.createElement("span");
+                  first.className="sm-competition-word";
+                  first.textContent=parts[1];
+                  competition.appendChild(first);
+                  if(parts[2]) {
+                    const second=document.createElement("span");
+                    second.className="sm-competition-subtitle";
+                    second.textContent=parts[2];
+                    competition.appendChild(second);
+                  }
+                } else {
+                  competition.textContent=name;
+                }
+              } else {
+                competition.textContent=game.wettbewerbAnzeige||game.wettbewerb||"Ereignis";
+              }
               const match=document.createElement("span"); match.className="sm-event-row__match";
 
               const homeWrap=document.createElement("span"); homeWrap.className="sm-event-row__team sm-event-row__team--home";
