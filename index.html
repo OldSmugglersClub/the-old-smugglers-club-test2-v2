@@ -6437,31 +6437,20 @@
   }
 
 
-  /* TEST2v2 4.9.21 – Smugglerauftrag unabhaengig von der Schreibweise des matchdayType.
-     Nur dieses Label; Zeit, Wettbewerbsspalte und sonstiges Raster bleiben gleich. */
+  /* TEST2v2 4.9.22: Ausschliesslich die Wettbewerbskennung Smugglerauftrag.
+     Keine Untertitel, kein Buchstaben-/Wortumbruch, normale Labelhoehe. */
   #aktueller-spieltag .sm-event-row__competition--smugglerauftrag {
-    display: flex;
-    flex-direction: column;
+    display: inline-flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    font-size: .59rem;
-    letter-spacing: -.012em;
-    white-space: normal;
+    font-size: .67rem;
+    letter-spacing: -.025em;
+    line-height: 1.12;
+    white-space: nowrap;
     overflow-wrap: normal;
     word-break: normal;
     hyphens: none;
-  }
-  #aktueller-spieltag .sm-event-row__competition--smugglerauftrag .sm-competition-word {
-    display: block;
-    white-space: nowrap;
-    font-size: inherit;
-    line-height: 1.15;
-  }
-  #aktueller-spieltag .sm-event-row__competition--smugglerauftrag .sm-competition-subtitle {
-    display: block;
-    white-space: normal;
-    font-size: inherit;
-    line-height: 1.15;
   }
 </style>
   <link rel="stylesheet" href="./highscore.css?v=4.0.1">
@@ -9124,22 +9113,9 @@
               const competition=document.createElement("span"); competition.className="sm-event-row__competition";
               if (String(game.matchdayType||"").trim().toLowerCase()==="smugglerauftrag") {
                 competition.classList.add("sm-event-row__competition--smugglerauftrag");
-                const name=String(game.matchdayName||"Smugglerauftrag").trim();
-                const parts=/^(Smugglerauftrag)(?:\s+(.+))?$/i.exec(name);
-                if (parts) {
-                  const first=document.createElement("span");
-                  first.className="sm-competition-word";
-                  first.textContent=parts[1];
-                  competition.appendChild(first);
-                  if(parts[2]) {
-                    const second=document.createElement("span");
-                    second.className="sm-competition-subtitle";
-                    second.textContent=parts[2];
-                    competition.appendChild(second);
-                  }
-                } else {
-                  competition.textContent=name;
-                }
+                // Nur die sichtbare Wettbewerbskennung vereinheitlichen.
+                // matchdayName bleibt in den Spieldaten unveraendert.
+                competition.textContent="SMUGGLERAUFTRAG";
               } else {
                 competition.textContent=game.wettbewerbAnzeige||game.wettbewerb||"Ereignis";
               }
