@@ -1,14 +1,9 @@
-TOSMC Stalk-O-Meter – GC1 TEST2v2 Sichtkorrektur, 24.11.2026
-
-Ziel: OldSmugglersClub/the-old-smugglers-club-test2-v2
-Nur stalk-o-meter.html in das Wurzelverzeichnis ersetzen.
-
-Änderung: Ausschließlich den erklärenden Absatz unter „Beliebteste Bereiche“ entfernt.
-Bestehende GC1-Zahlenverarbeitung, Zählpfade, Logik und übrige Dateien bleiben unverändert.
-Keine LIVE-Freigabe. Nach Einspielung TEST2v2-Sichtprüfung durch Nutzer.
-
-GitHub Summary:
-fix: Stalk-O-Meter GC1 – Hinweistexte entfernen (TEST2v2)
-
-GitHub Description:
-Entfernt den nicht benötigten Erklärungstext unter „Beliebteste Bereiche“. Die bereits geprüfte GC1-Zahlenverarbeitung, GoatCounter-Zählpfade und die übrige Website bleiben unverändert. Nur TEST2v2; LIVE unverändert.
+TOSMC Stalk-O-Meter GC2 – TEST2v2 (24.11.2026)
+Ausgangsbasis: LIVE HEAD db4dfb64c528889d0bb7e3f6d25c3a636364ee6b
+Die zwei Dateien ins Root von TEST2v2 kopieren und GitHub Desktop Commit/Push selbst ausfuehren.
+Aenderungen:
+- Untere Textzeile „Summe der 14 ausgewählten TOSMC-Inhaltsbereiche“ entfernt.
+- Gesamtzahl im verbleibenden Bereich zwischen Titel und unterem Rand mittig ausgerichtet.
+- Bestehende GC1-Zaehlerverarbeitung unveraendert.
+- Bei Ladefehlern bleibt die separate Fehlermeldung bestehen.
+Keine produktive LIVE-Freigabe. Vor LIVE-Uebernahme erneute Freigabe nach Sichtpruefung.
