@@ -1,0 +1,27 @@
+TOSMC – Stalk-O-Meter GC1 (TEST-Einspielpaket)
+Stand: 24.11.2026
+
+Umfang: nur drei geprüfte Repository-Dateien im Stammverzeichnis.
+Keine GitHub-Writes oder LIVE-Einspielung durch die KI.
+
+Ausgangsdateien identisch in LIVE und TEST2v2 (beide GitHub-Dateiblobs abgefragt):
+- stalk-o-meter.js: 961a42ee16b57c19b1dfe445d8d0983d6ca2efff
+- stalk-o-meter.html: 12354c00aaf63d715b43586136882f75d6a8e8dd
+
+Geändert:
+1. Getter für count akzeptiert Ganzzahlen sowie Komma/Punkt/Leerzeichen als Tausendertrenner und prüft auf sichere, nichtnegative Ganzzahl.
+2. Summentitel und Hinweis nennen ausdrücklich die 14 ausgewählten TOSMC-Bereiche.
+3. Skript-Cachekennung neu; Handbuch aktualisiert.
+
+Nicht geändert:
+- Tracking-Code der Seiten, bestehende Zählpfade, Summenlogik und Sortierung.
+- Website- oder Wettbewerbsdaten, Logbuch, Hall of Fame, Historie.
+
+TEST2v2:
+1. Drei Dateien ins STAMMVERZEICHNIS von TEST2v2 übernehmen. Kein kompletter Repository-Ersatz.
+2. Nach GitHub-Desktop-Übertragung Seite stalk-o-meter.html neu laden (ggf. Strg+F5).
+3. Werte mit den zugehörigen 14 öffentlichen GoatCounter-Pfadzählern vergleichen.
+4. Testfälle für formatierte Zahlen: 1234 -> 1234, 1,234 -> 1234, 1.234 -> 1234; Fehlerantwort -> vorhandener Hinweis.
+5. Nutzer bestätigt Sichtprüfung. ERST danach separater LIVE-Einspielauftrag/Prüfung.
+
+Beachte: Gleiche Anzeige wie die gesamte GoatCounter-Gesamtzahl ist fachlich nicht das Ziel.

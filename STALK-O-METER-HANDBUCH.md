@@ -7,7 +7,7 @@ Das Stalk-O-Meter misst die Nutzungsintensität der öffentlichen Clubwebsite an
 
 ## 2. Öffentliche Darstellung
 Die Seite `stalk-o-meter.html` zeigt:
-- die Summe der freigegebenen Inhaltsseiten,
+- die Summe der 14 freigegebenen Inhaltsbereiche,
 - eine automatisch nach Aufrufen sortierte Rangliste der einzelnen Bereiche.
 
 Gezählte Bereiche:
@@ -24,6 +24,7 @@ Gezählte Bereiche:
 11. Smuggleraufträge (`/dynamo-dresden.html`)
 12. Piratenkodex (`/piratenkodex.html`)
 13. Weihnachtsregatta (`/weihnachtsregatta.html`)
+14. Coco – Das Orakel (`/coco`)
 
 Nicht gezählt bzw. nicht Bestandteil der veröffentlichten Gesamtzahl:
 - `impressum.html`
@@ -62,7 +63,7 @@ Reloads zählen wegen deaktivierter GoatCounter-Sitzungen als weitere Pageviews.
 
 ## 7. Ausfallsicherheit
 Analytics ist nicht geschäftskritisch.
-Der von GoatCounter dokumentierte Script-Tag wird direkt und asynchron auf den dreizehn gezählten Inhaltsseiten geladen. Blockiert ein Adblocker den Dienst oder fällt GoatCounter aus, dürfen Navigation, Wettbewerbe, Highscore, Hall of Fame und alle anderen Website-Funktionen nicht beeinträchtigt werden.
+Der von GoatCounter dokumentierte Script-Tag wird direkt und asynchron auf den gezählten Inhaltsseiten geladen. Blockiert ein Adblocker den Dienst oder fällt GoatCounter aus, dürfen Navigation, Wettbewerbe, Highscore, Hall of Fame und alle anderen Website-Funktionen nicht beeinträchtigt werden.
 Die Stalk-O-Meter-Seite zeigt bei Abruffehlern einen lokalen Hinweis statt JavaScript-Fehlern.
 
 ## 8. Datenschutz
@@ -80,7 +81,7 @@ Neu:
 
 Geändert:
 - `index.html`
-- die 11 weiteren gezählten Inhaltsseiten
+- die weiteren gezählten Inhaltsseiten
 - `datenschutz.html`
 - `VERSION.txt`
 
@@ -140,3 +141,9 @@ Die Version 4.7.2 wurde auf ausdrückliche Nutzerfreigabe trotz noch nicht volls
 öffentlicher Cache-Beobachtungszeit als FINAL freigegeben. Es besteht kein bekannter Fehler in der
 Tracking-Erfassung. Eine spätere Sichtprüfung der nachgezogenen öffentlichen Werte bleibt als
 betriebliche Kontrolle sinnvoll, ist aber keine Voraussetzung mehr für die FINAL-Freigabe.
+
+## 16. Beschriftung und Zählerformat (GC1, 24.11.2026)
+- Die Anzeige bezeichnet die Summe ausdrücklich als Aufrufe der 14 ausgewählten TOSMC-Inhaltsbereiche; GoatCounter-Dashboarddaten einschließlich TEST-Pfaden und alternativen URL-Pfaden sind nicht identisch mit dieser Auswahl.
+- Die öffentlichen Counterwerte werden als nichtnegative Ganzzahlen mit optionalen Tausendertrennzeichen geparst. Ungültige oder zu große Werte erzeugen den vorhandenen Fehlerhinweis statt falscher Teilzahlen.
+- Keine Änderung an der Seitenauswahl oder am Tracking. Der HTML-Skriptparameter wurde zur Cache-Invalidierung aktualisiert.
+- GC1 ist vor einer Einspielung in TEST2v2 visuell und technisch zu prüfen.
