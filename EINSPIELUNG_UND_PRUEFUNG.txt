@@ -1,9 +1,9 @@
-TOSMC Stalk-O-Meter GC2 – TEST2v2 (24.11.2026)
-Ausgangsbasis: LIVE HEAD db4dfb64c528889d0bb7e3f6d25c3a636364ee6b
-Die zwei Dateien ins Root von TEST2v2 kopieren und GitHub Desktop Commit/Push selbst ausfuehren.
-Aenderungen:
-- Untere Textzeile „Summe der 14 ausgewählten TOSMC-Inhaltsbereiche“ entfernt.
-- Gesamtzahl im verbleibenden Bereich zwischen Titel und unterem Rand mittig ausgerichtet.
-- Bestehende GC1-Zaehlerverarbeitung unveraendert.
-- Bei Ladefehlern bleibt die separate Fehlermeldung bestehen.
-Keine produktive LIVE-Freigabe. Vor LIVE-Uebernahme erneute Freigabe nach Sichtpruefung.
+TOSMC GC3 – TEST2v2 – Nur Beschriftungsanpassung
+Basis LIVE Commit: 7d591002c3a62d27e502f74c757ce2cbb2e71d45
+Vorheriger Live- und TEST2v2-Dateistand der beiden Dateien: identisch, laut GitHub.
+Änderung 1: Ranglistenlogbuch -> Highscore Ranglistenlogbuch.
+Änderung 2: Ehrenlogbuch -> Hall of Fame Ehrenlogbuch.
+HTML: Nur Versionsparameter der JS-Datei GC2 -> GC3 für zuverlässige Cache-Aktualisierung.
+Keine Zählerpfade, Statistiken, Layoutregeln oder Wettbewerb-Daten verändert.
+Einspielziel: TEST2v2; LIVE noch nicht freigegeben.
+Nach Einspielung die beiden Labels und alle 14 Bereichszähler visuell prüfen.
