@@ -1,1 +1,7 @@
-HERO3G TEST2v2 – Drei untere Navigationsbuttons gleich gross und zentriert. Nur logbuch.html und logbuch.css einspielen. Desktop: drei gleich breite und hohe Buttons nebeneinander. Mobil unter 521px: gleich breite, untereinander platzierte Buttons ohne Ueberlauf. Oberer Hero-Bereich, Sprungnavigation, Wertungen und Skripte unveraendert.
+TOSMC HERO4 – Goldglanz der Schmugglerrat-Kachel fuer Logbuch-Hero
+Quelle: TEST2v2 main Commit 2e396b0b736c411c5fa21fbe7f243888057b5d42.
+Vorher: logbuch.html Git-Blob 8e84a22606c5c8a745335eac696bcc4e33b3113d
+Vorher: logbuch.css Git-Blob 479d31a55333e893d6587c6f48d68125d19105b0
+Nur logbuch.html (CSS-Cacheparameter) und logbuch.css (Goldglanz) einspielen.
+HERO3G Layout, Texte, Links und Logbuch-JavaScript bleiben unveraendert.
+Keine LIVE-Einspielung ohne Sichtfreigabe.
