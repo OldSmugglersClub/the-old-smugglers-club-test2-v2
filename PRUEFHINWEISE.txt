@@ -1,14 +1,27 @@
-TOSMC Spieltags-Logbuch HERO2 – TEST2v2-Korrekturpaket
+TOSMC – HERO3 TEST2v2 / 26.11.2026
 
-Enthaltene Dateien:
-- logbuch.html
-- logbuch.css
+Ausgangsbasis:
+- HERO2 TEST2v2 vom Nutzer sichtgeprueft und bestaetigt.
+- GitHub TEST2v2 main b73ff4a03c88367fe272ab2e3e5d7abe12739611 (read-only).
+- logbuch.js identisch mit LIVE-Datei (Git-Blob 575de139aade5210cede2c21b2b56251dc897ba7).
 
-Änderungsumfang:
-- Button-Gruppe im linken Hero-Bereich auf Desktop mittig zentriert.
-- Vertikale Abstände im linken Hero-Bereich gleichmäßiger verteilt.
-- Keine Änderungen an Logbuchdaten, Skripten oder Wertungen.
+Geaenderte Dateien:
+- logbuch.html (5 verlinkte Schlagwort-Kacheln, Cacheversion)
+- logbuch.css (Kachelinteraktion, Hervorhebung, mobile Zurueck-Schaltflaeche)
+- logbuch.js (dynamische Ziele, Wechsel von Logbucheintraegen, mobile Position)
 
-Prüfung:
-- ZIP-CRC geprüft.
-- SHA-256 der enthaltenen Dateien dokumentiert.
+Ziele:
+- Spieltagsbeute -> Kapitaene des Spieltages, sonst Spieltagsbilanz
+- Volltreffer -> Treffsicherster Smuggler, sonst Zahlen aus der Kombuese
+- Crewduell -> Crewduell, sonst Spieltagsbilanz
+- Tippserien -> Form der Crew, sonst Kursbewegung
+- Besondere Momente -> Gegen den Strom, sonst Wer hat's gerochen?, Cocos Seemannsgarn oder Kombuesenzahlen
+- Ist kein genanntes Ziel vorhanden: zum ersten verfuegbaren Highlight, andernfalls Eintrag.
+
+Mobil <=760px: Oberen Zurueck-Button NUR bei vorhandener Kapitaenskachel
+verstecken und an deren Ende als eigene Zeile anzeigen. Highscore oben unveraendert.
+Ohne Kapitaenskachel bleibt der obere Zurueck-Button bestehen.
+
+Pruefungen: node --check bestanden, HTML-Linkanzahl 5 bestaetigt,
+Quellen-/Dateidiffs auf autorisierten Umfang kontrolliert, ZIP/CRC/SHA256 kontrolliert.
+Keine produktiven Aenderungen vorgenommen. TEST2v2-Sichtpruefung offen.
