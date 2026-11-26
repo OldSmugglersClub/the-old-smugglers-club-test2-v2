@@ -1,8 +1,7 @@
-TOSMC Spieltags-Logbuch HERO3C – TEST2v2
-Freigegebenes Ausgangspaket: HERO3B TEST2v2
-Änderung: Den oberen Zurück-zur-Clubseite-Link aus logbuch.html entfernt.
-Highscore-Button im Hero-Bereich auf 360 px Breite (bzw. volle verfügbare Breite) gesetzt, zentriert, Mindesthöhe 64 px.
-Unterer Rückkehr-Link unter Kapitäne des Spieltages bleibt erhalten; ebenso die untere Logbuch-Navigation.
-HERO3-Sprungnavigation (logbuch.js) und alle Daten bleiben unverändert.
-Enthaltene Website-Dateien ausschließlich logbuch.html und logbuch.css.
-Vorherige Testergebnisse ersetzen keine neue Sichtprüfung.
+TOSMC HERO3D TEST2v2 – nur Desktop-Feinabstimmung
+Grundlage: HERO3C TEST2v2, Nutzer bestaetigt die grundsaetzliche Desktop-Struktur.
+Highscore-Button: 440 px Maximalbreite, 72 px Mindesthoehe.
+Desktop-Abstand von Kurztext bis Button von 24 px auf ca. 49 px erhoeht; die zentrierte linke Gruppe verteilt die Freiflaeche ausgeglichener.
+Mobilansicht <=760 px bleibt unveraendert.
+Fuenf Sprungziele und Rueckkehrbutton unter Kapitaenen bleiben unveraendert.
+Website-Dateien: logbuch.html und logbuch.css. Nur TEST2v2.

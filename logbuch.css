@@ -1259,3 +1259,14 @@ body{overflow-x:hidden}
   flex:0 1 360px;width:min(100%,360px);min-height:64px;
   margin-inline:auto;text-align:center;
 }
+
+/* HERO3D – ausschliesslich Desktop: Highscore-Button groesser,
+   optisch ausgeglichene Freiraeume ober- und unterhalb. */
+@media (min-width:761px){
+  .lb-hero--compact .lb-toolbar{margin-top:25px}
+  .lb-hero--compact .lb-toolbar .lb-hero-highscore{
+    flex:0 1 440px;
+    width:min(100%,440px);
+    min-height:72px;
+  }
+}
