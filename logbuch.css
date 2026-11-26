@@ -1235,13 +1235,18 @@ body{overflow-x:hidden}
 .lb-highlight.lb-jump-target{scroll-margin-top:24px}
 .lb-highlight.lb-jump-flash{outline:2px solid #edc96f;outline-offset:3px}
 .lb-mobile-back-row{display:none}
-@media(max-width:760px){
-  .lb-has-captains .lb-hero--compact .lb-hero-back{display:none}
-  .lb-has-captains .lb-mobile-back-row{
-    display:flex;align-items:center;justify-content:center;
-    grid-column:1 / -1;margin:0 0 6px;
-  }
-  .lb-mobile-back-row .lb-btn{display:inline-flex;justify-content:center;align-items:center}
+/* HERO3B: Button unter den Kapitaenen auf Desktop und Mobil zentriert. */
+.lb-has-captains .lb-hero--compact .lb-hero-back{display:none}
+.lb-has-captains .lb-mobile-back-row{
+  display:flex;align-items:center;justify-content:center;
+  width:100%;grid-column:1 / -1;
+  margin:0 0 6px;
+}
+.lb-has-captains .lb-mobile-back-row .lb-btn{
+  display:flex;justify-content:center;align-items:center;
+  box-sizing:border-box;
+  width:min(100%,480px);min-height:64px;
+  margin:0 auto;text-align:center;
 }
 @media(prefers-reduced-motion:reduce){
   .lb-hero--compact .lb-hero-keywords a{transition:none}
