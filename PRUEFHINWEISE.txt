@@ -1,14 +1,1 @@
-TOSMC Spieltags-Logbuch HERO3F – TEST2v2-Korrekturpaket
-
-Enthaltene Dateien:
-- logbuch.html
-- logbuch.css
-
-Änderungsumfang:
-- Oberer Hero-Button testweise umbenannt in „Ranglistenlogbuch öffnen“.
-- Unterer Button „Zurück zur Clubseite“ kompakter gestaltet, damit weniger Leerraum in der Kachel bleibt.
-- Alle bestaetigten HERO3-Sprungfunktionen und die restliche Struktur bleiben unveraendert.
-
-Pruefung:
-- ZIP-CRC geprueft.
-- SHA-256 der enthaltenen Dateien dokumentiert.
+HERO3G TEST2v2 – Drei untere Navigationsbuttons gleich gross und zentriert. Nur logbuch.html und logbuch.css einspielen. Desktop: drei gleich breite und hohe Buttons nebeneinander. Mobil unter 521px: gleich breite, untereinander platzierte Buttons ohne Ueberlauf. Oberer Hero-Bereich, Sprungnavigation, Wertungen und Skripte unveraendert.
