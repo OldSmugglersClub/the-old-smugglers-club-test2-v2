@@ -1283,3 +1283,24 @@ body{overflow-x:hidden}
     line-height:1.15;
   }
 }
+
+
+/* HERO3F – oberer Button mit alternativem Text; unterer Rueckkehr-Button kompakter. */
+.lb-hero--compact .lb-toolbar .lb-hero-highscore{
+  font-size:clamp(1.06rem,1.22vw,1.18rem);
+}
+@media (min-width:761px){
+  .lb-hero--compact .lb-toolbar .lb-hero-highscore{font-size:1.22rem;}
+}
+.lb-has-captains .lb-mobile-back-row .lb-btn{
+  min-height:56px;
+  padding:.58rem 1.1rem;
+  font-size:1.14rem;
+  line-height:1.15;
+}
+@media (min-width:761px){
+  .lb-has-captains .lb-mobile-back-row .lb-btn{
+    min-height:58px;
+    font-size:1.16rem;
+  }
+}
