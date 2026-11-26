@@ -1,20 +1,14 @@
-TOSMC – Spieltags-Logbuch HERO1 TEST2v2
-Stand: 2026-11-26
-Quellbasis: LIVE GitHub main 91cacd68fac9e64b34b399b783e3c29df407279d
-Quelle: logbuch.html Git-Blob ef3bc23bc873d5a906b9b5a488260d00ee758b99
-Quelle: logbuch.css Git-Blob 68cbb174ef0e071926399ddb258797630958ca36
-Ziel: OldSmugglersClub/the-old-smugglers-club-test2-v2
-TEST2v2 HEAD vor Paket: a503f5c524589752dafbd9edf143a5adf3faf74e
+TOSMC Spieltags-Logbuch HERO2 – TEST2v2-Korrekturpaket
 
-Nur die beiden Dateien logbuch.html und logbuch.css im Ziel-Repository ersetzen.
-Alle sonstigen Dateien unverändert lassen. Kein LIVE-Upload.
+Enthaltene Dateien:
+- logbuch.html
+- logbuch.css
 
-Änderungen: zweispaltiger Hero-Kopf, verdichtete Kurzbeschreibung,
-5 sichtbare Schlagworte (Spieltagsbeute, Volltreffer, Crewduell, Tippserien,
-Besondere Momente), Responsive-Layout. Bestehende beiden Navigationslinks erhalten.
-Die eigentlichen Logbuchdaten, JS-Skripte und Wertungen werden nicht geändert.
+Änderungsumfang:
+- Button-Gruppe im linken Hero-Bereich auf Desktop mittig zentriert.
+- Vertikale Abstände im linken Hero-Bereich gleichmäßiger verteilt.
+- Keine Änderungen an Logbuchdaten, Skripten oder Wertungen.
 
-Prüfung vor Einspielung: TEST2v2-Bestand/HEAD vergleichen; insbesondere
-logbuch.html enthält ggf. einen TEST-spezifischen Cacheparameter. TEST-HTML
-wird ausdrücklich auf LIVE-Originalbasis mit neuem TEST-Cacheparameter abgeleitet.
-Nach Einspielung Desktop und Mobil sichtprüfen und bestätigen.
+Prüfung:
+- ZIP-CRC geprüft.
+- SHA-256 der enthaltenen Dateien dokumentiert.
