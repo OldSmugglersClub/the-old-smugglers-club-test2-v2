@@ -1251,3 +1251,11 @@ body{overflow-x:hidden}
 @media(prefers-reduced-motion:reduce){
   .lb-hero--compact .lb-hero-keywords a{transition:none}
 }
+
+/* HERO3C: oben nur Highscore als breiter Einzelbutton, Desktop und Mobil.
+   Zurueck zur Clubseite bleibt unter den Kapitaenen bzw. in der unteren Navigation. */
+.lb-hero--compact .lb-toolbar .lb-hero-highscore{
+  box-sizing:border-box;display:flex;align-items:center;justify-content:center;
+  flex:0 1 360px;width:min(100%,360px);min-height:64px;
+  margin-inline:auto;text-align:center;
+}

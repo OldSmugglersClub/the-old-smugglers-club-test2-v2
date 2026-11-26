@@ -1,6 +1,8 @@
-HERO3B TEST2v2 – Button Desktop und Mobil
-Nur logbuch.html und logbuch.css einspielen.
-Button unter Kapitaene des Spieltages auf allen Bildschirmbreiten mittig, maximal 480 px breit.
-Obere Zurueck-Schaltflaeche wird bei vorhandener Kapitaens-Kachel ausgeblendet.
-Highscore oben bleibt erhalten. HERO3-Sprungnavigation und JS bleiben unveraendert.
-Keine produktive Freigabe ohne TEST2v2-Sichtpruefung.
+TOSMC Spieltags-Logbuch HERO3C – TEST2v2
+Freigegebenes Ausgangspaket: HERO3B TEST2v2
+Änderung: Den oberen Zurück-zur-Clubseite-Link aus logbuch.html entfernt.
+Highscore-Button im Hero-Bereich auf 360 px Breite (bzw. volle verfügbare Breite) gesetzt, zentriert, Mindesthöhe 64 px.
+Unterer Rückkehr-Link unter Kapitäne des Spieltages bleibt erhalten; ebenso die untere Logbuch-Navigation.
+HERO3-Sprungnavigation (logbuch.js) und alle Daten bleiben unverändert.
+Enthaltene Website-Dateien ausschließlich logbuch.html und logbuch.css.
+Vorherige Testergebnisse ersetzen keine neue Sichtprüfung.
